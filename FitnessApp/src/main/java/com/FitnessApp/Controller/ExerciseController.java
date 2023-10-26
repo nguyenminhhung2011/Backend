@@ -23,7 +23,7 @@ public class ExerciseController {
 	@Autowired
 	ExerciseService eService;
 
-	@GetMapping("/")
+	@GetMapping("/api")
 	public ResponseEntity<?> addExercise(@RequestParam String t)
 			throws InvalidKeySpecException, NoSuchAlgorithmException {
 

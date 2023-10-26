@@ -30,7 +30,7 @@ public class WebSecurityConfig {
 	@Bean
 	public AuthenticationEntryPoint authenticationEntryPoint() {
 //		return new LoginUrlAuthenticationEntryPoint("https://baomoi.com/");
-		return new CustomEntryPoint("Lỗi đăng nhập",401);
+		return new CustomEntryPoint("Lỗi đăng nhập", 401);
 	}
 //
 
@@ -45,29 +45,28 @@ public class WebSecurityConfig {
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) {
 		try {
-			return 
+			return
 // 				http.csrf().disable().cors().disable().and().headers().frameOptions().disable().and()
 // http// Tắt CORS
- http
+			http
 // .cors().disable() // Tắt CORS
- .cors().and()// Tắt CORS
-            .csrf().disable() // Tắt CSRF
+					.cors().and()// Tắt CORS
+					.csrf().disable() // Tắt CSRF
 					.authorizeHttpRequests(auth -> {
-
 
 //						auth.requestMatchers("/company/**" ).permitAll();
 //						auth.requestMatchers("/getAll" ).hasRole("ADMIN");
 
 						auth.requestMatchers("/**").permitAll();
-						
-						//auth.requestMatchers("/candidate/**").permitAll();
+//						auth.requestMatchers("/test/**").permitAll();
+
+						// auth.requestMatchers("/candidate/**").permitAll();
 						auth.requestMatchers("/notification/**").permitAll();
 //						auth.requestMatchers("employer/**").hasRole("EMPLOYER");
-						
+
 						auth.requestMatchers("/api/v1/FileUpload/**").permitAll();
 						auth.anyRequest().authenticated();
-					})
-					.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
+					}).addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
 
 					.exceptionHandling().authenticationEntryPoint(authenticationEntryPoint()).and()
 
