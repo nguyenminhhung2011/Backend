@@ -19,7 +19,9 @@ public class Gymer {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private Long profileId;
+
+	@OneToOne
+	private UserProfile profile;
 	private String fullName;
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private User user;
@@ -44,12 +46,12 @@ public class Gymer {
 		this.id = id;
 	}
 
-	public Long getProfileId() {
-		return profileId;
+	public UserProfile getProfileId() {
+		return profile;
 	}
 
-	public void setProfileId(Long profileId) {
-		this.profileId = profileId;
+	public void setProfileId(UserProfile profileId) {
+		this.profile = profileId;
 	}
 
 	public void setUser(User user) {

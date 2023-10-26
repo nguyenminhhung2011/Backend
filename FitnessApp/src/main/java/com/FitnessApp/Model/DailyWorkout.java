@@ -16,6 +16,29 @@ public class DailyWorkout {
 
 	private Long id;
 
+	private String name;
+	private String description;
+	private double caloTarget;
+	private int time; // Thời gian trong phút (1h = 60 phút)
+
+	@OneToMany
+	private List<Exercise> exercises;
+
+	// Constructors, getters, and setters...
+
+	public DailyWorkout() {
+		// Default constructor
+	}
+
+	public DailyWorkout(String name, String description, double caloTarget, int time,
+			List<Exercise> exercisesCompleted) {
+		this.name = name;
+		this.description = description;
+		this.caloTarget = caloTarget;
+		this.time = time;
+		this.exercises = exercisesCompleted;
+	}
+
 	public Long getId() {
 		return id;
 	}
@@ -57,34 +80,11 @@ public class DailyWorkout {
 	}
 
 	public List<Exercise> getExercisesCompleted() {
-		return exercisesCompleted;
+		return exercises;
 	}
 
 	public void setExercisesCompleted(List<Exercise> exercisesCompleted) {
-		this.exercisesCompleted = exercisesCompleted;
-	}
-
-	private String name;
-	private String description;
-	private double caloTarget;
-	private int time; // Thời gian trong phút (1h = 60 phút)
-
-	@OneToMany
-	private List<Exercise> exercisesCompleted;
-
-	// Constructors, getters, and setters...
-
-	public DailyWorkout() {
-		// Default constructor
-	}
-
-	public DailyWorkout(String name, String description, double caloTarget, int time,
-			List<Exercise> exercisesCompleted) {
-		this.name = name;
-		this.description = description;
-		this.caloTarget = caloTarget;
-		this.time = time;
-		this.exercisesCompleted = exercisesCompleted;
+		this.exercises = exercisesCompleted;
 	}
 
 	// Getters and setters for the properties...

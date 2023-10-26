@@ -118,7 +118,7 @@ public class AuthenController {
 			Gymer newGymer = new Gymer();
 			newGymer.setAge(registrationRequest.getAge());
 			newGymer.setGender(registrationRequest.getGender());
-			newGymer.setFullname(registrationRequest.getUsername());
+			newGymer.setFullname(registrationRequest.getFullName());
 
 			newGymer.setUser(newUser);
 			uService.create(newUser);
