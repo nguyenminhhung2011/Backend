@@ -4,6 +4,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -104,10 +105,11 @@ public class AuthenController {
 			// Kiểm tra xem Gymer đã tồn tại trong hệ thống chưa. Nếu có, trả về thông báo
 			// lỗi.
 
-//			if (gymerService.existsGymerByProfileId(registrationRequest.get())) {
-//				return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-//						.body(new ResponseObject("failed", "Gymer đã tồn tại trong hệ thống.", ""));
-//			}
+			List<User> userExits = uService.findByUsername(registrationRequest.getUsername());
+			if (userExits.size() != 0) {
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+						.body(new ResponseObject("failed", "Gymer đã tồn tại trong hệ thống.", ""));
+			}
 
 			// Tạo một Gymer mới từ dữ liệu đăng ký và lưu vào cơ sở dữ liệu.
 			Role initRole = roleRepo.findRoleByName("CLIENT");
@@ -128,11 +130,6 @@ public class AuthenController {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
 					.body(new ResponseObject("failed", "Đăng ký Gymer thất bại.", ""));
 		}
-	}
-
-	private Gymer Gymer() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }
