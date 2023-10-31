@@ -10,11 +10,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 public class CustomUserDetail implements UserDetails {
 
-	@Autowired
 	private User user;
 
-	
-	
 	public CustomUserDetail(User user) {
 		this.user=user;
 		// TODO Auto-generated constructor stub
@@ -66,7 +63,7 @@ public class CustomUserDetail implements UserDetails {
 	@Override
 	public boolean isEnabled() {
 		// TODO Auto-generated method stub
-		return user.isEnable();
+		return user.getIsEnable();
 	}
 
 }

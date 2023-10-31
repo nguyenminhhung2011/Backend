@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.FitnessApp.DTO.ResponseObject;
-import com.FitnessApp.Security.JwtTokenHelper;
+import com.FitnessApp.Utils.JwtTokenUtils;
 import com.FitnessApp.Security.Model.User;
 import com.FitnessApp.Service.UserService;
 import com.FitnessApp.Service.ExcerciseService.ExerciseService;
@@ -28,7 +28,7 @@ public class ExerciseController {
 	ExerciseService eService;
 
 	@Autowired
-	JwtTokenHelper jwtHelper;
+    JwtTokenUtils jwtHelper;
 
 	@Autowired
 	private UserService uService;

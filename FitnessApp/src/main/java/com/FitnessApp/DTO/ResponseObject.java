@@ -4,10 +4,11 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import lombok.Data;
+import lombok.Getter;
 import lombok.ToString;
 
+@Getter
 @Data
-@ToString
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_DEFAULT)
 public class ResponseObject {
@@ -19,24 +20,12 @@ public class ResponseObject {
 	public ResponseObject() {
 	}
 
-	public String getStatus() {
-		return status;
-	}
-
 	public void setStatus(String status) {
 		this.status = status;
 	}
 
-	public String getMessage() {
-		return message;
-	}
-
 	public void setMessage(String message) {
 		this.message = message;
-	}
-
-	public Object getData() {
-		return data;
 	}
 
 	public void setData(Object data) {
@@ -51,11 +40,11 @@ public class ResponseObject {
 		this.data = data;
 	}
 
-//	public ResponseObject(String status, String message, Object data, Object data2) {
 //		this.status = status;
 //		this.message = message;
 //		this.data = data;
 //		this.data2 = data2;
 //	}
+//	public ResponseObject(String status, String message, Object data, Object data2) {
 
 }

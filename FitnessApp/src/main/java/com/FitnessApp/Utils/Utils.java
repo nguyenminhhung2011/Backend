@@ -1,4 +1,4 @@
-package com.FitnessApp.Service;
+package com.FitnessApp.Utils;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;

@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -22,7 +23,7 @@ import com.FitnessApp.Service.UserService;
 import ch.qos.logback.classic.Logger;
 
 @Component
-//@ComponentScan("com.setqt.Hiring.Security")
+@ComponentScan("com.setqt.Hiring.Security")
 public class CustomAuthenticationProvider implements AuthenticationProvider {
 
 	@Autowired
@@ -40,7 +41,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 		String password = authentication.getCredentials().toString();
 		logger.info(username);
 		List<User> user = userService.findByUsername(username);
-		if (user.size() == 0) {
+		if (user.isEmpty()) {
 
 			throw new BadCredentialsException("User not found");
 		}

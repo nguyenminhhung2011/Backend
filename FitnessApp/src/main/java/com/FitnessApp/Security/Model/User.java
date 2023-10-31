@@ -1,8 +1,8 @@
 package com.FitnessApp.Security.Model;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.HashSet;
+import java.util.Set;
 
 import com.FitnessApp.Model.Gymer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -21,11 +21,11 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
-import lombok.ToString;
+import lombok.*;
 
 @Entity
-//@Data
-@ToString
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "userInfo")
 public class User implements Serializable {
 
@@ -38,108 +38,63 @@ public class User implements Serializable {
 	private String password;
 
 	private Boolean isEnable;
+
 	@Column(columnDefinition = "text")
 	private String refreshToken;
 
-	public String getRefreshToken() {
-		return refreshToken;
-	}
+	//	@JsonManagedReference
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinTable(name = "User_Role",
+			joinColumns = {@JoinColumn(name = "user_Id")},
+			inverseJoinColumns = {
+				@JoinColumn(name = "role_Id")
+			})
+//	@JsonManagedReference(value="user-roles")
+	@JsonIgnore
+	private Set<Role> roles = new HashSet<>();
+
 
 	public void setRefreshToken(String refreshToken) {
 		this.refreshToken = refreshToken;
 	}
 
-	private static final long serialVersionUID = -297553281792804226L;
+	private static  long serialVersionUID = -297553281792804226L;
 
 	@OneToOne(mappedBy = "user")
 	@JsonManagedReference(value = "user_gymer")
 	private Gymer gymer;
 
-//	@JsonManagedReference
-	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinTable(name = "User_Role", joinColumns = { @JoinColumn(name = "user_Id") }, inverseJoinColumns = {
-			@JoinColumn(name = "role_Id") })
-//	@JsonManagedReference(value="user-roles")
-	@JsonIgnore
-
-//	private Collection<Role> roles = new Collection ;
-
-	private java.util.Set<Role> roles = new HashSet<>();
 
 	public User(String username, String password, Boolean isEnable, Role roles) {
-		super();
 		this.username = username;
 		this.password = password;
 		this.isEnable = isEnable;
 		this.roles.add(roles);
 	}
-
-	public User(String username, String password) {
-		super();
-		this.username = username;
-		this.password = password;
-		this.isEnable = true;
-
-		this.roles = null;
-//		RoleRepository roleRepository;
-//		Role initRole = roleRepository.findRoleByName("Admin");
-//		this.roles.add(new Role("ADMIN"));
-	}
-
-	public User() {
-		super();
-
-		this.username = null;
-		this.password = null;
-		this.isEnable = true;
-		this.roles = null;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
 	public String getUsername() {
 		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
 	}
 
 	public String getPassword() {
 		return password;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
 
-	public boolean isEnable() {
+
+	public Boolean getIsEnable() {
 		return isEnable;
 	}
 
-	public void setEnable(boolean isEnable) {
-		this.isEnable = isEnable;
+	public String getRefreshToken() {
+		return refreshToken;
 	}
 
-	public Collection<Role> getRoles() {
+	public Set<Role> getRoles() {
 		return roles;
 	}
 
-//	public void setRoles(java.util.Set<Role> roles) {
-//		this.roles = roles;
-//	}
-	public void setRoles(Role roles) {
-		this.roles.add(roles);
+	public void setPassword(String password) {
+		this.password = password;
 	}
-
-	// public void setRoles(Collection<Role> roles) {
-//		this.roles = roles;
-//	}
-
 }
+

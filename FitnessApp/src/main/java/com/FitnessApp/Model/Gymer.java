@@ -9,11 +9,13 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 
 @Entity
 //@Data
 @Builder
+@AllArgsConstructor
 public class Gymer {
 
 	@Id
@@ -27,6 +29,10 @@ public class Gymer {
 	private User user;
 	private int age;
 	private String gender;
+
+	public Gymer() {
+
+	}
 
 //	public Gymer(Long id, Long profileId, String username, String password, int age, String gender) {
 //		super();

@@ -1,4 +1,4 @@
-package com.FitnessApp.Security;
+package com.FitnessApp.Utils;
 
 import java.security.SecureRandom;
 import java.util.Base64;
@@ -16,7 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Component
 @Slf4j
-public class JwtTokenHelper {
+public class JwtTokenUtils {
 
 	private final String JWT_SECRET = "FitnessHCMUS";
 	private String appName = "Fitness";

@@ -1,9 +1,10 @@
-package com.FitnessApp.Security;
+package com.FitnessApp.Filters;
 
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.FitnessApp.Utils.JwtTokenUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -16,7 +17,6 @@ import com.FitnessApp.Security.Model.UserDetailServiceImp;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import jakarta.servlet.FilterChain;
-import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
@@ -24,7 +24,7 @@ import jakarta.servlet.http.HttpServletResponse;
 public class JwtFilter extends OncePerRequestFilter {
 
 	@Autowired
-	private JwtTokenHelper tokenProvider;
+	private JwtTokenUtils tokenProvider;
 
 	@Autowired
 	private UserDetailServiceImp customUserDetailsService;
@@ -33,8 +33,9 @@ public class JwtFilter extends OncePerRequestFilter {
 	UserDetailServiceImp userDetailimp;
 
 	@Override
-	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
-			throws ServletException, IOException {
+	protected void doFilterInternal(HttpServletRequest request,
+									HttpServletResponse response,
+									FilterChain filterChain) throws IOException {
 		try {
 			// Lấy jwt từ request
 			String jwt = getJwtFromRequest(request);

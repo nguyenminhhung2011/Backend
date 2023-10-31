@@ -1,6 +1,8 @@
-package com.FitnessApp.Security;
+package com.FitnessApp.Config;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import com.FitnessApp.Security.CustomAuthenticationProvider;
+import com.FitnessApp.Security.CustomEntryPoint;
+import com.FitnessApp.Filters.JwtFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -8,24 +10,28 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
 
 @EnableWebSecurity
 @Configuration
-@ComponentScan("com.setqt.Hiring.Security")
 public class WebSecurityConfig {
 
-	@Autowired
-	private CustomAuthenticationProvider authProvider;
+	private final CustomAuthenticationProvider authProvider;
 
-	@Autowired
-	public PasswordEncoder passwordEncoder;
+	private final PasswordEncoder passwordEncoder;
 
-	@Autowired
-	JwtFilter jwtFilter;
+	final JwtFilter jwtFilter;
+
+	public WebSecurityConfig(CustomAuthenticationProvider authProvider, PasswordEncoder passwordEncoder, JwtFilter jwtFilter) {
+		this.authProvider = authProvider;
+		this.passwordEncoder = passwordEncoder;
+		this.jwtFilter = jwtFilter;
+	}
 
 	@Bean
 	public AuthenticationEntryPoint authenticationEntryPoint() {
@@ -50,8 +56,8 @@ public class WebSecurityConfig {
 // http// Tắt CORS
 			http
 // .cors().disable() // Tắt CORS
-					.cors().and()// Tắt CORS
-					.csrf().disable() // Tắt CSRF
+					.cors(AbstractHttpConfigurer::disable)// Tắt CORS
+					.csrf(AbstractHttpConfigurer::disable) // Tắt CSRF
 					.authorizeHttpRequests(auth -> {
 
 //						auth.requestMatchers("/company/**" ).permitAll();
@@ -68,8 +74,10 @@ public class WebSecurityConfig {
 						auth.anyRequest().authenticated();
 					}).addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
 
-					.exceptionHandling().authenticationEntryPoint(authenticationEntryPoint()).and()
-
+					.exceptionHandling(httpSecurityExceptionHandlingConfigurer -> {
+//						authenticationEntryPoint(authenticationEntryPoint()).
+						httpSecurityExceptionHandlingConfigurer.authenticationEntryPoint(authenticationEntryPoint());
+					})
 					.build();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

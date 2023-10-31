@@ -1,41 +1,29 @@
 package com.FitnessApp.Model;
 
-import java.util.Date;
 import java.util.List;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import com.FitnessApp.Enums.PlanType;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class WorkoutPlan {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY) // This indica
 	private Long id;
-	private String title;
-	private Date startDate;
-	private Date endDate;
-	private String planCategory;
+	private String name;
+	private String description;
+	private Long startDate;
+	private Long endDate;
+
+	@Enumerated(EnumType.STRING)
+	private PlanType type;
 
 	@OneToMany
-	private List<DailyWorkout> dailyReports;
-
-	// Constructors, getters, and setters...
-
-	public WorkoutPlan() {
-		// Default constructor
-	}
-
-	public WorkoutPlan(String title, Date startDate, Date endDate, String planCategory,
-			List<DailyWorkout> dailyReports) {
-		this.title = title;
-		this.startDate = startDate;
-		this.endDate = endDate;
-		this.planCategory = planCategory;
-		this.dailyReports = dailyReports;
-	}
-
-	// Getters and setters for the properties...
+	private List<DailyWorkout> dailyWorkouts;
 }
