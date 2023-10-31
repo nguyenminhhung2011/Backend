@@ -4,7 +4,6 @@ import com.FitnessApp.Security.CustomAuthenticationProvider;
 import com.FitnessApp.Security.CustomEntryPoint;
 import com.FitnessApp.Filters.JwtFilter;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -25,11 +24,14 @@ public class WebSecurityConfig {
 
 	private final PasswordEncoder passwordEncoder;
 
+	private final CorsConfiguration corsConfiguration;
+
 	final JwtFilter jwtFilter;
 
-	public WebSecurityConfig(CustomAuthenticationProvider authProvider, PasswordEncoder passwordEncoder, JwtFilter jwtFilter) {
+	public WebSecurityConfig(CustomAuthenticationProvider authProvider, PasswordEncoder passwordEncoder, CorsConfiguration corsConfiguration, JwtFilter jwtFilter) {
 		this.authProvider = authProvider;
 		this.passwordEncoder = passwordEncoder;
+		this.corsConfiguration = corsConfiguration;
 		this.jwtFilter = jwtFilter;
 	}
 
@@ -50,13 +52,16 @@ public class WebSecurityConfig {
 
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) {
-		try {
+		try
+		{
+
 			return
 // 				http.csrf().disable().cors().disable().and().headers().frameOptions().disable().and()
 // http// Tắt CORS
 			http
 // .cors().disable() // Tắt CORS
-					.cors(AbstractHttpConfigurer::disable)// Tắt CORS
+					// Config CORS
+					.cors(httpSecurityCorsConfigurer -> httpSecurityCorsConfigurer.configurationSource( request -> corsConfiguration))
 					.csrf(AbstractHttpConfigurer::disable) // Tắt CSRF
 					.authorizeHttpRequests(auth -> {
 
