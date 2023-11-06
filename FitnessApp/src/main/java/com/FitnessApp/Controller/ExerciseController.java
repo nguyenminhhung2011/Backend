@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.FitnessApp.DTO.ResponseObject;
 import com.FitnessApp.Utils.JwtTokenUtils;
-import com.FitnessApp.Security.Model.User;
-import com.FitnessApp.Service.UserService;
+import com.FitnessApp.Model.User;
+import com.FitnessApp.Service.User.UserService;
 import com.FitnessApp.Service.ExcerciseService.ExerciseService;
 
 @RestController

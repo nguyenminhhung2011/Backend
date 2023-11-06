@@ -1,7 +1,5 @@
 package com.FitnessApp.Model;
 
-import com.FitnessApp.Security.Model.User;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;

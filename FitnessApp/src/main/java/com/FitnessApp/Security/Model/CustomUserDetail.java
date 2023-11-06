@@ -3,33 +3,29 @@ package com.FitnessApp.Security.Model;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import com.FitnessApp.Model.Role;
+import com.FitnessApp.Model.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 public class CustomUserDetail implements UserDetails {
 
-	private User user;
+	private final User user;
 
 	public CustomUserDetail(User user) {
-		this.user=user;
-		// TODO Auto-generated constructor stub
+		this.user = user;
 	}
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		// TODO Auto-generated method stub
 		Collection<Role> userRole= user.getRoles();
 		ArrayList<SimpleGrantedAuthority> listRole= new ArrayList<SimpleGrantedAuthority>();
 		for(Role i : userRole) {
-//			System.out.println(i.getNameRole());
 			listRole.add(new SimpleGrantedAuthority("ROLE_"+i.getNameRole()));
 		}
-		
 		return listRole;
-		
-	}
 
+	}
 	@Override
 	public String getPassword() {
 		// TODO Auto-generated method stub

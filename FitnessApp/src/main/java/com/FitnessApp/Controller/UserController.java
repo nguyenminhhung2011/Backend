@@ -1,7 +1,7 @@
 package com.FitnessApp.Controller;
 
-import com.FitnessApp.Security.Model.User;
-import com.FitnessApp.Service.UserService;
+import com.FitnessApp.Model.User;
+import com.FitnessApp.Service.User.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,5 +26,6 @@ public class UserController {
 
         return ResponseEntity.ok().body(user.get());
     }
+
 
 }

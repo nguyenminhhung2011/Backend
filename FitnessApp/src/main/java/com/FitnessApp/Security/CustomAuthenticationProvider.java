@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -16,22 +19,18 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import com.FitnessApp.Security.Model.Role;
-import com.FitnessApp.Security.Model.User;
-import com.FitnessApp.Service.UserService;
+import com.FitnessApp.Model.Role;
+import com.FitnessApp.Model.User;
+import com.FitnessApp.Service.User.UserService;
 
 import ch.qos.logback.classic.Logger;
 
 @Component
+@RequiredArgsConstructor
 @ComponentScan("com.setqt.Hiring.Security")
 public class CustomAuthenticationProvider implements AuthenticationProvider {
-
-	@Autowired
-	private PasswordEncoder passwordEncoder;
-
-	@Autowired
-	private UserService userService;
-//	private UserRepository userService ;
+	private final PasswordEncoder passwordEncoder;
+	private final UserService userService;
 	Logger logger = (Logger) org.slf4j.LoggerFactory.getLogger(CustomAuthenticationProvider.class);
 
 	@Override

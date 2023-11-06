@@ -4,9 +4,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
+import com.FitnessApp.Service.Authentication.IAuthService;
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -22,15 +21,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.FitnessApp.DTO.AuthResponse;
-import com.FitnessApp.DTO.AuthenRequest;
+import com.FitnessApp.DTO.AuthRequest;
 import com.FitnessApp.DTO.GymerRegistrationRequest;
 import com.FitnessApp.DTO.ResponseObject;
 import com.FitnessApp.Model.Gymer;
 import com.FitnessApp.Utils.JwtTokenUtils;
-import com.FitnessApp.Security.Model.Role;
-import com.FitnessApp.Security.Model.RoleRepository;
-import com.FitnessApp.Security.Model.User;
-import com.FitnessApp.Service.UserService;
+import com.FitnessApp.Model.Role;
+import com.FitnessApp.Repository.RoleRepository;
+import com.FitnessApp.Model.User;
+import com.FitnessApp.Service.User.UserService;
 import com.FitnessApp.Service.GymerService.GymerService;
 
 @RestController
@@ -41,50 +40,52 @@ public class AuthenticationController {
 
 	private  RoleRepository roleRepo;
 	private  UserService uService;
+	private  IAuthService authService;
 	private  PasswordEncoder passEncoder;
 	private  AuthenticationManager authenticationManager;
 	private  GymerService gymerService;
 	private  JwtTokenUtils jWTTokenUtils;
 
 	@PostMapping("/loginGymer")
-	public ResponseEntity<?> loginClient(@RequestBody AuthenRequest authRequest) {
+	public ResponseEntity<?> loginClient(@RequestBody AuthRequest authRequest) {
 
 		try {
-			final Authentication authentication = authenticationManager
-					.authenticate(new UsernamePasswordAuthenticationToken(
-							authRequest.username(),
-							authRequest.password()
-					));
+//			final Authentication authentication = authenticationManager
+//					.authenticate(new UsernamePasswordAuthenticationToken(
+//							authRequest.username(),
+//							authRequest.password()
+//					));
+//
+//			SecurityContextHolder.getContext().setAuthentication(authentication);
+//			String jwt = jWTTokenUtils.generateToken(authRequest.username());
+//			String freshToken = jWTTokenUtils.generateTokenRefresh(authRequest.username());
+//
+//			User user = uService.findOneByUsername(authRequest.username());
+//			Set<Role> roles;
+//			roles = user.getRoles();
+//			boolean check = false;
+//
+//			for (Role role : roles) {
+//                if (Objects.equals(role.getNameRole(), "CLIENT")) {
+//                    check = true;
+//                    break;
+//                }
+//            }
+//
+//			if (!check) {
+//				return ResponseEntity.status(HttpStatus.OK)
+//						.body(new ResponseObject("failed", "Email hoặc mật khẩu chưa chính xác !", ""));
+//			}
+//			user.setRefreshToken(freshToken);
 
-			SecurityContextHolder.getContext().setAuthentication(authentication);
-			String jwt = jWTTokenUtils.generateToken(authRequest.username());
-			String freshToken = jWTTokenUtils.generateTokenRefresh(authRequest.username());
+			final AuthResponse authResponse = authService.login(authRequest);
+			return ResponseEntity.ok(authResponse);
 
-			User user = uService.findOneByUsername(authRequest.username());
-			Set<Role> roles;
-			roles = user.getRoles();
-			boolean check = false;
-
-			for (Role role : roles) {
-                if (Objects.equals(role.getNameRole(), "CLIENT")) {
-                    check = true;
-                    break;
-                }
-            }
-
-			if (!check) {
-				return ResponseEntity.status(HttpStatus.OK)
-						.body(new ResponseObject("failed", "Email hoặc mật khẩu chưa chính xác !", ""));
-			}
-			user.setRefreshToken(freshToken);
-			uService.save(user);
-			return ResponseEntity.status(HttpStatus.OK)
-					.body(new ResponseObject("ok", "thành côngg", new AuthResponse(jwt, freshToken)));
-
-		} catch (BadCredentialsException ex) {
+		} catch (Exception ex) {
 			System.out.println(ex.getMessage());
-			return ResponseEntity.status(HttpStatus.OK)
-					.body(new ResponseObject("failed", "Đăng nhập không thành công", ""));
+			return ResponseEntity
+					.status(HttpStatus.UNAUTHORIZED)
+					.body(new ResponseObject("failed", "Đăng nhập không thành công", ex.getMessage()));
 		}
 
 	}
@@ -120,7 +121,7 @@ public class AuthenticationController {
 		} catch (Exception ex) {
 			System.out.println(ex.getMessage());
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-					.body(new ResponseObject("failed", "Đăng ký Gymer thất bại.", ""));
+					.body(new ResponseObject("failed", "Đăng ký Gymer thất bại.", ex.getMessage()));
 		}
 	}
 

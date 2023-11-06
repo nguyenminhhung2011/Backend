@@ -6,6 +6,8 @@ import java.util.Map;
 
 import javax.naming.AuthenticationException;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
@@ -18,15 +20,11 @@ import jakarta.servlet.http.HttpServletResponse;
 
 
 //@Component
+@AllArgsConstructor
 public class CustomEntryPoint implements AuthenticationEntryPoint {
 
-	private String message;
-	private int status;
-	public CustomEntryPoint(String mgs, int status) {
-		// TODO Auto-generated constructor stub
-		this.message=mgs;
-		this.status=status;
-	}
+	private final String message;
+	private final int status;
 	public void commence(HttpServletRequest request, HttpServletResponse response,
 			AuthenticationException authException)
 			throws IOException, ServletException {

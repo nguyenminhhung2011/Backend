@@ -1,16 +1,25 @@
 package com.FitnessApp.Filters;
 
 import java.io.IOException;
+import java.nio.file.AccessDeniedException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
+import com.FitnessApp.Config.WebSecurityConfig;
 import com.FitnessApp.Utils.JwtTokenUtils;
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.servlet.ServletException;
+import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
+import org.springframework.util.AntPathMatcher;
+import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.FitnessApp.Security.Model.UserDetailServiceImp;
@@ -21,63 +30,50 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 @Component
+@AllArgsConstructor
 public class JwtFilter extends OncePerRequestFilter {
 
-	@Autowired
-	private JwtTokenUtils tokenProvider;
+	private final JwtTokenUtils tokenProvider;
 
-	@Autowired
-	private UserDetailServiceImp customUserDetailsService;
+	private final UserDetailServiceImp customUserDetailsService;
 
-	@Autowired
-	UserDetailServiceImp userDetailimp;
+	private final UserDetailServiceImp userDetailImp;
+
+	private final AntPathMatcher antPathMatcher = new AntPathMatcher();
 
 	@Override
 	protected void doFilterInternal(
-			HttpServletRequest request,
-			HttpServletResponse response,
-			FilterChain filterChain
-	) throws IOException {
-		try {
-			// Lấy jwt từ request
-			String jwt = getJwtFromRequest(request);
+		@NonNull HttpServletRequest request,
+		@NonNull HttpServletResponse response,
+		@NonNull FilterChain filterChain
+	) throws IOException, RuntimeException, ServletException {
 
-			if (jwt == null) {
-				filterChain.doFilter(request, response);
-				return;
-			}
-//				System.out.println("-----"+jwt);
+		// Lấy jwt từ request
+		String jwt = getJwtFromRequest(request);
+		if (jwt == null) {
+			filterChain.doFilter(request, response);
+			return;
+		}
+		try {
 			if (tokenProvider.validateToken(jwt)) {
-				// Lấy user từ chuỗi jwt
 				String userId = tokenProvider.getUsernameFromToken(jwt);
-				UserDetails userDetails = userDetailimp.loadUserByUsername(userId);
+				UserDetails userDetails = userDetailImp.loadUserByUsername(userId);
 
 				if (userDetails != null) {
-					UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
-							// **********///
-							userDetails, null, userDetails.getAuthorities());
+					UsernamePasswordAuthenticationToken authentication =
+							new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+
 //					authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 					authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
 					SecurityContextHolder.getContext().setAuthentication(authentication);
 				}
 			}
-
-			filterChain.doFilter(request, response);
-		} catch (Exception ex) {
-			logger.error("failed on set user authentication", ex);
-
-			response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-			response.setContentType("application/json;charset=UTF-8");
-
-			Map<String, Object> error = new HashMap<>();
-			error.put("status", "failed");
-			error.put("message", ex.getMessage());
-
-			ObjectMapper mapper = new ObjectMapper();
-			mapper.writeValue(response.getOutputStream(), error);
-//		        return;
+		} catch (Exception e) {
+			throw new RuntimeException(e);
 		}
+
+		filterChain.doFilter(request, response);
 
 	}
 

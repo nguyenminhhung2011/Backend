@@ -3,8 +3,8 @@ package com.FitnessApp.Security;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import com.FitnessApp.Security.Model.Role;
-import com.FitnessApp.Security.Model.RoleRepository;
+import com.FitnessApp.Model.Role;
+import com.FitnessApp.Repository.RoleRepository;
 
 @Component
 public class DataInitializer implements CommandLineRunner {

@@ -1,15 +1,10 @@
 package com.FitnessApp.DTO;
 
-import com.FitnessApp.Model.Gymer;
 import com.FitnessApp.Model.UserProfile;
-import com.FitnessApp.Security.Model.Role;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import jakarta.persistence.*;
+import com.FitnessApp.Model.Role;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
-import java.util.HashSet;
 import java.util.Set;
 
 @Data

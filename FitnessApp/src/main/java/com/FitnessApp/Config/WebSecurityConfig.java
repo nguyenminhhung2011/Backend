@@ -3,6 +3,7 @@ package com.FitnessApp.Config;
 import com.FitnessApp.Security.CustomAuthenticationProvider;
 import com.FitnessApp.Security.CustomEntryPoint;
 import com.FitnessApp.Filters.JwtFilter;
+import com.FitnessApp.Security.JwtAccessDeniedHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -10,6 +11,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
@@ -21,15 +23,15 @@ import org.springframework.web.cors.CorsConfiguration;
 public class WebSecurityConfig {
 
 	private final CustomAuthenticationProvider authProvider;
+	private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
 
 	private final PasswordEncoder passwordEncoder;
-
 	private final CorsConfiguration corsConfiguration;
-
 	final JwtFilter jwtFilter;
 
-	public WebSecurityConfig(CustomAuthenticationProvider authProvider, PasswordEncoder passwordEncoder, CorsConfiguration corsConfiguration, JwtFilter jwtFilter) {
+	public WebSecurityConfig(CustomAuthenticationProvider authProvider, JwtAccessDeniedHandler jwtAccessDeniedHandler, PasswordEncoder passwordEncoder, CorsConfiguration corsConfiguration, JwtFilter jwtFilter) {
 		this.authProvider = authProvider;
+		this.jwtAccessDeniedHandler = jwtAccessDeniedHandler;
 		this.passwordEncoder = passwordEncoder;
 		this.corsConfiguration = corsConfiguration;
 		this.jwtFilter = jwtFilter;
@@ -40,7 +42,6 @@ public class WebSecurityConfig {
 //		return new LoginUrlAuthenticationEntryPoint("https://baomoi.com/");
 		return new CustomEntryPoint("Lỗi đăng nhập", 401);
 	}
-//
 
 	@Bean
 	AuthenticationManager authenticationManager(HttpSecurity http) throws Exception {
@@ -67,11 +68,12 @@ public class WebSecurityConfig {
 						auth.requestMatchers("/auth/**").permitAll();
 						auth.anyRequest().authenticated();
 
-					}).addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
-					.exceptionHandling(httpSecurityExceptionHandlingConfigurer -> {
-//						authenticationEntryPoint(authenticationEntryPoint()).
-						httpSecurityExceptionHandlingConfigurer.authenticationEntryPoint(authenticationEntryPoint());
 					})
+					.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+					.authenticationManager(authenticationManager(http))
+					.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
+					.exceptionHandling(exception -> exception.accessDeniedHandler(jwtAccessDeniedHandler))
+					.exceptionHandling(exception -> exception.authenticationEntryPoint(authenticationEntryPoint()))
 					.build();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -79,5 +81,9 @@ public class WebSecurityConfig {
 		}
 		return null;
 	}
+
+	public static final String[] whiteListedRoutes = new String[]{
+			"/auth/**",
+	};
 
 }

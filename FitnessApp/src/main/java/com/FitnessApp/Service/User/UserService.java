@@ -1,36 +1,27 @@
-package com.FitnessApp.Service;
+package com.FitnessApp.Service.User;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.FitnessApp.Security.Model.User;
-import com.FitnessApp.Security.Model.UserRepository;
+import com.FitnessApp.Model.User;
+import com.FitnessApp.Repository.UserRepository;
 
 @Service
-public class UserService {
-	@Autowired
+@AllArgsConstructor
+public class UserService implements IUserService {
 	private final UserRepository repository;
 
-	@Autowired
-	private PasswordEncoder passEncoder;
-
-	public UserService(UserRepository repo) {
-		this.repository = repo;
-	}
+	private final PasswordEncoder passEncoder;
 
 	public Optional<User> findById(Long id) {
-		return Optional.ofNullable(repository.findById(id).orElse(null));
+		return repository.findById(id);
 	}
 
-//	public void updateOne(long id, Company company) {
-//	        if (repository.findById(id).isEmpty()) throw new EntityNotFoundException();
-//	        repository.updateById(id,company) ;
-//	        }
 	public List<User> findByUsername(String username) {
 		List<User> result = repository.findByUsername(username);
 		if (result == null) {
@@ -43,7 +34,6 @@ public class UserService {
 	public User findOneByUsername(String username) {
 		List<User> result = repository.findByUsername(username);
 		if (result == null) {
-			result = Collections.emptyList();
 			return null;
 		}
 		return result.get(0);

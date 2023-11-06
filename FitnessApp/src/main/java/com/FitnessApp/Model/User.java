@@ -1,10 +1,10 @@
-package com.FitnessApp.Security.Model;
+package com.FitnessApp.Model;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.FitnessApp.Model.Gymer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -24,10 +24,12 @@ import jakarta.persistence.Table;
 import lombok.*;
 
 @Entity
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "userInfo")
-public class User implements Serializable {
+public class User  implements Serializable {
 
 	@Id
 	@Column(name = "userId")
@@ -58,7 +60,8 @@ public class User implements Serializable {
 		this.refreshToken = refreshToken;
 	}
 
-	private static  long serialVersionUID = -297553281792804226L;
+	@Serial
+	private static final long serialVersionUID = -297553281792804226L;
 
 	@OneToOne(mappedBy = "user")
 	@JsonManagedReference(value = "user_gymer")
@@ -70,27 +73,6 @@ public class User implements Serializable {
 		this.password = password;
 		this.isEnable = isEnable;
 		this.roles.add(roles);
-	}
-	public String getUsername() {
-		return username;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-
-
-	public Boolean getIsEnable() {
-		return isEnable;
-	}
-
-	public String getRefreshToken() {
-		return refreshToken;
-	}
-
-	public Set<Role> getRoles() {
-		return roles;
 	}
 
 	public void setPassword(String password) {
