@@ -2,11 +2,13 @@ package com.FitnessApp.DTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class DailyWorkoutDTO {
     private Long id;
     private String name;
@@ -18,5 +20,5 @@ public class DailyWorkoutDTO {
     private int execPerRound;
     private int timeForEachExe;
     private int breakTime;
-    public List<ExerciseDTO> exerciseDTOList;
+    private List<ExerciseDTO> exercises;
 }

@@ -5,10 +5,14 @@ import com.FitnessApp.DTO.ExerciseDTO;
 import com.FitnessApp.Model.DailyWorkout;
 import com.FitnessApp.Model.Exercise;
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeMap;
+import org.modelmapper.spi.MappingContext;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Component
 @AllArgsConstructor
@@ -20,12 +24,14 @@ public class DailyWorkoutMapper {
         TypeMap<DailyWorkout,DailyWorkoutDTO> propertyMapper =
                 modelMapper.createTypeMap(DailyWorkout.class,DailyWorkoutDTO.class);
 
-        Converter<Exercise,ExerciseDTO> converter = c -> exerciseMapper.exerciseDTO(c.getSource());
+        Converter<List<Exercise>, List<ExerciseDTO>> converter = c -> c
+                .getSource()
+                .stream()
+                .map(exercise -> exerciseMapper.exerciseDTO(exercise))
+                .toList();
 
         return propertyMapper
-                .addMappings(mapper -> mapper.using(converter)
-                .map(DailyWorkout::getExercises,DailyWorkoutDTO::setExerciseDTOList))
+                .addMappings(mapper -> mapper.using(converter).map(DailyWorkout::getExercises,DailyWorkoutDTO::setExercises))
                 .map(dailyWorkout);
-
     }
 }

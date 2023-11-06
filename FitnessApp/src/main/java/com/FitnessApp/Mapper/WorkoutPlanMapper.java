@@ -11,6 +11,8 @@ import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeMap;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 @AllArgsConstructor
 public class WorkoutPlanMapper {
@@ -21,7 +23,11 @@ public class WorkoutPlanMapper {
         TypeMap<WorkoutPlan,WorkoutPlanDTO> typeMap
                 = modelMapper.createTypeMap(WorkoutPlan.class,WorkoutPlanDTO.class);
 
-        Converter<DailyWorkout,DailyWorkoutDTO> dailyWorkoutDTOConverter  = source -> dailyWorkoutMapper.dailyWorkoutDTO(source.getSource());
+        Converter<List<DailyWorkout>, List<DailyWorkoutDTO>> dailyWorkoutDTOConverter  = source -> source.getSource()
+                .stream()
+                .map(dailyWorkoutMapper::dailyWorkoutDTO)
+                .toList() ;
+
         return typeMap
                 .addMappings(mapper -> mapper.using(dailyWorkoutDTOConverter)
                 .map(WorkoutPlan::getDailyWorkouts,WorkoutPlanDTO::setDailyWorkouts))

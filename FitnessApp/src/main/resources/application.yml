@@ -32,6 +32,7 @@ spring:
     hibernate:
       ddl-auto: create
 
+
 #allow table's name like tblProduct
 
 #spring.jpa.hibernate.naming.physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
@@ -44,3 +45,8 @@ spring:
   servlet:
     multipart:
       enabled: true
+logging:
+  level:
+    org:
+      springframework:
+        security: trace

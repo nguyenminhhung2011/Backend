@@ -54,7 +54,6 @@ public class WebSecurityConfig {
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) {
 		try
 		{
-
 			return
 // 				http.csrf().disable().cors().disable().and().headers().frameOptions().disable().and()
 // http// Tắt CORS
@@ -65,20 +64,10 @@ public class WebSecurityConfig {
 					.csrf(AbstractHttpConfigurer::disable) // Tắt CSRF
 					.authorizeHttpRequests(auth -> {
 
-//						auth.requestMatchers("/company/**" ).permitAll();
-//						auth.requestMatchers("/getAll" ).hasRole("ADMIN");
-
-						auth.requestMatchers("/**").permitAll();
-//						auth.requestMatchers("/test/**").permitAll();
-
-						// auth.requestMatchers("/candidate/**").permitAll();
-						auth.requestMatchers("/notification/**").permitAll();
-//						auth.requestMatchers("employer/**").hasRole("EMPLOYER");
-
-						auth.requestMatchers("/api/v1/FileUpload/**").permitAll();
+						auth.requestMatchers("/auth/**").permitAll();
 						auth.anyRequest().authenticated();
-					}).addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
 
+					}).addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
 					.exceptionHandling(httpSecurityExceptionHandlingConfigurer -> {
 //						authenticationEntryPoint(authenticationEntryPoint()).
 						httpSecurityExceptionHandlingConfigurer.authenticationEntryPoint(authenticationEntryPoint());

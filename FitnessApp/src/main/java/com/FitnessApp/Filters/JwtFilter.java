@@ -33,9 +33,11 @@ public class JwtFilter extends OncePerRequestFilter {
 	UserDetailServiceImp userDetailimp;
 
 	@Override
-	protected void doFilterInternal(HttpServletRequest request,
-									HttpServletResponse response,
-									FilterChain filterChain) throws IOException {
+	protected void doFilterInternal(
+			HttpServletRequest request,
+			HttpServletResponse response,
+			FilterChain filterChain
+	) throws IOException {
 		try {
 			// Lấy jwt từ request
 			String jwt = getJwtFromRequest(request);
@@ -80,11 +82,9 @@ public class JwtFilter extends OncePerRequestFilter {
 	}
 
 	private String getJwtFromRequest(HttpServletRequest request) {
-		String bearerToken = ((jakarta.servlet.http.HttpServletRequest) request).getHeader("Authorization");
-//		System.out.println(bearerToken);
+		String bearerToken = request.getHeader("Authorization");
 		// Kiểm tra xem header Authorization có chứa thông tin jwt không
 		if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
-
 			return bearerToken.substring(7);
 		}
 		return null;
