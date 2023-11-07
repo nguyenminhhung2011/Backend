@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.lang.NonNull;
 
 @Entity
 @Data
@@ -21,11 +22,27 @@ public class Exercise {
 	private String exerciseCategory;
 	private double caloriesPerMinute;
 	private String videoUrl;
-
-	@ManyToMany
-	private List<Steps> steps;
-
-//	private List<String> muscleGroups ;
 	private int sets;
 	private int reps;
+
+	@OneToMany(mappedBy = "exercise")
+	private List<Steps> steps;
+
+	@ManyToMany
+	@JoinTable(
+			name = "exercise_favorite",
+			joinColumns = @JoinColumn(name = "exercise_id",referencedColumnName = "id"),
+			inverseJoinColumns = @JoinColumn(name = "user_profile_id",referencedColumnName = "id")
+	)
+	private List<UserProfile> favoriteUser;
+
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(
+			name = "exercise_session",
+			joinColumns = @JoinColumn(name = "exercise_id",referencedColumnName = "id"),
+			inverseJoinColumns = @JoinColumn(name = "session_id",referencedColumnName = "id")
+	)
+
+	private List<Session> sessions;
+
 }

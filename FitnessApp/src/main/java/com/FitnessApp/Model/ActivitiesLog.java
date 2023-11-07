@@ -15,6 +15,14 @@ public class ActivitiesLog {
     private Long id;
     private Long time;
 
-    @OneToOne
-    private DailyWorkout workout;
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "user_profile_id",referencedColumnName = "id")
+    private UserProfile userProfile;
+
+    @ManyToOne(optional = false,fetch = FetchType.LAZY)
+    @JoinColumn(
+            name = "workout_plan_id",
+            referencedColumnName = "id"
+    )
+    private WorkoutPlan workoutPlan;
 }

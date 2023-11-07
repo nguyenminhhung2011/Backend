@@ -18,13 +18,13 @@ public class CustomUserDetail implements UserDetails {
 	}
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		Collection<Role> userRole= user.getRoles();
-		ArrayList<SimpleGrantedAuthority> listRole= new ArrayList<SimpleGrantedAuthority>();
-		for(Role i : userRole) {
-			listRole.add(new SimpleGrantedAuthority("ROLE_"+i.getNameRole()));
-		}
-		return listRole;
-
+//		Collection<Role> userRole= user.getRoles();
+//		ArrayList<SimpleGrantedAuthority> listRole= new ArrayList<SimpleGrantedAuthority>();
+//		for(Role i : userRole) {
+//			listRole.add(new SimpleGrantedAuthority("ROLE_"+i.getNameRole()));
+//		}
+//		return listRole;
+		return new ArrayList<>();
 	}
 	@Override
 	public String getPassword() {
@@ -59,7 +59,7 @@ public class CustomUserDetail implements UserDetails {
 	@Override
 	public boolean isEnabled() {
 		// TODO Auto-generated method stub
-		return user.getIsEnable();
+		return true;
 	}
 
 }

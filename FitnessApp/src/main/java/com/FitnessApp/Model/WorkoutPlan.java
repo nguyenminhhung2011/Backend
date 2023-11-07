@@ -2,6 +2,7 @@ package com.FitnessApp.Model;
 
 import java.util.List;
 
+import com.FitnessApp.DTO.User.UserProfileDTO;
 import com.FitnessApp.Enums.PlanType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -26,6 +27,13 @@ public class WorkoutPlan {
 	@Enumerated(EnumType.STRING)
 	private PlanType type;
 
-	@OneToMany
+	@OneToMany(mappedBy = "workoutPlan")
 	private List<DailyWorkout> dailyWorkouts;
+
+	@OneToMany(mappedBy = "workoutPlan")
+	private List<ActivitiesLog> activitiesLogs;
+
+	@ManyToOne
+	@JoinColumn(name = "user_profile_id", referencedColumnName = "id")
+	private UserProfile userProfile;
 }

@@ -16,7 +16,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@AllArgsConstructor
 @Getter
 @Setter
 public class Role implements Serializable {
@@ -29,11 +28,11 @@ public class Role implements Serializable {
 	@Serial
 	private static final long serialVersionUID = -297333281792804226L;
 
-	@ManyToMany(mappedBy = "roles")
-//	@JsonBackReference(value="user-roles")
-	@JsonIgnore
-//	private Collection<User> users;
-	private java.util.Set<User> roles = new HashSet<>();
+//	@ManyToMany(mappedBy = "roles")
+////	@JsonBackReference(value="user-roles")
+//	@JsonIgnore
+////	private Collection<User> users;
+//	private java.util.Set<User> roles = new HashSet<>();
 
 	public Role(Long id, String name) {
 		this.nameRole = name;

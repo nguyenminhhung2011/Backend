@@ -50,6 +50,7 @@ public class JwtFilter extends OncePerRequestFilter {
 
 		// Lấy jwt từ request
 		String jwt = getJwtFromRequest(request);
+
 		if (jwt == null) {
 			filterChain.doFilter(request, response);
 			return;

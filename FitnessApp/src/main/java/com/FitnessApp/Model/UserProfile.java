@@ -7,6 +7,7 @@ import com.FitnessApp.Enums.Gender;
 import com.FitnessApp.Enums.ThemeStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -14,6 +15,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class UserProfile {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,12 +36,16 @@ public class UserProfile {
 	@Enumerated(EnumType.STRING)
 	private Frequency frequency;
 
-	@OneToMany
+	@OneToOne(fetch = FetchType.LAZY,optional = false)
+	@JoinColumn(name = "userId", referencedColumnName = "userId")
+	private User user;
+
+	@OneToMany(mappedBy = "userProfile")
 	private List<ActivitiesLog> activitiesLogs; //History
 
-	@ManyToMany
+	@ManyToMany(mappedBy = "favoriteUser")
 	private List<Exercise> favoriteExercises;
 
-	@OneToMany
+	@OneToMany(mappedBy = "userProfile")
 	private List<WorkoutPlan> workoutPlans;
 }

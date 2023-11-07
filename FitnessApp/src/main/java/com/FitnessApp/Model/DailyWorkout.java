@@ -30,10 +30,9 @@ public class DailyWorkout {
 	private int breakTime;
 
 	@ManyToOne
+	@JoinColumn(name = "workout_plan_id",referencedColumnName = "id")
 	private WorkoutPlan workoutPlan;
 
-	@OneToMany
-	private List<Exercise> exercises;
-
-
+	@OneToMany(mappedBy = "dailyWorkouts")
+	private List<Session> exercises;
 }
