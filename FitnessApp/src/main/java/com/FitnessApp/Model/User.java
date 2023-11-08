@@ -28,15 +28,15 @@ public class User implements Serializable {
 	private Long id;
 
 	@Column(nullable = false)
-	@NotBlank(message = "Username is mandatory")
+//	@NotBlank(message = "Username is mandatory")
 	private String username;
 
 	@Column(nullable = false)
-	@NotBlank(message = "Password is mandatory")
+//	@NotBlank(message = "Password is mandatory")
 	private String password;
 
 	@Column(columnDefinition = "text")
-	@NotBlank
+//	@NotBlank
 	private String refreshToken;
 
 //	@JsonManagedReference
