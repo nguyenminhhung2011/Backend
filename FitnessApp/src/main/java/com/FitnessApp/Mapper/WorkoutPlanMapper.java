@@ -21,7 +21,7 @@ public class WorkoutPlanMapper {
 
     public WorkoutPlanDTO workoutPlanDTO(WorkoutPlan workoutPlan){
         TypeMap<WorkoutPlan,WorkoutPlanDTO> typeMap
-                = modelMapper.createTypeMap(WorkoutPlan.class,WorkoutPlanDTO.class);
+                = modelMapper.typeMap(WorkoutPlan.class,WorkoutPlanDTO.class);
 
         Converter<List<DailyWorkout>, List<DailyWorkoutDTO>> dailyWorkoutDTOConverter  = source -> source.getSource()
                 .stream()

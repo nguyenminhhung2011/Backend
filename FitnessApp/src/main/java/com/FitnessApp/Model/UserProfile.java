@@ -22,9 +22,9 @@ public class UserProfile {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date birthday;
-
+//	@Temporal(TemporalType.TIMESTAMP)
+//	private Date birthday;
+//
 
 	private double weight = 0;
 	private double height = 0;

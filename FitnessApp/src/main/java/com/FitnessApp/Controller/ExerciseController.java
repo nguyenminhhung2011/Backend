@@ -37,7 +37,7 @@ public class ExerciseController {
 	public ResponseEntity<?> addExercise(@RequestParam String t)
 			throws InvalidKeySpecException, NoSuchAlgorithmException {
 
-		return ResponseEntity.status(HttpStatus.OK).body(new ResponseObject("ok", "HƯng rất đẹp trai", ""));
+		return ResponseEntity.status(HttpStatus.OK).body(new ResponseObject(HttpStatus.OK.value(), "HƯng rất đẹp trai", ""));
 
 	}
 
@@ -51,10 +51,10 @@ public class ExerciseController {
 			User user = uService.findOneByUsername(username);
 			if (user != null)
 				return ResponseEntity.status(HttpStatus.OK)
-						.body(new ResponseObject("failed", "ok", user.getUsername()));
+						.body(new ResponseObject(HttpStatus.OK.value(), "ok", user.getUsername()));
 		} catch (Exception e) {
 			e.printStackTrace();
-			return ResponseEntity.status(HttpStatus.OK).body(new ResponseObject("failed", "not found data", null));
+			return ResponseEntity.status(HttpStatus.OK).body(new ResponseObject(HttpStatus.OK.value(), "not found data", null));
 		}
 		return null;
 	}

@@ -102,7 +102,7 @@ public class AppExceptionHandler {
     public ResponseEntity<ResponseObject> handleBadCredentialsException(BadCredentialsException e) {
         ResponseObject errorResponse = new ResponseObject(HttpStatus.BAD_REQUEST.value(), e.getMessage(), null);
         log.warn("BadCredentialsException: {}", e.getMessage());
-        return ResponseEntity.status(errorResponse.getStatus()).body(errorResponse);
+        return ResponseEntity.status(errorResponse.status()).body(errorResponse);
     }
 
 }
