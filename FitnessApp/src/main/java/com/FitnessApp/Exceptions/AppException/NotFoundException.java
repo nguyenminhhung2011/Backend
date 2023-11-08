@@ -1,4 +1,4 @@
-package com.FitnessApp.Exceptions;
+package com.FitnessApp.Exceptions.AppException;
 
 public class NotFoundException extends RuntimeException{
 

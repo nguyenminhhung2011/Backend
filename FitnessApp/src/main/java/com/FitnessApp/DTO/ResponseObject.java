@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import lombok.*;
+import org.apache.http.HttpStatus;
 
 @Getter
 @Data
@@ -11,8 +12,5 @@ import lombok.*;
 @JsonInclude(JsonInclude.Include.NON_DEFAULT)
 @AllArgsConstructor
 @Builder
-public class ResponseObject {
-	final String status;
-	final String message;
-	final Object data;
+public record ResponseObject(int status, String message, Object data) {
 }

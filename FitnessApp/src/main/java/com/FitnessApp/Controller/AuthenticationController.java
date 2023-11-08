@@ -6,10 +6,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.FitnessApp.DTO.AuthResponse;
-import com.FitnessApp.DTO.AuthRequest;
-import com.FitnessApp.DTO.RegistrationRequest;
+import com.FitnessApp.DTO.Response.AuthResponse;
+import com.FitnessApp.DTO.Request.AuthRequest;
+import com.FitnessApp.DTO.Request.RegistrationRequest;
 import com.FitnessApp.DTO.ResponseObject;
+
+import javax.naming.AuthenticationException;
 
 @RestController
 @RequestMapping("/auth")
@@ -18,26 +20,14 @@ import com.FitnessApp.DTO.ResponseObject;
 public class AuthenticationController {
 	private final IAuthService authService;
 	@PostMapping("/login")
-	public ResponseEntity<?> login(@RequestBody AuthRequest authRequest) {
-
-		try {
-			final AuthResponse authResponse = authService.login(authRequest);
-			return ResponseEntity.ok(authResponse);
-		} catch (Exception ex) {
-			System.out.println(ex.getMessage());
-			return ResponseEntity
-					.status(HttpStatus.UNAUTHORIZED)
-					.body(new ResponseObject("failed", "Đăng nhập không thành công", ex.getMessage()));
-		}
+	public ResponseEntity<?> login(@RequestBody AuthRequest authRequest) throws AuthenticationException {
+		final AuthResponse authResponse = authService.login(authRequest);
+		return ResponseEntity.ok(authResponse);
 	}
 
 	@PostMapping("/register")
-	public ResponseEntity<?> register(@RequestBody RegistrationRequest registrationRequest) {
-		try {
-			return authService.register(registrationRequest);
-		} catch (Exception e) {
-			return ResponseEntity.internalServerError().body("Error: " + e.getMessage());
-		}
+	public ResponseEntity<?> register(@RequestBody RegistrationRequest registrationRequest) throws Exception {
+	return authService.register(registrationRequest);
 	}
 
 	@PostMapping("/refreshToken")
