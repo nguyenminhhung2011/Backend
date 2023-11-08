@@ -15,13 +15,12 @@ import java.util.List;
 public class ObjectMapperConfig {
     @Bean
     public ObjectMapper objectMapper(){
-        ObjectMapper objectMapper = new ObjectMapper();
 
 //        SimpleModule module = new SimpleModule();
 //        module.addDeserializer(List.class, new InstructionsDeserialize());
 //
 //        objectMapper.registerModule(module);
 
-        return objectMapper;
+        return new ObjectMapper();
     }
 }
