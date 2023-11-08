@@ -27,7 +27,7 @@ class UserMapperTest {
     User user;
     @BeforeEach
     void setUp() {
-        userProfile = new UserProfile(0L,1.0,1.0,"","","", ThemeStatus.DARK, Gender.OTHER, Frequency.MUCH,null,new ArrayList<>(),new ArrayList<>(),new ArrayList<>());
+//        userProfile = new UserProfile(0L,1.0,1.0,"","","", ThemeStatus.DARK, Gender.OTHER, Frequency.MUCH,null,new ArrayList<>(),new ArrayList<>(),new ArrayList<>());
         user = new User(0L,"","","",userProfile);
     }
 

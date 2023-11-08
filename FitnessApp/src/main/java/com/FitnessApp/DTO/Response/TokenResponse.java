@@ -1,4 +1,4 @@
-package com.FitnessApp.DTO;
+package com.FitnessApp.DTO.Response;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

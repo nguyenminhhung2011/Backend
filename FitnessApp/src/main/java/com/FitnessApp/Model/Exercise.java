@@ -2,6 +2,10 @@ package com.FitnessApp.Model;
 
 import java.util.List;
 
+import com.FitnessApp.DTO.InstructionsDeserialize;
+import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,8 +16,8 @@ import org.springframework.lang.NonNull;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonIgnoreProperties(value = {"secondaryMuscles","id",})
 public class Exercise {
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY) // This indicates auto-generation of IDs
 	private Long id;
@@ -21,12 +25,23 @@ public class Exercise {
 	private String description;
 	private String exerciseCategory;
 	private double caloriesPerMinute;
-	private String videoUrl;
 	private int sets;
 	private int reps;
+	//
+	@JsonProperty("target")
+	private String target;
+	@JsonProperty("gifUrl")
+	private String videoUrl;
+	@JsonProperty("equipment")
+	private String equipment;
+	@JsonProperty("bodyPart")
+	private String bodyPart;
 
+	@JsonProperty("instructions")
+	@JsonDeserialize(using = InstructionsDeserialize.class)
 	@OneToMany(mappedBy = "exercise",cascade = CascadeType.ALL,orphanRemoval = true)
 	private List<Steps> steps;
+	//
 
 	@ManyToMany(
 		fetch = FetchType.LAZY,

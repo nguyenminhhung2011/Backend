@@ -22,7 +22,7 @@ public class DailyWorkoutMapper {
 
     public  DailyWorkoutDTO dailyWorkoutDTO(DailyWorkout dailyWorkout){
         TypeMap<DailyWorkout,DailyWorkoutDTO> propertyMapper =
-                modelMapper.createTypeMap(DailyWorkout.class,DailyWorkoutDTO.class);
+                modelMapper.typeMap(DailyWorkout.class,DailyWorkoutDTO.class);
 
         Converter<List<Exercise>, List<ExerciseDTO>> converter = c -> c
                 .getSource()
@@ -31,7 +31,7 @@ public class DailyWorkoutMapper {
                 .toList();
 
         return propertyMapper
-                .addMappings(mapper -> mapper.using(converter).map(DailyWorkout::getExercises,DailyWorkoutDTO::setExercises))
+                .addMappings(mapper -> mapper.using(converter).map(DailyWorkout::getSessions,DailyWorkoutDTO::setSessions))
                 .map(dailyWorkout);
     }
 }

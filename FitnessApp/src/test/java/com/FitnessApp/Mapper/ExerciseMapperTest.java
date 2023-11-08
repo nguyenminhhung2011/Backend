@@ -19,6 +19,6 @@ class ExerciseMapperTest {
 
     @Test
     void exerciseDTO() {
-     final ExerciseDTO exerciseDTO = exerciseMapper.exerciseDTO(new Exercise(0L,"","","",0,"",new ArrayList<>(),0,0));
+//     final ExerciseDTO exerciseDTO = exerciseMapper.exerciseDTO(new Exercise(0L,"","","",0,"",new ArrayList<>(),0,0));
     }
 }

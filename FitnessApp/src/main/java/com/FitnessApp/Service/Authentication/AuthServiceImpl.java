@@ -1,8 +1,12 @@
 package com.FitnessApp.Service.Authentication;
 
 import com.FitnessApp.DTO.*;
+import com.FitnessApp.DTO.Request.AuthRequest;
+import com.FitnessApp.DTO.Request.RegistrationRequest;
+import com.FitnessApp.DTO.Response.AuthResponse;
+import com.FitnessApp.DTO.Response.TokenResponse;
 import com.FitnessApp.DTO.User.UserDTO;
-import com.FitnessApp.Exceptions.NotFoundException;
+import com.FitnessApp.Exceptions.AppException.NotFoundException;
 import com.FitnessApp.Mapper.UserMapper;
 import com.FitnessApp.Model.User;
 import com.FitnessApp.Model.UserProfile;
@@ -14,11 +18,13 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.naming.AuthenticationException;
 import java.util.List;
 
 
@@ -34,78 +40,80 @@ public class AuthServiceImpl implements IAuthService{
     private final UserProfileRepository userProfileRepository;
 
     @Override
-    public AuthResponse login(AuthRequest request) {
-        List<User> findByUsername = userRepository.findByUsername(request.username());
+    public AuthResponse login(AuthRequest request) throws AuthenticationException {
+       try {
+           List<User> findByUsername = userRepository.findByUsername(request.username());
 
-        if (findByUsername.isEmpty()){
-            throw new NotFoundException("Can not find user have this username");
-        }
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-                        request.username(),request.password()));
+           if (findByUsername.isEmpty()){
+               throw new NotFoundException("Can not find user have this username");
+           }
+           authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
+                   request.username(),request.password()));
 
-        String jwt = jwtTokenUtils.generateToken(request.username());
-        String freshToken = jwtTokenUtils.generateTokenRefresh(request.username());
+           String jwt = jwtTokenUtils.generateToken(request.username());
+           String freshToken = jwtTokenUtils.generateTokenRefresh(request.username());
 
-        final User user = findByUsername.get(0);
+           final User user = findByUsername.get(0);
 
-        user.setRefreshToken(freshToken);
+           user.setRefreshToken(freshToken);
 
-        final User currentUser  = userRepository.save(user);
-        final UserDTO userDTO = userMapper.userDTO(currentUser);
-        return new AuthResponse(jwt,freshToken,userDTO);
+           final User currentUser  = userRepository.save(user);
+           final UserDTO userDTO = userMapper.userDTO(currentUser);
+           return new AuthResponse(jwt,freshToken,userDTO);
+       }catch (Exception e){
+           throw new AuthenticationException(e.getMessage());
+       }
     }
 
     @Override
-    public ResponseEntity<?> register(RegistrationRequest request) {
-        try {
-            List<User> userExits = userRepository.findByUsername(request.getUsername());
+    public ResponseEntity<?> register(RegistrationRequest request) throws Exception{
+           try{
+               List<User> userExits = userRepository.findByUsername(request.getUsername());
 
-            if (!userExits.isEmpty()) {
-                return ResponseEntity.badRequest().body(
-                        ResponseObject.builder()
-                                .status(HttpStatus.BAD_REQUEST.toString())
-                                .message("User name existed")
-                                .data(null)
-                                .build());
-            }
+               if (!userExits.isEmpty()) {
+                   return ResponseEntity.badRequest().body(
+                           ResponseObject.builder()
+                                   .status(HttpStatus.BAD_REQUEST.value())
+                                   .message("User name existed")
+                                   .data(null)
+                                   .build());
+               }
 
 
-            String jwt = jwtTokenUtils.generateToken(request.getUsername());
-            String freshToken = jwtTokenUtils.generateTokenRefresh(request.getUsername());
+               String jwt = jwtTokenUtils.generateToken(request.getUsername());
+               String freshToken = jwtTokenUtils.generateTokenRefresh(request.getUsername());
 
-            User newUser = new User(
-                null,
-                request.getUsername(),
-                passwordEncoder.encode(request.getPassword()) ,
-                freshToken,
-                null
-            );
+               User newUser = new User(
+                       null,
+                       request.getUsername(),
+                       passwordEncoder.encode(request.getPassword()) ,
+                       freshToken,
+                       null
+               );
 
-            final User savedUser = userRepository.save(newUser);
-            UserProfile userProfile = UserProfile
-                    .builder()
-                    .user(savedUser)
-                    .build();
+               final User savedUser = userRepository.save(newUser);
+               UserProfile userProfile = UserProfile
+                       .builder()
+                       .user(savedUser)
+                       .build();
 
-            final UserProfile saveUserProfile = userProfileRepository.save(userProfile);
-            savedUser.setUserProfile(saveUserProfile);
-            final User finalUser = userRepository.save(savedUser);
-            final UserDTO userDto = userMapper.userDTO(finalUser);
+               final UserProfile saveUserProfile = userProfileRepository.save(userProfile);
+               savedUser.setUserProfile(saveUserProfile);
+               final User finalUser = userRepository.save(savedUser);
+               final UserDTO userDto = userMapper.userDTO(finalUser);
 
-            return ResponseEntity.ok(
-                    new AuthResponse(jwt,freshToken,userDto)
-            );
-        }catch (Exception e){
-            return ResponseEntity
-                    .internalServerError()
-                    .body(new ResponseObject("INTERNAL_SERVER_ERROR","Failed: Can not register user \n" + e.getMessage(),null));
-        }
+               return ResponseEntity.ok(
+                       new AuthResponse(jwt,freshToken,userDto)
+               );
+
+           }catch (Exception e){
+               throw new AuthenticationException("Failed: Can not register user: " + e.getMessage());
+           }
     }
 
     @Override
     public ResponseEntity<?> refreshToken(String token) {
         try {
-
             if (token == null || !token.startsWith("Bearer ")) {
                 throw new Exception("Invalid refresh token");
             }
@@ -126,12 +134,7 @@ public class AuthServiceImpl implements IAuthService{
 
         }
         catch (Exception e) {
-            return ResponseEntity.badRequest().body(
-                     ResponseObject.builder()
-                             .message(e.getMessage())
-                             .status(HttpStatus.BAD_REQUEST.getReasonPhrase())
-                             .build()
-            );
+           throw new BadCredentialsException("Refresh token failed: " + e.getMessage());
         }
     }
 
@@ -148,9 +151,7 @@ public class AuthServiceImpl implements IAuthService{
 
             return ResponseEntity.ok(new TokenResponse(accessToken, refreshToken));
         }catch (Exception e){
-            return ResponseEntity.badRequest().body(
-                    new ResponseObject(HttpStatus.BAD_GATEWAY.getReasonPhrase(), e.getMessage(),null)
-            );
+            throw new BadCredentialsException("Create token failed: " + e.getMessage());
         }
     }
 }

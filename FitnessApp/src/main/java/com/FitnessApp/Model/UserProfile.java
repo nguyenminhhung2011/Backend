@@ -22,16 +22,18 @@ public class UserProfile {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date birthday;
-	private double weight;
-	private double height;
-	private String phone;
-	private String level;
+//	@Temporal(TemporalType.TIMESTAMP)
+//	private Date birthday;
+//
+
+	private double weight = 0;
+	private double height = 0;
+	private String phone = "";
+	private int level = 0;
 	private String currentPlan; // Current workout plan that working on
 
 	@Enumerated(EnumType.STRING)
-	private ThemeStatus themeStatus;
+	private ThemeStatus themeStatus = ThemeStatus.LIGHT;
 
 	@Enumerated(EnumType.STRING)
 	private Gender gender;

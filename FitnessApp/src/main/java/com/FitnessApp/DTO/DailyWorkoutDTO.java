@@ -20,5 +20,5 @@ public class DailyWorkoutDTO {
     private int execPerRound;
     private int timeForEachExe;
     private int breakTime;
-    private List<ExerciseDTO> exercises;
+    private List<SessionDTO> sessions;
 }
