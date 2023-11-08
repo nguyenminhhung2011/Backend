@@ -15,12 +15,12 @@ import org.springframework.stereotype.Component;
 public class UserMapper {
     private final ModelMapper modelMapper;
     public UserDTO userDTO(User user){
-        TypeMap<User,UserDTO> propertyMapper = modelMapper.createTypeMap(User.class,UserDTO.class);
+        TypeMap<User,UserDTO> propertyMapper = modelMapper.typeMap(User.class,UserDTO.class);
         return propertyMapper.map(user);
     }
 
     public UserProfileDTO userProfileDTO(UserProfile entity){
-        TypeMap<UserProfile,UserProfileDTO> typeMap = modelMapper.createTypeMap(UserProfile.class,UserProfileDTO.class);
+        TypeMap<UserProfile,UserProfileDTO> typeMap = modelMapper.typeMap(UserProfile.class,UserProfileDTO.class);
         return typeMap
                 .addMappings(mapper -> mapper.map(UserProfile::getId,UserProfileDTO::setProfileId))
                 .map(entity);

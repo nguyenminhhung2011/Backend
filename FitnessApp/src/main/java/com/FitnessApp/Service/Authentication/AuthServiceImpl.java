@@ -29,7 +29,7 @@ public class AuthServiceImpl implements IAuthService{
     private final UserRepository userRepository;
     private final JwtTokenUtils jwtTokenUtils;
     private AuthenticationManager authenticationManager;
-private final PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
     private final UserMapper userMapper;
     private final UserProfileRepository userProfileRepository;
 
@@ -54,7 +54,6 @@ private final PasswordEncoder passwordEncoder;
         final UserDTO userDTO = userMapper.userDTO(currentUser);
         return new AuthResponse(jwt,freshToken,userDTO);
     }
-
 
     @Override
     public ResponseEntity<?> register(RegistrationRequest request) {
