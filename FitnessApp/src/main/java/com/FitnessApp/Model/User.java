@@ -44,7 +44,7 @@ public class User implements Serializable {
 	@Serial
 	private static final long serialVersionUID = -297553281792804226L;
 
-	@OneToOne(mappedBy = "user")
+	@OneToOne(mappedBy = "user",cascade = CascadeType.ALL,orphanRemoval = true)
 	private UserProfile userProfile;
 
 }

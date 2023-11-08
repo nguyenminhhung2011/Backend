@@ -25,22 +25,28 @@ public class Exercise {
 	private int sets;
 	private int reps;
 
-	@OneToMany(mappedBy = "exercise")
+	@OneToMany(mappedBy = "exercise",cascade = CascadeType.ALL,orphanRemoval = true)
 	private List<Steps> steps;
 
-	@ManyToMany
+	@ManyToMany(
+		fetch = FetchType.LAZY,
+		cascade = {CascadeType.PERSIST,CascadeType.MERGE}
+	)
 	@JoinTable(
-			name = "exercise_favorite",
-			joinColumns = @JoinColumn(name = "exercise_id",referencedColumnName = "id"),
-			inverseJoinColumns = @JoinColumn(name = "user_profile_id",referencedColumnName = "id")
+		name = "exercise_favorite",
+		joinColumns = @JoinColumn(name = "exercise_id",referencedColumnName = "id"),
+		inverseJoinColumns = @JoinColumn(name = "user_profile_id",referencedColumnName = "id")
 	)
 	private List<UserProfile> favoriteUser;
 
-	@ManyToMany(fetch = FetchType.LAZY)
+	@ManyToMany(
+		fetch = FetchType.LAZY,
+		cascade = {CascadeType.PERSIST,CascadeType.MERGE}
+	)
 	@JoinTable(
-			name = "exercise_session",
-			joinColumns = @JoinColumn(name = "exercise_id",referencedColumnName = "id"),
-			inverseJoinColumns = @JoinColumn(name = "session_id",referencedColumnName = "id")
+		name = "exercise_session",
+		joinColumns = @JoinColumn(name = "exercise_id",referencedColumnName = "id"),
+		inverseJoinColumns = @JoinColumn(name = "session_id",referencedColumnName = "id")
 	)
 
 	private List<Session> sessions;

@@ -14,7 +14,6 @@ public class ActivitiesLog {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Long time;
-
     @ManyToOne(optional = false)
     @JoinColumn(name = "user_profile_id",referencedColumnName = "id")
     private UserProfile userProfile;

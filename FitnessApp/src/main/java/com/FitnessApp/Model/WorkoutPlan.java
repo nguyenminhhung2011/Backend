@@ -27,10 +27,18 @@ public class WorkoutPlan {
 	@Enumerated(EnumType.STRING)
 	private PlanType type;
 
-	@OneToMany(mappedBy = "workoutPlan")
+	@OneToMany(
+		mappedBy = "workoutPlan",
+		orphanRemoval = true,
+		cascade = CascadeType.ALL
+	)
 	private List<DailyWorkout> dailyWorkouts;
 
-	@OneToMany(mappedBy = "workoutPlan")
+	@OneToMany(
+		mappedBy = "workoutPlan",
+		orphanRemoval = true,
+		cascade = CascadeType.ALL
+	)
 	private List<ActivitiesLog> activitiesLogs;
 
 	@ManyToOne

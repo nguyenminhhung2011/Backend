@@ -12,7 +12,6 @@ import com.FitnessApp.Utils.JwtTokenUtils;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Primary;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.InvalidMediaTypeException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -21,8 +20,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 
 @Primary
@@ -60,7 +57,7 @@ private final PasswordEncoder passwordEncoder;
 
 
     @Override
-    public ResponseEntity<?> register(GymerRegistrationRequest request) {
+    public ResponseEntity<?> register(RegistrationRequest request) {
         try {
             List<User> userExits = userRepository.findByUsername(request.getUsername());
 

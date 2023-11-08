@@ -33,6 +33,10 @@ public class DailyWorkout {
 	@JoinColumn(name = "workout_plan_id",referencedColumnName = "id")
 	private WorkoutPlan workoutPlan;
 
-	@OneToMany(mappedBy = "dailyWorkouts")
-	private List<Session> exercises;
+	@OneToMany(
+			mappedBy = "dailyWorkouts",
+			orphanRemoval = true,
+			cascade = CascadeType.ALL
+	)
+	private List<Session> sessions;
 }

@@ -3,7 +3,7 @@ package com.FitnessApp.DTO;
 import lombok.Data;
 
 @Data
-public class GymerRegistrationRequest {
+public class RegistrationRequest {
 	private String fullName;
 	private String username;
 	private String password;

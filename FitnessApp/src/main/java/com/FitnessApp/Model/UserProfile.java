@@ -1,5 +1,6 @@
 package com.FitnessApp.Model;
 
+import java.sql.Date;
 import java.util.List;
 
 import com.FitnessApp.Enums.Frequency;
@@ -21,6 +22,8 @@ public class UserProfile {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date birthday;
 	private double weight;
 	private double height;
 	private String phone;
@@ -40,12 +43,23 @@ public class UserProfile {
 	@JoinColumn(name = "userId", referencedColumnName = "userId")
 	private User user;
 
-	@OneToMany(mappedBy = "userProfile")
+	@OneToMany(
+		mappedBy = "userProfile",
+		cascade = CascadeType.ALL,
+		orphanRemoval = true
+)
 	private List<ActivitiesLog> activitiesLogs; //History
 
-	@ManyToMany(mappedBy = "favoriteUser")
+	@ManyToMany(
+		mappedBy = "favoriteUser",
+		cascade = {CascadeType.PERSIST,CascadeType.MERGE}
+	)
 	private List<Exercise> favoriteExercises;
 
-	@OneToMany(mappedBy = "userProfile")
+	@OneToMany(
+			mappedBy = "userProfile",
+			cascade = {CascadeType.ALL},
+			orphanRemoval = true
+	)
 	private List<WorkoutPlan> workoutPlans;
 }
