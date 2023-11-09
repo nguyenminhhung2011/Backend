@@ -19,7 +19,6 @@ public class DailyWorkoutMapper {
     private ModelMapper modelMapper;
     private ExerciseMapper exerciseMapper;
 
-    @Bean
     public  DailyWorkoutDTO dailyWorkoutDTO(DailyWorkout dailyWorkout){
         TypeMap<DailyWorkout,DailyWorkoutDTO> propertyMapper =
                 modelMapper.typeMap(DailyWorkout.class,DailyWorkoutDTO.class);

@@ -17,9 +17,13 @@ import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Primary;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.orm.hibernate5.SpringJtaSessionContext;
+import org.springframework.orm.hibernate5.SpringSessionContext;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.SpringSecurityCoreVersion;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -47,8 +51,11 @@ public class AuthServiceImpl implements IAuthService{
            if (findByUsername.isEmpty()){
                throw new NotFoundException("Can not find user have this username");
            }
-           authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
+           final Authentication authentication =  authenticationManager.authenticate(
+                   new UsernamePasswordAuthenticationToken(
                    request.username(),request.password()));
+
+
 
            String jwt = jwtTokenUtils.generateToken(request.username());
            String freshToken = jwtTokenUtils.generateTokenRefresh(request.username());
@@ -80,14 +87,11 @@ public class AuthServiceImpl implements IAuthService{
                }
 
 
-               String jwt = jwtTokenUtils.generateToken(request.getUsername());
-               String freshToken = jwtTokenUtils.generateTokenRefresh(request.getUsername());
-
                User newUser = new User(
                        null,
                        request.getUsername(),
                        passwordEncoder.encode(request.getPassword()) ,
-                       freshToken,
+                       null,
                        null
                );
 
@@ -103,7 +107,7 @@ public class AuthServiceImpl implements IAuthService{
                final UserDTO userDto = userMapper.userDTO(finalUser);
 
                return ResponseEntity.ok(
-                       new AuthResponse(jwt,freshToken,userDto)
+                       userDto
                );
 
            }catch (Exception e){

@@ -69,7 +69,7 @@ public class WebSecurityConfig {
 						auth.anyRequest().authenticated();
 
 					})
-					.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+//					.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 					.authenticationManager(authenticationManager(http))
 					.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
 					.exceptionHandling(exception -> exception.accessDeniedHandler(jwtAccessDeniedHandler))

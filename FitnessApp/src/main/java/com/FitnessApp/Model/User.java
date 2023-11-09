@@ -36,7 +36,6 @@ public class User implements Serializable {
 
 	@JsonView(value = {UserViews.Detail.class})
 	@Column(columnDefinition = "text")
-	@NotBlank
 	private String refreshToken;
 
 //	@JsonManagedReference

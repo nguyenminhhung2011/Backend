@@ -2,6 +2,7 @@ package com.FitnessApp.Service.Generic;
 
 import com.FitnessApp.DTO.Request.FetchExerciseRequest;
 import com.FitnessApp.DTO.Request.PageRequest;
+import com.FitnessApp.Exceptions.AppException.NotFoundException;
 import com.FitnessApp.Model.Exercise;
 import com.FitnessApp.Repository.GenericSearchRepository;
 import jakarta.persistence.criteria.Expression;
@@ -9,9 +10,9 @@ import jakarta.persistence.criteria.Path;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.stereotype.Service;
 
 import java.util.*;
-
 public abstract class GenericSearchService<T> implements IGenericService<T> {
 
     private final PageRequest pageRequest = new PageRequest(1,10);
@@ -38,8 +39,16 @@ public abstract class GenericSearchService<T> implements IGenericService<T> {
     }
 
     @Override
-    public Optional<T> findById(Long id) {
-        return genericRepository.findById(id);
+    public T findById(Long id) throws NotFoundException{
+        Optional<T> entity = genericRepository.findById(id);
+        if (entity.isEmpty()){
+            throw new NotFoundException("Can not found i");
+        }
+        return entity.get();
+    }
+
+    protected <R> Specification<T> specification(String field,R value){
+        return (root, cq, cb) -> cb.like(root.get("name"), "%" + value + "%");
     }
 
     protected Page<T> searchAllOf(List<Specification<T>> request) {
@@ -50,13 +59,6 @@ public abstract class GenericSearchService<T> implements IGenericService<T> {
                 .withPage(pageRequest.page()));
     }
 
-    protected Page<T> searchAllOfs(HashMap<Path var1, String var2> request) {
-        Specification<T> specCombine = Specification.allOf(request);
-        return genericRepository.findAll(specCombine,
-                Pageable
-                        .ofSize(pageRequest.perPage())
-                        .withPage(pageRequest.page()));
-    }
     protected Page<T> searchAnyOf(List<Specification<T>> request) {
         Specification<T> specCombine = Specification.anyOf(request);
         return genericRepository.findAll(specCombine,

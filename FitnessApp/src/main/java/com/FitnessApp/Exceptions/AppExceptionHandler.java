@@ -5,10 +5,12 @@ import com.FitnessApp.Exceptions.AppException.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.multipart.MaxUploadSizeExceededException;
 
 import javax.naming.AuthenticationException;
@@ -17,8 +19,6 @@ import java.util.Map;
 @Slf4j
 @RestControllerAdvice
 public class AppExceptionHandler {
-
-
     @ExceptionHandler(value = Exception.class)
     public ResponseEntity<ResponseObject> handleException(Exception e) {
         ResponseObject errorResponse = new ResponseObject(HttpStatus.INTERNAL_SERVER_ERROR.value(), e.getMessage(), null);
@@ -34,6 +34,14 @@ public class AppExceptionHandler {
         log.warn("MethodArgumentNotValidException: {}", e.getMessage());
         return ResponseEntity.badRequest().body(errorResponse);
     }
+
+    @ExceptionHandler(value = AccessDeniedException.class)
+    public ResponseEntity<ResponseObject> handleAccessDeniedException(AccessDeniedException e) {
+        ResponseObject errorResponse = new ResponseObject(HttpStatus.BAD_REQUEST.value(), "Error validation", null);
+        log.warn("AccessDenied: {}", e.getMessage());
+        return ResponseEntity.badRequest().body(errorResponse);
+    }
+
 
     @ExceptionHandler(value = IllegalArgumentException.class)
     public ResponseEntity<ResponseObject> handleIllegalArgumentException(IllegalArgumentException e) {

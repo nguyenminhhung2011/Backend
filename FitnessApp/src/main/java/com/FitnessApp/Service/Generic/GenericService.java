@@ -1,12 +1,12 @@
 package com.FitnessApp.Service.Generic;
 
-import com.FitnessApp.Repository.GenericRepository;
+import com.FitnessApp.Exceptions.AppException.NotFoundException;
 import com.FitnessApp.Repository.GenericSearchRepository;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-
 
 public class GenericService<T> implements IGenericService<T> {
 
@@ -32,8 +32,12 @@ public class GenericService<T> implements IGenericService<T> {
     }
 
     @Override
-    public Optional<T> findById(Long id) {
-        return genericRepository.findById(id);
+    public T findById(Long id) {
+        Optional<T> entity = genericRepository.findById(id);
+        if (entity.isEmpty()){
+            throw new NotFoundException("Can not found");
+        }
+        return entity.get();
     }
 
 }

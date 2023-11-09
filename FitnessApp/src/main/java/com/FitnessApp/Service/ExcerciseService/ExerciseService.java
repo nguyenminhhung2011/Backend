@@ -18,11 +18,12 @@ public class ExerciseService extends GenericSearchService<Exercise> {
 		super(exerciseRepository);
 	}
 
-	protected Page<Exercise> searchExercise(FetchExerciseRequest request) {
+	public Page<Exercise> searchExercise(FetchExerciseRequest request) {
 		return super.searchAllOf(List.of(
-				(exercise, cq, cb) -> cb.like(exercise.get("name"), "%" + request.name() + "%"),
-				(exercise, cq, cb) -> cb.like(exercise.get("bodyPart"), "%" + request.bodyPart() + "%"),
-				(exercise, cq, cb) -> cb.like(exercise.get("target"), "%" + request.target() + "%"),
-				));
+				specification("name",request.name()),
+				specification("target",request.target()),
+				specification("bodyPart",request.bodyPart())
+			)
+		);
 	}
 }
