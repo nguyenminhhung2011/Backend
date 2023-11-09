@@ -1,17 +1,16 @@
-package com.FitnessApp.DTO;
+package com.FitnessApp.DTO.DataClass;
 
 import com.FitnessApp.Model.Steps;
-import com.fasterxml.jackson.core.JacksonException;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.KeyDeserializer;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class InstructionsDeserialize extends StdDeserializer<List<Steps>> {
 
@@ -29,9 +28,9 @@ public class InstructionsDeserialize extends StdDeserializer<List<Steps>> {
         JsonNode node = jp.getCodec().readTree(jp);
 
         List<Steps> result = new ArrayList<>();
-
+        AtomicInteger step = new AtomicInteger();
         node.forEach(jsonNode -> {
-            result.add(new Steps(jsonNode.asText("")));
+            result.add(new Steps(step.getAndIncrement(),jsonNode.asText("")));
         });
 
         return result;

@@ -1,4 +1,4 @@
-package com.FitnessApp.DTO;
+package com.FitnessApp.DTO.DataClass;
 
 import com.FitnessApp.Model.Steps;
 import lombok.AllArgsConstructor;
@@ -14,13 +14,11 @@ import java.util.List;
 public class ExerciseDTO {
     private Long id;
     private String name;
-
     private String description;
     private String exerciseCategory;
     private double caloriesPerMinute;
     private String videoUrl;
     private List<Steps> steps;
-
     private int sets;
     private int reps;
 }

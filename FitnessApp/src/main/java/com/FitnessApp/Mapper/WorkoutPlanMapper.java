@@ -1,11 +1,10 @@
 package com.FitnessApp.Mapper;
 
-import com.FitnessApp.DTO.DailyWorkoutDTO;
-import com.FitnessApp.DTO.WorkoutPlanDTO;
+import com.FitnessApp.DTO.DataClass.DailyWorkoutDTO;
+import com.FitnessApp.DTO.DataClass.WorkoutPlanDTO;
 import com.FitnessApp.Model.DailyWorkout;
 import com.FitnessApp.Model.WorkoutPlan;
 import lombok.AllArgsConstructor;
-import org.hibernate.boot.jaxb.hbm.spi.JaxbHbmUnsavedValueCompositeIdEnum;
 import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeMap;

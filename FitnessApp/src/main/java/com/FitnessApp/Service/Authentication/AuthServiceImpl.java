@@ -1,11 +1,11 @@
 package com.FitnessApp.Service.Authentication;
 
-import com.FitnessApp.DTO.*;
+import com.FitnessApp.DTO.DataClass.ResponseObject;
 import com.FitnessApp.DTO.Request.AuthRequest;
 import com.FitnessApp.DTO.Request.RegistrationRequest;
 import com.FitnessApp.DTO.Response.AuthResponse;
 import com.FitnessApp.DTO.Response.TokenResponse;
-import com.FitnessApp.DTO.User.UserDTO;
+import com.FitnessApp.DTO.DataClass.User.UserDTO;
 import com.FitnessApp.Exceptions.AppException.NotFoundException;
 import com.FitnessApp.Mapper.UserMapper;
 import com.FitnessApp.Model.User;
@@ -34,7 +34,7 @@ import java.util.List;
 public class AuthServiceImpl implements IAuthService{
     private final UserRepository userRepository;
     private final JwtTokenUtils jwtTokenUtils;
-    private AuthenticationManager authenticationManager;
+    private final AuthenticationManager authenticationManager;
     private final PasswordEncoder passwordEncoder;
     private final UserMapper userMapper;
     private final UserProfileRepository userProfileRepository;

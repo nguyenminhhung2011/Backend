@@ -1,4 +1,4 @@
-package com.FitnessApp.DTO;
+package com.FitnessApp.DTO.DataClass;
 
 import com.FitnessApp.Enums.PlanType;
 import lombok.*;

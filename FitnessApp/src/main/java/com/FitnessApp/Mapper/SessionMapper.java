@@ -1,6 +1,6 @@
 package com.FitnessApp.Mapper;
 
-import com.FitnessApp.DTO.SessionDTO;
+import com.FitnessApp.DTO.DataClass.SessionDTO;
 import com.FitnessApp.Model.Session;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;

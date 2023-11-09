@@ -1,5 +1,7 @@
 package com.FitnessApp.Service.Generic;
 
+import com.FitnessApp.Repository.GenericRepository;
+import com.FitnessApp.Repository.GenericSearchRepository;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
@@ -15,39 +17,24 @@ public class GenericService<T> implements IGenericService<T> {
     }
 
     @Override
-    public List<T> findAll() throws Exception {
-        try {
-            return genericRepository.findAll();
-        } catch (Exception e) {
-            throw e;
-        }
+    public List<T> findAll() {
+        return genericRepository.findAll();
     }
 
     @Override
-    public T save(T entity) throws Exception {
-        try {
-            return genericRepository.save(entity);
-        } catch (Exception e) {
-            throw e;
-        }
+    public T save(T entity) {
+        return genericRepository.save(entity);
     }
 
     @Override
-    public void delete(Long id) throws Exception {
-        try {
-            genericRepository.deleteById(id);
-        } catch (Exception e) {
-            throw e;
-        }
+    public void delete(Long id) {
+        genericRepository.deleteById(id);
     }
 
     @Override
-    public Optional<T> findById(Long id) throws Exception {
-        try {
-            return (Optional<T>) genericRepository.findById(id);
-        } catch (Exception e) {
-            throw e;
-        }
+    public Optional<T> findById(Long id) {
+        return genericRepository.findById(id);
     }
 
 }
+

@@ -2,41 +2,63 @@ package com.FitnessApp.Model;
 
 import java.util.List;
 
-import com.FitnessApp.DTO.InstructionsDeserialize;
+import com.FitnessApp.DTO.DataClass.InstructionsDeserialize;
+import com.FitnessApp.DTO.Views.ExerciseViews;
+import com.FitnessApp.DTO.Views.SessionViews;
+import com.FitnessApp.DTO.Views.UserViews;
 import com.fasterxml.jackson.annotation.*;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.springframework.lang.NonNull;
+import lombok.*;
 
 @Entity
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonIgnoreType
 @JsonIgnoreProperties(value = {"secondaryMuscles","id",})
 public class Exercise {
+
+	@JsonView(value = {ExerciseViews.Summary.class, SessionViews.Summary.class, UserViews.Summary.class,})
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY) // This indicates auto-generation of IDs
 	private Long id;
+	@JsonView(value = {ExerciseViews.Summary.class, SessionViews.Summary.class, UserViews.Summary.class,})
 	private String name;
+
+	@JsonView(value = {ExerciseViews.Summary.class, SessionViews.Summary.class, UserViews.Summary.class,})
 	private String description;
+
+	@JsonView(value = {ExerciseViews.Summary.class, SessionViews.Summary.class, UserViews.Summary.class,})
 	private String exerciseCategory;
+
+	@JsonView(value = {ExerciseViews.Detail.class})
 	private double caloriesPerMinute;
+
+	@JsonView(value = {ExerciseViews.Detail.class})
 	private int sets;
+
+	@JsonView(value = {ExerciseViews.Detail.class})
 	private int reps;
 	//
+	@JsonView(value = {ExerciseViews.Detail.class})
 	@JsonProperty("target")
 	private String target;
+
+	@JsonView(value = {ExerciseViews.Summary.class, UserViews.Summary.class,})
 	@JsonProperty("gifUrl")
 	private String videoUrl;
+
+	@JsonView(value = {ExerciseViews.Detail.class})
 	@JsonProperty("equipment")
 	private String equipment;
+
+	@JsonView(value = {ExerciseViews.Detail.class})
 	@JsonProperty("bodyPart")
 	private String bodyPart;
 
+	@JsonView(value = {ExerciseViews.Detail.class})
 	@JsonProperty("instructions")
 	@JsonDeserialize(using = InstructionsDeserialize.class)
 	@OneToMany(mappedBy = "exercise",cascade = CascadeType.ALL,orphanRemoval = true)
@@ -63,7 +85,6 @@ public class Exercise {
 		joinColumns = @JoinColumn(name = "exercise_id",referencedColumnName = "id"),
 		inverseJoinColumns = @JoinColumn(name = "session_id",referencedColumnName = "id")
 	)
-
 	private List<Session> sessions;
 
 }

@@ -1,11 +1,10 @@
 package com.FitnessApp.Mapper;
 
-import com.FitnessApp.DTO.User.UserDTO;
-import com.FitnessApp.DTO.User.UserProfileDTO;
+import com.FitnessApp.DTO.DataClass.User.UserDTO;
+import com.FitnessApp.DTO.DataClass.User.UserProfileDTO;
 import com.FitnessApp.Model.User;
 import com.FitnessApp.Model.UserProfile;
 import lombok.AllArgsConstructor;
-import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeMap;
 import org.springframework.stereotype.Component;

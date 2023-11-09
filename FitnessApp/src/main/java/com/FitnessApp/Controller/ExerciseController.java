@@ -3,6 +3,7 @@ package com.FitnessApp.Controller;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,58 +14,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.FitnessApp.DTO.ResponseObject;
+import com.FitnessApp.DTO.DataClass.ResponseObject;
 import com.FitnessApp.Utils.JwtTokenUtils;
 import com.FitnessApp.Model.User;
 import com.FitnessApp.Service.User.UserService;
 import com.FitnessApp.Service.ExcerciseService.ExerciseService;
 
-@RestController
-@RequestMapping("/test")
-@CrossOrigin(origins = "*", allowedHeaders = { "Content-Type", "Authorization" })
+@AllArgsConstructor
+@RequestMapping("/exercise")
 public class ExerciseController {
 
-	@Autowired
-	ExerciseService eService;
+	private final ExerciseService eService;
 
-	@Autowired
-    JwtTokenUtils jwtHelper;
-
-	@Autowired
-	private UserService uService;
-
-	@GetMapping("/api")
-	public ResponseEntity<?> addExercise(@RequestParam String t)
-			throws InvalidKeySpecException, NoSuchAlgorithmException {
+	@GetMapping("/{id}")
+	public ResponseEntity<?> getExerciseById(@RequestParam String t) {
 
 		return ResponseEntity.status(HttpStatus.OK).body(new ResponseObject(HttpStatus.OK.value(), "HƯng rất đẹp trai", ""));
 
 	}
-
-	@GetMapping("/token")
-	public ResponseEntity<ResponseObject> testToken(@RequestHeader(value = "Authorization") String jwt) {
-		try {
-			jwt = jwt.substring(7, jwt.length());
-
-			String username = jwtHelper.getUsernameFromToken(jwt);
-			System.out.println(username);
-			User user = uService.findOneByUsername(username);
-			if (user != null)
-				return ResponseEntity.status(HttpStatus.OK)
-						.body(new ResponseObject(HttpStatus.OK.value(), "ok", user.getUsername()));
-		} catch (Exception e) {
-			e.printStackTrace();
-			return ResponseEntity.status(HttpStatus.OK).body(new ResponseObject(HttpStatus.OK.value(), "not found data", null));
-		}
-		return null;
-	}
-//	@PostMapping("/add")
-//	public ResponseEntity<?> addExercise(@RequestParam String t)
-//			throws InvalidKeySpecException, NoSuchAlgorithmException {
-//		
-//		return "Hưng không đẹp trai";
-//		return null;
-//		
-//	}
 
 }
