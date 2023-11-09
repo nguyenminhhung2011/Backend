@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.client.HttpClientErrorException;
@@ -17,7 +18,7 @@ import javax.naming.AuthenticationException;
 import java.util.HashMap;
 import java.util.Map;
 @Slf4j
-@RestControllerAdvice
+@ControllerAdvice
 public class AppExceptionHandler {
     @ExceptionHandler(value = Exception.class)
     public ResponseEntity<ResponseObject> handleException(Exception e) {
@@ -37,7 +38,7 @@ public class AppExceptionHandler {
 
     @ExceptionHandler(value = AccessDeniedException.class)
     public ResponseEntity<ResponseObject> handleAccessDeniedException(AccessDeniedException e) {
-        ResponseObject errorResponse = new ResponseObject(HttpStatus.BAD_REQUEST.value(), "Error validation", null);
+        ResponseObject errorResponse = new ResponseObject(HttpStatus.BAD_REQUEST.value(), e.getMessage(), null);
         log.warn("AccessDenied: {}", e.getMessage());
         return ResponseEntity.badRequest().body(errorResponse);
     }

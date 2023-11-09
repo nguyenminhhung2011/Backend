@@ -42,7 +42,7 @@ public abstract class GenericSearchService<T> implements IGenericService<T> {
     public T findById(Long id) throws NotFoundException{
         Optional<T> entity = genericRepository.findById(id);
         if (entity.isEmpty()){
-            throw new NotFoundException("Can not found i");
+            throw new NotFoundException("Can not found item");
         }
         return entity.get();
     }
