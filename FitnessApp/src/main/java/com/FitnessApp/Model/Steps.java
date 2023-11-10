@@ -1,6 +1,7 @@
 package com.FitnessApp.Model;
 
 import com.FitnessApp.DTO.Views.ExerciseViews;
+import com.FitnessApp.Model.Exercise.Exercise;
 import com.fasterxml.jackson.annotation.JsonView;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

@@ -7,14 +7,15 @@ import com.FitnessApp.Enums.Frequency;
 import com.FitnessApp.Enums.Gender;
 import com.FitnessApp.Enums.ThemeStatus;
 import com.FitnessApp.DTO.Views.UserViews;
+import com.FitnessApp.Model.Exercise.Exercise;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonView;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Getter
+@Setter
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
@@ -58,6 +59,7 @@ public class UserProfile {
 
 	@OneToOne(fetch = FetchType.LAZY,optional = false)
 	@JoinColumn(name = "userId", referencedColumnName = "userId")
+	@JsonIgnore
 	private User user;
 
 	@JsonView(value = {UserViews.Detail.class})

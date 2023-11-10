@@ -121,4 +121,11 @@ public class AppExceptionHandler {
         return ResponseEntity.status(errorResponse.status()).body(errorResponse);
     }
 
+    @ExceptionHandler(value = ClassNotFoundException.class)
+    public ResponseEntity<ResponseObject> handleClassNotFoundException(ClassNotFoundException e) {
+        ResponseObject errorResponse = new ResponseObject(HttpStatus.BAD_REQUEST.value(), e.getMessage(), null);
+        log.warn("ClassNotFoundException: {}", e.getMessage());
+        return ResponseEntity.status(errorResponse.status()).body(errorResponse);
+    }
+
 }

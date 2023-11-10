@@ -2,6 +2,7 @@ package com.FitnessApp.Service.Authentication;
 
 import com.FitnessApp.DTO.DataClass.ResponseObject;
 import com.FitnessApp.DTO.Request.AuthRequest;
+import com.FitnessApp.DTO.Request.PageRequest;
 import com.FitnessApp.DTO.Request.RegistrationRequest;
 import com.FitnessApp.DTO.Response.AuthResponse;
 import com.FitnessApp.DTO.Response.TokenResponse;
@@ -10,13 +11,17 @@ import com.FitnessApp.Exceptions.AppException.NotFoundException;
 import com.FitnessApp.Mapper.UserMapper;
 import com.FitnessApp.Model.User;
 import com.FitnessApp.Model.UserProfile;
+import com.FitnessApp.Repository.ExerciseRepository;
 import com.FitnessApp.Repository.UserProfileRepository;
 import com.FitnessApp.Repository.UserRepository;
+import com.FitnessApp.Service.ExcerciseService.ExerciseService;
 import com.FitnessApp.Utils.JwtTokenUtils;
+import jakarta.persistence.EntityManager;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Primary;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.orm.hibernate5.SessionHolder;
 import org.springframework.orm.hibernate5.SpringJtaSessionContext;
 import org.springframework.orm.hibernate5.SpringSessionContext;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -42,6 +47,9 @@ public class AuthServiceImpl implements IAuthService{
     private final PasswordEncoder passwordEncoder;
     private final UserMapper userMapper;
     private final UserProfileRepository userProfileRepository;
+    private final ExerciseRepository exerciseRepository;
+    private final EntityManager entityManager;
+
 
     @Override
     public AuthResponse login(AuthRequest request) throws AuthenticationException {
@@ -96,13 +104,16 @@ public class AuthServiceImpl implements IAuthService{
                        .build();
 
                final UserProfile saveUserProfile = userProfileRepository.save(userProfile);
-               savedUser.setUserProfile(saveUserProfile);
+
+               saveUserProfile.setFavoriteExercises(exerciseRepository.findAll().subList(0,10));
+
+               final UserProfile saveUserFavorite = userProfileRepository.save(saveUserProfile);
+
+               savedUser.setUserProfile(saveUserFavorite);
                final User finalUser = userRepository.save(savedUser);
                final UserDTO userDto = userMapper.userDTO(finalUser);
 
-               return ResponseEntity.ok(
-                       userDto
-               );
+               return ResponseEntity.ok(finalUser);
 
            }catch (Exception e){
                throw new AuthenticationException("Failed: Can not register user: " + e.getMessage());

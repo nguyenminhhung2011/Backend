@@ -1,7 +1,7 @@
 package com.FitnessApp.Mapper;
 
 import com.FitnessApp.DTO.DataClass.ExerciseDTO;
-import com.FitnessApp.Model.Exercise;
+import com.FitnessApp.Model.Exercise.Exercise;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeMap;

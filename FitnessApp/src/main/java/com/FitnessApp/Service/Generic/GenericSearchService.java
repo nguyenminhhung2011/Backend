@@ -1,16 +1,11 @@
 package com.FitnessApp.Service.Generic;
 
-import com.FitnessApp.DTO.Request.FetchExerciseRequest;
 import com.FitnessApp.DTO.Request.PageRequest;
 import com.FitnessApp.Exceptions.AppException.NotFoundException;
-import com.FitnessApp.Model.Exercise;
 import com.FitnessApp.Repository.GenericSearchRepository;
-import jakarta.persistence.criteria.Expression;
-import jakarta.persistence.criteria.Path;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.stereotype.Service;
 
 import java.util.*;
 public abstract class GenericSearchService<T> implements IGenericService<T> {
@@ -47,7 +42,10 @@ public abstract class GenericSearchService<T> implements IGenericService<T> {
     }
 
     protected <R> Specification<T> specification(String field,R value){
-        return (root, cq, cb) -> cb.like(root.get("name"), "%" + value + "%");
+        if (value == null){
+            return Specification.anyOf();
+        }
+        return (root, cq, cb) -> cb.like(root.get(field), "%" + value + "%");
     }
 
     protected Page<T> searchAllOf(List<Specification<T>> request,PageRequest pageRequest) {

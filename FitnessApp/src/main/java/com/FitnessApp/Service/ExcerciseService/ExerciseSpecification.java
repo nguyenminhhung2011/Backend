@@ -1,7 +1,7 @@
 package com.FitnessApp.Service.ExcerciseService;
 
 import com.FitnessApp.DTO.Request.FetchExerciseRequest;
-import com.FitnessApp.Model.Exercise;
+import com.FitnessApp.Model.Exercise.Exercise;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;

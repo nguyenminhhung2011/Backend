@@ -1,25 +1,17 @@
 package com.FitnessApp.Controller;
 
-import java.security.NoSuchAlgorithmException;
-import java.security.spec.InvalidKeySpecException;
-
 import com.FitnessApp.DTO.Request.FetchExerciseRequest;
 import com.FitnessApp.DTO.Request.PageRequest;
 import com.FitnessApp.DTO.Views.ExerciseViews;
-import com.FitnessApp.Exceptions.AppException.NotFoundException;
-import com.FitnessApp.Model.Exercise;
+import com.FitnessApp.Model.Exercise.BodyPart;
+import com.FitnessApp.Model.Exercise.Equipment;
+import com.FitnessApp.Model.Exercise.Target;
 import com.fasterxml.jackson.annotation.JsonView;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+import lombok.Getter;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.*;
 
-import com.FitnessApp.DTO.DataClass.ResponseObject;
-import com.FitnessApp.Utils.JwtTokenUtils;
-import com.FitnessApp.Model.User;
-import com.FitnessApp.Service.User.UserService;
 import com.FitnessApp.Service.ExcerciseService.ExerciseService;
 
 @RestController
@@ -47,4 +39,22 @@ public class ExerciseController {
 		return ResponseEntity.ok(eService.searchExercise(request));
 	}
 
+
+	@GetMapping("/body-part")
+	@JsonView(ExerciseViews.Summary.class)
+	public ResponseEntity<?> getBodyPart() {
+		return ResponseEntity.ok(eService.getListDataOf(BodyPart.class));
+	}
+
+	@GetMapping("/target")
+	@JsonView(ExerciseViews.Summary.class)
+	public ResponseEntity<?> getTarget() {
+		return ResponseEntity.ok(eService.getListDataOf(Target.class));
+	}
+
+	@GetMapping("/equipment")
+	@JsonView(ExerciseViews.Summary.class)
+	public ResponseEntity<?> getEquipment() {
+		return ResponseEntity.ok(eService.getListDataOf(Equipment.class));
+	}
 }

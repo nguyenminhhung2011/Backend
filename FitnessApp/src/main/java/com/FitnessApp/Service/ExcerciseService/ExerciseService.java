@@ -2,27 +2,41 @@ package com.FitnessApp.Service.ExcerciseService;
 
 import com.FitnessApp.DTO.Request.FetchExerciseRequest;
 import com.FitnessApp.DTO.Request.PageRequest;
+import com.FitnessApp.Model.Exercise.BodyPart;
+import com.FitnessApp.Model.Exercise.Equipment;
+import com.FitnessApp.Model.Exercise.Target;
+import com.FitnessApp.Repository.BodyPartRepository;
+import com.FitnessApp.Repository.EquipmentRepository;
+import com.FitnessApp.Repository.TargetRepository;
 import com.FitnessApp.Service.Generic.GenericSearchService;
-import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.Repository;
 import org.springframework.stereotype.Service;
 
-import com.FitnessApp.Model.Exercise;
+import com.FitnessApp.Model.Exercise.Exercise;
 import com.FitnessApp.Repository.ExerciseRepository;
-import com.FitnessApp.Service.Generic.GenericService;
 
-import java.util.List;
+import java.lang.reflect.Field;
+import java.lang.reflect.Type;
+import java.util.*;
 
 @Service
 public class ExerciseService extends GenericSearchService<Exercise> {
-	public ExerciseService(ExerciseRepository exerciseRepository) {
+
+	private  final  Map<Type, CrudRepository> repositoryMap = new HashMap<>();
+	public ExerciseService(ExerciseRepository exerciseRepository, TargetRepository targetRepository, EquipmentRepository equipmentRepository, BodyPartRepository bodyPartRepository) {
 		super(exerciseRepository);
+		repositoryMap.put(Target.class,targetRepository);
+		repositoryMap.put(BodyPart.class,bodyPartRepository);
+		repositoryMap.put(Equipment.class,equipmentRepository);
 	}
 
 	public Page<Exercise> searchExercise(FetchExerciseRequest request) {
+		final Class<FetchExerciseRequest> test = FetchExerciseRequest.class;
+
 		final List<Specification<Exercise>> filter = List.of(
 				specification("name", request.name()),
 				specification("target", request.target()),
@@ -54,5 +68,20 @@ public class ExerciseService extends GenericSearchService<Exercise> {
 	}
 
 
+	public <T> List<T> getListDataOf(Type type){
+		if (repositoryMap.containsKey(type)) {
+			List<T> result = new ArrayList<>();
+
+			final Iterable<T> item = repositoryMap.get(type).findAll();
+
+			item.forEach(result::add);
+
+			return result;
+		}
+
+		else {
+			return new ArrayList<>();
+		}
+	}
 
 }

@@ -4,7 +4,7 @@ import com.FitnessApp.Enums.Frequency;
 import com.FitnessApp.Enums.Gender;
 import com.FitnessApp.Enums.ThemeStatus;
 import com.FitnessApp.Model.ActivitiesLog;
-import com.FitnessApp.Model.Exercise;
+import com.FitnessApp.Model.Exercise.Exercise;
 import com.FitnessApp.Model.WorkoutPlan;
 import lombok.Data;
 
