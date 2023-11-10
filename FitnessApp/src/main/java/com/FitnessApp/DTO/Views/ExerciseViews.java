@@ -5,4 +5,7 @@ public class ExerciseViews {
     }
     public static interface Detail extends Summary {
     }
+
+    public static interface Hide {
+    }
 }

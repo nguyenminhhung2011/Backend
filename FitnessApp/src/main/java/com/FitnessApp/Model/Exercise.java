@@ -17,13 +17,14 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonIgnoreType
-@JsonIgnoreProperties(value = {"secondaryMuscles","id",})
+@JsonIgnoreProperties(value = {"secondaryMuscles"})
 public class Exercise {
 
-	@JsonView(value = {ExerciseViews.Summary.class, SessionViews.Summary.class, UserViews.Summary.class,})
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY) // This indicates auto-generation of IDs
+	@JsonView(value = {ExerciseViews.Summary.class, SessionViews.Summary.class, UserViews.Summary.class,})
 	private Long id;
+
 	@JsonView(value = {ExerciseViews.Summary.class, SessionViews.Summary.class, UserViews.Summary.class,})
 	private String name;
 
@@ -65,6 +66,7 @@ public class Exercise {
 	private List<Steps> steps;
 	//
 
+	@JsonView(ExerciseViews.Hide.class)
 	@ManyToMany(
 		fetch = FetchType.LAZY,
 		cascade = {CascadeType.PERSIST,CascadeType.MERGE}
@@ -76,6 +78,7 @@ public class Exercise {
 	)
 	private List<UserProfile> favoriteUser;
 
+	@JsonView(ExerciseViews.Hide.class)
 	@ManyToMany(
 		fetch = FetchType.LAZY,
 		cascade = {CascadeType.PERSIST,CascadeType.MERGE}

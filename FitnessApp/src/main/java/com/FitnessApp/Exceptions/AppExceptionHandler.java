@@ -27,6 +27,13 @@ public class AppExceptionHandler {
         return ResponseEntity.internalServerError().body(errorResponse);
     }
 
+    @ExceptionHandler(value = RuntimeException.class)
+    public ResponseEntity<ResponseObject> handleRuntimeException(RuntimeException e) {
+        ResponseObject errorResponse = new ResponseObject(HttpStatus.INTERNAL_SERVER_ERROR.value(), e.getMessage(), null);
+        log.warn("RuntimeException: {}", e.getMessage());
+        return ResponseEntity.internalServerError().body(errorResponse);
+    }
+
     @ExceptionHandler(value = MethodArgumentNotValidException.class)
     public ResponseEntity<ResponseObject> handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
         Map<String, Object> mapError = new HashMap<>();
@@ -102,9 +109,9 @@ public class AppExceptionHandler {
 
     @ExceptionHandler(value = AuthenticationException.class)
     public ResponseEntity<ResponseObject> handleAuthenticationException(AuthenticationException e) {
-        ResponseObject errorResponse = new ResponseObject(HttpStatus.INTERNAL_SERVER_ERROR.value(), e.getMessage(), null);
+        ResponseObject errorResponse = new ResponseObject(HttpStatus.BAD_REQUEST.value(), e.getMessage(), null);
         log.warn("AuthenticationException: {}", e.getMessage());
-        return ResponseEntity.internalServerError().body(errorResponse);
+        return ResponseEntity.badRequest().body(errorResponse);
     }
 
     @ExceptionHandler(value = BadCredentialsException.class)

@@ -8,10 +8,12 @@ import java.util.Map;
 import java.util.Objects;
 
 import com.FitnessApp.Config.WebSecurityConfig;
+import com.FitnessApp.DTO.DataClass.ResponseObject;
 import com.FitnessApp.Utils.JwtTokenUtils;
 import jakarta.servlet.ServletException;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -19,6 +21,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.util.AntPathMatcher;
+import org.springframework.web.ErrorResponse;
 import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -46,17 +49,20 @@ public class JwtFilter extends OncePerRequestFilter {
 		@NonNull HttpServletRequest request,
 		@NonNull HttpServletResponse response,
 		@NonNull FilterChain filterChain
-	) throws IOException, RuntimeException, ServletException {
-
-		// Lấy jwt từ request
-		String jwt = getJwtFromRequest(request);
-
-		if (jwt == null) {
-			filterChain.doFilter(request, response);
-			return;
-		}
+	) throws IOException {
 		try {
-			if (tokenProvider.validateToken(jwt)) {
+			// Lấy jwt từ request
+			String jwt = getJwtFromRequest(request);
+
+			if (Arrays.stream(WebSecurityConfig.whiteListedRoutes)
+					.anyMatch(route -> antPathMatcher.match(route, request.getServletPath())) ||
+					Objects.isNull(jwt)) {
+				filterChain.doFilter(request, response);
+				return;
+			}
+
+
+            if (tokenProvider.validateToken(jwt)) {
 				String userId = tokenProvider.getUsernameFromToken(jwt);
 				UserDetails userDetails = userDetailImp.loadUserByUsername(userId);
 
@@ -70,12 +76,21 @@ public class JwtFilter extends OncePerRequestFilter {
 					SecurityContextHolder.getContext().setAuthentication(authentication);
 				}
 			}
+
+			filterChain.doFilter(request, response);
 		} catch (Exception e) {
-			throw new RuntimeException(e);
+			handleErrorResponse(response,e);
 		}
+	}
 
-		filterChain.doFilter(request, response);
+	private void handleErrorResponse(HttpServletResponse response,Exception e) throws IOException {
+		ResponseObject errorResponse = new ResponseObject(HttpStatus.UNAUTHORIZED.value(), e.getMessage(), null);
 
+		response.resetBuffer();
+		response.setStatus(HttpStatus.UNAUTHORIZED.value());
+		response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+		response.getOutputStream().print(new ObjectMapper().writeValueAsString(errorResponse));
+		response.flushBuffer();
 	}
 
 	private String getJwtFromRequest(HttpServletRequest request) {

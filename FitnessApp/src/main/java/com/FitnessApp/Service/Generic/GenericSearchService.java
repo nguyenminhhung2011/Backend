@@ -15,13 +15,12 @@ import org.springframework.stereotype.Service;
 import java.util.*;
 public abstract class GenericSearchService<T> implements IGenericService<T> {
 
-    private final PageRequest pageRequest = new PageRequest(1,10);
+    private final PageRequest defaultPageRequest = new PageRequest(1,10);
     protected final GenericSearchRepository<T, Long> genericRepository;
 
     public GenericSearchService(GenericSearchRepository<T, Long> genericRepository) {
         this.genericRepository = genericRepository;
     }
-
 
     @Override
     public List<T> findAll() {
@@ -51,27 +50,49 @@ public abstract class GenericSearchService<T> implements IGenericService<T> {
         return (root, cq, cb) -> cb.like(root.get("name"), "%" + value + "%");
     }
 
-    protected Page<T> searchAllOf(List<Specification<T>> request) {
+    protected Page<T> searchAllOf(List<Specification<T>> request,PageRequest pageRequest) {
         Specification<T> specCombine = Specification.allOf(request);
+
         return genericRepository.findAll(specCombine,
                 Pageable
                 .ofSize(pageRequest.perPage())
                 .withPage(pageRequest.page()));
     }
 
-    protected Page<T> searchAnyOf(List<Specification<T>> request) {
+    protected Page<T> searchAllOf(List<Specification<T>> request) {
+        Specification<T> specCombine = Specification.allOf(request);
+        return genericRepository.findAll(specCombine,Pageable.unpaged());
+    }
+
+    protected Page<T> searchAnyOf(List<Specification<T>> request,PageRequest pageRequest) {
         Specification<T> specCombine = Specification.anyOf(request);
+
         return genericRepository.findAll(specCombine,
                 Pageable
                         .ofSize(pageRequest.perPage())
                         .withPage(pageRequest.page()));
     }
 
-    protected Page<T> search(Specification<T> request) {
-        return genericRepository.findAll(request,
-                Pageable
-                        .ofSize(pageRequest.perPage())
-                        .withPage(pageRequest.page()));
+    protected Page<T> searchAnyOf(List<Specification<T>> request) {
+        Specification<T> specCombine = Specification.anyOf(request);
+        return genericRepository.findAll(specCombine,Pageable.unpaged());
     }
 
+    protected Page<T> search(Specification<T> request,PageRequest pageRequest) {
+        return genericRepository.findAll(request,Pageable
+                .ofSize(pageRequest.perPage())
+                .withPage(pageRequest.page()));
+    }
+
+    protected Page<T> search(Specification<T> request) {
+        return genericRepository.findAll(request,Pageable.unpaged());
+    }
+
+    protected Specification<T> anyOf(List<Specification<T>> specifications){
+        return Specification.anyOf(specifications);
+    }
+
+    protected Specification<T> allOf(List<Specification<T>> specifications){
+        return Specification.allOf(specifications);
+    }
 }

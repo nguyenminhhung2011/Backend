@@ -45,7 +45,6 @@ public class AuthServiceImpl implements IAuthService{
 
     @Override
     public AuthResponse login(AuthRequest request) throws AuthenticationException {
-       try {
            List<User> findByUsername = userRepository.findByUsername(request.username());
 
            if (findByUsername.isEmpty()){
@@ -54,8 +53,6 @@ public class AuthServiceImpl implements IAuthService{
            final Authentication authentication =  authenticationManager.authenticate(
                    new UsernamePasswordAuthenticationToken(
                    request.username(),request.password()));
-
-
 
            String jwt = jwtTokenUtils.generateToken(request.username());
            String freshToken = jwtTokenUtils.generateTokenRefresh(request.username());
@@ -67,9 +64,6 @@ public class AuthServiceImpl implements IAuthService{
            final User currentUser  = userRepository.save(user);
            final UserDTO userDTO = userMapper.userDTO(currentUser);
            return new AuthResponse(jwt,freshToken,userDTO);
-       }catch (Exception e){
-           throw new AuthenticationException(e.getMessage());
-       }
     }
 
     @Override
