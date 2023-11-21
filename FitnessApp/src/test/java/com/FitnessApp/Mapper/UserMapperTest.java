@@ -1,21 +1,13 @@
 package com.FitnessApp.Mapper;
 
-import com.FitnessApp.DTO.User.UserDTO;
-import com.FitnessApp.Enums.Frequency;
-import com.FitnessApp.Enums.Gender;
-import com.FitnessApp.Enums.ThemeStatus;
+import com.FitnessApp.DTO.DataClass.User.UserDTO;
 import com.FitnessApp.Model.User;
 import com.FitnessApp.Model.UserProfile;
-import com.cloudinary.provisioning.Account;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 
 @SpringBootTest

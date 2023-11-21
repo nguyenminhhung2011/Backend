@@ -1,9 +1,6 @@
-package com.FitnessApp.DTO.User;
+package com.FitnessApp.DTO.DataClass.User;
 
-import com.FitnessApp.Model.Role;
 import lombok.*;
-
-import java.util.Set;
 
 @Getter
 @Setter

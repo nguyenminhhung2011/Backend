@@ -1,7 +1,10 @@
 package com.FitnessApp.Controller;
 
+import com.FitnessApp.DTO.Views.UserViews;
+import com.FitnessApp.Exceptions.AppException.NotFoundException;
 import com.FitnessApp.Model.User;
 import com.FitnessApp.Service.User.UserService;
+import com.fasterxml.jackson.annotation.JsonView;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,11 +20,12 @@ import java.util.Optional;
 public class UserController {
     private final UserService uService;
 
+    @JsonView(UserViews.Detail.class)
     @GetMapping("/{id}")
     ResponseEntity<?> getUser(@PathVariable long id){
         final Optional<User> user = uService.findById(id);
         if (user.isEmpty()){
-            return ResponseEntity.notFound().build();
+            throw new NotFoundException("Can not corresponding user");
         }
 
         return ResponseEntity.ok().body(user.get());

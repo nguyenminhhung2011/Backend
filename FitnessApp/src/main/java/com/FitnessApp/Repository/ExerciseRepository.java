@@ -1,8 +1,8 @@
 package com.FitnessApp.Repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import com.FitnessApp.Model.Exercise.Exercise;
+import org.springframework.stereotype.Repository;
 
-import com.FitnessApp.Model.Exercise;
-
-public interface ExerciseRepository extends JpaRepository<Exercise, Long> {
+@Repository
+public interface ExerciseRepository extends GenericSearchRepository<Exercise,Long>{
 }

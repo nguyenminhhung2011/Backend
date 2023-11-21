@@ -8,9 +8,7 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
-@Component
 public class FetchExercisesDB {
-    @Bean
     void fetch() throws IOException {
         OkHttpClient client = new OkHttpClient();
 

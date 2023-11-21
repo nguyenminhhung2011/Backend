@@ -2,6 +2,7 @@ package com.FitnessApp.Security.Model;
 
 import java.util.List;
 
+import com.FitnessApp.Exceptions.AppException.NotFoundException;
 import com.FitnessApp.Model.User;
 import com.FitnessApp.Repository.UserRepository;
 import lombok.AllArgsConstructor;
@@ -20,7 +21,10 @@ public class UserDetailServiceImp implements UserDetailsService{
 		// TODO Auto-generated method stub
 		List<User> result = userRepo.findByUsername(username);
 		if (result.size()>1) {
-			throw(new UsernameNotFoundException("There are Many User"));
+			throw(new NotFoundException("There are Many User"));
+		}
+		if (result.isEmpty()) {
+			return null;
 		}
 		return new CustomUserDetail(result.get(0));
 	}

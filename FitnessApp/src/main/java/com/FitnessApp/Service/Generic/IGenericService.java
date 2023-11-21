@@ -9,6 +9,6 @@ public interface IGenericService <T>{
     T save(T entity) throws Exception;
     void delete(Long id) throws Exception;
     //T findById(Long id) throws Exception;
-    Optional<T> findById(Long id) throws Exception;
+    T findById(Long id) throws Exception;
 
 }

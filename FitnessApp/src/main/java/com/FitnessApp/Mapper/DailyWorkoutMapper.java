@@ -1,15 +1,13 @@
 package com.FitnessApp.Mapper;
 
-import com.FitnessApp.DTO.DailyWorkoutDTO;
-import com.FitnessApp.DTO.ExerciseDTO;
+import com.FitnessApp.DTO.DataClass.DailyWorkoutDTO;
+import com.FitnessApp.DTO.DataClass.ExerciseDTO;
 import com.FitnessApp.Model.DailyWorkout;
-import com.FitnessApp.Model.Exercise;
+import com.FitnessApp.Model.Exercise.Exercise;
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeMap;
-import org.modelmapper.spi.MappingContext;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

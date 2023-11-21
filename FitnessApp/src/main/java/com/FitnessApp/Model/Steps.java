@@ -1,5 +1,8 @@
 package com.FitnessApp.Model;
 
+import com.FitnessApp.DTO.Views.ExerciseViews;
+import com.FitnessApp.Model.Exercise.Exercise;
+import com.fasterxml.jackson.annotation.JsonView;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,11 +16,16 @@ public class Steps {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // This indicates auto-generation of IDs
     private Long id;
-    private String step;
+
+    @JsonView(value = {ExerciseViews.Detail.class})
+    private int step;
+
+    @JsonView(value = {ExerciseViews.Detail.class})
     private String instruction;
 
-    public Steps(String step) {
+    public Steps(int step,String instruction) {
         this.step = step;
+        this.instruction = instruction;
     }
 
     @ManyToOne

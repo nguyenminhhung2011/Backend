@@ -2,15 +2,12 @@ package com.FitnessApp.Model;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.FitnessApp.DTO.Views.UserViews;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
 
 @Entity
@@ -21,12 +18,14 @@ import lombok.*;
 @Builder
 @Table(name = "userInfo")
 public class User implements Serializable {
+	@JsonView(value = {UserViews.Summary.class})
 	@Id
 	@Column(name = "userId")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence_User")
 	@SequenceGenerator(name = "sequence_User", sequenceName = "sequence2", allocationSize = 1)
 	private Long id;
 
+	@JsonView(value = {UserViews.Summary.class})
 	@Column(nullable = false)
 	@NotBlank(message = "Username is mandatory")
 	private String username;
@@ -35,8 +34,8 @@ public class User implements Serializable {
 	@NotBlank(message = "Password is mandatory")
 	private String password;
 
+	@JsonView(value = {UserViews.Detail.class})
 	@Column(columnDefinition = "text")
-	@NotBlank
 	private String refreshToken;
 
 //	@JsonManagedReference
@@ -53,6 +52,7 @@ public class User implements Serializable {
 	@Serial
 	private static final long serialVersionUID = -297553281792804226L;
 
+	@JsonView(value = {UserViews.Summary.class})
 	@OneToOne(mappedBy = "user",cascade = CascadeType.ALL,orphanRemoval = true)
 	private UserProfile userProfile;
 

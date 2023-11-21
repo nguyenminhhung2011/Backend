@@ -27,7 +27,6 @@ import ch.qos.logback.classic.Logger;
 
 @Component
 @RequiredArgsConstructor
-@ComponentScan("com.setqt.Hiring.Security")
 public class CustomAuthenticationProvider implements AuthenticationProvider {
 	private final PasswordEncoder passwordEncoder;
 	private final UserService userService;

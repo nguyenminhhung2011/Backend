@@ -1,70 +1,60 @@
 package com.FitnessApp.Controller;
 
-import java.security.NoSuchAlgorithmException;
-import java.security.spec.InvalidKeySpecException;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+import com.FitnessApp.DTO.Request.FetchExerciseRequest;
+import com.FitnessApp.DTO.Request.PageRequest;
+import com.FitnessApp.DTO.Views.ExerciseViews;
+import com.FitnessApp.Model.Exercise.BodyPart;
+import com.FitnessApp.Model.Exercise.Equipment;
+import com.FitnessApp.Model.Exercise.Target;
+import com.fasterxml.jackson.annotation.JsonView;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import com.FitnessApp.DTO.ResponseObject;
-import com.FitnessApp.Utils.JwtTokenUtils;
-import com.FitnessApp.Model.User;
-import com.FitnessApp.Service.User.UserService;
 import com.FitnessApp.Service.ExcerciseService.ExerciseService;
 
 @RestController
-@RequestMapping("/test")
-@CrossOrigin(origins = "*", allowedHeaders = { "Content-Type", "Authorization" })
+@AllArgsConstructor
+@RequestMapping("/exercise")
 public class ExerciseController {
 
-	@Autowired
-	ExerciseService eService;
+	private final ExerciseService eService;
 
-	@Autowired
-    JwtTokenUtils jwtHelper;
-
-	@Autowired
-	private UserService uService;
-
-	@GetMapping("/api")
-	public ResponseEntity<?> addExercise(@RequestParam String t)
-			throws InvalidKeySpecException, NoSuchAlgorithmException {
-
-		return ResponseEntity.status(HttpStatus.OK).body(new ResponseObject(HttpStatus.OK.value(), "HƯng rất đẹp trai", ""));
-
+	@GetMapping("/{id}")
+	@JsonView(ExerciseViews.Detail.class)
+	public ResponseEntity<?> getExerciseById(@PathVariable Long id) {
+		return ResponseEntity.ok(eService.findById(id));
 	}
 
-	@GetMapping("/token")
-	public ResponseEntity<ResponseObject> testToken(@RequestHeader(value = "Authorization") String jwt) {
-		try {
-			jwt = jwt.substring(7, jwt.length());
-
-			String username = jwtHelper.getUsernameFromToken(jwt);
-			System.out.println(username);
-			User user = uService.findOneByUsername(username);
-			if (user != null)
-				return ResponseEntity.status(HttpStatus.OK)
-						.body(new ResponseObject(HttpStatus.OK.value(), "ok", user.getUsername()));
-		} catch (Exception e) {
-			e.printStackTrace();
-			return ResponseEntity.status(HttpStatus.OK).body(new ResponseObject(HttpStatus.OK.value(), "not found data", null));
-		}
-		return null;
+	@GetMapping
+	@JsonView(ExerciseViews.Summary.class)
+	public ResponseEntity<?> getExercises(@RequestBody PageRequest pageRequest) {
+		return ResponseEntity.ok(eService.fetchExercises(pageRequest));
 	}
-//	@PostMapping("/add")
-//	public ResponseEntity<?> addExercise(@RequestParam String t)
-//			throws InvalidKeySpecException, NoSuchAlgorithmException {
-//		
-//		return "Hưng không đẹp trai";
-//		return null;
-//		
-//	}
 
+	@GetMapping("/search")
+	@JsonView(ExerciseViews.Summary.class)
+	public ResponseEntity<?> searchExercise(@RequestBody FetchExerciseRequest request){
+		return ResponseEntity.ok(eService.searchExercise(request));
+	}
+
+
+	@GetMapping("/body-part")
+	@JsonView(ExerciseViews.Summary.class)
+	public ResponseEntity<?> getBodyPart() {
+		return ResponseEntity.ok(eService.getListDataOf(BodyPart.class));
+	}
+
+	@GetMapping("/target")
+	@JsonView(ExerciseViews.Summary.class)
+	public ResponseEntity<?> getTarget() {
+		return ResponseEntity.ok(eService.getListDataOf(Target.class));
+	}
+
+	@GetMapping("/equipment")
+	@JsonView(ExerciseViews.Summary.class)
+	public ResponseEntity<?> getEquipment() {
+		return ResponseEntity.ok(eService.getListDataOf(Equipment.class));
+	}
 }

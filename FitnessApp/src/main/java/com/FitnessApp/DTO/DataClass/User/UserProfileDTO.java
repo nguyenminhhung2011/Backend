@@ -1,13 +1,11 @@
-package com.FitnessApp.DTO.User;
+package com.FitnessApp.DTO.DataClass.User;
 
 import com.FitnessApp.Enums.Frequency;
 import com.FitnessApp.Enums.Gender;
 import com.FitnessApp.Enums.ThemeStatus;
 import com.FitnessApp.Model.ActivitiesLog;
-import com.FitnessApp.Model.Exercise;
-import com.FitnessApp.Model.User;
+import com.FitnessApp.Model.Exercise.Exercise;
 import com.FitnessApp.Model.WorkoutPlan;
-import jakarta.persistence.*;
 import lombok.Data;
 
 import java.util.List;

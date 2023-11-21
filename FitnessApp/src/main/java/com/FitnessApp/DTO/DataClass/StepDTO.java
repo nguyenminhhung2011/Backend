@@ -1,4 +1,4 @@
-package com.FitnessApp.DTO;
+package com.FitnessApp.DTO.DataClass;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
