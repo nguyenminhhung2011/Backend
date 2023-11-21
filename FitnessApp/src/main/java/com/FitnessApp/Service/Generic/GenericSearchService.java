@@ -8,12 +8,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 
 import java.util.*;
-public abstract class GenericSearchService<T> implements IGenericService<T> {
+public abstract class GenericSearchService<T,ID> implements IGenericService<T,ID> {
 
     private final PageRequest defaultPageRequest = new PageRequest(1,10);
-    protected final GenericSearchRepository<T, Long> genericRepository;
+    protected final GenericSearchRepository<T, ID> genericRepository;
 
-    public GenericSearchService(GenericSearchRepository<T, Long> genericRepository) {
+    public GenericSearchService(GenericSearchRepository<T, ID> genericRepository) {
         this.genericRepository = genericRepository;
     }
 
@@ -28,12 +28,12 @@ public abstract class GenericSearchService<T> implements IGenericService<T> {
     }
 
     @Override
-    public void delete(Long id) {
+    public void delete(ID id) {
         genericRepository.deleteById(id);
     }
 
     @Override
-    public T findById(Long id) throws NotFoundException{
+    public T findById(ID id) throws NotFoundException{
         Optional<T> entity = genericRepository.findById(id);
         if (entity.isEmpty()){
             throw new NotFoundException("Can not found item");

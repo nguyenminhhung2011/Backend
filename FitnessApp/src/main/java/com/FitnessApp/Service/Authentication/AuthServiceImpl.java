@@ -7,6 +7,7 @@ import com.FitnessApp.DTO.Request.RegistrationRequest;
 import com.FitnessApp.DTO.Response.AuthResponse;
 import com.FitnessApp.DTO.Response.TokenResponse;
 import com.FitnessApp.DTO.DataClass.User.UserDTO;
+import com.FitnessApp.Exceptions.AppException.BadRequestException;
 import com.FitnessApp.Exceptions.AppException.NotFoundException;
 import com.FitnessApp.Mapper.UserMapper;
 import com.FitnessApp.Model.User;
@@ -15,6 +16,7 @@ import com.FitnessApp.Repository.ExerciseRepository;
 import com.FitnessApp.Repository.UserProfileRepository;
 import com.FitnessApp.Repository.UserRepository;
 import com.FitnessApp.Service.ExcerciseService.ExerciseService;
+import com.FitnessApp.Service.User.IUserService;
 import com.FitnessApp.Utils.JwtTokenUtils;
 import jakarta.persistence.EntityManager;
 import lombok.AllArgsConstructor;
@@ -35,6 +37,7 @@ import org.springframework.stereotype.Service;
 
 import javax.naming.AuthenticationException;
 import java.util.List;
+import java.util.Optional;
 
 
 @Primary
@@ -44,28 +47,26 @@ public class AuthServiceImpl implements IAuthService{
     private final UserRepository userRepository;
     private final JwtTokenUtils jwtTokenUtils;
     private final AuthenticationManager authenticationManager;
-    private final PasswordEncoder passwordEncoder;
+    private final IUserService userService;
     private final UserMapper userMapper;
-    private final UserProfileRepository userProfileRepository;
-    private final ExerciseRepository exerciseRepository;
-    private final EntityManager entityManager;
-
 
     @Override
-    public AuthResponse login(AuthRequest request) throws AuthenticationException {
-           List<User> findByUsername = userRepository.findByUsername(request.username());
+    public AuthResponse login(AuthRequest request) {
+           Optional<User> userOptional = userRepository.findByUsername(request.username());
 
-           if (findByUsername.isEmpty()){
+           if (userOptional.isEmpty()){
                throw new NotFoundException("Can not find user have this username");
            }
-           final Authentication authentication =  authenticationManager.authenticate(
-                   new UsernamePasswordAuthenticationToken(
-                   request.username(),request.password()));
+
+           authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
+                   request.username(),
+                   request.password())
+           );
 
            String jwt = jwtTokenUtils.generateToken(request.username());
            String freshToken = jwtTokenUtils.generateTokenRefresh(request.username());
 
-           final User user = findByUsername.get(0);
+           final User user = userOptional.get();
 
            user.setRefreshToken(freshToken);
 
@@ -77,43 +78,15 @@ public class AuthServiceImpl implements IAuthService{
     @Override
     public ResponseEntity<?> register(RegistrationRequest request) throws Exception{
            try{
-               List<User> userExits = userRepository.findByUsername(request.getUsername());
+               Optional<User> userExits = userRepository.findByUsername(request.getUsername());
 
-               if (!userExits.isEmpty()) {
-                   return ResponseEntity.badRequest().body(
-                           ResponseObject.builder()
-                                   .status(HttpStatus.BAD_REQUEST.value())
-                                   .message("User name existed")
-                                   .data(null)
-                                   .build());
+               if (userExits.isPresent()) {
+                   throw new Exception("Username is existed");
                }
 
+               UserDTO userDTO = userService.addNewUser(request);
 
-               User newUser = new User(
-                       null,
-                       request.getUsername(),
-                       passwordEncoder.encode(request.getPassword()) ,
-                       null,
-                       null
-               );
-
-               final User savedUser = userRepository.save(newUser);
-               UserProfile userProfile = UserProfile
-                       .builder()
-                       .user(savedUser)
-                       .build();
-
-               final UserProfile saveUserProfile = userProfileRepository.save(userProfile);
-
-               saveUserProfile.setFavoriteExercises(exerciseRepository.findAll().subList(0,10));
-
-               final UserProfile saveUserFavorite = userProfileRepository.save(saveUserProfile);
-
-               savedUser.setUserProfile(saveUserFavorite);
-               final User finalUser = userRepository.save(savedUser);
-               final UserDTO userDto = userMapper.userDTO(finalUser);
-
-               return ResponseEntity.ok(finalUser);
+               return ResponseEntity.ok(userDTO);
 
            }catch (Exception e){
                throw new AuthenticationException("Failed: Can not register user: " + e.getMessage());
@@ -131,13 +104,13 @@ public class AuthServiceImpl implements IAuthService{
             jwtTokenUtils.validateToken(refreshToken);
 
             final String username = jwtTokenUtils.getUsernameFromToken(refreshToken);
-            List<User> user = userRepository.findByUsername(username);
+            Optional<User> user = userRepository.findByUsername(username);
 
             if (user.isEmpty()){
                 throw new NotFoundException("Can not found corresponding user");
             }
 
-            final String jwt = jwtTokenUtils.generateToken(user.get(0).getUsername());
+            final String jwt = jwtTokenUtils.generateToken(user.get().getUsername());
 
             return ResponseEntity.ok(new TokenResponse(jwt,refreshToken));
 
@@ -150,7 +123,7 @@ public class AuthServiceImpl implements IAuthService{
     @Override
     public ResponseEntity<?> token(UserDetails request) {
         try {
-            List<User> findUser = userRepository.findByUsername(request.getUsername());
+            Optional<User> findUser = userRepository.findByUsername(request.getUsername());
             if (findUser.isEmpty()){
                 throw new NotFoundException("Can not found corresponding user");
             }

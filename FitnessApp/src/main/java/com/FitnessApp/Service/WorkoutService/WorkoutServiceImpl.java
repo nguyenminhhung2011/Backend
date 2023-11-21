@@ -7,8 +7,8 @@ import com.FitnessApp.Repository.WorkoutRepository;
 import com.FitnessApp.Service.Generic.GenericService;
 
 @Service
-public class WorkoutService extends GenericService<WorkoutPlan> implements IWorkoutSV {
-	public WorkoutService(WorkoutRepository gmRepository) {
+public class WorkoutServiceImpl extends GenericService<WorkoutPlan,Long,WorkoutRepository> {
+	public WorkoutServiceImpl(WorkoutRepository gmRepository) {
 		super(gmRepository);
 	}
 

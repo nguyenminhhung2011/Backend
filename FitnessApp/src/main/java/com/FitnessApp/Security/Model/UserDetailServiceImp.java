@@ -1,7 +1,10 @@
 package com.FitnessApp.Security.Model;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.OptionalInt;
 
+import com.FitnessApp.DTO.DataClass.User.UserDTO;
 import com.FitnessApp.Exceptions.AppException.NotFoundException;
 import com.FitnessApp.Model.User;
 import com.FitnessApp.Repository.UserRepository;
@@ -18,15 +21,11 @@ public class UserDetailServiceImp implements UserDetailsService{
 	private final UserRepository userRepo;
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		// TODO Auto-generated method stub
-		List<User> result = userRepo.findByUsername(username);
-		if (result.size()>1) {
-			throw(new NotFoundException("There are Many User"));
-		}
+		Optional<User> result = userRepo.findByUsername(username);
 		if (result.isEmpty()) {
-			return null;
+			throw new NotFoundException("Can not found any user have name " + username);
 		}
-		return new CustomUserDetail(result.get(0));
+		return new CustomUserDetail(result.get());
 	}
 
 }

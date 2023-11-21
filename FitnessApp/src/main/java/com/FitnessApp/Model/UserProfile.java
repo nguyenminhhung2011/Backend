@@ -34,6 +34,7 @@ public class UserProfile {
 	private Timestamp birthday;
 
 	@JsonView(value = {UserViews.Summary.class})
+	@Builder.Default
 	private String phone = "";
 
 	@JsonView(value = {UserViews.Summary.class})
@@ -44,13 +45,16 @@ public class UserProfile {
 	private Gender gender;
 
 	@JsonView(value = {UserViews.Detail.class})
+	@Builder.Default
 	private double weight = 0;
 
 	@JsonView(value = {UserViews.Detail.class})
+	@Builder.Default
 	private double height = 0;
 
 	@JsonView(value = {UserViews.Detail.class})
 	@Enumerated(EnumType.STRING)
+	@Builder.Default
 	private ThemeStatus themeStatus = ThemeStatus.LIGHT;
 
 	@JsonView(value = {UserViews.Detail.class})

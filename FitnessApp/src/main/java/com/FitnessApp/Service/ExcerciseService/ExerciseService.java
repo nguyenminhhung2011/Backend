@@ -23,8 +23,9 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Type;
 import java.util.*;
 
+@SuppressWarnings("rawtypes")
 @Service
-public class ExerciseService extends GenericSearchService<Exercise> {
+public class ExerciseService extends GenericSearchService<Exercise,Long> {
 
 	private  final  Map<Type, CrudRepository> repositoryMap = new HashMap<>();
 	public ExerciseService(ExerciseRepository exerciseRepository, TargetRepository targetRepository, EquipmentRepository equipmentRepository, BodyPartRepository bodyPartRepository) {
