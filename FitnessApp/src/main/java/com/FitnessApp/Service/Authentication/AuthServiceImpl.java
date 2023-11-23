@@ -1,9 +1,20 @@
 package com.FitnessApp.Service.Authentication;
 
-import java.util.Optional;
-
-import javax.naming.AuthenticationException;
-
+import com.FitnessApp.DTO.DataClass.ResponseObject;
+import com.FitnessApp.DTO.Request.AuthRequest;
+import com.FitnessApp.DTO.Request.RegistrationRequest;
+import com.FitnessApp.DTO.Response.AuthResponse;
+import com.FitnessApp.DTO.Response.TokenResponse;
+import com.FitnessApp.DTO.DataClass.User.UserDTO;
+import com.FitnessApp.Exceptions.AppException.NotFoundException;
+import com.FitnessApp.Mapper.UserMapper;
+import com.FitnessApp.Model.ActivitiesLog;
+import com.FitnessApp.Model.User;
+import com.FitnessApp.Repository.ActivitiesLogRepository;
+import com.FitnessApp.Repository.User.UserRepository;
+import com.FitnessApp.Service.User.IUserService;
+import com.FitnessApp.Utils.JwtTokenUtils;
+import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Primary;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -12,110 +23,104 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
-import com.FitnessApp.DTO.DataClass.User.UserDTO;
-import com.FitnessApp.DTO.Request.AuthRequest;
-import com.FitnessApp.DTO.Request.RegistrationRequest;
-import com.FitnessApp.DTO.Response.AuthResponse;
-import com.FitnessApp.DTO.Response.TokenResponse;
-import com.FitnessApp.Exceptions.AppException.NotFoundException;
-import com.FitnessApp.Mapper.UserMapper;
-import com.FitnessApp.Model.User;
-import com.FitnessApp.Repository.UserRepository;
-import com.FitnessApp.Service.User.IUserService;
-import com.FitnessApp.Utils.JwtTokenUtils;
+import javax.naming.AuthenticationException;
+import java.util.Optional;
 
-import lombok.AllArgsConstructor;
 
 @Primary
 @Service
 @AllArgsConstructor
-public class AuthServiceImpl implements IAuthService {
-	private final UserRepository userRepository;
-	private final JwtTokenUtils jwtTokenUtils;
-	private final AuthenticationManager authenticationManager;
-	private final IUserService userService;
-	private final UserMapper userMapper;
+public class AuthServiceImpl implements IAuthService{
+    private final UserRepository userRepository;
+    private final JwtTokenUtils jwtTokenUtils;
+    private final AuthenticationManager authenticationManager;
+    private final IUserService userService;
+    private final UserMapper userMapper;
 
-	@Override
-	public AuthResponse login(AuthRequest request) {
-		Optional<User> userOptional = userRepository.findByUsername(request.username());
+    @Override
+    public AuthResponse login(AuthRequest request) {
+           Optional<User> userOptional = userRepository.findByUsername(request.username());
 
-		if (userOptional.isEmpty()) {
-			throw new NotFoundException("Can not find user have this username");
-		}
+           if (userOptional.isEmpty()){
+               throw new NotFoundException("Can not find user have this username");
+           }
 
-		authenticationManager
-				.authenticate(new UsernamePasswordAuthenticationToken(request.username(), request.password()));
+           authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
+                   request.username(),
+                   request.password())
+           );
 
-		final User user = userOptional.get();
-		String jwt = jwtTokenUtils.generateToken(request.username(), user.getId());
-		String freshToken = jwtTokenUtils.generateTokenRefresh(request.username());
+           String jwt = jwtTokenUtils.generateToken(request.username());
+           String freshToken = jwtTokenUtils.generateTokenRefresh(request.username());
 
-		user.setRefreshToken(freshToken);
+           final User user = userOptional.get();
 
-		final User currentUser = userRepository.save(user);
-		final UserDTO userDTO = userMapper.userDTO(currentUser);
-		return new AuthResponse(jwt, freshToken, userDTO);
-	}
+           user.setRefreshToken(freshToken);
 
-	@Override
-	public ResponseEntity<?> register(RegistrationRequest request) throws Exception {
-		try {
-			Optional<User> userExits = userRepository.findByUsername(request.getUsername());
+           final User currentUser  = userRepository.save(user);
+           final UserDTO userDTO = userMapper.userDTO(currentUser);
+           return new AuthResponse(jwt,freshToken,userDTO);
+    }
 
-			if (userExits.isPresent()) {
-				throw new Exception("Username is existed");
-			}
+    @Override
+    public ResponseEntity<?> register(RegistrationRequest request) throws Exception{
+           try{
+               Optional<User> userExits = userRepository.findByUsername(request.getUsername());
 
-			UserDTO userDTO = userService.addNewUser(request);
+               if (userExits.isPresent()) {
+                   throw new Exception("Username is existed");
+               }
 
-			return ResponseEntity.ok(userDTO);
+               UserDTO userDTO = userService.addNewUser(request);
 
-		} catch (Exception e) {
-			throw new AuthenticationException("Failed: Can not register user: " + e.getMessage());
-		}
-	}
+               return ResponseEntity.ok(userDTO);
 
-	@Override
-	public ResponseEntity<?> refreshToken(String token) {
-		try {
-			if (token == null || !token.startsWith("Bearer ")) {
-				throw new Exception("Invalid refresh token");
-			}
-			final String refreshToken = token.substring("Bearer ".length());
+           }catch (Exception e){
+               throw new AuthenticationException("Failed: Can not register user: " + e.getMessage());
+           }
+    }
 
-			jwtTokenUtils.validateToken(refreshToken);
+    @Override
+    public ResponseEntity<?> refreshToken(String token) {
+        try {
+            if (token == null || !token.startsWith("Bearer ")) {
+                throw new Exception("Invalid refresh token");
+            }
+            final String refreshToken = token.substring("Bearer ".length());
 
-			final String username = jwtTokenUtils.getUsernameFromToken(refreshToken);
-			Optional<User> user = userRepository.findByUsername(username);
+            jwtTokenUtils.validateToken(refreshToken);
 
-			if (user.isEmpty()) {
-				throw new NotFoundException("Can not found corresponding user");
-			}
+            final String username = jwtTokenUtils.getUsernameFromToken(refreshToken);
+            Optional<User> user = userRepository.findByUsername(username);
 
-			final String jwt = jwtTokenUtils.generateToken(user.get().getUsername(), user.get().getId());
+            if (user.isEmpty()){
+                throw new NotFoundException("Can not found corresponding user");
+            }
 
-			return ResponseEntity.ok(new TokenResponse(jwt, refreshToken));
+            final String jwt = jwtTokenUtils.generateToken(user.get().getUsername());
 
-		} catch (Exception e) {
-			throw new BadCredentialsException("Refresh token failed: " + e.getMessage());
-		}
-	}
+            return ResponseEntity.ok(new TokenResponse(jwt,refreshToken));
 
-	@Override
-	public ResponseEntity<?> token(UserDetails request) {
-		try {
-			Optional<User> findUser = userRepository.findByUsername(request.getUsername());
-			if (findUser.isEmpty()) {
-				throw new NotFoundException("Can not found corresponding user");
-			}
+        }
+        catch (Exception e) {
+           throw new BadCredentialsException("Refresh token failed: " + e.getMessage());
+        }
+    }
 
-			String accessToken = jwtTokenUtils.generateToken(request.getUsername(), findUser.get().getId());
-			String refreshToken = jwtTokenUtils.generateTokenRefresh(request.getUsername());
+    @Override
+    public ResponseEntity<?> token(UserDetails request) {
+        try {
+            Optional<User> findUser = userRepository.findByUsername(request.getUsername());
+            if (findUser.isEmpty()){
+                throw new NotFoundException("Can not found corresponding user");
+            }
 
-			return ResponseEntity.ok(new TokenResponse(accessToken, refreshToken));
-		} catch (Exception e) {
-			throw new BadCredentialsException("Create token failed: " + e.getMessage());
-		}
-	}
+            String accessToken = jwtTokenUtils.generateToken(request.getUsername());
+            String refreshToken = jwtTokenUtils.generateTokenRefresh(request.getUsername());
+
+            return ResponseEntity.ok(new TokenResponse(accessToken, refreshToken));
+        }catch (Exception e){
+            throw new BadCredentialsException("Create token failed: " + e.getMessage());
+        }
+    }
 }

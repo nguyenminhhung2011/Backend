@@ -1,4 +1,4 @@
-package com.FitnessApp.Repository;
+package com.FitnessApp.Repository.User;
 
 import com.FitnessApp.Model.UserProfile;
 import org.springframework.data.jpa.repository.JpaRepository;

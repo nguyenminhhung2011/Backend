@@ -39,7 +39,6 @@ public class ExerciseController {
 		return ResponseEntity.ok(eService.searchExercise(request));
 	}
 
-
 	@GetMapping("/body-part")
 	@JsonView(ExerciseViews.Summary.class)
 	public ResponseEntity<?> getBodyPart() {

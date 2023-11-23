@@ -1,4 +1,4 @@
-package com.FitnessApp.Repository;
+package com.FitnessApp.Repository.User;
 
 import java.util.List;
 import java.util.Optional;

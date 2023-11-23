@@ -5,6 +5,7 @@ import com.FitnessApp.DTO.Views.UserViews;
 import com.fasterxml.jackson.annotation.JsonView;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -12,6 +13,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class ActivitiesLog {
     @JsonView(value = {ActivitiesLogViews.Summary.class, UserViews.Summary.class})
     @Id

@@ -2,7 +2,7 @@ package com.FitnessApp.Service.Generic;
 
 import com.FitnessApp.DTO.Request.PageRequest;
 import com.FitnessApp.Exceptions.AppException.NotFoundException;
-import com.FitnessApp.Repository.GenericSearchRepository;
+import com.FitnessApp.Repository.Generic.GenericSearchRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
