@@ -51,7 +51,6 @@ public class JwtFilter extends OncePerRequestFilter {
 		@NonNull FilterChain filterChain
 	) throws IOException {
 		try {
-			// Lấy jwt từ request
 			String jwt = getJwtFromRequest(request);
 
 			if (Arrays.stream(WebSecurityConfig.whiteListedRoutes)

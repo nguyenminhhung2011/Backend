@@ -1,4 +1,4 @@
-package com.FitnessApp.Repository;
+package com.FitnessApp.Repository.Exercise;
 
 import com.FitnessApp.Model.Exercise.BodyPart;
 import org.springframework.data.repository.CrudRepository;
