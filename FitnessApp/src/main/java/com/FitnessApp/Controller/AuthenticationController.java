@@ -27,7 +27,6 @@ public class AuthenticationController {
 		return ResponseEntity.ok(authResponse);
 	}
 
-//	@JsonView(UserViews.Detail.class)
 	@PostMapping("/register")
 	public ResponseEntity<?> register( @Valid @RequestBody RegistrationRequest registrationRequest) throws Exception {
 	return authService.register(registrationRequest);

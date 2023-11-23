@@ -1,13 +1,10 @@
 package com.FitnessApp.Security.Model;
 
-import java.util.List;
 import java.util.Optional;
-import java.util.OptionalInt;
 
-import com.FitnessApp.DTO.DataClass.User.UserDTO;
 import com.FitnessApp.Exceptions.AppException.NotFoundException;
 import com.FitnessApp.Model.User;
-import com.FitnessApp.Repository.UserRepository;
+import com.FitnessApp.Repository.User.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -25,7 +22,7 @@ public class UserDetailServiceImp implements UserDetailsService{
 		if (result.isEmpty()) {
 			throw new NotFoundException("Can not found any user have name " + username);
 		}
-		return new CustomUserDetail(result.get());
+		return new FitLifeUserDetail(result.get());
 	}
 
 }

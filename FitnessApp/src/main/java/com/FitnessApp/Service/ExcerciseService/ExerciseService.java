@@ -5,21 +5,19 @@ import com.FitnessApp.DTO.Request.PageRequest;
 import com.FitnessApp.Model.Exercise.BodyPart;
 import com.FitnessApp.Model.Exercise.Equipment;
 import com.FitnessApp.Model.Exercise.Target;
-import com.FitnessApp.Repository.BodyPartRepository;
-import com.FitnessApp.Repository.EquipmentRepository;
-import com.FitnessApp.Repository.TargetRepository;
+import com.FitnessApp.Repository.Exercise.BodyPartRepository;
+import com.FitnessApp.Repository.Exercise.EquipmentRepository;
+import com.FitnessApp.Repository.Exercise.TargetRepository;
 import com.FitnessApp.Service.Generic.GenericSearchService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.data.repository.Repository;
 import org.springframework.stereotype.Service;
 
 import com.FitnessApp.Model.Exercise.Exercise;
-import com.FitnessApp.Repository.ExerciseRepository;
+import com.FitnessApp.Repository.Exercise.ExerciseRepository;
 
-import java.lang.reflect.Field;
 import java.lang.reflect.Type;
 import java.util.*;
 

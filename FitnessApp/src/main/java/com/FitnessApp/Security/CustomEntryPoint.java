@@ -25,9 +25,8 @@ public class CustomEntryPoint implements AuthenticationEntryPoint {
 
 	private final String message;
 	private final int status;
-	public void commence(HttpServletRequest request, HttpServletResponse response,
-			AuthenticationException authException)
-			throws IOException, ServletException {
+	public void commence(HttpServletResponse response)
+			throws IOException {
 		// TODO Auto-generated method stub
 		 response.setContentType("application/json;charset=UTF-8");
 	        response.setStatus(status);
@@ -44,7 +43,6 @@ public class CustomEntryPoint implements AuthenticationEntryPoint {
 			org.springframework.security.core.AuthenticationException authException)
 			throws IOException, ServletException {
 		// TODO Auto-generated method stub
-
 	}
 
 

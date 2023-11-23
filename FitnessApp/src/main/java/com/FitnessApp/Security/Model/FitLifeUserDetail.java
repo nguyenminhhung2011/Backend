@@ -3,17 +3,15 @@ package com.FitnessApp.Security.Model;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import com.FitnessApp.Model.Role;
 import com.FitnessApp.Model.User;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-public class CustomUserDetail implements UserDetails {
+public class FitLifeUserDetail implements UserDetails {
 
 	private final User user;
 
-	public CustomUserDetail(User user) {
+	public FitLifeUserDetail(User user) {
 		this.user = user;
 	}
 	@Override
@@ -26,6 +24,11 @@ public class CustomUserDetail implements UserDetails {
 //		return listRole;
 		return new ArrayList<>();
 	}
+	public Long getId() {
+		// TODO Auto-generated method stub
+		return user.getId();
+	}
+
 	@Override
 	public String getPassword() {
 		// TODO Auto-generated method stub
