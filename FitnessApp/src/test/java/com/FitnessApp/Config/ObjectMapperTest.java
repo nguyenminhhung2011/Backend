@@ -1,6 +1,6 @@
 package com.FitnessApp.Config;
 
-import com.FitnessApp.Model.Steps;
+import com.FitnessApp.Model.Exercise.Steps;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
@@ -9,8 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class ObjectMapperTest {

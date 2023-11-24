@@ -1,16 +1,12 @@
 package com.FitnessApp.Filters;
 
 import java.io.IOException;
-import java.nio.file.AccessDeniedException;
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
 
 import com.FitnessApp.Config.WebSecurityConfig;
 import com.FitnessApp.DTO.DataClass.ResponseObject;
-import com.FitnessApp.Utils.JwtTokenUtils;
-import jakarta.servlet.ServletException;
+import com.FitnessApp.Utils.Jwt.JwtTokenUtils;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -21,8 +17,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.util.AntPathMatcher;
-import org.springframework.web.ErrorResponse;
-import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.FitnessApp.Security.Model.UserDetailServiceImp;

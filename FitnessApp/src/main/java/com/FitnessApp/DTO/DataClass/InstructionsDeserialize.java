@@ -1,6 +1,6 @@
 package com.FitnessApp.DTO.DataClass;
 
-import com.FitnessApp.Model.Steps;
+import com.FitnessApp.Model.Exercise.Steps;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationContext;

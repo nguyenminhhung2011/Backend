@@ -1,4 +1,4 @@
-package com.FitnessApp.Mapper;
+package com.FitnessApp.Utils.Mapper;
 
 import com.FitnessApp.DTO.DataClass.ActivitiesLog.ActivitiesLogDTO;
 import com.FitnessApp.Model.ActivitiesLog;

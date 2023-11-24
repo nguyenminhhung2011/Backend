@@ -1,11 +1,9 @@
 package com.FitnessApp.Repository.User;
 
-import java.util.List;
 import java.util.Optional;
 
-import com.FitnessApp.Model.User;
+import com.FitnessApp.Model.User.User;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 @Repository

@@ -1,4 +1,4 @@
-package com.FitnessApp.Model;
+package com.FitnessApp.Model.Exercise;
 
 import com.FitnessApp.DTO.Views.ExerciseViews;
 import com.FitnessApp.Model.Exercise.Exercise;

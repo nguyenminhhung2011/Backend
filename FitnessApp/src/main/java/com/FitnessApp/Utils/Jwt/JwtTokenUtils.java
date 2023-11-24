@@ -1,9 +1,10 @@
-package com.FitnessApp.Utils;
+package com.FitnessApp.Utils.Jwt;
 
 import java.security.SecureRandom;
 import java.util.Base64;
 import java.util.Date;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import io.jsonwebtoken.Claims;
@@ -18,42 +19,46 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class JwtTokenUtils {
 
-	private final String JWT_SECRET = "FitnessHCMUS";
-	private String appName = "Fitness";
-
-	private final long JWT_EXPIRATION = 10 * 24 * 60 * 60 * 1000L; // 10 days
+	@Value("${application.security.jwt.secret-keyapplication.security.jwt.secret-key}")
+	private String JWT_SECRET;
+	@Value("${application.security.jwt.expiration}")
+	private long JWT_EXPIRATION;
+	@Value("${application.security.jwt.refresh-token.expiration}")
+	private long JWT_REFRESH_EXPIRATION;
 
 	public String generateTokenRefresh(String user) {
 		Date now = new Date();
-		Date expDate = new Date(now.getTime() + JWT_EXPIRATION);
+		Date expDate = new Date(now.getTime() + JWT_REFRESH_EXPIRATION);
 
-		// Tạo một phần ngẫu nhiên (nonce)
 		SecureRandom random = new SecureRandom();
 		byte[] nonceBytes = new byte[16];
 		random.nextBytes(nonceBytes);
 		String nonce = Base64.getEncoder().encodeToString(nonceBytes);
 
-		return Jwts.builder().setSubject(user).setIssuedAt(now).setExpiration(expDate).claim("nonce", nonce) // Thêm
-																												// nonce
-																												// vào
-																												// claim
-				.signWith(SignatureAlgorithm.HS256, JWT_SECRET).compact();
+		return Jwts.builder()
+				.setSubject(user)
+				.setIssuedAt(now)
+				.setExpiration(expDate)
+				.claim("nonce", nonce)
+				.signWith(SignatureAlgorithm.HS256, JWT_SECRET)
+				.compact();
 	}
 
-	public String generateToken(String username, Long userId) {
+	public String generateToken(String subject) {
 		long currentTimeMillis = System.currentTimeMillis();
-		long expirationTimeMillis = currentTimeMillis + 3600 * 1000 * 4; // 1 hour -> 4 hours
+		long expirationTimeMillis = currentTimeMillis + JWT_EXPIRATION; // 1 hour -> 4 hour
 		Date issueDate = new Date(currentTimeMillis);
 		Date expirationDate = new Date(expirationTimeMillis);
 
-		return Jwts.builder().claim("username", username).claim("id", userId).setIssuedAt(issueDate)
-				.setExpiration(expirationDate).signWith(SignatureAlgorithm.HS256, JWT_SECRET).compact();
+		return Jwts.builder()
+				.setSubject(subject).setIssuedAt(issueDate).setExpiration(expirationDate)
+				.signWith(SignatureAlgorithm.HS256, JWT_SECRET).compact();
 	}
 
 	public Long getUserIdFromJWT(String token) {
 		Claims claims = Jwts.parser().setSigningKey(JWT_SECRET).parseClaimsJws(token).getBody();
 
-		return Long.parseLong(claims.get("id").toString());
+		return Long.parseLong(claims.getSubject());
 	}
 
 	private Claims getAllClaimsFromToken(String token) {
@@ -67,9 +72,14 @@ public class JwtTokenUtils {
 	}
 
 	public String getUsernameFromToken(String token) {
-
-		Claims claims = Jwts.parser().setSigningKey(JWT_SECRET).parseClaimsJws(token).getBody();
-		return (String) claims.get("username");
+		String username;
+		try {
+			final Claims claims = this.getAllClaimsFromToken(token);
+			username = claims.getSubject();
+		} catch (Exception e) {
+			username = null;
+		}
+		return username;
 	}
 
 	public boolean validateToken(String authToken) throws Exception {
@@ -88,7 +98,6 @@ public class JwtTokenUtils {
 
 			throw new Exception("JWT claims string is empty");
 		}
-//		return false;
 	}
 
 }

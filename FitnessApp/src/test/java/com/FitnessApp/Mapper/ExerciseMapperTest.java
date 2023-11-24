@@ -1,5 +1,6 @@
 package com.FitnessApp.Mapper;
 
+import com.FitnessApp.Utils.Mapper.ExerciseMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

@@ -1,4 +1,4 @@
-package com.FitnessApp.Mapper;
+package com.FitnessApp.Utils.Mapper;
 
 import com.FitnessApp.DTO.DataClass.ExerciseDTO;
 import com.FitnessApp.Model.Exercise.Exercise;

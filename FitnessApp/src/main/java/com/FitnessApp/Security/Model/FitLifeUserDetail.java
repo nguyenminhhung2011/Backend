@@ -3,7 +3,7 @@ package com.FitnessApp.Security.Model;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import com.FitnessApp.Model.User;
+import com.FitnessApp.Model.User.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 

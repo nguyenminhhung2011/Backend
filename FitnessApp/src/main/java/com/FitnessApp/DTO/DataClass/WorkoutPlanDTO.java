@@ -1,5 +1,8 @@
 package com.FitnessApp.DTO.DataClass;
 
+import com.FitnessApp.Enums.PlanType;
+import lombok.*;
+
 import java.util.List;
 
 import com.FitnessApp.Enums.PlanType;

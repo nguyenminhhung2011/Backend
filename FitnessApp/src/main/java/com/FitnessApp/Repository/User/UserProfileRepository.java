@@ -1,6 +1,6 @@
 package com.FitnessApp.Repository.User;
 
-import com.FitnessApp.Model.UserProfile;
+import com.FitnessApp.Model.User.UserProfile;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,4 +1,4 @@
-package com.FitnessApp.Mapper;
+package com.FitnessApp.Utils.Mapper;
 
 import com.FitnessApp.DTO.DataClass.SessionDTO;
 import com.FitnessApp.Model.Session;
