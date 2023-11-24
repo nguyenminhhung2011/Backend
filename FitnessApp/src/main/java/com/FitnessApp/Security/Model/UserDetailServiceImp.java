@@ -3,7 +3,7 @@ package com.FitnessApp.Security.Model;
 import java.util.Optional;
 
 import com.FitnessApp.Exceptions.AppException.NotFoundException;
-import com.FitnessApp.Model.User;
+import com.FitnessApp.Model.User.User;
 import com.FitnessApp.Repository.User.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;

@@ -1,4 +1,4 @@
-package com.FitnessApp.Service.ExcerciseService;
+package com.FitnessApp.Service.Excercise;
 
 import com.FitnessApp.DTO.Request.FetchExerciseRequest;
 import com.FitnessApp.DTO.Request.PageRequest;

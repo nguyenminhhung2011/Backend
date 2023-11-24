@@ -1,15 +1,16 @@
-package com.FitnessApp.Model;
+package com.FitnessApp.Model.User;
 
 import java.sql.Timestamp;
 import java.util.List;
 
-import com.FitnessApp.Enums.Frequency;
-import com.FitnessApp.Enums.Gender;
-import com.FitnessApp.Enums.ThemeStatus;
+import com.FitnessApp.Model.ActivitiesLog;
+import com.FitnessApp.Model.WorkoutPlan;
+import com.FitnessApp.Utils.Enums.Frequency;
+import com.FitnessApp.Utils.Enums.Gender;
+import com.FitnessApp.Utils.Enums.ThemeStatus;
 import com.FitnessApp.DTO.Views.UserViews;
 import com.FitnessApp.Model.Exercise.Exercise;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonView;
 import jakarta.persistence.*;
 import lombok.*;

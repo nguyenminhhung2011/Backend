@@ -1,4 +1,4 @@
-package com.FitnessApp.Service.WorkoutService;
+package com.FitnessApp.Service.Workout;
 
 import org.springframework.stereotype.Service;
 

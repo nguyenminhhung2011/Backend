@@ -2,11 +2,12 @@ package com.FitnessApp.Mapper;
 
 import com.FitnessApp.DTO.DataClass.User.UserDTO;
 import com.FitnessApp.DTO.DataClass.User.UserProfileDTO;
-import com.FitnessApp.Enums.Frequency;
-import com.FitnessApp.Enums.Gender;
-import com.FitnessApp.Enums.ThemeStatus;
-import com.FitnessApp.Model.User;
-import com.FitnessApp.Model.UserProfile;
+import com.FitnessApp.Utils.Enums.Frequency;
+import com.FitnessApp.Utils.Enums.Gender;
+import com.FitnessApp.Utils.Enums.ThemeStatus;
+import com.FitnessApp.Model.User.User;
+import com.FitnessApp.Model.User.UserProfile;
+import com.FitnessApp.Utils.Mapper.UserMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

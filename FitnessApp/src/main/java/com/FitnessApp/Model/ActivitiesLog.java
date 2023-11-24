@@ -2,6 +2,7 @@ package com.FitnessApp.Model;
 
 import com.FitnessApp.DTO.Views.ActivitiesLogViews;
 import com.FitnessApp.DTO.Views.UserViews;
+import com.FitnessApp.Model.User.UserProfile;
 import com.fasterxml.jackson.annotation.JsonView;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

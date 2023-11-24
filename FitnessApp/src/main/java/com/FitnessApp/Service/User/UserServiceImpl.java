@@ -12,11 +12,11 @@ import com.FitnessApp.DTO.Request.ChangePasswordRequest;
 import com.FitnessApp.DTO.Request.RegistrationRequest;
 import com.FitnessApp.Exceptions.AppException.BadRequestException;
 import com.FitnessApp.Exceptions.AppException.NotFoundException;
-import com.FitnessApp.Mapper.ActivitiesLogMapper;
-import com.FitnessApp.Mapper.UserMapper;
+import com.FitnessApp.Utils.Mapper.ActivitiesLogMapper;
+import com.FitnessApp.Utils.Mapper.UserMapper;
 import com.FitnessApp.Model.ActivitiesLog;
 import com.FitnessApp.Model.Exercise.Exercise;
-import com.FitnessApp.Model.UserProfile;
+import com.FitnessApp.Model.User.UserProfile;
 import com.FitnessApp.Model.WorkoutPlan;
 import com.FitnessApp.Repository.ActivitiesLogRepository;
 import com.FitnessApp.Repository.Exercise.ExerciseRepository;
@@ -27,7 +27,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.FitnessApp.Model.User;
+import com.FitnessApp.Model.User.User;
 import com.FitnessApp.Repository.User.UserRepository;
 
 @Service

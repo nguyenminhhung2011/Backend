@@ -1,9 +1,9 @@
-package com.FitnessApp.Mapper;
+package com.FitnessApp.Utils.Mapper;
 
 import com.FitnessApp.DTO.DataClass.User.UserDTO;
 import com.FitnessApp.DTO.DataClass.User.UserProfileDTO;
-import com.FitnessApp.Model.User;
-import com.FitnessApp.Model.UserProfile;
+import com.FitnessApp.Model.User.User;
+import com.FitnessApp.Model.User.UserProfile;
 import lombok.AllArgsConstructor;
 import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;

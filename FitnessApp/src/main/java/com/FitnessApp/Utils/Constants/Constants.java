@@ -1,4 +1,4 @@
-package com.FitnessApp.Utils;
+package com.FitnessApp.Utils.Constants;
 
 public class Constants {
     //API

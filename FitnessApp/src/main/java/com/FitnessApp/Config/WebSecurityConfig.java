@@ -25,14 +25,12 @@ public class WebSecurityConfig {
 	private final CustomAuthenticationProvider authProvider;
 	private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
 
-	private final PasswordEncoder passwordEncoder;
 	private final CorsConfiguration corsConfiguration;
 	final JwtFilter jwtFilter;
 
-	public WebSecurityConfig(CustomAuthenticationProvider authProvider, JwtAccessDeniedHandler jwtAccessDeniedHandler, PasswordEncoder passwordEncoder, CorsConfiguration corsConfiguration, JwtFilter jwtFilter) {
+	public WebSecurityConfig(CustomAuthenticationProvider authProvider, JwtAccessDeniedHandler jwtAccessDeniedHandler, CorsConfiguration corsConfiguration, JwtFilter jwtFilter) {
 		this.authProvider = authProvider;
 		this.jwtAccessDeniedHandler = jwtAccessDeniedHandler;
-		this.passwordEncoder = passwordEncoder;
 		this.corsConfiguration = corsConfiguration;
 		this.jwtFilter = jwtFilter;
 	}

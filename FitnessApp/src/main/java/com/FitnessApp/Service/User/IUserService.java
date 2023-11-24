@@ -1,6 +1,5 @@
 package com.FitnessApp.Service.User;
 
-import com.FitnessApp.DTO.DataClass.ActivitiesLog.ActivitiesLogDTO;
 import com.FitnessApp.DTO.DataClass.ResponseObject;
 import com.FitnessApp.DTO.DataClass.User.UserDTO;
 import com.FitnessApp.DTO.DataClass.User.UserProfileDTO;
@@ -8,7 +7,6 @@ import com.FitnessApp.DTO.Request.AddActivitiesLogRequest;
 import com.FitnessApp.DTO.Request.ChangePasswordRequest;
 import com.FitnessApp.DTO.Request.RegistrationRequest;
 import com.FitnessApp.Exceptions.AppException.BadRequestException;
-import com.FitnessApp.Model.User;
 
 import java.util.List;
 public interface IUserService {

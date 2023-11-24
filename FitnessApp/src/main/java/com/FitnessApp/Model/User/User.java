@@ -1,4 +1,4 @@
-package com.FitnessApp.Model;
+package com.FitnessApp.Model.User;
 
 import java.io.Serial;
 import java.io.Serializable;

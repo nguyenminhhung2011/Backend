@@ -8,11 +8,10 @@ import com.FitnessApp.Model.Exercise.Equipment;
 import com.FitnessApp.Model.Exercise.Target;
 import com.fasterxml.jackson.annotation.JsonView;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.FitnessApp.Service.ExcerciseService.ExerciseService;
+import com.FitnessApp.Service.Excercise.ExerciseService;
 
 @RestController
 @AllArgsConstructor

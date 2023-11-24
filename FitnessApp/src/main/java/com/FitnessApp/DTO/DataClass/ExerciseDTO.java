@@ -1,10 +1,9 @@
 package com.FitnessApp.DTO.DataClass;
 
-import com.FitnessApp.Model.Steps;
+import com.FitnessApp.Model.Exercise.Steps;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.modelmapper.ModelMapper;
 
 import java.util.List;
 
