@@ -40,22 +40,20 @@ public class JwtTokenUtils {
 				.signWith(SignatureAlgorithm.HS256, JWT_SECRET).compact();
 	}
 
-	public String generateToken(String subject) {
+	public String generateToken(String username, Long userId) {
 		long currentTimeMillis = System.currentTimeMillis();
-		long expirationTimeMillis = currentTimeMillis + 3600 * 1000 * 4; // 1 hour -> 4 hour
+		long expirationTimeMillis = currentTimeMillis + 3600 * 1000 * 4; // 1 hour -> 4 hours
 		Date issueDate = new Date(currentTimeMillis);
 		Date expirationDate = new Date(expirationTimeMillis);
 
-		return Jwts.builder()
-//	                .setClaims(claims)
-				.setSubject(subject).setIssuedAt(issueDate).setExpiration(expirationDate)
-				.signWith(SignatureAlgorithm.HS256, JWT_SECRET).compact();
+		return Jwts.builder().claim("username", username).claim("id", userId).setIssuedAt(issueDate)
+				.setExpiration(expirationDate).signWith(SignatureAlgorithm.HS256, JWT_SECRET).compact();
 	}
 
 	public Long getUserIdFromJWT(String token) {
 		Claims claims = Jwts.parser().setSigningKey(JWT_SECRET).parseClaimsJws(token).getBody();
 
-		return Long.parseLong(claims.getSubject());
+		return Long.parseLong(claims.get("id").toString());
 	}
 
 	private Claims getAllClaimsFromToken(String token) {
@@ -69,14 +67,9 @@ public class JwtTokenUtils {
 	}
 
 	public String getUsernameFromToken(String token) {
-		String username;
-		try {
-			final Claims claims = this.getAllClaimsFromToken(token);
-			username = claims.getSubject();
-		} catch (Exception e) {
-			username = null;
-		}
-		return username;
+
+		Claims claims = Jwts.parser().setSigningKey(JWT_SECRET).parseClaimsJws(token).getBody();
+		return (String) claims.get("username");
 	}
 
 	public boolean validateToken(String authToken) throws Exception {

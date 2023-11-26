@@ -1,9 +1,23 @@
 package com.FitnessApp.Repository;
 
+import java.util.Date;
+import java.util.List;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.FitnessApp.Model.WorkoutPlan;
 
 public interface WorkoutRepository extends JpaRepository<WorkoutPlan, Long> {
 
+	List<WorkoutPlan> findByUserProfileId(Long userProfileId);
+
+	Page<WorkoutPlan> findByUserProfile_IdAndStartDateBetween(Long userId, Date startDate, Date endDate,
+			Pageable pageable);
+
+	Page<WorkoutPlan> findByUserProfile_IdAndNameContainingIgnoreCase(Long userId, String name, Pageable pageable);
+
+	Page<WorkoutPlan> findByUserProfile_IdAndNameContainingIgnoreCaseAndStartDateBetween(Long userId, String name,
+			Date startDate, Date endDate, Pageable pageable);
 }
