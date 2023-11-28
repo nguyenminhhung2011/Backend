@@ -10,6 +10,7 @@ import com.FitnessApp.Model.User.UserProfile;
 import com.FitnessApp.Repository.User.UserProfileRepository;
 import com.FitnessApp.Utils.Enums.PlanType;
 import com.FitnessApp.Utils.Jwt.JwtTokenUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -29,11 +30,12 @@ import com.FitnessApp.Model.AISupport;
 import com.FitnessApp.Model.DailyWorkout;
 import com.FitnessApp.Model.WorkoutPlan;
 import com.FitnessApp.Service.DailyWorkout.DailyServiceImpl;
-import com.FitnessApp.Service.WorkoutService.WorkoutServiceImpl;
+import com.FitnessApp.Service.Workout.WorkoutServiceImpl;
 
 import jakarta.servlet.http.HttpServletRequest;
 
 @RestController
+@Slf4j
 @RequestMapping("/workout")
 public class WorkoutController {
 
@@ -78,6 +80,7 @@ public class WorkoutController {
 		List<WorkoutPlan> res = workoutService.getWorkoutPlansByUserProfileId(idUser);
 		List<WorkoutPlanResponse> wplResponse = new ArrayList<>();
 
+
 		if (res.isEmpty())
 			return ResponseEntity.ok().body(new ResponseObject("ok", "there is no wplan", null));
 		else {
@@ -94,9 +97,7 @@ public class WorkoutController {
 
 		try {
 			String token = request.getHeader("Authorization").substring(7);
-//			String token = "Sdsdf";
 			Long idUser = jwtHelper.getUserIdFromJWT(token);
-			// Validate or process data if needed before creating the entity
 
 			WorkoutPlan workoutPlan = new WorkoutPlan();
 
@@ -127,7 +128,7 @@ public class WorkoutController {
 			return ResponseEntity.ok()
 					.body(new ResponseObject("ok", "created success", WorkoutPlanResponse.getFrom(workoutPlan)));
 		} catch (Exception e) {
-			System.out.println(e);
+			log.warn(e.getMessage(),e);
 			return ResponseEntity.ok().body(new ResponseObject("ok", "Failed to create Workout Plan\"", null));
 
 		}
@@ -159,7 +160,7 @@ public class WorkoutController {
 			req.setId(newDaily.getId());
 			return ResponseEntity.ok().body(new ResponseObject("ok", "created success", req));
 		} catch (Exception e) {
-			System.out.println(e);
+			log.warn(e.getMessage(),e);
 			return ResponseEntity.ok().body(new ResponseObject("ok", "Failed to create Workout Plan\"", null));
 
 		}
@@ -183,7 +184,7 @@ public class WorkoutController {
 
 			return ResponseEntity.ok().body(new ResponseObject("ok", "all daily workout", curentDaily));
 		} catch (Exception e) {
-			System.out.println(e);
+			log.warn(e.getMessage(),e);
 			return ResponseEntity.ok().body(new ResponseObject("ok", "Failed to create Workout Plan\"", null));
 
 		}
@@ -202,7 +203,6 @@ public class WorkoutController {
 
 		Pageable pageable = PageRequest.of(page, size);
 		Page<Object> workoutPlans = workoutService.searchWorkoutPlans(idUser, name, startDate, endDate, pageable);
-
 		return ResponseEntity.ok(workoutPlans);
 
 	}

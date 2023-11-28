@@ -13,9 +13,12 @@ import java.util.List;
 @Data
 public class UserProfileDTO {
     private Long id;
+    private boolean isCreated;
     private double weight;
+
     private double height;
     private String phone;
+
     private String level;
     private String currentPlan;
     private ThemeStatus themeStatus;

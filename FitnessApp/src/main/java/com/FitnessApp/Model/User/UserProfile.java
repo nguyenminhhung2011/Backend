@@ -28,6 +28,9 @@ public class UserProfile {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	@Builder.Default
+	private boolean isCreated = false;
+
 	@JsonView(value = {UserViews.Summary.class})
 	private String fullName;
 
