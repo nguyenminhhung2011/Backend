@@ -32,8 +32,6 @@ public class JwtFilter extends OncePerRequestFilter {
 
 	private final JwtTokenUtils tokenProvider;
 
-	private final UserDetailServiceImp customUserDetailsService;
-
 	private final UserDetailServiceImp userDetailImp;
 
 	private final AntPathMatcher antPathMatcher = new AntPathMatcher();
@@ -63,7 +61,6 @@ public class JwtFilter extends OncePerRequestFilter {
 					UsernamePasswordAuthenticationToken authentication =
 							new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
 
-//					authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 					authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
 					SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -88,7 +85,6 @@ public class JwtFilter extends OncePerRequestFilter {
 
 	private String getJwtFromRequest(HttpServletRequest request) {
 		String bearerToken = request.getHeader("Authorization");
-		// Kiểm tra xem header Authorization có chứa thông tin jwt không
 		if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
 			return bearerToken.substring(7);
 		}

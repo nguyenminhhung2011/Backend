@@ -37,7 +37,7 @@ public class UserServiceImpl extends GenericService<User,Long,UserRepository> im
 	private final PasswordEncoder passwordEncoder;
 	private final UserProfileRepository userProfileRepository;
 	private final ActivitiesLogRepository actLogRepo;
-	private final ExerciseRepository exerRepo;
+	private final ExerciseRepository exerciseRepo;
 	private final WorkoutRepository workoutRepository;
 
 	public UserServiceImpl(UserRepository genericRepository, UserMapper userMapper, ActivitiesLogMapper actLogMapper, PasswordEncoder passwordEncoder, UserProfileRepository userProfileRepository, ActivitiesLogRepository actLogRepo, ExerciseRepository exerRepo, WorkoutRepository workoutRepository) {
@@ -47,7 +47,7 @@ public class UserServiceImpl extends GenericService<User,Long,UserRepository> im
 		this.passwordEncoder = passwordEncoder;
 		this.userProfileRepository = userProfileRepository;
 		this.actLogRepo = actLogRepo;
-		this.exerRepo = exerRepo;
+		this.exerciseRepo = exerRepo;
 		this.workoutRepository = workoutRepository;
 	}
 
@@ -144,7 +144,7 @@ public class UserServiceImpl extends GenericService<User,Long,UserRepository> im
 		User user = findById(userId);
 		UserProfile userProfile = user.getUserProfile();
 
-		Optional<Exercise> exerciseOptional = exerRepo.findById(exeId);
+		Optional<Exercise> exerciseOptional = exerciseRepo.findById(exeId);
 		if (exerciseOptional.isEmpty()){
 			throw new NotFoundException("Can not found the corresponding exercise");
 		}
@@ -161,7 +161,7 @@ public class UserServiceImpl extends GenericService<User,Long,UserRepository> im
 			exercise.getFavoriteUser().add(userProfile);
 
 			userProfileRepository.save(userProfile);
-			exerRepo.save(exercise);
+			exerciseRepo.save(exercise);
 			return new ResponseObject(
 					HttpStatus.OK.value(),
 					"Add favorite exercise successfully",

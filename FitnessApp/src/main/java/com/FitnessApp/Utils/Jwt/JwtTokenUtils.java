@@ -19,7 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class JwtTokenUtils {
 
-	@Value("${application.security.jwt.secret-keyapplication.security.jwt.secret-key}")
+	@Value("${application.security.jwt.secret-key}")
 	private String JWT_SECRET;
 	@Value("${application.security.jwt.expiration}")
 	private long JWT_EXPIRATION;

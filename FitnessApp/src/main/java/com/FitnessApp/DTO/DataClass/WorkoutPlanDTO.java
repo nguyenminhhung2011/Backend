@@ -1,12 +1,9 @@
 package com.FitnessApp.DTO.DataClass;
 
-import com.FitnessApp.Utils.Enums.PlanType;
-import lombok.*;
 
 import java.util.List;
 
-import com.FitnessApp.Enums.PlanType;
-
+import com.FitnessApp.Utils.Enums.PlanType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,5 +19,4 @@ public class WorkoutPlanDTO {
 	private long endDate;
 	private PlanType type;
 	private List<DailyWorkoutDTO> dailyWorkouts;
-
 }

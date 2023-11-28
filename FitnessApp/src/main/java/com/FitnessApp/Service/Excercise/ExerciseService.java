@@ -34,7 +34,6 @@ public class ExerciseService extends GenericSearchService<Exercise,Long> {
 	}
 
 	public Page<Exercise> searchExercise(FetchExerciseRequest request) {
-		final Class<FetchExerciseRequest> test = FetchExerciseRequest.class;
 
 		final List<Specification<Exercise>> filter = List.of(
 				specification("name", request.name()),
