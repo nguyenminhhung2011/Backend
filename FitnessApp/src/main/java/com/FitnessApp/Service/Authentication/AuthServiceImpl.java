@@ -1,6 +1,5 @@
 package com.FitnessApp.Service.Authentication;
 
-import com.FitnessApp.DTO.DataClass.ResponseObject;
 import com.FitnessApp.DTO.Request.AuthRequest;
 import com.FitnessApp.DTO.Request.RegistrationRequest;
 import com.FitnessApp.DTO.Response.AuthResponse;
