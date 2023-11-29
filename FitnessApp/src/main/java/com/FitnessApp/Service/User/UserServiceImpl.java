@@ -99,10 +99,12 @@ public class UserServiceImpl extends GenericService<User,Long,UserRepository> im
 		UserProfileDTO newUserProfileDTO = userDTO.getUserProfile();
 
 		userProfile.setFrequency(newUserProfileDTO.getFrequency());
+		userProfile.setWeight(newUserProfileDTO.getWeight());
 		userProfile.setGender(newUserProfileDTO.getGender());
 		userProfile.setHeight(newUserProfileDTO.getHeight());
 		userProfile.setCurrentPlan(newUserProfileDTO.getCurrentPlan());
 		userProfile.setPhone(newUserProfileDTO.getPhone());
+		userProfile.setCreated(newUserProfileDTO.isCreated());
 
 		userProfileRepository.save(userProfile);
 
