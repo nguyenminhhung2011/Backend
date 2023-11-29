@@ -21,7 +21,6 @@ import lombok.*;
 @JsonIgnoreType
 @JsonIgnoreProperties(value = {"secondaryMuscles"})
 public class Exercise {
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY) // This indicates auto-generation of IDs
 	@JsonView(value = {ExerciseViews.Summary.class, SessionViews.Summary.class, UserViews.Summary.class,})
@@ -64,7 +63,7 @@ public class Exercise {
 	@JsonView(value = {ExerciseViews.Detail.class})
 	@JsonProperty("instructions")
 	@JsonDeserialize(using = InstructionsDeserialize.class)
-	@OneToMany(mappedBy = "exercise",cascade = CascadeType.ALL,orphanRemoval = true)
+	@OneToMany(mappedBy = "exercise",orphanRemoval = true)
 	private List<Steps> steps;
 
 	@JsonView(ExerciseViews.Hide.class)

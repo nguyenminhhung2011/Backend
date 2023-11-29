@@ -4,12 +4,11 @@ import com.FitnessApp.DTO.Views.ExerciseViews;
 import com.FitnessApp.Model.Exercise.Exercise;
 import com.fasterxml.jackson.annotation.JsonView;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
-@Data
+@Setter
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Steps {

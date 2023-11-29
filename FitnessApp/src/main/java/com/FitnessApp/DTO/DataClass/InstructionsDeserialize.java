@@ -1,11 +1,13 @@
 package com.FitnessApp.DTO.DataClass;
 
 import com.FitnessApp.Model.Exercise.Steps;
+import com.FitnessApp.Repository.Exercise.StepRepository;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -24,7 +26,7 @@ public class InstructionsDeserialize extends StdDeserializer<List<Steps>> {
 
     @Override
     public List<Steps> deserialize(JsonParser jp, DeserializationContext ctxt)
-            throws IOException, JsonProcessingException {
+            throws IOException {
         JsonNode node = jp.getCodec().readTree(jp);
 
         List<Steps> result = new ArrayList<>();

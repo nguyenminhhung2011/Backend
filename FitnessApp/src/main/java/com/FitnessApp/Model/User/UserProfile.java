@@ -13,6 +13,7 @@ import com.FitnessApp.Model.Exercise.Exercise;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 @Getter
@@ -27,6 +28,10 @@ public class UserProfile {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+
+	@Builder.Default
+	@Column(columnDefinition = "boolean default false")
+	private boolean isCreated = false;
 
 	@JsonView(value = {UserViews.Summary.class})
 	private String fullName;

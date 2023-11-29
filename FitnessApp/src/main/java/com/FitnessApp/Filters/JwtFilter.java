@@ -45,6 +45,7 @@ public class JwtFilter extends OncePerRequestFilter {
 		try {
 			String jwt = getJwtFromRequest(request);
 
+
 			if (Arrays.stream(WebSecurityConfig.whiteListedRoutes)
 					.anyMatch(route -> antPathMatcher.match(route, request.getServletPath())) ||
 					Objects.isNull(jwt)) {

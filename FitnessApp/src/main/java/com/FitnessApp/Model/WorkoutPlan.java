@@ -1,5 +1,6 @@
 package com.FitnessApp.Model;
 
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
@@ -35,7 +36,7 @@ public class WorkoutPlan {
 
 	@JsonView(value = { WorkoutPlanViews.Summary.class, UserViews.Summary.class, ActivitiesLogViews.Summary.class })
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY) // This indica
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
 	@JsonView(value = { WorkoutPlanViews.Summary.class, UserViews.Summary.class, ActivitiesLogViews.Summary.class })
@@ -45,10 +46,10 @@ public class WorkoutPlan {
 	private String description;
 
 	@JsonView(value = { WorkoutPlanViews.Summary.class, UserViews.Summary.class })
-	private Date startDate;
+	private long  startDate;
 
 	@JsonView(value = { WorkoutPlanViews.Summary.class, UserViews.Summary.class })
-	private Date endDate;
+	private long endDate;
 
 	@JsonView(value = { WorkoutPlanViews.Summary.class, UserViews.Summary.class, ActivitiesLogViews.Summary.class })
 	@Enumerated(EnumType.STRING)

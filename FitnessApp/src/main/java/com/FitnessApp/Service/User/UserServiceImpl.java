@@ -151,15 +151,7 @@ public class UserServiceImpl extends GenericService<User,Long,UserRepository> im
 
 		try{
 			final var exercise = exerciseOptional.get();
-//			final var favoriteExercises = userProfile.getFavoriteExercises();
-
-//			if (favoriteExercises.contains(exercise)){
-//				return new ResponseObject(HttpStatus.OK.value(),"Success",null);
-//			}
-
-//			favoriteExercises.add(exercise);
 			exercise.getFavoriteUser().add(userProfile);
-
 			userProfileRepository.save(userProfile);
 			exerciseRepo.save(exercise);
 			return new ResponseObject(

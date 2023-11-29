@@ -1,13 +1,7 @@
 package com.FitnessApp.Config;
 
-import com.FitnessApp.Model.Exercise.BodyPart;
-import com.FitnessApp.Model.Exercise.Equipment;
-import com.FitnessApp.Model.Exercise.Exercise;
-import com.FitnessApp.Model.Exercise.Target;
-import com.FitnessApp.Repository.Exercise.BodyPartRepository;
-import com.FitnessApp.Repository.Exercise.EquipmentRepository;
-import com.FitnessApp.Repository.Exercise.ExerciseRepository;
-import com.FitnessApp.Repository.Exercise.TargetRepository;
+import com.FitnessApp.Model.Exercise.*;
+import com.FitnessApp.Repository.Exercise.*;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.annotation.PostConstruct;
@@ -24,6 +18,7 @@ import java.util.concurrent.atomic.AtomicReference;
 public class InitialDatabaseConfig {
 
     private final ExerciseRepository exerciseRepository;
+    private final StepRepository stepRepository ;
     private final BodyPartRepository bodyPartRepository;
     private final EquipmentRepository equipmentRepository;
     private final TargetRepository targetRepository;
@@ -41,8 +36,9 @@ public class InitialDatabaseConfig {
     @Value(value = "${com.FitnessApp.database.initial.target}")
     private String target;
 
-    public InitialDatabaseConfig(ExerciseRepository exerciseRepository, BodyPartRepository bodyPartRepository, EquipmentRepository equipmentRepository, TargetRepository targetRepository, ObjectMapper objectMapper) {
+    public InitialDatabaseConfig(ExerciseRepository exerciseRepository, StepRepository stepRepository, BodyPartRepository bodyPartRepository, EquipmentRepository equipmentRepository, TargetRepository targetRepository, ObjectMapper objectMapper) {
         this.exerciseRepository = exerciseRepository;
+        this.stepRepository = stepRepository;
         this.bodyPartRepository = bodyPartRepository;
         this.equipmentRepository = equipmentRepository;
         this.targetRepository = targetRepository;
@@ -55,7 +51,14 @@ public class InitialDatabaseConfig {
         InputStream inputStream = TypeReference.class.getResourceAsStream(exercise);
         try {
             List<Exercise> exercises = objectMapper.readValue(inputStream,typeReference);
-            exerciseRepository.saveAll(exercises);
+
+            for (Exercise exercise : exercises) {
+                final var savedExercise = exerciseRepository.saveAndFlush(exercise);
+                for (Steps step : exercise.getSteps()) {
+                    step.setExercise(savedExercise);
+                }
+                stepRepository.saveAllAndFlush(exercise.getSteps());
+            }
 
             targetRepository.saveAll(initializeListData(Target.class,target));
             equipmentRepository.saveAll(initializeListData(Equipment.class,equipment));
