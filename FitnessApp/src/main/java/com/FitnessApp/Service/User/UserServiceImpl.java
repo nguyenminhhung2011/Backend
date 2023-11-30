@@ -82,8 +82,7 @@ public class UserServiceImpl extends GenericService<User,Long,UserRepository> im
 	@Override
 	public ResponseObject changePassword(Long id, ChangePasswordRequest request) {
 		User user = findById(id);
-		final var decodePassword = passwordEncoder.encode(request.getOldPassword());
-		if (decodePassword.equals(user.getPassword())) {
+		if (passwordEncoder.matches(request.getOldPassword(), user.getPassword())) {
 			user.setPassword(passwordEncoder.encode(request.getConfirmPassword()));
 			repository.save(user);
 			return new ResponseObject(HttpStatus.OK.value(), "Change user password successfully", null);
@@ -99,10 +98,12 @@ public class UserServiceImpl extends GenericService<User,Long,UserRepository> im
 		UserProfileDTO newUserProfileDTO = userDTO.getUserProfile();
 
 		userProfile.setFrequency(newUserProfileDTO.getFrequency());
+		userProfile.setWeight(newUserProfileDTO.getWeight());
 		userProfile.setGender(newUserProfileDTO.getGender());
 		userProfile.setHeight(newUserProfileDTO.getHeight());
 		userProfile.setCurrentPlan(newUserProfileDTO.getCurrentPlan());
 		userProfile.setPhone(newUserProfileDTO.getPhone());
+		userProfile.setCreated(newUserProfileDTO.isCreated());
 
 		userProfileRepository.save(userProfile);
 
@@ -151,15 +152,7 @@ public class UserServiceImpl extends GenericService<User,Long,UserRepository> im
 
 		try{
 			final var exercise = exerciseOptional.get();
-//			final var favoriteExercises = userProfile.getFavoriteExercises();
-
-//			if (favoriteExercises.contains(exercise)){
-//				return new ResponseObject(HttpStatus.OK.value(),"Success",null);
-//			}
-
-//			favoriteExercises.add(exercise);
 			exercise.getFavoriteUser().add(userProfile);
-
 			userProfileRepository.save(userProfile);
 			exerciseRepo.save(exercise);
 			return new ResponseObject(

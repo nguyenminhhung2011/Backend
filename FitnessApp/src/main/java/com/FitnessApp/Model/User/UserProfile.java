@@ -29,6 +29,7 @@ public class UserProfile {
 	private Long id;
 
 	@Builder.Default
+	@Column(columnDefinition = "boolean default false")
 	private boolean isCreated = false;
 
 	@JsonView(value = {UserViews.Summary.class})

@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+import com.FitnessApp.Exceptions.AppException.BadRequestException;
 import com.FitnessApp.Exceptions.AppException.NotFoundException;
 import com.FitnessApp.Model.User.UserProfile;
 import com.FitnessApp.Repository.User.UserProfileRepository;
@@ -167,26 +168,24 @@ public class WorkoutController {
 	}
 
 	@GetMapping("/daily")
-	public ResponseEntity<?> getAllDailyPlan(@RequestParam("id") String id) {
-
+	public ResponseEntity<?> getAllDailyPlan(@RequestParam("id") String id) throws BadRequestException {
 		try {
 
 			WorkoutPlan workoutPlan = workoutService.findById(Long.parseLong(id));
 
-			List<DailyWorkout> curentDaily = workoutPlan.getDailyWorkouts();
-			if (curentDaily == null) {
+			List<DailyWorkout> currentDaily = workoutPlan.getDailyWorkouts();
+			if (currentDaily == null) {
 				return ResponseEntity.ok().body(new ResponseObject("ok", "There is no schedule yet", null));
 
 			}
-			for (DailyWorkout dailyWorkout : curentDaily) {
+			for (DailyWorkout dailyWorkout : currentDaily) {
 				dailyWorkout.setWorkoutPlan(null);
 			}
 
-			return ResponseEntity.ok().body(new ResponseObject("ok", "all daily workout", curentDaily));
+			return ResponseEntity.ok().body(new ResponseObject("ok", "all daily workout", currentDaily));
 		} catch (Exception e) {
 			log.warn(e.getMessage(),e);
-			return ResponseEntity.ok().body(new ResponseObject("ok", "Failed to create Workout Plan\"", null));
-
+			throw new BadRequestException("Failed to get daily workout plan");
 		}
 	}
 
@@ -209,10 +208,8 @@ public class WorkoutController {
 
 	@PostMapping("/delete")
 	public ResponseEntity<Object> deleteWorkoutplan(@RequestParam("id") String id) {
-
 		workoutService.delete(Long.parseLong(id));
 		return ResponseEntity.ok().body(new ResponseObject("ok", "deleted successfully\"", null));
-
 	}
 
 	@PostMapping("/daily/delete")

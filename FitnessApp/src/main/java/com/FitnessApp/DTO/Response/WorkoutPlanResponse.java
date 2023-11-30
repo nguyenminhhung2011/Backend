@@ -17,9 +17,9 @@ public class WorkoutPlanResponse {
 	// Description
 	private String description;
 	// Start Date
-	private Date startDate;
+	private Long startDate;
 	// End Date
-	private Date endDate;
+	private Long endDate;
 	// Plan Type
 	private PlanType type;
 
@@ -28,7 +28,7 @@ public class WorkoutPlanResponse {
 		// Default constructor
 	}
 
-	public WorkoutPlanResponse(Long id, String name, String description, Date startDate, Date endDate, PlanType type) {
+	public WorkoutPlanResponse(Long id, String name, String description, long startDate, long endDate, PlanType type) {
 		this.id = id;
 		this.name = name;
 		this.description = description;
@@ -49,11 +49,11 @@ public class WorkoutPlanResponse {
 		this.description = description;
 	}
 
-	public void setStartDate(Date startDate) {
+	public void setStartDate(long startDate) {
 		this.startDate = startDate;
 	}
 
-	public void setEndDate(Date endDate) {
+	public void setEndDate(long endDate) {
 		this.endDate = endDate;
 	}
 

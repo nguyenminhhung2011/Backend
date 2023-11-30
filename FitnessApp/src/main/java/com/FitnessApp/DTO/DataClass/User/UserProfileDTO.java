@@ -17,6 +17,7 @@ public class UserProfileDTO {
     private double weight;
 
     private double height;
+    private boolean isCreated;
     private String phone;
 
     private String level;
