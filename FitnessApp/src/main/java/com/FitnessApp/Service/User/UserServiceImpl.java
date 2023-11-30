@@ -82,8 +82,7 @@ public class UserServiceImpl extends GenericService<User,Long,UserRepository> im
 	@Override
 	public ResponseObject changePassword(Long id, ChangePasswordRequest request) {
 		User user = findById(id);
-		final var decodePassword = passwordEncoder.encode(request.getOldPassword());
-		if (decodePassword.equals(user.getPassword())) {
+		if (passwordEncoder.matches(request.getOldPassword(), user.getPassword())) {
 			user.setPassword(passwordEncoder.encode(request.getConfirmPassword()));
 			repository.save(user);
 			return new ResponseObject(HttpStatus.OK.value(), "Change user password successfully", null);
