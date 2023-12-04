@@ -16,13 +16,9 @@ public class OpenAiService {
     @Value("${openai.api.timeout:}")
     private long timeout;
     private Duration DEFAULT_TIMEOUT = Duration.ofSeconds(timeout);
-
     private final ObjectMapper objectMapper;
-
     private final OkHttpClient okHttpClient;
-
-    private final ExecutorService executorService ;
-
+    private final ExecutorService executorService;
 
     public OpenAiService(ObjectMapper objectMapper, OkHttpClient okHttpClient) {
         this.objectMapper = objectMapper;
