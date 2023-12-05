@@ -22,7 +22,6 @@ public class DailyWorkout {
 	private String description;
 	private double caloTarget;
 	private Long time; // Thời gian trong phút (1h = 60 phút)
-
 	private int workoutDuration;
 	private int numberRound;
 	private int execPerRound;

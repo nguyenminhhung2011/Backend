@@ -1,0 +1,1453 @@
+diff --git a/.idea/.gitignore b/.idea/.gitignore
+deleted file mode 100644
+index 13566b8..0000000
+--- a/.idea/.gitignore
++++ /dev/null
+@@ -1,8 +0,0 @@
+-# Default ignored files
+-/shelf/
+-/workspace.xml
+-# Editor-based HTTP Client requests
+-/httpRequests/
+-# Datasource local storage ignored files
+-/dataSources/
+-/dataSources.local.xml
+diff --git a/.idea/modules.xml b/.idea/modules.xml
+deleted file mode 100644
+index 19e0229..0000000
+--- a/.idea/modules.xml
++++ /dev/null
+@@ -1,8 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<project version="4">
+-  <component name="ProjectModuleManager">
+-    <modules>
+-      <module fileurl="file://$PROJECT_DIR$/FitnessApp/FitnessApp.iml" filepath="$PROJECT_DIR$/FitnessApp/FitnessApp.iml" />
+-    </modules>
+-  </component>
+-</project>
+\ No newline at end of file
+diff --git a/.idea/vcs.xml b/.idea/vcs.xml
+deleted file mode 100644
+index 35eb1dd..0000000
+--- a/.idea/vcs.xml
++++ /dev/null
+@@ -1,6 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<project version="4">
+-  <component name="VcsDirectoryMappings">
+-    <mapping directory="" vcs="Git" />
+-  </component>
+-</project>
+\ No newline at end of file
+diff --git a/trainer-ai/pom.xml b/trainer-ai/pom.xml
+index ee1407e..f1b9ccb 100644
+--- a/trainer-ai/pom.xml
++++ b/trainer-ai/pom.xml
+@@ -18,7 +18,6 @@
+     <properties>
+         <java.version>17</java.version>
+     </properties>
+-
+     <dependencies>
+         <dependency>
+             <groupId>org.projectlombok</groupId>
+@@ -32,39 +31,6 @@
+             <groupId>jakarta.validation</groupId>
+             <artifactId>jakarta.validation-api</artifactId>
+         </dependency>
+-        <dependency>
+-            <groupId>com.squareup.okhttp3</groupId>
+-            <artifactId>okhttp</artifactId>
+-            <version>4.10.0</version>
+-        </dependency>
+-        <dependency>
+-            <groupId>org.springframework</groupId>
+-            <artifactId>spring-context</artifactId>
+-        </dependency>
+-        <dependency>
+-            <groupId>org.springframework.boot</groupId>
+-            <artifactId>spring-boot</artifactId>
+-        </dependency>
+-        <dependency>
+-            <groupId>com.fasterxml.jackson.core</groupId>
+-            <artifactId>jackson-databind</artifactId>
+-        </dependency>
+-        <dependency>
+-            <groupId>com.squareup.retrofit2</groupId>
+-            <artifactId>retrofit</artifactId>
+-            <version>2.7.2</version>
+-        </dependency>
+-        <dependency>
+-            <groupId>org.springframework</groupId>
+-            <artifactId>spring-core</artifactId>
+-            <version>6.1.1</version>
+-        </dependency>
+-        <dependency>
+-            <groupId>com.squareup.retrofit2</groupId>
+-            <artifactId>adapter-rxjava2</artifactId>
+-            <version>2.9.0</version>
+-        </dependency>
+-
+     </dependencies>
+ 
+ </project>
+diff --git a/trainer-ai/src/main/java/com/trainer/Main.java b/trainer-ai/src/main/java/com/trainer/Main.java
+new file mode 100644
+index 0000000..4cbf773
+--- /dev/null
++++ b/trainer-ai/src/main/java/com/trainer/Main.java
+@@ -0,0 +1,7 @@
++package com.trainer;
++
++public class Main {
++    public static void main(String[] args){
++
++    }
++}
+diff --git a/trainer-ai/src/main/java/com/trainer/api/DeleteResult.java b/trainer-ai/src/main/java/com/trainer/api/DeleteResult.java
+deleted file mode 100644
+index 0dd1903..0000000
+--- a/trainer-ai/src/main/java/com/trainer/api/DeleteResult.java
++++ /dev/null
+@@ -1,24 +0,0 @@
+-package com.trainer.api;
+-
+-import lombok.Data;
+-
+-/**
+- * A response when deleting an object
+- */
+-@Data
+-public class DeleteResult {
+-    /**
+-     * The id of the object.
+-     */
+-    String id;
+-
+-    /**
+-     * The type of object deleted, for example "file" or "model"
+-     */
+-    String object;
+-
+-    /**
+-     * True if successfully deleted
+-     */
+-    boolean deleted;
+-}
+diff --git a/trainer-ai/src/main/java/com/trainer/api/ListSearchParameters.java b/trainer-ai/src/main/java/com/trainer/api/ListSearchParameters.java
+deleted file mode 100644
+index 329b88d..0000000
+--- a/trainer-ai/src/main/java/com/trainer/api/ListSearchParameters.java
++++ /dev/null
+@@ -1,51 +0,0 @@
+-package com.trainer.api;
+-
+-import com.fasterxml.jackson.annotation.JsonProperty;
+-import lombok.AllArgsConstructor;
+-import lombok.Builder;
+-import lombok.Data;
+-import lombok.NoArgsConstructor;
+-
+-/**
+- * Common options when getting a list of objects
+- */
+-@Builder
+-@NoArgsConstructor
+-@AllArgsConstructor
+-@Data
+-public class ListSearchParameters {
+-    /**
+-     * A limit on the number of objects to be returned.
+-     * Limit can range between 1 and 100, and the default is 20
+-     */
+-
+-    Integer limit;
+-
+-    /**
+-     * Sort order by the 'created_at' timestamp of the objects.
+-     * 'asc' for ascending order and 'desc' for descending order.
+-     */
+-    Order order;
+-
+-    /**
+-     * A cursor for use in pagination. after is an object ID that defines your place in the list.
+-     * For instance, if you make a list request and receive 100 objects, ending with obj_foo,
+-     * your subsequent call can include after=obj_foo in order to fetch the next page of the list
+-     */
+-    String after;
+-
+-    /**
+-     * A cursor for use in pagination. before is an object ID that defines your place in the list.
+-     * For instance, if you make a list request and receive 100 objects, ending with obj_foo,
+-     * your subsequent call can include before=obj_foo in order to fetch the previous page of the list.
+-     */
+-    String before;
+-
+-    public enum Order {
+-        @JsonProperty("asc")
+-        ASCENDING,
+-
+-        @JsonProperty("desc")
+-        DESCENDING
+-    }
+-}
+diff --git a/trainer-ai/src/main/java/com/trainer/api/OpenAiApi.java b/trainer-ai/src/main/java/com/trainer/api/OpenAiApi.java
+deleted file mode 100644
+index 2e9aa06..0000000
+--- a/trainer-ai/src/main/java/com/trainer/api/OpenAiApi.java
++++ /dev/null
+@@ -1,72 +0,0 @@
+-package com.trainer.api;
+-import com.trainer.api.assistants.*;
+-import com.trainer.api.message.Message;
+-import com.trainer.api.message.MessageRequest;
+-import io.reactivex.Single;
+-import retrofit2.http.*;
+-import java.util.Map;
+-
+-public interface OpenAiApi {
+-    /*
+-    * Message
+-    * */
+-    @Headers({"OpenAI-Beta: assistants=v1"})
+-    @POST("/v1/threads/{thread_id}/messages")
+-    Single<Message> createMessage(@Path("thread_id") String threadId, @Body MessageRequest request);
+-
+-    @Headers({"OpenAI-Beta: assistants=v1"})
+-    @GET("/v1/threads/{thread_id}/messages/{message_id}")
+-    Single<Message> retrieveMessage(@Path("thread_id") String threadId, @Path("message_id") String messageId);
+-
+-    @Headers({"OpenAI-Beta: assistants=v1"})
+-    @POST("/v1/threads/{thread_id}/messages/{message_id}")
+-    Single<Message> modifyMessage(@Path("thread_id") String threadId, @Path("message_id") String messageId, @Body Map<String, String> metadata);
+-
+-    @Headers({"OpenAI-Beta: assistants=v1"})
+-    @GET("/v1/threads/{thread_id}/messages")
+-    Single<OpenAiResponse<Message>> listMessages(@Path("thread_id") String threadId);
+-
+-    @Headers({"OpenAI-Beta: assistants=v1"})
+-    @GET("/v1/threads/{thread_id}/messages")
+-    Single<OpenAiResponse<Message>> listMessages(@Path("thread_id") String threadId, @QueryMap Map<String, Object> filterRequest);
+-
+-    /*
+-    Assistant
+-     */
+-    @Headers({"OpenAI-Beta: assistants=v1"})
+-    @POST("/v1/assistants")
+-    Single<Assistant> createAssistant(@Body AssistantRequest request);
+-
+-    @Headers({"OpenAI-Beta: assistants=v1"})
+-    @GET("/v1/assistants/{assistant_id}")
+-    Single<Assistant> retrieveAssistant(@Path("assistant_id") String assistantId);
+-
+-    @Headers({"OpenAI-Beta: assistants=v1"})
+-    @POST("/v1/assistants/{assistant_id}")
+-    Single<Assistant> modifyAssistant(@Path("assistant_id") String assistantId, @Body ModifyAssistantRequest request);
+-
+-    @Headers({"OpenAI-Beta: assistants=v1"})
+-    @DELETE("/v1/assistants/{assistant_id}")
+-    Single<DeleteResult> deleteAssistant(@Path("assistant_id") String assistantId);
+-
+-
+-    @Headers({"OpenAI-Beta: assistants=v1"})
+-    @GET("/v1/assistants")
+-    Single<OpenAiResponse<Assistant>> listAssistants(@QueryMap Map<String, Object> filterRequest);
+-
+-    @Headers({"OpenAI-Beta: assistants=v1"})
+-    @POST("/v1/assistants/{assistant_id}/files")
+-    Single<AssistantFile> createAssistantFile(@Path("assistant_id") String assistantId, @Body AssistantFileRequest fileRequest);
+-
+-    @Headers({"OpenAI-Beta: assistants=v1"})
+-    @GET("/v1/assistants/{assistant_id}/files/{file_id}")
+-    Single<AssistantFile> retrieveAssistantFile(@Path("assistant_id") String assistantId, @Path("file_id") String fileId);
+-
+-    @Headers({"OpenAI-Beta: assistants=v1"})
+-    @DELETE("/v1/assistants/{assistant_id}/files/{file_id}")
+-    Single<DeleteResult> deleteAssistantFile(@Path("assistant_id") String assistantId, @Path("file_id") String fileId);
+-
+-    @Headers({"OpenAI-Beta: assistants=v1"})
+-    @GET("/v1/assistants/{assistant_id}/files")
+-    Single<OpenAiResponse<Assistant>> listAssistantFiles(@Path("assistant_id") String assistantId, @QueryMap Map<String, Object> filterRequest);
+-}
+diff --git a/trainer-ai/src/main/java/com/trainer/api/OpenAiError.java b/trainer-ai/src/main/java/com/trainer/api/OpenAiError.java
+deleted file mode 100644
+index 9edac87..0000000
+--- a/trainer-ai/src/main/java/com/trainer/api/OpenAiError.java
++++ /dev/null
+@@ -1,39 +0,0 @@
+-package com.trainer.api;
+-
+-import lombok.AllArgsConstructor;
+-import lombok.Data;
+-import lombok.NoArgsConstructor;
+-
+-/**
+- * Represents the error body when an OpenAI request fails
+- */
+-@Data
+-@NoArgsConstructor
+-@AllArgsConstructor
+-public class OpenAiError {
+-
+-    public OpenAiErrorDetails error;
+-
+-    @Data
+-    @NoArgsConstructor
+-    @AllArgsConstructor
+-    public static class OpenAiErrorDetails {
+-        /**
+-         * Human-readable error message
+-         */
+-        String message;
+-
+-        /**
+-         * OpenAI error type, for example "invalid_request_error"
+-         * https://platform.openai.com/docs/guides/error-codes/python-library-error-types
+-         */
+-        String type;
+-
+-        String param;
+-
+-        /**
+-         * OpenAI error code, for example "invalid_api_key"
+-         */
+-        String code;
+-    }
+-}
+diff --git a/trainer-ai/src/main/java/com/trainer/api/OpenAiHttpException.java b/trainer-ai/src/main/java/com/trainer/api/OpenAiHttpException.java
+deleted file mode 100644
+index be83364..0000000
+--- a/trainer-ai/src/main/java/com/trainer/api/OpenAiHttpException.java
++++ /dev/null
+@@ -1,31 +0,0 @@
+-package com.trainer.api;
+-
+-public class OpenAiHttpException extends RuntimeException {
+-
+-    /**
+-     * HTTP status code
+-     */
+-    public final int statusCode;
+-
+-    /**
+-     * OpenAI error code, for example "invalid_api_key"
+-     */
+-    public final String code;
+-
+-
+-    public final String param;
+-
+-    /**
+-     * OpenAI error type, for example "invalid_request_error"
+-     * https://platform.openai.com/docs/guides/error-codes/python-library-error-types
+-     */
+-    public final String type;
+-
+-    public OpenAiHttpException(OpenAiError error, Exception parent, int statusCode) {
+-        super(error.error.message, parent);
+-        this.statusCode = statusCode;
+-        this.code = error.error.code;
+-        this.param = error.error.param;
+-        this.type = error.error.type;
+-    }
+-}
+diff --git a/trainer-ai/src/main/java/com/trainer/api/OpenAiResponse.java b/trainer-ai/src/main/java/com/trainer/api/OpenAiResponse.java
+deleted file mode 100644
+index fe17735..0000000
+--- a/trainer-ai/src/main/java/com/trainer/api/OpenAiResponse.java
++++ /dev/null
+@@ -1,40 +0,0 @@
+-package com.trainer.api;
+-
+-import com.fasterxml.jackson.annotation.JsonProperty;
+-import lombok.Data;
+-
+-import java.util.List;
+-
+-/**
+- * A wrapper class to fit the OpenAI engine and search endpoints
+- */
+-@Data
+-public class OpenAiResponse<T> {
+-    /**
+-     * A list containing the actual results
+-     */
+-    public List<T> data;
+-
+-    /**
+-     * The type of object returned, should be "list"
+-     */
+-    public String object;
+-
+-    /**
+-     * The first id included
+-     */
+-    @JsonProperty("first_id")
+-    public String firstId;
+-
+-    /**
+-     * The last id included
+-     */
+-    @JsonProperty("last_id")
+-    public String lastId;
+-
+-    /**
+-     * True if there are objects after lastId
+-     */
+-    @JsonProperty("has_more")
+-    public boolean hasMore;
+-}
+diff --git a/trainer-ai/src/main/java/com/trainer/api/TikTokensUtil.java b/trainer-ai/src/main/java/com/trainer/api/TikTokensUtil.java
+deleted file mode 100644
+index 588f8c8..0000000
+--- a/trainer-ai/src/main/java/com/trainer/api/TikTokensUtil.java
++++ /dev/null
+@@ -1,300 +0,0 @@
+-package com.trainer.api.utils;
+-
+-import com.knuddels.jtokkit.Encodings;
+-import com.knuddels.jtokkit.api.Encoding;
+-import com.knuddels.jtokkit.api.EncodingRegistry;
+-import com.knuddels.jtokkit.api.EncodingType;
+-import com.knuddels.jtokkit.api.ModelType;
+-import com.theokanning.openai.completion.chat.ChatMessage;
+-import lombok.AllArgsConstructor;
+-import lombok.Getter;
+-
+-import java.util.*;
+-
+-/**
+- * Token calculation tool class
+- */
+-public class TikTokensUtil {
+-    /**
+-     * Model name corresponds to Encoding
+-     */
+-    private static final Map<String, Encoding> modelMap = new HashMap<>();
+-    /**
+-     * Registry instance
+-     */
+-    private static final EncodingRegistry registry = Encodings.newDefaultEncodingRegistry();
+-
+-    static {
+-        for (ModelType modelType : ModelType.values()) {
+-            modelMap.put(modelType.getName(), registry.getEncodingForModel(modelType));
+-        }
+-        modelMap.put(ModelEnum.GPT_3_5_TURBO_0301.getName(), registry.getEncodingForModel(ModelType.GPT_3_5_TURBO));
+-        modelMap.put(ModelEnum.GPT_4_32K.getName(), registry.getEncodingForModel(ModelType.GPT_4));
+-        modelMap.put(ModelEnum.GPT_4_32K_0314.getName(), registry.getEncodingForModel(ModelType.GPT_4));
+-        modelMap.put(ModelEnum.GPT_4_0314.getName(), registry.getEncodingForModel(ModelType.GPT_4));
+-        modelMap.put(ModelEnum.GPT_4_1106_preview.getName(), registry.getEncodingForModel(ModelType.GPT_4));
+-    }
+-
+-    /**
+-     * Get encoding array through Encoding and text.
+-     *
+-     * @param enc  Encoding type
+-     * @param text Text information
+-     * @return Encoding array
+-     */
+-    public static List<Integer> encode(Encoding enc, String text) {
+-        return isBlank(text) ? new ArrayList<>() : enc.encode(text);
+-    }
+-
+-    /**
+-     * Calculate tokens of text information through Encoding.
+-     *
+-     * @param enc  Encoding type
+-     * @param text Text information
+-     * @return Number of tokens
+-     */
+-    public static int tokens(Encoding enc, String text) {
+-        return encode(enc, text).size();
+-    }
+-
+-
+-    /**
+-     * Reverse calculate text information through Encoding and encoded array
+-     *
+-     * @param enc     Encoding
+-     * @param encoded Encoding array
+-     * @return Text information corresponding to the encoding array.
+-     */
+-    public static String decode(Encoding enc, List<Integer> encoded) {
+-        return enc.decode(encoded);
+-    }
+-
+-    /**
+-     * Get an Encoding object by Encoding type
+-     *
+-     * @param encodingType
+-     * @return Encoding
+-     */
+-    public static Encoding getEncoding(EncodingType encodingType) {
+-        Encoding enc = registry.getEncoding(encodingType);
+-        return enc;
+-    }
+-
+-    /**
+-     * Obtain the encoding array by encoding;
+-     *
+-     * @param text
+-     * @return Encoding array
+-     */
+-    public static List<Integer> encode(EncodingType encodingType, String text) {
+-        if (isBlank(text)) {
+-            return new ArrayList<>();
+-        }
+-        Encoding enc = getEncoding(encodingType);
+-        List<Integer> encoded = enc.encode(text);
+-        return encoded;
+-    }
+-
+-    /**
+-     * Compute the tokens of the specified string through EncodingType.
+-     *
+-     * @param encodingType
+-     * @param text
+-     * @return Number of tokens
+-     */
+-    public static int tokens(EncodingType encodingType, String text) {
+-        return encode(encodingType, text).size();
+-    }
+-
+-
+-    /**
+-     * Reverse the encoded array to get the string text using EncodingType and the encoded array.
+-     *
+-     * @param encodingType
+-     * @param encoded
+-     * @return The string corresponding to the encoding array.
+-     */
+-    public static String decode(EncodingType encodingType, List<Integer> encoded) {
+-        Encoding enc = getEncoding(encodingType);
+-        return enc.decode(encoded);
+-    }
+-
+-
+-    /**
+-     * Get an Encoding object by model name.
+-     *
+-     * @param modelName
+-     * @return Encoding
+-     */
+-    public static Encoding getEncoding(String modelName) {
+-        return modelMap.get(modelName);
+-    }
+-
+-    /**
+-     * Get the encoded array by model name using encode.
+-     *
+-     * @param text Text information
+-     * @return Encoding array
+-     */
+-    public static List<Integer> encode(String modelName, String text) {
+-        if (isBlank(text)) {
+-            return new ArrayList<>();
+-        }
+-        Encoding enc = getEncoding(modelName);
+-        if (Objects.isNull(enc)) {
+-            return new ArrayList<>();
+-        }
+-        List<Integer> encoded = enc.encode(text);
+-        return encoded;
+-    }
+-
+-    /**
+-     * Calculate the tokens of a specified string by model name.
+-     *
+-     * @param modelName
+-     * @param text
+-     * @return Number of tokens
+-     */
+-    public static int tokens(String modelName, String text) {
+-        return encode(modelName, text).size();
+-    }
+-
+-
+-    /**
+-     * Calculate the encoded array for messages by model name.
+-     * Refer to the official processing logic:
+-     * <a href=https://github.com/openai/openai-cookbook/blob/main/examples/How_to_count_tokens_with_tiktoken.ipynb>https://github.com/openai/openai-cookbook/blob/main/examples/How_to_count_tokens_with_tiktoken.ipynb</a>
+-     *
+-     * @param modelName
+-     * @param messages
+-     * @return Number of tokens
+-     */
+-    public static int tokens(String modelName, List<ChatMessage> messages) {
+-        Encoding encoding = getEncoding(modelName);
+-        int tokensPerMessage = 0;
+-        int tokensPerName = 0;
+-        //3.5统一处理
+-        if (modelName.equals("gpt-3.5-turbo-0301") || modelName.equals("gpt-3.5-turbo")) {
+-            tokensPerMessage = 4;
+-            tokensPerName = -1;
+-        }
+-        //4.0统一处理
+-        if (modelName.equals("gpt-4") || modelName.equals("gpt-4-0314")) {
+-            tokensPerMessage = 3;
+-            tokensPerName = 1;
+-        }
+-        int sum = 0;
+-        for (ChatMessage msg : messages) {
+-            sum += tokensPerMessage;
+-            sum += tokens(encoding, msg.getContent());
+-            sum += tokens(encoding, msg.getRole());
+-            sum += tokens(encoding, msg.getName());
+-            if (isNotBlank(msg.getName())) {
+-                sum += tokensPerName;
+-            }
+-        }
+-        sum += 3;
+-        return sum;
+-    }
+-
+-    /**
+-     * Reverse the string text through the model name and the encoded array.
+-     *
+-     * @param modelName
+-     * @param encoded
+-     * @return
+-     */
+-    public static String decode(String modelName, List<Integer> encoded) {
+-        Encoding enc = getEncoding(modelName);
+-        return enc.decode(encoded);
+-    }
+-
+-
+-    /**
+-     * Obtain the modelType.
+-     *
+-     * @param name
+-     * @return
+-     */
+-    public static ModelType getModelTypeByName(String name) {
+-        if (ModelEnum.GPT_3_5_TURBO_0301.getName().equals(name)) {
+-            return ModelType.GPT_3_5_TURBO;
+-        }
+-        if (ModelEnum.GPT_4.getName().equals(name)
+-                || ModelEnum.GPT_4_32K.getName().equals(name)
+-                || ModelEnum.GPT_4_32K_0314.getName().equals(name)
+-                || ModelEnum.GPT_4_0314.getName().equals(name)) {
+-            return ModelType.GPT_4;
+-        }
+-
+-        for (ModelType modelType : ModelType.values()) {
+-            if (modelType.getName().equals(name)) {
+-                return modelType;
+-            }
+-        }
+-        return null;
+-    }
+-
+-    @Getter
+-    @AllArgsConstructor
+-    public enum ModelEnum {
+-        /**
+-         * gpt-3.5-turbo
+-         */
+-        GPT_3_5_TURBO("gpt-3.5-turbo"),
+-        /**
+-         * Temporary model, not recommended for use.
+-         */
+-        GPT_3_5_TURBO_0301("gpt-3.5-turbo-0301"),
+-        /**
+-         * GPT4.0
+-         */
+-        GPT_4("gpt-4"),
+-        /**
+-         * Temporary model, not recommended for use.
+-         */
+-        GPT_4_0314("gpt-4-0314"),
+-        /**
+-         * GPT4.0 超长上下文
+-         */
+-        GPT_4_32K("gpt-4-32k"),
+-        /**
+-         * Temporary model, not recommended for use.
+-         */
+-        GPT_4_32K_0314("gpt-4-32k-0314"),
+-
+-        /**
+-         * Temporary model, not recommended for use.
+-         */
+-        GPT_4_1106_preview("gpt-4-1106-preview");
+-        private String name;
+-    }
+-
+-    public static boolean isBlankChar(int c) {
+-        return Character.isWhitespace(c) || Character.isSpaceChar(c) || c == 65279 || c == 8234 || c == 0 || c == 12644 || c == 10240 || c == 6158;
+-    }
+-
+-    public static boolean isBlankChar(char c) {
+-        return isBlankChar((int) c);
+-    }
+-
+-    public static boolean isNotBlank(CharSequence str) {
+-        return !isBlank(str);
+-    }
+-
+-    public static boolean isBlank(CharSequence str) {
+-        int length;
+-        if (str != null && (length = str.length()) != 0) {
+-            for (int i = 0; i < length; ++i) {
+-                if (!isBlankChar(str.charAt(i))) {
+-                    return false;
+-                }
+-            }
+-
+-            return true;
+-        } else {
+-            return true;
+-        }
+-    }
+-
+-}
+diff --git a/trainer-ai/src/main/java/com/trainer/api/Usage.java b/trainer-ai/src/main/java/com/trainer/api/Usage.java
+deleted file mode 100644
+index cf9e156..0000000
+--- a/trainer-ai/src/main/java/com/trainer/api/Usage.java
++++ /dev/null
+@@ -1,28 +0,0 @@
+-package com.trainer.api;
+-
+-import com.fasterxml.jackson.annotation.JsonProperty;
+-import lombok.Data;
+-
+-/**
+- * The OpenAI resources used by a request
+- */
+-@Data
+-public class Usage {
+-    /**
+-     * The number of prompt tokens used.
+-     */
+-    @JsonProperty("prompt_tokens")
+-    long promptTokens;
+-
+-    /**
+-     * The number of completion tokens used.
+-     */
+-    @JsonProperty("completion_tokens")
+-    long completionTokens;
+-
+-    /**
+-     * The number of total tokens used
+-     */
+-    @JsonProperty("total_tokens")
+-    long totalTokens;
+-}
+diff --git a/trainer-ai/src/main/java/com/trainer/api/assistants/Assistant.java b/trainer-ai/src/main/java/com/trainer/api/assistants/Assistant.java
+deleted file mode 100644
+index 981df13..0000000
+--- a/trainer-ai/src/main/java/com/trainer/api/assistants/Assistant.java
++++ /dev/null
+@@ -1,38 +0,0 @@
+-package com.trainer.api.assistants;
+-
+-import com.fasterxml.jackson.annotation.JsonProperty;
+-import lombok.AllArgsConstructor;
+-import lombok.Data;
+-import lombok.NoArgsConstructor;
+-import lombok.NonNull;
+-
+-import java.util.List;
+-import java.util.Map;
+-
+-@NoArgsConstructor
+-@AllArgsConstructor
+-@Data
+-public class Assistant {
+-    String id;
+-
+-    String object;
+-
+-    @JsonProperty("created_at")
+-    Integer createdAt;
+-
+-    String name;
+-
+-    String description;
+-
+-    @NonNull
+-    String model;
+-
+-    String instructions;
+-
+-    List<Tool> tools;
+-
+-    @JsonProperty("file_ids")
+-    List<String> fileIds;
+-
+-    Map<String,String> metadata;
+-}
+diff --git a/trainer-ai/src/main/java/com/trainer/api/assistants/AssistantFile.java b/trainer-ai/src/main/java/com/trainer/api/assistants/AssistantFile.java
+deleted file mode 100644
+index 62b8c5c..0000000
+--- a/trainer-ai/src/main/java/com/trainer/api/assistants/AssistantFile.java
++++ /dev/null
+@@ -1,30 +0,0 @@
+-package com.trainer.api.assistants;
+-
+-import com.fasterxml.jackson.annotation.JsonProperty;
+-import lombok.Data;
+-
+-@Data
+-public class AssistantFile {
+-
+-    /**
+-     * The identifier of the Assistant File
+-     */
+-    String id;
+-
+-    /**
+-     * The object type, which is always assistant.file.
+-     */
+-    String object;
+-
+-    /**
+-     * The Unix timestamp (in seconds) for when the assistant file was created.
+-     */
+-    @JsonProperty("created_at")
+-    String createdAt;
+-
+-    /**
+-     * The assistant ID that the file is attached to
+-     */
+-    @JsonProperty("assistant_id")
+-    String assistantId;
+-}
+diff --git a/trainer-ai/src/main/java/com/trainer/api/assistants/AssistantFileRequest.java b/trainer-ai/src/main/java/com/trainer/api/assistants/AssistantFileRequest.java
+deleted file mode 100644
+index edb80a6..0000000
+--- a/trainer-ai/src/main/java/com/trainer/api/assistants/AssistantFileRequest.java
++++ /dev/null
+@@ -1,17 +0,0 @@
+-package com.trainer.api.assistants;
+-
+-import com.fasterxml.jackson.annotation.JsonProperty;
+-import lombok.AllArgsConstructor;
+-import lombok.Builder;
+-import lombok.Data;
+-import lombok.NoArgsConstructor;
+-
+-@Builder
+-@NoArgsConstructor
+-@AllArgsConstructor
+-@Data
+-public class AssistantFileRequest {
+-
+-    @JsonProperty("file_id")
+-    String fileId;
+-}
+diff --git a/trainer-ai/src/main/java/com/trainer/api/assistants/AssistantFunction.java b/trainer-ai/src/main/java/com/trainer/api/assistants/AssistantFunction.java
+deleted file mode 100644
+index bafd504..0000000
+--- a/trainer-ai/src/main/java/com/trainer/api/assistants/AssistantFunction.java
++++ /dev/null
+@@ -1,28 +0,0 @@
+-package com.trainer.api.assistants;
+-
+-import lombok.AllArgsConstructor;
+-import lombok.Builder;
+-import lombok.Data;
+-import lombok.NoArgsConstructor;
+-
+-import java.util.Map;
+-
+-/**
+- * @description:
+- * @author: vacuity
+- * @create: 2023-11-20 10:09
+- **/
+-
+-
+-@Builder
+-@NoArgsConstructor
+-@AllArgsConstructor
+-@Data
+-public class AssistantFunction {
+-
+-    private String description;
+-    
+-    private String name;
+-    
+-    private Map<String, Object> parameters;
+-}
+diff --git a/trainer-ai/src/main/java/com/trainer/api/assistants/AssistantRequest.java b/trainer-ai/src/main/java/com/trainer/api/assistants/AssistantRequest.java
+deleted file mode 100644
+index 6d041bf..0000000
+--- a/trainer-ai/src/main/java/com/trainer/api/assistants/AssistantRequest.java
++++ /dev/null
+@@ -1,52 +0,0 @@
+-package com.trainer.api.assistants;
+-
+-
+-import com.fasterxml.jackson.annotation.JsonProperty;
+-import lombok.*;
+-
+-import java.util.List;
+-import java.util.Map;
+-
+-@Builder
+-@NoArgsConstructor
+-@AllArgsConstructor
+-@Data
+-public class AssistantRequest {
+-
+-    /**
+-     * ID of the model to use
+-     */
+-    @NonNull
+-    String model;
+-
+-    /**
+-     * The name of the assistant. The maximum length is 256
+-     */
+-    String name;
+-
+-    /**
+-     * The description of the assistant.
+-     */
+-    String description;
+-
+-    /**
+-     * The system instructions that the assistant uses.
+-     */
+-    String instructions;
+-
+-    /**
+-     * A list of tools enabled on the assistant.
+-     */
+-    List<Tool> tools;
+-
+-    /**
+-     * A list of file IDs attached to this assistant.
+-     */
+-    @JsonProperty("file_ids")
+-    List<String> fileIds;
+-
+-    /**
+-     * Set of 16 key-value pairs that can be attached to an object.
+-     */
+-    Map<String, String> metadata;
+-}
+diff --git a/trainer-ai/src/main/java/com/trainer/api/assistants/AssistantSortOrder.java b/trainer-ai/src/main/java/com/trainer/api/assistants/AssistantSortOrder.java
+deleted file mode 100644
+index a2b46eb..0000000
+--- a/trainer-ai/src/main/java/com/trainer/api/assistants/AssistantSortOrder.java
++++ /dev/null
+@@ -1,12 +0,0 @@
+-package com.trainer.api.assistants;
+-
+-import com.fasterxml.jackson.annotation.JsonProperty;
+-
+-public enum AssistantSortOrder {
+-
+-    @JsonProperty("asc")
+-    ASC,
+-
+-    @JsonProperty("desc")
+-    DESC
+-}
+diff --git a/trainer-ai/src/main/java/com/trainer/api/assistants/AssistantToolsEnum.java b/trainer-ai/src/main/java/com/trainer/api/assistants/AssistantToolsEnum.java
+deleted file mode 100644
+index dad05f4..0000000
+--- a/trainer-ai/src/main/java/com/trainer/api/assistants/AssistantToolsEnum.java
++++ /dev/null
+@@ -1,15 +0,0 @@
+-package com.trainer.api.assistants;
+-
+-import com.fasterxml.jackson.annotation.JsonProperty;
+-
+-public enum AssistantToolsEnum {
+-
+-    @JsonProperty("code_interpreter")
+-    CODE_INTERPRETER,
+-
+-    @JsonProperty("function")
+-    FUNCTION,
+-
+-    @JsonProperty("retrieval")
+-    RETRIEVAL
+-}
+diff --git a/trainer-ai/src/main/java/com/trainer/api/assistants/ModifyAssistantRequest.java b/trainer-ai/src/main/java/com/trainer/api/assistants/ModifyAssistantRequest.java
+deleted file mode 100644
+index ed6a58e..0000000
+--- a/trainer-ai/src/main/java/com/trainer/api/assistants/ModifyAssistantRequest.java
++++ /dev/null
+@@ -1,54 +0,0 @@
+-package com.trainer.api.assistants;
+-
+-
+-import com.fasterxml.jackson.annotation.JsonProperty;
+-import lombok.AllArgsConstructor;
+-import lombok.Builder;
+-import lombok.Data;
+-import lombok.NoArgsConstructor;
+-
+-import java.util.List;
+-import java.util.Map;
+-
+-@Builder
+-@NoArgsConstructor
+-@AllArgsConstructor
+-@Data
+-public class ModifyAssistantRequest {
+-
+-    /**
+-     * ID of the model to use
+-     */
+-    String model;
+-
+-    /**
+-     * The name of the assistant. The maximum length is 256
+-     */
+-    String name;
+-
+-    /**
+-     * The description of the assistant.
+-     */
+-    String description;
+-
+-    /**
+-     * The system instructions that the assistant uses.
+-     */
+-    String instructions;
+-
+-    /**
+-     * A list of tools enabled on the assistant.
+-     */
+-    List<Tool> tools;
+-
+-    /**
+-     * A list of file IDs attached to this assistant.
+-     */
+-    @JsonProperty("file_ids")
+-    List<String> fileIds;
+-
+-    /**
+-     * Set of 16 key-value pairs that can be attached to an object.
+-     */
+-    Map<String, String> metadata;
+-}
+diff --git a/trainer-ai/src/main/java/com/trainer/api/assistants/Tool.java b/trainer-ai/src/main/java/com/trainer/api/assistants/Tool.java
+deleted file mode 100644
+index 692959b..0000000
+--- a/trainer-ai/src/main/java/com/trainer/api/assistants/Tool.java
++++ /dev/null
+@@ -1,20 +0,0 @@
+-package com.trainer.api.assistants;
+-
+-import lombok.AllArgsConstructor;
+-import lombok.Data;
+-import lombok.NoArgsConstructor;
+-
+-@NoArgsConstructor
+-@AllArgsConstructor
+-@Data
+-public class Tool {
+-     /**
+-      * The type of tool being defined
+-      */
+-     AssistantToolsEnum type;
+-
+-     /**
+-      * Function definition, only used if type is "function"
+-      */
+-     AssistantFunction function;
+-}
+diff --git a/trainer-ai/src/main/java/com/trainer/api/common/LastError.java b/trainer-ai/src/main/java/com/trainer/api/common/LastError.java
+deleted file mode 100644
+index d59fac3..0000000
+--- a/trainer-ai/src/main/java/com/trainer/api/common/LastError.java
++++ /dev/null
+@@ -1,24 +0,0 @@
+-package com.trainer.api.common;
+-
+-import lombok.AllArgsConstructor;
+-import lombok.Builder;
+-import lombok.Data;
+-import lombok.NoArgsConstructor;
+-
+-/**
+- * @description:
+- * @author: vacuity
+- * @create: 2023-11-16 22:27
+- **/
+-
+-
+-@Data
+-@Builder
+-@NoArgsConstructor
+-@AllArgsConstructor
+-public class LastError {
+-    
+-    private String code;
+-    
+-    private String message;
+-}
+diff --git a/trainer-ai/src/main/java/com/trainer/api/message/MessageContent.java b/trainer-ai/src/main/java/com/trainer/api/message/MessageContent.java
+index 33326ab..0111983 100644
+--- a/trainer-ai/src/main/java/com/trainer/api/message/MessageContent.java
++++ b/trainer-ai/src/main/java/com/trainer/api/message/MessageContent.java
+@@ -1,12 +1,16 @@
+ package com.trainer.api.message;
+ 
+ import com.fasterxml.jackson.annotation.JsonProperty;
++import com.trainer.api.message.content.FileCitation;
++import com.trainer.api.message.content.FilePath;
+ import com.trainer.api.message.content.ImageFile;
+ import com.trainer.api.message.content.Text;
+ 
+ public record MessageContent(
+         String type,
++
+         Text text,
++
+         @JsonProperty("image_file")
+         ImageFile imageFile
+ ) {}
+diff --git a/trainer-ai/src/main/java/com/trainer/api/message/MessageRequest.java b/trainer-ai/src/main/java/com/trainer/api/message/MessageRequest.java
+deleted file mode 100644
+index c04c468..0000000
+--- a/trainer-ai/src/main/java/com/trainer/api/message/MessageRequest.java
++++ /dev/null
+@@ -1,43 +0,0 @@
+-package com.trainer.api.message;
+-
+-import com.fasterxml.jackson.annotation.JsonProperty;
+-import lombok.*;
+-
+-import java.util.List;
+-import java.util.Map;
+-
+-@Builder
+-@NoArgsConstructor
+-@AllArgsConstructor
+-@Data
+-public class MessageRequest {
+-    /**
+-     * The role of the entity that is creating the message.
+-     * Currently only "user" is supported.
+-     */
+-    @NonNull
+-    @Builder.Default
+-    String role = "user";
+-
+-    /**
+-     * The content of the message.
+-     */
+-    @NonNull
+-    String content;
+-
+-    /**
+-     * A list of File IDs that the message should use.
+-     * Defaults to an empty list.
+-     * There can be a maximum of 10 files attached to a message.
+-     * Useful for tools like retrieval and code_interpreter that can access and use files.
+-     */
+-    @JsonProperty("file_ids")
+-    List<String> fileIds;
+-
+-    /**
+-     * Set of 16 key-value pairs that can be attached to an object.
+-     * This can be useful for storing additional information about the object in a structured format.
+-     * Keys can be a maximum of 64 characters long, and values can be a maximum of 512 characters long.
+-     */
+-    Map<String, String> metadata;
+-}
+diff --git a/trainer-ai/src/main/java/com/trainer/api/threads/Thread.java b/trainer-ai/src/main/java/com/trainer/api/threads/Thread.java
+deleted file mode 100644
+index fae2cf7..0000000
+--- a/trainer-ai/src/main/java/com/trainer/api/threads/Thread.java
++++ /dev/null
+@@ -1,41 +0,0 @@
+-package com.trainer.api.threads;
+-
+-import com.fasterxml.jackson.annotation.JsonProperty;
+-import lombok.AllArgsConstructor;
+-import lombok.Data;
+-import lombok.NoArgsConstructor;
+-
+-import java.util.Map;
+-
+-/**
+- * Represents a Thread with an assistant
+- * <p>
+- * https://platform.openai.com/docs/api-reference/threads/object
+- */
+-@NoArgsConstructor
+-@AllArgsConstructor
+-@Data
+-public class Thread {
+-    /**
+-     * The identifier, which can be referenced in API endpoints.
+-     */
+-    String id;
+-
+-    /**
+-     * The object type, which is always thread.
+-     */
+-    String object;
+-
+-    /**
+-     * The Unix timestamp (in seconds) for when the thread was created.
+-     */
+-    @JsonProperty("created_at")
+-    int createdAt;
+-
+-    /**
+-     * Set of 16 key-value pairs that can be attached to an object.
+-     * This can be useful for storing additional information about the object in a structured format.
+-     * Keys can be a maximum of 64 characters long, and values can be a maximum of 512 characters long.
+-     */
+-    Map<String, String> metadata;
+-}
+diff --git a/trainer-ai/src/main/java/com/trainer/api/threads/ThreadRequest.java b/trainer-ai/src/main/java/com/trainer/api/threads/ThreadRequest.java
+deleted file mode 100644
+index d152785..0000000
+--- a/trainer-ai/src/main/java/com/trainer/api/threads/ThreadRequest.java
++++ /dev/null
+@@ -1,33 +0,0 @@
+-package com.trainer.api.threads;
+-
+-import com.theokanning.openai.messages.MessageRequest;
+-import lombok.AllArgsConstructor;
+-import lombok.Builder;
+-import lombok.Data;
+-import lombok.NoArgsConstructor;
+-
+-import java.util.List;
+-import java.util.Map;
+-
+-/**
+- * Creates a thread
+- * <p>
+- * https://platform.openai.com/docs/api-reference/threads/createThread
+- */
+-@Builder
+-@NoArgsConstructor
+-@AllArgsConstructor
+-@Data
+-public class ThreadRequest {
+-    /**
+-     * A list of messages to start the thread with. Optional.
+-     */
+-    List<MessageRequest> messages;
+-
+-    /**
+-     * Set of 16 key-value pairs that can be attached to an object.
+-     * This can be useful for storing additional information about the object in a structured format.
+-     * Keys can be a maximum of 64 characters long, and values can be a maximum of 512 characters long.
+-     */
+-    Map<String, String> metadata;
+-}
+diff --git a/trainer-ai/src/main/java/com/trainer/service/AuthenticationInterceptor.java b/trainer-ai/src/main/java/com/trainer/service/AuthenticationInterceptor.java
+deleted file mode 100644
+index 035f6d1..0000000
+--- a/trainer-ai/src/main/java/com/trainer/service/AuthenticationInterceptor.java
++++ /dev/null
+@@ -1,25 +0,0 @@
+-package com.trainer.service;
+-
+-import lombok.NonNull;
+-import okhttp3.Interceptor;
+-import okhttp3.Request;
+-import okhttp3.Response;
+-
+-import java.io.IOException;
+-import java.util.Objects;
+-
+-public class AuthenticationInterceptor implements Interceptor {
+-    private final String token;
+-    public AuthenticationInterceptor(String token) {
+-        Objects.requireNonNull(token, "OpenAI token required");
+-        this.token = token;
+-    }
+-    @Override
+-    public @NonNull Response intercept(Chain chain) throws IOException {
+-        Request request = chain.request()
+-                .newBuilder()
+-                .header("Authorization", "Bearer " + token)
+-                .build();
+-        return chain.proceed(request);
+-    }
+-}
+diff --git a/trainer-ai/src/main/java/com/trainer/service/OpenAiService.java b/trainer-ai/src/main/java/com/trainer/service/OpenAiService.java
+deleted file mode 100644
+index a6d5a65..0000000
+--- a/trainer-ai/src/main/java/com/trainer/service/OpenAiService.java
++++ /dev/null
+@@ -1,100 +0,0 @@
+-package com.trainer.service;
+-
+-import com.fasterxml.jackson.databind.ObjectMapper;
+-import okhttp3.OkHttpClient;
+-import org.springframework.beans.factory.annotation.Value;
+-import org.springframework.stereotype.Service;
+-
+-import java.time.Duration;
+-import java.util.concurrent.ExecutorService;
+-
+-@Service
+-public class OpenAiService {
+-    @Value("${openai.api.url}")
+-    private  String BASE_URL;
+-
+-    @Value("${openai.api.timeout:}")
+-    private long timeout;
+-    private Duration DEFAULT_TIMEOUT = Duration.ofSeconds(timeout);
+-    private final ObjectMapper objectMapper;
+-    private final OkHttpClient okHttpClient;
+-    private final ExecutorService executorService;
+-
+-    public OpenAiService(ObjectMapper objectMapper, OkHttpClient okHttpClient) {
+-        this.objectMapper = objectMapper;
+-        this.okHttpClient = okHttpClient;
+-        this.executorService = okHttpClient.dispatcher().executorService();
+-    }
+-
+-    public void deleteFile(String fileId) {
+-        throw new UnsupportedOperationException("Not yet implemented");
+-    }
+-
+-    public void deleteModel(String modelId) {
+-        throw new UnsupportedOperationException("Not yet implemented");
+-    }
+-
+-    public void deleteAnswer(String answerId) {
+-        throw new UnsupportedOperationException("Not yet implemented");
+-    }
+-
+-    public void deleteSearch(String searchId) {
+-        throw new UnsupportedOperationException("Not yet implemented");
+-    }
+-
+-    public void deleteClassifier(String classifierId) {
+-        throw new UnsupportedOperationException("Not yet implemented");
+-    }
+-
+-    public void deleteFineTune(String fineTuneId) {
+-        throw new UnsupportedOperationException("Not yet implemented");
+-    }
+-
+-    public void deleteFineTuneEvent(String fineTuneEventId) {
+-        throw new UnsupportedOperationException("Not yet implemented");
+-    }
+-
+-    public void deleteFineTuneFile(String fineTuneFileId) {
+-        throw new UnsupportedOperationException("Not yet implemented");
+-    }
+-
+-    public void deleteFineTuneModel(String fineTuneModelId) {
+-        throw new UnsupportedOperationException("Not yet implemented");
+-    }
+-
+-    public void deleteFineTuneAnswer(String fineTuneAnswerId) {
+-        throw new UnsupportedOperationException("Not yet implemented");
+-    }
+-
+-    public void deleteFineTuneSearch(String fineTuneSearchId) {
+-        throw new UnsupportedOperationException("Not yet implemented");
+-    }
+-
+-    public void deleteFineTuneClassifier(String fineTuneClassifierId) {
+-        throw new UnsupportedOperationException("Not yet implemented");
+-    }
+-
+-    public void deleteFineTuneFineTune(String fineTuneFineTuneId) {
+-        throw new UnsupportedOperationException("Not yet implemented");
+-    }
+-
+-    public void deleteFineTuneFineTuneEvent(String fineTuneFineTuneEventId) {
+-        throw new UnsupportedOperationException("Not yet implemented");
+-    }
+-
+-    public void deleteFineTuneFineTuneFile(String fineTuneFineTuneFileId) {
+-        throw new UnsupportedOperationException("Not yet implemented");
+-    }
+-
+-    public void deleteFineTuneFineTuneModel(String fineTuneFineTuneModelId) {
+-        throw new UnsupportedOperationException("Not yet implemented");
+-    }
+-
+-    public void deleteFineTuneFineTuneAnswer(String fineTuneFineTuneAnswerId) {
+-        throw new UnsupportedOperationException("Not yet implemented");
+-    }
+-
+-    public void deleteFineTuneFineTuneSearch(String fineTuneFineTuneSearchId) {
+-        throw new UnsupportedOperationException("Not yet implemented");
+-    }
+-}
+diff --git a/trainer-ai/src/main/java/com/trainer/utils/MapperUtils.java b/trainer-ai/src/main/java/com/trainer/utils/MapperUtils.java
+deleted file mode 100644
+index 8f0781a..0000000
+--- a/trainer-ai/src/main/java/com/trainer/utils/MapperUtils.java
++++ /dev/null
+@@ -1,24 +0,0 @@
+-package com.trainer.utils;
+-
+-import com.fasterxml.jackson.annotation.JsonInclude;
+-import com.fasterxml.jackson.databind.DeserializationFeature;
+-import com.fasterxml.jackson.databind.ObjectMapper;
+-import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+-import org.springframework.context.annotation.Bean;
+-import org.springframework.stereotype.Component;
+-
+-@Component
+-public class MapperUtils {
+-    @Bean
+-    ObjectMapper objectMapper() {
+-        ObjectMapper mapper = new ObjectMapper();
+-        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+-        mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+-        mapper.setPropertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE);
+-//        mapper.addMixIn(ChatFunction.class, ChatFunctionMixIn.class);
+-//        mapper.addMixIn(ChatCompletionRequest.class, ChatCompletionRequestMixIn.class);
+-//        mapper.addMixIn(ChatFunctionCall.class, ChatFunctionCallMixIn.class);
+-        return mapper;
+-    }
+-}
+-
+diff --git a/trainer-ai/src/main/java/com/trainer/utils/OkHttpUtils.java b/trainer-ai/src/main/java/com/trainer/utils/OkHttpUtils.java
+deleted file mode 100644
+index 27799f6..0000000
+--- a/trainer-ai/src/main/java/com/trainer/utils/OkHttpUtils.java
++++ /dev/null
+@@ -1,24 +0,0 @@
+-package com.trainer.utils;
+-
+-import com.trainer.service.AuthenticationInterceptor;
+-import okhttp3.ConnectionPool;
+-import okhttp3.OkHttpClient;
+-import org.springframework.context.annotation.Bean;
+-import org.springframework.stereotype.Component;
+-
+-import java.time.Duration;
+-import java.util.concurrent.ExecutorService;
+-import java.util.concurrent.TimeUnit;
+-
+-@Component
+-public class OkHttpUtils {
+-    @Bean
+-    public OkHttpClient okHttpClient(String token,Duration timeout) {
+-        return new OkHttpClient.Builder()
+-                .addInterceptor(new AuthenticationInterceptor(token))
+-                .connectionPool(new ConnectionPool(5, 1, TimeUnit.SECONDS))
+-                .readTimeout(timeout.toMillis(), TimeUnit.MILLISECONDS)
+-                .build();
+-    }
+-
+-}
+diff --git a/trainer-ai/src/main/resources/application.properties b/trainer-ai/src/main/resources/application.properties
+index 3a46fce..3833abf 100644
+--- a/trainer-ai/src/main/resources/application.properties
++++ b/trainer-ai/src/main/resources/application.properties
+@@ -1,4 +1,2 @@
+-
+-openai.api.timeout=10
+ openai.api.key=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
+-openai.api.url=https://api.openai.com/
++openai.api.url=""

@@ -33,9 +33,7 @@ public class CustomExercise {
 	private int rep;
 	private int weight;
 
-	public CustomExercise() {
-
-	}
+	public CustomExercise() {}
 
 	@ManyToOne
 	private Session session;
