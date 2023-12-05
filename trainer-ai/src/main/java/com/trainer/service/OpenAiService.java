@@ -1,100 +1,130 @@
 package com.trainer.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.trainer.api.OpenAiApi;
+import com.trainer.api.OpenAiError;
+import com.trainer.api.assistants.Assistant;
+import com.trainer.api.completion.CompletionChunk;
+import com.trainer.api.completion.chat.ChatCompletionChunk;
+import com.trainer.api.OpenAiHttpException;
+import com.trainer.api.completion.CompletionRequest;
+import com.trainer.api.completion.CompletionResult;
+import com.trainer.api.completion.chat.ChatCompletionResult;
+import io.reactivex.BackpressureStrategy;
+import io.reactivex.Flowable;
+import io.reactivex.Single;
 import okhttp3.OkHttpClient;
+import okhttp3.ResponseBody;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import retrofit2.Call;
+import retrofit2.HttpException;
 
+import java.io.IOException;
 import java.time.Duration;
+import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 
 @Service
 public class OpenAiService {
+
+    private final OpenAiApi api;
+
     @Value("${openai.api.url}")
     private  String BASE_URL;
 
     @Value("${openai.api.timeout:}")
     private long timeout;
-    private Duration DEFAULT_TIMEOUT = Duration.ofSeconds(timeout);
-    private final ObjectMapper objectMapper;
+    private final Duration DEFAULT_TIMEOUT = Duration.ofSeconds(timeout);
+    private final ObjectMapper mapper;
     private final OkHttpClient okHttpClient;
     private final ExecutorService executorService;
 
-    public OpenAiService(ObjectMapper objectMapper, OkHttpClient okHttpClient) {
-        this.objectMapper = objectMapper;
+    public <T> T execute(Single<T> apiCall) {
+        try {
+            return apiCall.blockingGet();
+        } catch (HttpException e) {
+            try {
+                if (e.response() == null || e.response().errorBody() == null) {
+                    throw e;
+                }
+                String errorBody = Objects.requireNonNull(e.response()).errorBody().string();
+
+                OpenAiError error = mapper.readValue(errorBody, OpenAiError.class);
+                throw new OpenAiHttpException(error, e, e.code());
+            } catch (IOException ex) {
+                // couldn't parse OpenAI error
+                throw e;
+            }
+        }
+    }
+
+    public OpenAiService(OpenAiApi api, ObjectMapper objectMapper, OkHttpClient okHttpClient) {
+        this.api = api;
+        this.mapper = objectMapper;
         this.okHttpClient = okHttpClient;
         this.executorService = okHttpClient.dispatcher().executorService();
     }
 
-    public void deleteFile(String fileId) {
-        throw new UnsupportedOperationException("Not yet implemented");
+    //Chat Completion && Completion
+
+    public CompletionResult createCompletion(CompletionRequest request) {
+        return execute(api.createCompletion(request));
     }
 
-    public void deleteModel(String modelId) {
-        throw new UnsupportedOperationException("Not yet implemented");
+    public Flowable<CompletionChunk> streamCompletion(CompletionRequest request) {
+        request.setStream(true);
+
+        return stream(api.createCompletionStream(request), CompletionChunk.class);
     }
 
-    public void deleteAnswer(String answerId) {
-        throw new UnsupportedOperationException("Not yet implemented");
+    public ChatCompletionResult createChatCompletion(CompletionRequest request) {
+        return execute(api.createChatCompletion(request));
     }
 
-    public void deleteSearch(String searchId) {
-        throw new UnsupportedOperationException("Not yet implemented");
+    public Flowable<ChatCompletionChunk> streamChatCompletion(CompletionRequest request) {
+        request.setStream(true);
+
+        return stream(api.createChatCompletionStream(request), ChatCompletionChunk.class);
     }
 
-    public void deleteClassifier(String classifierId) {
-        throw new UnsupportedOperationException("Not yet implemented");
+
+
+    /*
+        Assistant
+     */
+
+
+
+
+    /**
+     * Calls the Open AI api and returns a Flowable of SSE for streaming
+     * omitting the last message.
+     *
+     * @param apiCall The api call
+     */
+    public  Flowable<SSE> stream(Call<ResponseBody> apiCall) {
+        return stream(apiCall, false);
     }
 
-    public void deleteFineTune(String fineTuneId) {
-        throw new UnsupportedOperationException("Not yet implemented");
+    /**
+     * Calls the Open AI api and returns a Flowable of SSE for streaming.
+     *
+     * @param apiCall  The api call
+     * @param emitDone If true the last message ([DONE]) is emitted
+     */
+    public  Flowable<SSE> stream(Call<ResponseBody> apiCall, boolean emitDone) {
+        return Flowable.create(emitter -> apiCall.enqueue(new ResponseBodyCallback(emitter, emitDone)), BackpressureStrategy.BUFFER);
     }
 
-    public void deleteFineTuneEvent(String fineTuneEventId) {
-        throw new UnsupportedOperationException("Not yet implemented");
-    }
-
-    public void deleteFineTuneFile(String fineTuneFileId) {
-        throw new UnsupportedOperationException("Not yet implemented");
-    }
-
-    public void deleteFineTuneModel(String fineTuneModelId) {
-        throw new UnsupportedOperationException("Not yet implemented");
-    }
-
-    public void deleteFineTuneAnswer(String fineTuneAnswerId) {
-        throw new UnsupportedOperationException("Not yet implemented");
-    }
-
-    public void deleteFineTuneSearch(String fineTuneSearchId) {
-        throw new UnsupportedOperationException("Not yet implemented");
-    }
-
-    public void deleteFineTuneClassifier(String fineTuneClassifierId) {
-        throw new UnsupportedOperationException("Not yet implemented");
-    }
-
-    public void deleteFineTuneFineTune(String fineTuneFineTuneId) {
-        throw new UnsupportedOperationException("Not yet implemented");
-    }
-
-    public void deleteFineTuneFineTuneEvent(String fineTuneFineTuneEventId) {
-        throw new UnsupportedOperationException("Not yet implemented");
-    }
-
-    public void deleteFineTuneFineTuneFile(String fineTuneFineTuneFileId) {
-        throw new UnsupportedOperationException("Not yet implemented");
-    }
-
-    public void deleteFineTuneFineTuneModel(String fineTuneFineTuneModelId) {
-        throw new UnsupportedOperationException("Not yet implemented");
-    }
-
-    public void deleteFineTuneFineTuneAnswer(String fineTuneFineTuneAnswerId) {
-        throw new UnsupportedOperationException("Not yet implemented");
-    }
-
-    public void deleteFineTuneFineTuneSearch(String fineTuneFineTuneSearchId) {
-        throw new UnsupportedOperationException("Not yet implemented");
+    /**
+     * Calls the Open AI api and returns a Flowable of type T for streaming
+     * omitting the last message.
+     *
+     * @param apiCall The api call
+     * @param cl      Class of type T to return
+     */
+    public  <T> Flowable<T> stream(Call<ResponseBody> apiCall, Class<T> cl) {
+        return stream(apiCall).map(sse -> mapper.readValue(sse.getData(), cl));
     }
 }

@@ -1,8 +1,14 @@
 package com.trainer.api;
 import com.trainer.api.assistants.*;
+import com.trainer.api.completion.CompletionRequest;
+import com.trainer.api.completion.CompletionResult;
+import com.trainer.api.completion.chat.ChatCompletionResult;
 import com.trainer.api.message.Message;
 import com.trainer.api.message.MessageRequest;
 import io.reactivex.Single;
+import okhttp3.ResponseBody;
+import org.springframework.ui.Model;
+import retrofit2.Call;
 import retrofit2.http.*;
 import java.util.Map;
 
@@ -29,6 +35,29 @@ public interface OpenAiApi {
     @Headers({"OpenAI-Beta: assistants=v1"})
     @GET("/v1/threads/{thread_id}/messages")
     Single<OpenAiResponse<Message>> listMessages(@Path("thread_id") String threadId, @QueryMap Map<String, Object> filterRequest);
+
+    /*
+    Model
+     */
+
+
+    /*
+    Completion and Chat Completion
+     */
+
+    @POST("/v1/completions")
+    Single<CompletionResult> createCompletion(@Body CompletionRequest request);
+
+    @Streaming
+    @POST("/v1/completions")
+    Call<ResponseBody> createCompletionStream(@Body CompletionRequest request);
+
+    @POST("/v1/chat/completions")
+    Single<ChatCompletionResult> createChatCompletion(@Body CompletionRequest request);
+
+    @Streaming
+    @POST("/v1/chat/completions")
+    Call<ResponseBody> createChatCompletionStream(@Body CompletionRequest request);
 
     /*
     Assistant
