@@ -50,6 +50,7 @@ public class WebSecurityConfig {
 
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) {
+		System.out.println("securityFilterChain");
 		try
 		{
 			return

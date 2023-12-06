@@ -5,7 +5,6 @@ import lombok.Getter;
 /**
  * Simple Server Sent Event representation
  */
-@Getter
 public record CompletionEvent(String data) {
     private static final String DONE_DATA = "[DONE]";
 

@@ -33,7 +33,7 @@ public class StreamFlowUtils {
      * @param emitDone If true the last message ([DONE]) is emitted
      */
     public  Flowable<CompletionEvent> stream(Call<ResponseBody> apiCall, boolean emitDone) {
-        return Flowable.create(emitter -> apiCall.enqueue(new CompletionResponseCallback(emitter, emitDone)), BackpressureStrategy.BUFFER);
+        return Flowable.create(emitter -> apiCall.enqueue(new CompletionResponseCallback(emitter, emitDone,mapper)), BackpressureStrategy.BUFFER);
     }
 
     /**

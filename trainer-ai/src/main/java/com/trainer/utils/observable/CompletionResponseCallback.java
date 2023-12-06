@@ -1,13 +1,15 @@
 package com.trainer.utils.observable;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.trainer.configs.ObjectMapperConfig;
 import com.trainer.models.errors.OpenAiError;
 import com.trainer.models.errors.OpenAiHttpException;
 import io.reactivex.FlowableEmitter;
 import lombok.NonNull;
 import okhttp3.ResponseBody;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.stereotype.Service;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.HttpException;
@@ -19,7 +21,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 
-@Component
+@Service
+@EnableConfigurationProperties(value = ObjectMapperConfig.class)
 public class CompletionResponseCallback implements Callback<ResponseBody> {
 
     private ObjectMapper objectMapper;
@@ -30,6 +33,11 @@ public class CompletionResponseCallback implements Callback<ResponseBody> {
     public CompletionResponseCallback(FlowableEmitter<CompletionEvent> emitter, boolean emitDone) {
         this.emitter = emitter;
         this.emitDone = emitDone;
+    }
+    public CompletionResponseCallback(FlowableEmitter<CompletionEvent> emitter, boolean emitDone,ObjectMapper objectMapper) {
+        this.emitter = emitter;
+        this.emitDone = emitDone;
+        this.objectMapper = objectMapper;
     }
 
     @Autowired

@@ -105,7 +105,14 @@
 		<artifactId>jackson-databind</artifactId>
 	</dependency>
 
-		<!--	<dependency>-->
+	<dependency>
+		<groupId>com.trainer</groupId>
+		<artifactId>trainer-ai</artifactId>
+		<version>0.0.1</version>
+		<scope>compile</scope>
+	</dependency>
+
+        <!--	<dependency>-->
 <!--		<groupId>org.flywaydb</groupId>-->
 <!--		<artifactId>flyway-core</artifactId>-->
 <!--	</dependency>-->

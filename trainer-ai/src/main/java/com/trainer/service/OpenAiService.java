@@ -9,9 +9,13 @@ import com.trainer.models.api.completion.CompletionRequest;
 import com.trainer.models.api.completion.CompletionResult;
 import com.trainer.models.api.completion.chat.ChatCompletionRequest;
 import com.trainer.models.api.completion.chat.ChatCompletionResult;
+import com.trainer.models.api.file.File;
 import com.trainer.models.common.DeleteResult;
 import com.trainer.models.common.ListSearchParameters;
 import io.reactivex.Flowable;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
@@ -43,6 +47,20 @@ public class OpenAiService extends OpenAiBaseService {
      */
     public Assistant createAssistant(AssistantRequest request) {
         return execute(api.createAssistant(request));
+    }
+
+    public OpenAiResponse<Assistant> listAssistants(ListSearchParameters params) {
+        Map<String, Object> queryParameters = mapper.convertValue(params, new TypeReference<Map<String, Object>>() {
+        });
+        return execute(api.listAssistants(queryParameters));
+    }
+    public File uploadFile(String purpose, String filepath) {
+        java.io.File file = new java.io.File(filepath);
+        RequestBody purposeBody = RequestBody.create(MultipartBody.FORM, purpose);
+        RequestBody fileBody = RequestBody.create(MediaType.parse("text"), file);
+        MultipartBody.Part body = MultipartBody.Part.createFormData("file", filepath, fileBody);
+
+        return execute(api.uploadFile(purposeBody, body));
     }
 
     public Assistant retrieveAssistant(String assistantId) {
