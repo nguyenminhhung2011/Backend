@@ -7,13 +7,19 @@ import io.reactivex.BackpressureStrategy;
 import io.reactivex.Flowable;
 import okhttp3.ResponseBody;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.stereotype.Component;
 import retrofit2.Call;
 
-@ConfigurationProperties
+@Component
 public class StreamFlowUtils {
-    @Autowired
-    private ObjectMapper mapper;
+    @Qualifier(value = "TrainerMapperConfig")
+    private final ObjectMapper mapper;
+
+    public StreamFlowUtils(ObjectMapper mapper) {
+        this.mapper = mapper;
+    }
 
     //////////////////////////////////////////////
     /**
@@ -33,7 +39,7 @@ public class StreamFlowUtils {
      * @param emitDone If true the last message ([DONE]) is emitted
      */
     public  Flowable<CompletionEvent> stream(Call<ResponseBody> apiCall, boolean emitDone) {
-        return Flowable.create(emitter -> apiCall.enqueue(new CompletionResponseCallback(emitter, emitDone)), BackpressureStrategy.BUFFER);
+        return Flowable.create(emitter -> apiCall.enqueue(new CompletionResponseCallback(emitter, emitDone,mapper)), BackpressureStrategy.BUFFER);
     }
 
     /**

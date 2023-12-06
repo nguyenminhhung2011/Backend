@@ -19,21 +19,16 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 
-@Component
 public class CompletionResponseCallback implements Callback<ResponseBody> {
 
-    private ObjectMapper objectMapper;
+    private final ObjectMapper objectMapper;
 
     private final FlowableEmitter<CompletionEvent> emitter;
     private final boolean emitDone;
 
-    public CompletionResponseCallback(FlowableEmitter<CompletionEvent> emitter, boolean emitDone) {
+    public CompletionResponseCallback(FlowableEmitter<CompletionEvent> emitter, boolean emitDone,ObjectMapper objectMapper) {
         this.emitter = emitter;
         this.emitDone = emitDone;
-    }
-
-    @Autowired
-    public void addObjectMapper(ObjectMapper objectMapper){
         this.objectMapper = objectMapper;
     }
 

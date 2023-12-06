@@ -1,6 +1,5 @@
 package com.trainer.models;
 import com.trainer.models.api.assistants.*;
-import com.trainer.models.assistants.*;
 import com.trainer.models.api.completion.CompletionRequest;
 import com.trainer.models.api.completion.CompletionResult;
 import com.trainer.models.api.completion.chat.ChatCompletionRequest;
