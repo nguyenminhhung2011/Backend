@@ -4,10 +4,13 @@ import com.trainer.models.api.completion.CompletionRequest;
 import com.trainer.models.api.completion.CompletionResult;
 import com.trainer.models.api.completion.chat.ChatCompletionRequest;
 import com.trainer.models.api.completion.chat.ChatCompletionResult;
+import com.trainer.models.api.file.File;
 import com.trainer.models.api.message.Message;
 import com.trainer.models.api.message.MessageRequest;
 import com.trainer.models.common.DeleteResult;
 import io.reactivex.Single;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import org.springframework.stereotype.Service;
 import retrofit2.Call;
@@ -15,6 +18,9 @@ import retrofit2.http.*;
 import java.util.Map;
 @Service
 public interface OpenAiApi {
+    @Multipart
+    @POST("/v1/files")
+    Single<File> uploadFile(@Part("purpose") RequestBody purpose, @Part MultipartBody.Part file);
     /*
     * Message
     * */
