@@ -7,13 +7,19 @@ import io.reactivex.BackpressureStrategy;
 import io.reactivex.Flowable;
 import okhttp3.ResponseBody;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.stereotype.Component;
 import retrofit2.Call;
 
-@ConfigurationProperties
+@Component
 public class StreamFlowUtils {
-    @Autowired
-    private ObjectMapper mapper;
+    @Qualifier(value = "TrainerMapperConfig")
+    private final ObjectMapper mapper;
+
+    public StreamFlowUtils(ObjectMapper mapper) {
+        this.mapper = mapper;
+    }
 
     //////////////////////////////////////////////
     /**
