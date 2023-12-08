@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.List;
 
 import com.fitlife.app.Exceptions.AppException.BadRequestException;
+import com.fitlife.app.Security.Model.CurrentUser;
+import com.fitlife.app.Security.Model.FitLifeUserDetail;
 import com.fitlife.app.Service.DailyWorkout.IDailyService;
 import com.fitlife.app.Service.Workout.IWorkoutService;
 import com.fitlife.app.Utils.Jwt.JwtTokenUtils;
@@ -31,13 +33,10 @@ public class WorkoutController {
 	final IWorkoutService workoutService;
 
 
-	final JwtTokenUtils jwtHelper;
-
 	final IDailyService dailyService;
 
-	public WorkoutController(IWorkoutService workoutService, JwtTokenUtils jwtHelper, IDailyService dailyService) {
+	public WorkoutController(IWorkoutService workoutService, IDailyService dailyService) {
 		this.workoutService = workoutService;
-		this.jwtHelper = jwtHelper;
 		this.dailyService = dailyService;
 	}
 
@@ -47,18 +46,15 @@ public class WorkoutController {
 	}
 
 	@GetMapping("")
-	public ResponseEntity<?> getMyWorkoutPlan(HttpServletRequest request) {
-		String token = request.getHeader("Authorization").substring(7);
-		Long idUser = jwtHelper.getUserIdFromJWT(token);
-		return ResponseEntity.ok(workoutService.getWorkoutPlansByUserProfileId(idUser));
+	public ResponseEntity<?> getMyWorkoutPlan(@CurrentUser FitLifeUserDetail ctx) {
+		return ResponseEntity.ok(workoutService.getWorkoutPlansByUserProfileId(ctx.getId()));
 
 	}
 
 	@PostMapping("")
-	public ResponseEntity<?> createWorkoutPlan(@RequestBody WorkoutPlanReq workoutPlanDTO, HttpServletRequest request) throws BadRequestException {
-		String token = request.getHeader("Authorization").substring(7);
-		Long idUser = jwtHelper.getUserIdFromJWT(token);
-		return ResponseEntity.ok(workoutService.createWorkoutPlan(workoutPlanDTO, idUser));
+	public ResponseEntity<?> createWorkoutPlan(@RequestBody WorkoutPlanReq workoutPlanDTO,
+											   @CurrentUser FitLifeUserDetail ctx) throws BadRequestException {
+		return ResponseEntity.ok(workoutService.createWorkoutPlan(workoutPlanDTO,ctx.getId() ));
 
 	}
 
@@ -74,18 +70,17 @@ public class WorkoutController {
 	}
 
 	@GetMapping("/search")
-	public ResponseEntity<Page<Object>> searchWorkoutPlans(@RequestParam(value = "name", required = false) String name,
+	public ResponseEntity<Page<Object>> searchWorkoutPlans(
+			@CurrentUser FitLifeUserDetail ctx,
+			@RequestParam(value = "name", required = false) String name,
 			@RequestParam(value = "startDate", required = false) Date startDate,
 			@RequestParam(value = "endDate", required = false) Date endDate,
 			@RequestParam(value = "page", defaultValue = "0") int page,
-			@RequestParam(value = "size", defaultValue = "10") int size, HttpServletRequest request) {
-
-		String token = request.getHeader("Authorization").substring(7);
-
-		Long idUser = jwtHelper.getUserIdFromJWT(token);
+			@RequestParam(value = "size", defaultValue = "10") int size
+	) {
 
 		Pageable pageable = PageRequest.of(page, size);
-		Page<Object> workoutPlans = workoutService.searchWorkoutPlans(idUser, name, startDate, endDate, pageable);
+		Page<Object> workoutPlans = workoutService.searchWorkoutPlans(ctx.getId(), name, startDate, endDate, pageable);
 
 		return ResponseEntity.ok(workoutPlans);
 
@@ -93,7 +88,6 @@ public class WorkoutController {
 
 	@PostMapping("/delete")
 	public ResponseEntity<Object> deleteWorkoutplan(@RequestParam("id") String id) {
-
 		workoutService.delete(Long.parseLong(id));
 		return ResponseEntity.ok().body(new ResponseObject("ok", "deleted successfully\"", null));
 
@@ -101,7 +95,6 @@ public class WorkoutController {
 
 	@PostMapping("/daily/delete")
 	public ResponseEntity<Object> deleteDailyWorkout(@RequestParam("id") String id) {
-
 		dailyService.delete(Long.parseLong(id));
 		return ResponseEntity.ok().body(new ResponseObject("ok", "deleted successfully\"", null));
 
