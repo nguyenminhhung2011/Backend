@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.fitlife.app.Exceptions.AppException.BadRequestException;
+import com.fitlife.app.Service.DailyWorkout.IDailyService;
 import com.fitlife.app.Service.Workout.IWorkoutService;
 import com.fitlife.app.Utils.Jwt.JwtTokenUtils;
 import org.springframework.data.domain.Page;
@@ -20,9 +21,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fitlife.app.DTO.Request.DailyWorkoutReq;
 import com.fitlife.app.DTO.Request.WorkoutPlanReq;
 import com.fitlife.app.DTO.Response.ResponseObject;
-import com.fitlife.app.Model.DailyWorkout;
-import com.fitlife.app.Model.WorkoutPlan;
-import com.fitlife.app.Service.DailyWorkout.DailyServiceImpl;
 
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -35,12 +33,12 @@ public class WorkoutController {
 
 	final JwtTokenUtils jwtHelper;
 
-	final DailyServiceImpl dailySV;
+	final IDailyService dailyService;
 
-	public WorkoutController(IWorkoutService workoutService, JwtTokenUtils jwtHelper, DailyServiceImpl dailySV) {
+	public WorkoutController(IWorkoutService workoutService, JwtTokenUtils jwtHelper, IDailyService dailyService) {
 		this.workoutService = workoutService;
 		this.jwtHelper = jwtHelper;
-		this.dailySV = dailySV;
+		this.dailyService = dailyService;
 	}
 
 	@GetMapping("/getAll")
@@ -70,27 +68,9 @@ public class WorkoutController {
 	}
 
 	@GetMapping("/daily")
-	public ResponseEntity<?> getAllDailyPlan(@RequestParam("id") String id) {
+	public ResponseEntity<?> getAllDailyPlan(@RequestParam("id") String id) throws BadRequestException {
+		return ResponseEntity.ok(workoutService.getAllDailyPlan(id));
 
-		try {
-
-			WorkoutPlan workoutPlan = workoutService.findById(Long.parseLong(id));
-
-			List<DailyWorkout> curentDaily = workoutPlan.getDailyWorkouts();
-			if (curentDaily == null) {
-				return ResponseEntity.ok().body(new ResponseObject("ok", "There is no schedule yet", null));
-
-			}
-			for (DailyWorkout dailyWorkout : curentDaily) {
-				dailyWorkout.setWorkoutPlan(null);
-			}
-
-			return ResponseEntity.ok().body(new ResponseObject("ok", "all daily workout", curentDaily));
-		} catch (Exception e) {
-			System.out.println(e);
-			return ResponseEntity.ok().body(new ResponseObject("ok", "Failed to create Workout Plan\"", null));
-
-		}
 	}
 
 	@GetMapping("/search")
@@ -122,7 +102,7 @@ public class WorkoutController {
 	@PostMapping("/daily/delete")
 	public ResponseEntity<Object> deleteDailyWorkout(@RequestParam("id") String id) {
 
-		dailySV.delete(Long.parseLong(id));
+		dailyService.delete(Long.parseLong(id));
 		return ResponseEntity.ok().body(new ResponseObject("ok", "deleted successfully\"", null));
 
 	}

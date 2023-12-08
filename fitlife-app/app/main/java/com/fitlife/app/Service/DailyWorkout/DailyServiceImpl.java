@@ -11,12 +11,8 @@ import com.fitlife.app.Service.Generic.GenericService;
 public class DailyServiceImpl extends GenericService<DailyWorkout, Long, DailyWorkoutRepository> implements IDailyService{
 
 	@Autowired
-	DailyWorkoutRepository dailyWorkoutRepository;
-
-	@Autowired
-	public DailyServiceImpl(DailyWorkoutRepository workoutPlanRepository) {
-		super(workoutPlanRepository);
-
+	public DailyServiceImpl(DailyWorkoutRepository genericRepository) {
+		super(genericRepository);
 	}
 
 }

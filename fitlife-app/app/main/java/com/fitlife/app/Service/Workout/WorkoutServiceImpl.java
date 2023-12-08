@@ -44,6 +44,24 @@ public class WorkoutServiceImpl extends GenericService<WorkoutPlan, Long, Workou
 	}
 
 	@Override
+	public List<DailyWorkout> getAllDailyPlan(String id) throws BadRequestException {
+		try{
+			WorkoutPlan workoutPlan = findById(Long.parseLong(id));
+
+			List<DailyWorkout> currentDaily = workoutPlan.getDailyWorkouts();
+
+			for (DailyWorkout dailyWorkout : currentDaily) {
+				dailyWorkout.setWorkoutPlan(null);
+			}
+
+			return currentDaily;
+
+		}catch (Exception e ){
+			throw new BadRequestException(e.getMessage());
+		}
+	}
+
+	@Override
 	public Page<Object> searchWorkoutPlans(Long id, String name, Date startDate, Date endDate, Pageable pageable) {
 		Page<WorkoutPlan> workoutPlans;
 
