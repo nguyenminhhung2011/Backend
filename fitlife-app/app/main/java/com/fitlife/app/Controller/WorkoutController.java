@@ -1,15 +1,11 @@
 package com.fitlife.app.Controller;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
-
 import com.fitlife.app.Exceptions.AppException.BadRequestException;
 import com.fitlife.app.Security.Model.CurrentUser;
 import com.fitlife.app.Security.Model.FitLifeUserDetail;
 import com.fitlife.app.Service.DailyWorkout.IDailyService;
 import com.fitlife.app.Service.Workout.IWorkoutService;
-import com.fitlife.app.Utils.Jwt.JwtTokenUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -24,7 +20,6 @@ import com.fitlife.app.DTO.Request.DailyWorkoutReq;
 import com.fitlife.app.DTO.Request.WorkoutPlanReq;
 import com.fitlife.app.DTO.Response.ResponseObject;
 
-import jakarta.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping("/workout")
@@ -47,7 +42,7 @@ public class WorkoutController {
 
 	@GetMapping("")
 	public ResponseEntity<?> getMyWorkoutPlan(@CurrentUser FitLifeUserDetail ctx) {
-		return ResponseEntity.ok(workoutService.getWorkoutPlansByUserProfileId(ctx.getId()));
+		return ResponseEntity.ok(workoutService.getMyWorkoutPlan(ctx.getId()));
 
 	}
 

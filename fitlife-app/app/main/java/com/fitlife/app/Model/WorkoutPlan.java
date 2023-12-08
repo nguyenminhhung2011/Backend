@@ -62,14 +62,9 @@ public class WorkoutPlan {
 
 	@ManyToOne
 	@JoinColumn(name = "user_profile_id", referencedColumnName = "id")
-//	@JsonIgnore
-//	@Setter(onMethod_ = @JsonProperty)
 	private UserProfile userProfile;
 
 	@OneToOne(cascade = CascadeType.ALL, mappedBy = "workoutplan")
 	private AISupport aiSupport;
 
-//	public void setTypeStr(String str) {
-//		
-//	}
 }

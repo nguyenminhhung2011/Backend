@@ -77,7 +77,7 @@ public class WorkoutServiceImpl extends GenericService<WorkoutPlan, Long, Workou
 
 
 	@Override
-	public WorkoutPlan createDailyPlan(DailyWorkoutReq req, Long id) throws BadRequestException {
+	public WorkoutPlanResponse createDailyPlan(DailyWorkoutReq req, Long id) throws BadRequestException {
 		try {
 			final Optional<WorkoutPlan> workoutPlan = repository.findById(id);
 			if (workoutPlan.isEmpty()) {
@@ -100,7 +100,8 @@ public class WorkoutServiceImpl extends GenericService<WorkoutPlan, Long, Workou
 			currentDaily.add(newDaily);
 
 			workoutPlanData.setDailyWorkouts(currentDaily);
-			return workoutPlanData;
+			save(workoutPlanData);
+			return WorkoutPlanResponse.getFrom(workoutPlanData);
 
 		} catch (Exception e) {
 			throw new BadRequestException(e.getMessage());
@@ -108,7 +109,7 @@ public class WorkoutServiceImpl extends GenericService<WorkoutPlan, Long, Workou
 	}
 
 	@Override
-	public WorkoutPlan createWorkoutPlan(WorkoutPlanReq workoutPlanDTO, Long idUser ) throws BadRequestException {
+	public WorkoutPlanResponse createWorkoutPlan(WorkoutPlanReq workoutPlanDTO, Long idUser ) throws BadRequestException {
 		try{
 			WorkoutPlan workoutPlan = new WorkoutPlan();
 
@@ -130,11 +131,11 @@ public class WorkoutServiceImpl extends GenericService<WorkoutPlan, Long, Workou
 				ai.setFitnessGoal(workoutPlanDTO.getFitnessGoal());
 				ai.setFitnessLevelCurrent(workoutPlanDTO.getFitnessLevelCurrent());
 				ai.setPreference(workoutPlanDTO.getPreference());
-				ai.setWorkoutplan(null);
+				ai.setWorkoutplan(workoutPlan);
 				workoutPlan.setAiSupport(ai);
 			}
-
-			return workoutPlan;
+			save(workoutPlan);
+			return WorkoutPlanResponse.getFrom(workoutPlan);
 
 
 		}catch (Exception e){

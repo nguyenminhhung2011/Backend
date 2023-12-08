@@ -8,8 +8,6 @@ import com.fitlife.app.Model.DailyWorkout;
 import com.fitlife.app.Model.WorkoutPlan;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Date;
 import java.util.List;
@@ -17,10 +15,9 @@ import java.util.List;
 public interface IWorkoutService {
     void delete(Long id);
 
-    WorkoutPlan createDailyPlan(DailyWorkoutReq workoutPlanDTO, Long id) throws BadRequestException;
+    WorkoutPlanResponse createDailyPlan(DailyWorkoutReq workoutPlanDTO, Long id) throws BadRequestException;
 
-    WorkoutPlan createWorkoutPlan( WorkoutPlanReq workoutPlanDTO,Long idUser ) throws  BadRequestException;
-    WorkoutPlan findById(Long idUser);
+    WorkoutPlanResponse createWorkoutPlan( WorkoutPlanReq workoutPlanDTO,Long idUser ) throws  BadRequestException;
 
     List<WorkoutPlanResponse> getAll() ;
     List<WorkoutPlanResponse> getMyWorkoutPlan(Long idUser);

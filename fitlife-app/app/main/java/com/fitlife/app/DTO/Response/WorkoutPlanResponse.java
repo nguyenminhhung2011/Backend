@@ -5,6 +5,7 @@ import com.fitlife.app.Utils.Enums.PlanType;
 import lombok.Getter;
 
 @Getter
+
 public class WorkoutPlanResponse {
 	// Getters and setters
 	// ID
