@@ -130,7 +130,7 @@ public class WorkoutServiceImpl extends GenericService<WorkoutPlan, Long, Workou
 				ai.setFitnessGoal(workoutPlanDTO.getFitnessGoal());
 				ai.setFitnessLevelCurrent(workoutPlanDTO.getFitnessLevelCurrent());
 				ai.setPreference(workoutPlanDTO.getPreference());
-				ai.setWorkoutplan(workoutPlan);
+				ai.setWorkoutplan(null);
 				workoutPlan.setAiSupport(ai);
 			}
 
