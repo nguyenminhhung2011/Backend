@@ -18,17 +18,17 @@ import com.fitlife.app.DTO.Request.SessionDTOReq;
 import com.fitlife.app.DTO.Response.ResponseObject;
 import com.fitlife.app.Model.CustomExercise;
 import com.fitlife.app.Model.DailyWorkout;
-import com.fitlife.app.Model.Session;
+import com.fitlife.app.Model.session.Session;
 import com.fitlife.app.Model.Exercise.Exercise;
 import com.fitlife.app.Service.DailyWorkout.DailyServiceImpl;
-import com.fitlife.app.Service.Session.SessionServiceImpl;
+import com.fitlife.app.Service.Session.SessionService;
 
 @RestController
 @RequestMapping("/session")
 public class SessionController {
 
 	@Autowired
-	private SessionServiceImpl sessionSV;
+	private SessionService sessionSV;
 	@Autowired
 	private ExerciseService eService;
 

@@ -2,6 +2,7 @@ package com.fitlife.app.Model;
 
 import java.util.List;
 
+import com.fitlife.app.Model.session.Session;
 import jakarta.persistence.*;
 import lombok.*;
 

@@ -6,6 +6,7 @@ import java.util.Date;
 import com.fitlife.app.Model.Exercise.Exercise;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import com.fitlife.app.Model.session.Session;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;

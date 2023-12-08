@@ -8,10 +8,10 @@ import com.fitlife.app.Repository.DailyWorkoutRepository;
 import com.fitlife.app.Service.Generic.GenericService;
 
 @Service
-public class DailyServiceImpl extends GenericService<DailyWorkout, Long, DailyWorkoutRepository> {
+public class DailyServiceImpl extends GenericService<DailyWorkout, Long, DailyWorkoutRepository> implements IDailyService{
 
 	@Autowired
-	DailyWorkoutRepository dailyRP;
+	DailyWorkoutRepository dailyWorkoutRepository;
 
 	@Autowired
 	public DailyServiceImpl(DailyWorkoutRepository workoutPlanRepository) {
