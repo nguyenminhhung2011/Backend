@@ -17,7 +17,7 @@ import com.fitlife.app.Utils.Mapper.UserMapper;
 import com.fitlife.app.Model.ActivitiesLog;
 import com.fitlife.app.Model.Exercise.Exercise;
 import com.fitlife.app.Model.User.UserProfile;
-import com.fitlife.app.Model.WorkoutPlan;
+import com.fitlife.app.Model.Workout.WorkoutPlan;
 import com.fitlife.app.Repository.ActivitiesLogRepository;
 import com.fitlife.app.Repository.Exercise.ExerciseRepository;
 import com.fitlife.app.Repository.User.UserProfileRepository;

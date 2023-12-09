@@ -4,6 +4,7 @@ import com.fitlife.app.DTO.Views.ActivitiesLogViews;
 import com.fitlife.app.DTO.Views.UserViews;
 import com.fitlife.app.Model.User.UserProfile;
 import com.fasterxml.jackson.annotation.JsonView;
+import com.fitlife.app.Model.Workout.WorkoutPlan;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

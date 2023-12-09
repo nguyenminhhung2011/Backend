@@ -3,7 +3,7 @@ package com.fitlife.app.DTO.Request;
 import lombok.Data;
 
 @Data
-public class WorkoutPlanReq {
+public class WorkoutPlanRequest {
 	private String name;
 	private String description;
 	private long startDate;

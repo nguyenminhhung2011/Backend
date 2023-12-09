@@ -6,13 +6,13 @@ import java.util.List;
 import java.util.Optional;
 
 import com.fitlife.app.DTO.DataClass.DailyWorkoutDTO;
-import com.fitlife.app.DTO.Request.DailyWorkoutReq;
-import com.fitlife.app.DTO.Request.WorkoutPlanReq;
+import com.fitlife.app.DTO.Request.DailyWorkoutRequest;
+import com.fitlife.app.DTO.Request.WorkoutPlanRequest;
 import com.fitlife.app.DTO.Response.WorkoutPlanResponse;
 import com.fitlife.app.Exceptions.AppException.BadRequestException;
 import com.fitlife.app.Exceptions.AppException.NotFoundException;
 import com.fitlife.app.Model.AISupport;
-import com.fitlife.app.Model.DailyWorkout;
+import com.fitlife.app.Model.Workout.DailyWorkout;
 import com.fitlife.app.Model.User.UserProfile;
 import com.fitlife.app.Repository.User.UserProfileRepository;
 import com.fitlife.app.Utils.Enums.PlanType;
@@ -22,7 +22,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.fitlife.app.DTO.DataClass.WorkoutPlanDTO;
-import com.fitlife.app.Model.WorkoutPlan;
+import com.fitlife.app.Model.Workout.WorkoutPlan;
 import com.fitlife.app.Repository.WorkoutRepository;
 import com.fitlife.app.Service.Generic.GenericService;
 
@@ -45,7 +45,7 @@ public class WorkoutServiceImpl extends GenericService<WorkoutPlan, Long, Workou
 	}
 
 	@Override
-	public List<DailyWorkout> getAllDailyPlan(String id) throws BadRequestException {
+	public List<DailyWorkoutDTO> getAllDailyPlan(String id) throws BadRequestException {
 		try{
 			WorkoutPlan workoutPlan = findById(Long.parseLong(id));
 
@@ -55,7 +55,7 @@ public class WorkoutServiceImpl extends GenericService<WorkoutPlan, Long, Workou
 				dailyWorkout.setWorkoutPlan(null);
 			}
 
-			return currentDaily;
+			return currentDaily.stream().map(item -> modelMapper.map(item, DailyWorkoutDTO.class)).toList();
 
 		}catch (Exception e ){
 			throw new BadRequestException(e.getMessage());
@@ -78,7 +78,7 @@ public class WorkoutServiceImpl extends GenericService<WorkoutPlan, Long, Workou
 
 
 	@Override
-	public DailyWorkoutDTO createDailyPlan(DailyWorkoutReq req, Long id) throws BadRequestException {
+	public DailyWorkoutDTO createDailyPlan(DailyWorkoutRequest req, Long id) throws BadRequestException {
 		try {
 			final Optional<WorkoutPlan> workoutPlan = repository.findById(id);
 			if (workoutPlan.isEmpty()) {
@@ -113,7 +113,7 @@ public class WorkoutServiceImpl extends GenericService<WorkoutPlan, Long, Workou
 	}
 
 	@Override
-	public WorkoutPlanResponse createWorkoutPlan(WorkoutPlanReq workoutPlanDTO, Long idUser ) throws BadRequestException {
+	public WorkoutPlanResponse createWorkoutPlan(WorkoutPlanRequest workoutPlanDTO, Long idUser ) throws BadRequestException {
 		try{
 			WorkoutPlan workoutPlan = new WorkoutPlan();
 

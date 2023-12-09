@@ -1,4 +1,4 @@
-package com.fitlife.app.Model;
+package com.fitlife.app.Model.Exercise;
 
 import java.sql.Time;
 import java.util.Date;
@@ -41,8 +41,6 @@ public class CustomExercise {
 
 	@ManyToOne
 	private Exercise exercise;
-	// Constructors, getters, setters, and other methods can be added here
-	// Constructor
 
 	public Session getSession() {
 		return null;

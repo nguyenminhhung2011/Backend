@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import com.fitlife.app.DTO.Request.DailyWorkoutReq;
-import com.fitlife.app.DTO.Request.WorkoutPlanReq;
+import com.fitlife.app.DTO.Request.DailyWorkoutRequest;
+import com.fitlife.app.DTO.Request.WorkoutPlanRequest;
 import com.fitlife.app.DTO.Response.ResponseObject;
 
 
@@ -26,7 +26,6 @@ import com.fitlife.app.DTO.Response.ResponseObject;
 public class WorkoutController {
 
 	final IWorkoutService workoutService;
-
 
 	final IDailyService dailyService;
 
@@ -47,14 +46,14 @@ public class WorkoutController {
 	}
 
 	@PostMapping("")
-	public ResponseEntity<?> createWorkoutPlan(@RequestBody WorkoutPlanReq workoutPlanDTO,
+	public ResponseEntity<?> createWorkoutPlan(@RequestBody WorkoutPlanRequest workoutPlanDTO,
 											   @CurrentUser FitLifeUserDetail ctx) throws BadRequestException {
 		return ResponseEntity.ok(workoutService.createWorkoutPlan(workoutPlanDTO,ctx.getId() ));
 
 	}
 
 	@PostMapping("/daily")
-	public ResponseEntity<?> createDailyPlan(@RequestBody DailyWorkoutReq req, @RequestParam("id") String id) throws BadRequestException {
+	public ResponseEntity<?> createDailyPlan(@RequestBody DailyWorkoutRequest req, @RequestParam("id") String id) throws BadRequestException {
 		return ResponseEntity.ok(workoutService.createDailyPlan(req,Long.parseLong(id) ));
 	}
 

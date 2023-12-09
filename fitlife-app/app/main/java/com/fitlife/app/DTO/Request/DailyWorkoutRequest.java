@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class DailyWorkoutReq {
+public class DailyWorkoutRequest {
 	private Long id;
 	private String name;
 	private String description;

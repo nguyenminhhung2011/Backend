@@ -4,7 +4,7 @@ import java.sql.Timestamp;
 import java.util.List;
 
 import com.fitlife.app.Model.ActivitiesLog;
-import com.fitlife.app.Model.WorkoutPlan;
+import com.fitlife.app.Model.Workout.WorkoutPlan;
 import com.fitlife.app.Utils.Enums.Frequency;
 import com.fitlife.app.Utils.Enums.Gender;
 import com.fitlife.app.Utils.Enums.ThemeStatus;

@@ -1,4 +1,4 @@
-package com.fitlife.app.Model;
+package com.fitlife.app.Model.Workout;
 
 import java.util.List;
 

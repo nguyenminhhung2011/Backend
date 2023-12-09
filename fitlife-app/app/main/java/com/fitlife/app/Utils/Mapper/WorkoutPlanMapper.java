@@ -2,8 +2,8 @@ package com.fitlife.app.Utils.Mapper;
 
 import com.fitlife.app.DTO.DataClass.DailyWorkoutDTO;
 import com.fitlife.app.DTO.DataClass.WorkoutPlanDTO;
-import com.fitlife.app.Model.DailyWorkout;
-import com.fitlife.app.Model.WorkoutPlan;
+import com.fitlife.app.Model.Workout.DailyWorkout;
+import com.fitlife.app.Model.Workout.WorkoutPlan;
 import lombok.AllArgsConstructor;
 import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;

@@ -1,5 +1,6 @@
 package com.fitlife.app.Model;
 
+import com.fitlife.app.Model.Workout.WorkoutPlan;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
