@@ -101,10 +101,10 @@ public class SessionServiceImpl extends GenericService<Session, Long, SessionRep
 			final  Exercise exerciseData = exercise.get();
 
 			customExercise.setExercise(exerciseData);
-			List<CustomExercise> sessiongExercise = session.getCustomExercise();
-			sessiongExercise.add(customExercise);
+			List<CustomExercise> sessionExercise = session.getCustomExercise();
+			sessionExercise.add(customExercise);
 
-			session.setCustomExercise(sessiongExercise);
+			session.setCustomExercise(sessionExercise);
 
 			save(session);
 
