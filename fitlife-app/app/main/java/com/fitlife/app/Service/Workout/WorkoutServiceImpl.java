@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+import com.fitlife.app.DTO.DataClass.DailyWorkoutDTO;
 import com.fitlife.app.DTO.Request.DailyWorkoutReq;
 import com.fitlife.app.DTO.Request.WorkoutPlanReq;
 import com.fitlife.app.DTO.Response.WorkoutPlanResponse;
@@ -77,7 +78,7 @@ public class WorkoutServiceImpl extends GenericService<WorkoutPlan, Long, Workou
 
 
 	@Override
-	public WorkoutPlanResponse createDailyPlan(DailyWorkoutReq req, Long id) throws BadRequestException {
+	public DailyWorkoutDTO createDailyPlan(DailyWorkoutReq req, Long id) throws BadRequestException {
 		try {
 			final Optional<WorkoutPlan> workoutPlan = repository.findById(id);
 			if (workoutPlan.isEmpty()) {
@@ -94,14 +95,17 @@ public class WorkoutServiceImpl extends GenericService<WorkoutPlan, Long, Workou
 					.execPerRound(req.getExecPerRound())
 					.numberRound(req.getNumberRound())
 					.timeForEachExe(req.getTimeForEachExe())
-					.workoutDuration(req.getWorkoutDuration()).build();
+					.workoutDuration(req.getWorkoutDuration())
+					.workoutPlan(workoutPlanData)
+					.build();
+
 
 			final List<DailyWorkout> currentDaily = workoutPlanData.getDailyWorkouts();
 			currentDaily.add(newDaily);
 
 			workoutPlanData.setDailyWorkouts(currentDaily);
 			save(workoutPlanData);
-			return WorkoutPlanResponse.getFrom(workoutPlanData);
+			return modelMapper.map(newDaily, DailyWorkoutDTO.class);
 
 		} catch (Exception e) {
 			throw new BadRequestException(e.getMessage());

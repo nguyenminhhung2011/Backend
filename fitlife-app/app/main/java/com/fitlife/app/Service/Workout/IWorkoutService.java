@@ -1,5 +1,6 @@
 package com.fitlife.app.Service.Workout;
 
+import com.fitlife.app.DTO.DataClass.DailyWorkoutDTO;
 import com.fitlife.app.DTO.Request.DailyWorkoutReq;
 import com.fitlife.app.DTO.Request.WorkoutPlanReq;
 import com.fitlife.app.DTO.Response.WorkoutPlanResponse;
@@ -15,7 +16,7 @@ import java.util.List;
 public interface IWorkoutService {
     void delete(Long id);
 
-    WorkoutPlanResponse createDailyPlan(DailyWorkoutReq workoutPlanDTO, Long id) throws BadRequestException;
+    DailyWorkoutDTO createDailyPlan(DailyWorkoutReq workoutPlanDTO, Long id) throws BadRequestException;
 
     WorkoutPlanResponse createWorkoutPlan( WorkoutPlanReq workoutPlanDTO,Long idUser ) throws  BadRequestException;
 
