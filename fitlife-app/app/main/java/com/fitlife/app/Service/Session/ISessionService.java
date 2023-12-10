@@ -15,5 +15,7 @@ public interface ISessionService {
 
     CustomExerciseResponse createCustomExercise(CustomExerciseRequest req, String sessionId) throws BadRequestException;
 
+    SessionDTO getSessionById(String id);
+
     void delete(Long id );
 }

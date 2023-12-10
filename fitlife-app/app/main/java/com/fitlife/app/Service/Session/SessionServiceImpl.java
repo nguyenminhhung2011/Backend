@@ -29,13 +29,16 @@ public class SessionServiceImpl extends GenericService<Session, Long, SessionRep
 	private final ModelMapper modelMapper;
 	private final DailyWorkoutRepository dailyWorkoutRepository;
 	private final ExerciseRepository exerciseRepository;
+	private final SessionRepository sessionRepository;
 
 	@Autowired
-	public SessionServiceImpl(SessionRepository genericService, ModelMapper modelMapper, DailyWorkoutRepository dailyWorkoutRepository, ExerciseRepository exerciseRepository) {
+	public SessionServiceImpl(SessionRepository genericService, ModelMapper modelMapper, DailyWorkoutRepository dailyWorkoutRepository, ExerciseRepository exerciseRepository,
+							  SessionRepository sessionRepository) {
 		super(genericService);
 		this.modelMapper = modelMapper;
 		this.exerciseRepository = exerciseRepository;
 		this.dailyWorkoutRepository = dailyWorkoutRepository;
+		this.sessionRepository = sessionRepository;
 	}
 
 	@Override
@@ -112,5 +115,10 @@ public class SessionServiceImpl extends GenericService<Session, Long, SessionRep
 		}catch (Exception e){
 			throw new BadRequestException(e.getMessage());
 		}
+	}
+
+	@Override
+	public SessionDTO getSessionById(String id) {
+		return modelMapper.map( findById(Long.parseLong(id)), SessionDTO.class);
 	}
 }

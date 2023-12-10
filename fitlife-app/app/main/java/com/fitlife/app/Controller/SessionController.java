@@ -46,6 +46,11 @@ public class SessionController {
 		return ResponseEntity.ok(sessionService.getAllSession(id));
 	}
 
+	@GetMapping
+	public ResponseEntity<?> getSessionById(@RequestParam("id") String id) {
+		return ResponseEntity.ok(sessionService.getSessionById(id));
+	}
+
 	@PostMapping("/add")
 	public ResponseEntity<?> createSession(@RequestBody SessionRequest req) throws BadRequestException {
 		return ResponseEntity.ok(sessionService.createSession(req));
