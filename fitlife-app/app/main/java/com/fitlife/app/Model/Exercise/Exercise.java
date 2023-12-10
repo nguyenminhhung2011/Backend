@@ -66,7 +66,6 @@ public class Exercise {
 	@OneToMany(mappedBy = "exercise",orphanRemoval = true)
 	private List<Steps> steps;
 
-	@JsonView(ExerciseViews.Hide.class)
 	@ManyToMany(
 		fetch = FetchType.LAZY,
 		cascade = {CascadeType.PERSIST,CascadeType.MERGE}
@@ -90,10 +89,11 @@ public class Exercise {
 	)
 	private List<Session> sessions;
 
+	@JsonView(ExerciseViews.Hide.class)
 	@OneToMany(
+			fetch = FetchType.LAZY,
 			mappedBy = "exercise",
-			orphanRemoval = true,
-			cascade = CascadeType.ALL
+			cascade = {CascadeType.PERSIST,CascadeType.MERGE}
 	)
 	private List<CustomExercise> customExercises;
 
