@@ -22,7 +22,7 @@ public class DailyWorkout {
 	private String name;
 	private String description;
 	private double caloTarget;
-	private Long time; // Thời gian trong phút (1h = 60 phút)
+	private Long time;
 	private int workoutDuration;
 	private int numberRound;
 	private int execPerRound;

@@ -90,4 +90,11 @@ public class Exercise {
 	)
 	private List<Session> sessions;
 
+	@OneToMany(
+			mappedBy = "exercise",
+			orphanRemoval = true,
+			cascade = CascadeType.ALL
+	)
+	private List<CustomExercise> customExercises;
+
 }

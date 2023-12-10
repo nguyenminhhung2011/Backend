@@ -3,15 +3,10 @@ package com.fitlife.app.Model.Exercise;
 import java.sql.Time;
 import java.util.Date;
 
-import com.fitlife.app.Model.Exercise.Exercise;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import com.fitlife.app.Model.session.Session;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
@@ -40,14 +35,8 @@ public class CustomExercise {
 	private Session session;
 
 	@ManyToOne
+	@JoinColumn(name = "exercise_id", referencedColumnName = "id")
 	private Exercise exercise;
 
-	public Session getSession() {
-		return null;
-	}
-
-	public Long getExercise() {
-		return exercise.getId();
-	}
 
 }
