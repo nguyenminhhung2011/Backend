@@ -1,10 +1,11 @@
 package com.fitlife.app.DTO.Response;
 
-import com.fitlife.app.Model.WorkoutPlan;
+import com.fitlife.app.Model.Workout.WorkoutPlan;
 import com.fitlife.app.Utils.Enums.PlanType;
 import lombok.Getter;
 
 @Getter
+
 public class WorkoutPlanResponse {
 	// Getters and setters
 	// ID

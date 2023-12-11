@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/FitLife.iml" filepath="$PROJECT_DIR$/FitLife.iml" />
       <module fileurl="file://$PROJECT_DIR$/fitlife-app/fitlife-app.iml" filepath="$PROJECT_DIR$/fitlife-app/fitlife-app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/trainer-ai/trainer-ai.iml" filepath="$PROJECT_DIR$/trainer-ai/trainer-ai.iml" />
     </modules>
   </component>
 </project>

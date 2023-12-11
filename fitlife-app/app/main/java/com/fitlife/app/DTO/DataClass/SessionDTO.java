@@ -1,14 +1,22 @@
 package com.fitlife.app.DTO.DataClass;
 
+import com.fitlife.app.DTO.Response.CustomExerciseResponse;
 import lombok.*;
 
 import java.util.List;
 
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class SessionDTO {
     private Long id;
-    private DailyWorkoutDTO dailyWorkouts;
-    private List<ExerciseDTO> exercises;
+    private String name;
+    private String level;
+    private String description;
+    private Boolean startWithBoot;
+    private Boolean randomMix;
+    private int timePerLesson;
+    private int transferTime;
+    private int calcTarget;
+    private List<CustomExerciseResponse> customExercise;
 }

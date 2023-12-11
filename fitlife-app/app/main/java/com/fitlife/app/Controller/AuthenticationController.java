@@ -29,7 +29,7 @@ public class AuthenticationController {
 
 	@PostMapping("/register")
 	public ResponseEntity<?> register( @Valid @RequestBody RegistrationRequest registrationRequest) throws Exception {
-	return authService.register(registrationRequest);
+		return authService.register(registrationRequest);
 	}
 
 	@PostMapping("/refreshToken")
