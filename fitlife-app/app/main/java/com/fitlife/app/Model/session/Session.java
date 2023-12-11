@@ -35,7 +35,6 @@ public class Session {
 	private Boolean startWithBoot;
 	private Boolean randomMix;
 
-	private int dateInDaily;
 	private int timePerLesson;
 	private int transferTime;
 	private int calcTarget;

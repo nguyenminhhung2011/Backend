@@ -46,6 +46,11 @@ public class SessionController {
 		return ResponseEntity.ok(sessionService.getAllSession(id));
 	}
 
+	@GetMapping("/up-coming")
+	public ResponseEntity<?> getUpComingSesssion() throws BadRequestException{
+		return ResponseEntity.ok(sessionService.getUpComingSession());
+	}
+
 	@GetMapping
 	public ResponseEntity<?> getSessionById(@RequestParam("id") String id) {
 		return ResponseEntity.ok(sessionService.getSessionById(id));

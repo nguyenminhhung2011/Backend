@@ -9,8 +9,10 @@ import com.fitlife.app.Exceptions.AppException.NotFoundException;
 import com.fitlife.app.Model.Workout.DailyWorkout;
 import com.fitlife.app.Model.Exercise.CustomExercise;
 import com.fitlife.app.Model.Exercise.Exercise;
+import com.fitlife.app.Model.Workout.WorkoutPlan;
 import com.fitlife.app.Repository.DailyWorkoutRepository;
 import com.fitlife.app.Repository.Exercise.ExerciseRepository;
+import com.fitlife.app.Repository.WorkoutRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,6 +21,9 @@ import com.fitlife.app.Model.session.Session;
 import com.fitlife.app.Repository.SessionRepository;
 import com.fitlife.app.Service.Generic.GenericService;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,17 +33,19 @@ public class SessionServiceImpl extends GenericService<Session, Long, SessionRep
 
 	private final ModelMapper modelMapper;
 	private final DailyWorkoutRepository dailyWorkoutRepository;
+	private final WorkoutRepository workoutRepository;
 	private final ExerciseRepository exerciseRepository;
-	private final SessionRepository sessionRepository;
+
+
+
 
 	@Autowired
-	public SessionServiceImpl(SessionRepository genericService, ModelMapper modelMapper, DailyWorkoutRepository dailyWorkoutRepository, ExerciseRepository exerciseRepository,
-							  SessionRepository sessionRepository) {
+	public SessionServiceImpl(SessionRepository genericService, ModelMapper modelMapper, DailyWorkoutRepository dailyWorkoutRepository, ExerciseRepository exerciseRepository, WorkoutRepository workoutRepository) {
 		super(genericService);
 		this.modelMapper = modelMapper;
 		this.exerciseRepository = exerciseRepository;
 		this.dailyWorkoutRepository = dailyWorkoutRepository;
-		this.sessionRepository = sessionRepository;
+		this.workoutRepository = workoutRepository;
 	}
 
 	@Override
@@ -51,20 +58,13 @@ public class SessionServiceImpl extends GenericService<Session, Long, SessionRep
 			}
 			DailyWorkout dailyData = daily.get();
 
-			final Optional<Session> isExisted = dailyData.getSessions().stream()
-					.filter(item -> item.getDateInDaily() == req.getDateInDaily())
-					.findFirst();
 
-			if(isExisted.isPresent()){
-				throw new BadRequestException("Session was existed");
-			}
 
 			Session session = Session.builder()
 					.description(req.getDescription())
 					.name(req.getName())
 					.timePerLesson(req.getTimePerLesson())
 					.randomMix(req.getRandomMix())
-					.dateInDaily(req.getDateInDaily())
 					.startWithBoot(req.getStartWithBoot()).build();
 			List<Session> currentSession = dailyData.getSessions();
 
@@ -114,7 +114,7 @@ public class SessionServiceImpl extends GenericService<Session, Long, SessionRep
 			final  Exercise exerciseData = exercise.get();
 
 			customExercise.setExercise(exerciseData);
-			List<CustomExercise> sessionExercise = session.getCustomExercise();
+			List<CustomExercise> sessionExercise =	 session.getCustomExercise();
 			sessionExercise.add(customExercise);
 
 			session.setCustomExercise(sessionExercise);
@@ -130,5 +130,30 @@ public class SessionServiceImpl extends GenericService<Session, Long, SessionRep
 	@Override
 	public SessionDTO getSessionById(String id) {
 		return modelMapper.map( findById(Long.parseLong(id)), SessionDTO.class);
+	}
+
+	@Override
+	public List<SessionDTO> getUpComingSession() throws BadRequestException {
+		try {
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+			final long currentTime = new Date().getTime();
+			final String formatCurrentDate = sdf.format(currentTime);
+			final List<WorkoutPlan> getActivePlan = workoutRepository.getActiveWorkoutPlan(currentTime);
+			final List<Session> result = new ArrayList<>();
+
+			for (WorkoutPlan item: getActivePlan) {
+				for (DailyWorkout daily: item.getDailyWorkouts()) {
+					if(sdf.format(daily.getTime()).equals(formatCurrentDate)){
+						result.addAll(daily.getSessions());
+						break;
+					}
+				}
+			}
+
+			return result.stream().map(item -> modelMapper.map(item, SessionDTO.class)).toList();
+		}catch (Exception e){
+			throw new BadRequestException(e.getMessage());
+		}
 	}
 }

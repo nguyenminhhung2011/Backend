@@ -1,5 +1,6 @@
 package com.fitlife.app.Service.Workout;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -80,11 +81,32 @@ public class WorkoutServiceImpl extends GenericService<WorkoutPlan, Long, Workou
 	@Override
 	public DailyWorkoutDTO createDailyPlan(DailyWorkoutRequest req, Long id) throws BadRequestException {
 		try {
+
+
 			final Optional<WorkoutPlan> workoutPlan = repository.findById(id);
 			if (workoutPlan.isEmpty()) {
 				throw new NotFoundException("Can not found plan");
 			}
+
+
+
+
 			final WorkoutPlan workoutPlanData = workoutPlan.get();
+
+
+			if(req.getTime() < workoutPlanData.getStartDate() || req.getTime() > workoutPlanData.getEndDate()){
+				throw new BadRequestException("Time is out of range [startDate - endDate]");
+			}
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+
+			final Optional<DailyWorkout> isExistedDate = workoutPlanData.getDailyWorkouts().stream().filter(
+					item -> sdf.format(item.getTime()).equals(sdf.format(req.getTime()))
+			).findFirst();
+
+			if(isExistedDate.isPresent()){
+				throw new BadRequestException("Date was existed in plan");
+			}
 
 			DailyWorkout newDaily = DailyWorkout.builder()
 					.name(req.getName())
@@ -169,9 +191,7 @@ public class WorkoutServiceImpl extends GenericService<WorkoutPlan, Long, Workou
 	@Override
 	public List<WorkoutPlanResponse> getActiveWorkoutPlan(Long time) throws BadRequestException {
 		try {
-			return repository
-					.getActiveWorkoutPlan(time)
-					.stream()
+			return repository.getActiveWorkoutPlan(time).stream()
 					.map(item -> modelMapper.map(item, WorkoutPlanResponse.class))
 					.toList();
 		}catch (Exception e){

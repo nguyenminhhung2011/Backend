@@ -17,5 +17,7 @@ public interface ISessionService {
 
     SessionDTO getSessionById(String id);
 
+    List<SessionDTO> getUpComingSession() throws  BadRequestException;
+
     void delete(Long id );
 }

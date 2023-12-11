@@ -13,8 +13,6 @@ public class SessionRequest {
 	private String level;
 	private int timePerLesson;
 	private int transferTime;
-	private int dateInDaily;
-
 
 }
 
