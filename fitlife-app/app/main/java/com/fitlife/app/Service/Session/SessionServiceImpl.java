@@ -50,11 +50,21 @@ public class SessionServiceImpl extends GenericService<Session, Long, SessionRep
 				throw new NotFoundException("Can not find daily workout");
 			}
 			DailyWorkout dailyData = daily.get();
+
+			final Optional<Session> isExisted = dailyData.getSessions().stream()
+					.filter(item -> item.getDateInDaily() == req.getDateInDaily())
+					.findFirst();
+
+			if(isExisted.isPresent()){
+				throw new BadRequestException("Session was existed");
+			}
+
 			Session session = Session.builder()
 					.description(req.getDescription())
 					.name(req.getName())
 					.timePerLesson(req.getTimePerLesson())
 					.randomMix(req.getRandomMix())
+					.dateInDaily(req.getDateInDaily())
 					.startWithBoot(req.getStartWithBoot()).build();
 			List<Session> currentSession = dailyData.getSessions();
 

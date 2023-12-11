@@ -8,11 +8,12 @@ public class SessionRequest {
 
 	private Boolean startWithBoot;
 	private Boolean randomMix;
-	private int timePerLesson;
-	private int transferTime;
 	private String description;
 	private String name;
 	private String level;
+	private int timePerLesson;
+	private int transferTime;
+	private int dateInDaily;
 
 
 }
