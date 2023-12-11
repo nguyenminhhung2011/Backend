@@ -21,6 +21,7 @@ public interface IWorkoutService {
 
     List<WorkoutPlanResponse> getAll() ;
     List<WorkoutPlanResponse> getMyWorkoutPlan(Long idUser);
+    List<WorkoutPlanResponse> getActiveWorkoutPlan(Long time) throws BadRequestException;
 
     List<WorkoutPlan> getWorkoutPlansByUserProfileId(Long userProfileId);
     List<DailyWorkoutDTO>  getAllDailyPlan(String id) throws BadRequestException;

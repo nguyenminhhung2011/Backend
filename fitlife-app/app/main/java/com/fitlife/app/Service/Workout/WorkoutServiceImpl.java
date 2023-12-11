@@ -166,4 +166,17 @@ public class WorkoutServiceImpl extends GenericService<WorkoutPlan, Long, Workou
 		return response;
 	}
 
+	@Override
+	public List<WorkoutPlanResponse> getActiveWorkoutPlan(Long time) throws BadRequestException {
+		try {
+			return repository
+					.getActiveWorkoutPlan(time)
+					.stream()
+					.map(item -> modelMapper.map(item, WorkoutPlanResponse.class))
+					.toList();
+		}catch (Exception e){
+			throw new BadRequestException(e.getMessage());
+		}
+	}
+
 }

@@ -62,6 +62,10 @@ public class WorkoutController {
 		return ResponseEntity.ok(workoutService.getAllDailyPlan(id));
 
 	}
+	@GetMapping("/active")
+	public ResponseEntity<?> getActiveWorkoutPlan(@RequestParam("time") String time) throws BadRequestException {
+		return ResponseEntity.ok(workoutService.getActiveWorkoutPlan(Long.parseLong(time)));
+	}
 
 	@GetMapping("/search")
 	public ResponseEntity<Page<Object>> searchWorkoutPlans(

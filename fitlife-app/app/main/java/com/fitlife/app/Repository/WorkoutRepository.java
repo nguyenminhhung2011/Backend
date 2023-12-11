@@ -8,11 +8,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.fitlife.app.Model.Workout.WorkoutPlan;
+import org.springframework.data.jpa.repository.Query;
 
 public interface WorkoutRepository extends JpaRepository<WorkoutPlan, Long> {
 
 	List<WorkoutPlan> findByUserProfileId(Long userProfileId);
-
 	Page<WorkoutPlan> findByUserProfile_IdAndStartDateBetween(Long userId, Date startDate, Date endDate,
 			Pageable pageable);
 
@@ -20,4 +20,7 @@ public interface WorkoutRepository extends JpaRepository<WorkoutPlan, Long> {
 
 	Page<WorkoutPlan> findByUserProfile_IdAndNameContainingIgnoreCaseAndStartDateBetween(Long userId, String name,
 			Date startDate, Date endDate, Pageable pageable);
+
+	@Query("select r from WorkoutPlan r where :time between r.startDate and r.endDate")
+	List<WorkoutPlan> getActiveWorkoutPlan(Long time);
 }
