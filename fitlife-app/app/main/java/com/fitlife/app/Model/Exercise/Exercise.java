@@ -50,7 +50,7 @@ public class Exercise {
 
 	@JsonView(value = {ExerciseViews.Summary.class, UserViews.Summary.class,})
 	@JsonProperty("gifUrl")
-	private String videoUrl;
+	private String gifUrl;
 
 	@JsonView(value = {ExerciseViews.Detail.class})
 	@JsonProperty("equipment")

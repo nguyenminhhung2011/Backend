@@ -15,7 +15,7 @@ public class ExerciseDTO {
     private String name;
     private String description;
     private String exerciseCategory;
-    private String videoUrl;
+    private String gifUrl;
     private List<Steps> steps;
     private int sets;
     private int reps;
