@@ -65,6 +65,9 @@ public class SessionServiceImpl extends GenericService<Session, Long, SessionRep
 					.name(req.getName())
 					.timePerLesson(req.getTimePerLesson())
 					.randomMix(req.getRandomMix())
+					.calcTarget(req.getCalcTarget())
+					.level(req.getLevel())
+					.transferTime(req.getTransferTime())
 					.startWithBoot(req.getStartWithBoot()).build();
 			List<Session> currentSession = dailyData.getSessions();
 

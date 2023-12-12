@@ -5,7 +5,6 @@ import lombok.Data;
 @Data
 public class SessionRequest {
 	private Long dailyWorkouts;
-
 	private Boolean startWithBoot;
 	private Boolean randomMix;
 	private String description;
@@ -13,6 +12,6 @@ public class SessionRequest {
 	private String level;
 	private int timePerLesson;
 	private int transferTime;
-
+	private int calcTarget;
 }
 
