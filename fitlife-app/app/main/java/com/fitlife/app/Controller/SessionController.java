@@ -1,18 +1,14 @@
 package com.fitlife.app.Controller;
 
 
+import com.fitlife.app.DTO.Request.Session.UpdateSettingSessionRequest;
 import com.fitlife.app.Exceptions.AppException.BadRequestException;
 import com.fitlife.app.Service.Session.ISessionService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.fitlife.app.DTO.Request.CustomExerciseRequest;
-import com.fitlife.app.DTO.Request.SessionRequest;
+import com.fitlife.app.DTO.Request.Session.SessionRequest;
 import com.fitlife.app.DTO.Response.ResponseObject;
 
 @RestController
@@ -32,6 +28,15 @@ public class SessionController {
 		return ResponseEntity.ok().body(new ResponseObject("ok", "Delete successfully\"", null));
 
 	}
+
+	@PutMapping("/update-setting-session")
+	public ResponseEntity<?> updateSettingSession(
+			@RequestBody UpdateSettingSessionRequest request,
+			@RequestParam("id") String id
+	) throws BadRequestException {
+		return ResponseEntity.ok(sessionService.updateSettingSession(request, Long.parseLong(id)));
+	}
+
 
 	@PostMapping("/add/exercise")
 	public ResponseEntity<?> createCustomExercise(

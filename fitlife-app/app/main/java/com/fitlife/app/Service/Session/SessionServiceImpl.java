@@ -2,7 +2,8 @@ package com.fitlife.app.Service.Session;
 
 import com.fitlife.app.DTO.DataClass.SessionDTO;
 import com.fitlife.app.DTO.Request.CustomExerciseRequest;
-import com.fitlife.app.DTO.Request.SessionRequest;
+import com.fitlife.app.DTO.Request.Session.SessionRequest;
+import com.fitlife.app.DTO.Request.Session.UpdateSettingSessionRequest;
 import com.fitlife.app.DTO.Response.CustomExerciseResponse;
 import com.fitlife.app.Exceptions.AppException.BadRequestException;
 import com.fitlife.app.Exceptions.AppException.NotFoundException;
@@ -85,6 +86,31 @@ public class SessionServiceImpl extends GenericService<Session, Long, SessionRep
 	}
 
 	@Override
+	public SessionDTO updateSettingSession(UpdateSettingSessionRequest request, Long id) throws BadRequestException {
+		try {
+
+			final Session session = findById(id);
+
+			session.setName(request.getName());
+			session.setLevel(request.getLevel());
+			session.setRandomMix(request.getRandomMix());
+			session.setBreakTime(request.getBreakTime());
+			session.setCalcTarget(request.getCalcTarget());
+			session.setNumberRound(request.getNumberRound());
+			session.setDescription(request.getDescription());
+			session.setTransferTime(request.getTransferTime());
+			session.setTransferTime(request.getTimePerLesson());
+			session.setStartWithBoot(request.getStartWithBoot());
+
+			repository.save(session);
+
+			return modelMapper.map(session,SessionDTO.class);
+		} catch (Exception e){
+			throw new BadRequestException(e.getMessage());
+		}
+	}
+
+	@Override
 	public List<SessionDTO> getAllSession(String dailyID) throws BadRequestException {
 		try {
 			final Optional<DailyWorkout> daily = dailyWorkoutRepository.findById(Long.parseLong(dailyID));
@@ -136,6 +162,7 @@ public class SessionServiceImpl extends GenericService<Session, Long, SessionRep
 	public SessionDTO getSessionById(String id) {
 		return modelMapper.map( findById(Long.parseLong(id)), SessionDTO.class);
 	}
+
 
 	@Override
 	public List<SessionDTO> getUpComingSession() throws BadRequestException {

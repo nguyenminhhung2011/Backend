@@ -1,4 +1,4 @@
-package com.fitlife.app.DTO.Request;
+package com.fitlife.app.DTO.Request.Session;
 
 import lombok.Data;
 
