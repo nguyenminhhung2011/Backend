@@ -68,6 +68,8 @@ public class SessionServiceImpl extends GenericService<Session, Long, SessionRep
 					.calcTarget(req.getCalcTarget())
 					.level(req.getLevel())
 					.transferTime(req.getTransferTime())
+					.numberRound(req.getNumberRound())
+					.breakTime(req.getBreakTime())
 					.startWithBoot(req.getStartWithBoot()).build();
 			List<Session> currentSession = dailyData.getSessions();
 

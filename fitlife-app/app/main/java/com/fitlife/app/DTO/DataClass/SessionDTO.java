@@ -18,5 +18,7 @@ public class SessionDTO {
     private int timePerLesson;
     private int transferTime;
     private int calcTarget;
+    private int numberRound;
+    private int breakTime;
     private List<CustomExerciseResponse> customExercise;
 }

@@ -12,7 +12,6 @@ public class CustomExerciseRequest {
 	private String difficulty;
 	private int rep;
 	private int weight;
-	private Long session;
 	private Long exercise;
 
 }
