@@ -13,12 +13,9 @@ import java.util.Date;
 @AllArgsConstructor
 public class CustomExerciseResponse {
     private Long id;
-    private Date dateStart;
-    private Time time;
+    private int time;
+    private int weight;
+    private int rep;
     private String difficulty;
     private ExerciseDTO exercise;
-    private int rep;
-    private int weight;
-
-
 }

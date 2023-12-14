@@ -19,14 +19,9 @@ public class CustomExercise {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-
-	@JsonFormat(pattern = "yyyy-MM-dd")
-	private Date dateStart;
-
-	@JsonFormat(pattern = "HH:mm:ss")
-	private Time time;
 	private String difficulty;
 	private int rep;
+	private int time;
 	private int weight;
 
 	public CustomExercise() {}

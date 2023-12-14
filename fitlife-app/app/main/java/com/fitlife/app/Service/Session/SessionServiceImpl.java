@@ -99,7 +99,7 @@ public class SessionServiceImpl extends GenericService<Session, Long, SessionRep
 			session.setNumberRound(request.getNumberRound());
 			session.setDescription(request.getDescription());
 			session.setTransferTime(request.getTransferTime());
-			session.setTransferTime(request.getTimePerLesson());
+			session.setTimePerLesson(request.getTimePerLesson());
 			session.setStartWithBoot(request.getStartWithBoot());
 
 			repository.save(session);
@@ -134,7 +134,6 @@ public class SessionServiceImpl extends GenericService<Session, Long, SessionRep
 					.weight(req.getWeight())
 					.time(req.getTime())
 					.difficulty(req.getDifficulty())
-					.dateStart(req.getDateStart())
 					.session(session)
 					.build();
 

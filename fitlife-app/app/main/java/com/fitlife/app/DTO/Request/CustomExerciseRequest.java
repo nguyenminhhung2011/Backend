@@ -7,8 +7,7 @@ import java.util.Date;
 
 @Data
 public class CustomExerciseRequest {
-	private Date dateStart;
-	private Time time;
+	private int time;
 	private String difficulty;
 	private int rep;
 	private int weight;
