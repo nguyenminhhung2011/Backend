@@ -23,10 +23,7 @@ import com.fitlife.app.Repository.SessionRepository;
 import com.fitlife.app.Service.Generic.GenericService;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class SessionServiceImpl extends GenericService<Session, Long, SessionRepository> implements  ISessionService{
@@ -71,6 +68,8 @@ public class SessionServiceImpl extends GenericService<Session, Long, SessionRep
 					.transferTime(req.getTransferTime())
 					.numberRound(req.getNumberRound())
 					.breakTime(req.getBreakTime())
+					.done(false)
+					.calcCompleted(0)
 					.startWithBoot(req.getStartWithBoot()).build();
 			List<Session> currentSession = dailyData.getSessions();
 
@@ -135,6 +134,7 @@ public class SessionServiceImpl extends GenericService<Session, Long, SessionRep
 					.time(req.getTime())
 					.difficulty(req.getDifficulty())
 					.session(session)
+					.calories((new Random()).nextInt(100, 400)) ///🐛[dummy code]
 					.build();
 
 			final Optional<Exercise> exercise = exerciseRepository.findById(req.getExercise());
@@ -160,6 +160,27 @@ public class SessionServiceImpl extends GenericService<Session, Long, SessionRep
 	@Override
 	public SessionDTO getSessionById(String id) {
 		return modelMapper.map( findById(Long.parseLong(id)), SessionDTO.class);
+	}
+
+
+	@Override
+	public SessionDTO completeSession(String id) throws BadRequestException {
+		try{
+			final Session session = findById(Long.parseLong(id));
+			var totalCalories = 0;
+			for (CustomExercise item: session.getCustomExercise()) {
+				totalCalories += item.getCalories();
+			}
+			session.setCalcCompleted(totalCalories * session.getNumberRound());
+			session.setDone(true);
+
+			repository.save(session);
+
+			return modelMapper.map(session, SessionDTO.class);
+
+		} catch (Exception e) {
+			throw new BadRequestException(e.getMessage());
+		}
 	}
 
 

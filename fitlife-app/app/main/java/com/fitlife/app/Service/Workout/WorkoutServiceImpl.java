@@ -1,20 +1,26 @@
 package com.fitlife.app.Service.Workout;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import com.fitlife.app.DTO.DataClass.DailyWorkoutDTO;
 import com.fitlife.app.DTO.Request.DailyWorkoutRequest;
+import com.fitlife.app.DTO.Request.GetChartRequest;
 import com.fitlife.app.DTO.Request.WorkoutPlanRequest;
+import com.fitlife.app.DTO.Response.ChartResponse;
 import com.fitlife.app.DTO.Response.WorkoutPlanResponse;
 import com.fitlife.app.Exceptions.AppException.BadRequestException;
 import com.fitlife.app.Exceptions.AppException.NotFoundException;
 import com.fitlife.app.Model.AISupport;
 import com.fitlife.app.Model.Workout.DailyWorkout;
 import com.fitlife.app.Model.User.UserProfile;
+import com.fitlife.app.Model.session.Session;
+import com.fitlife.app.Repository.DailyWorkoutRepository;
 import com.fitlife.app.Repository.User.UserProfileRepository;
 import com.fitlife.app.Utils.Enums.PlanType;
 import org.modelmapper.ModelMapper;
@@ -31,14 +37,16 @@ import com.fitlife.app.Service.Generic.GenericService;
 @Service
 public class WorkoutServiceImpl extends GenericService<WorkoutPlan, Long, WorkoutRepository> implements IWorkoutService {
 
-	public WorkoutServiceImpl(WorkoutRepository genericRepository, ModelMapper modelMapper, UserProfileRepository userRepository) {
+	public WorkoutServiceImpl(WorkoutRepository genericRepository, ModelMapper modelMapper, UserProfileRepository userRepository,  DailyWorkoutRepository dailyWorkoutRepository) {
 		super(genericRepository);
 		this.modelMapper = modelMapper;
 		this.userRepository = userRepository;
+		this.dailyWorkoutRepository = dailyWorkoutRepository;
 	}
 
 	private final ModelMapper modelMapper;
 	private  final UserProfileRepository userRepository;
+	private  final DailyWorkoutRepository dailyWorkoutRepository;
 
 	@Override
 	public List<WorkoutPlan> getWorkoutPlansByUserProfileId(Long userProfileId) {
@@ -61,6 +69,39 @@ public class WorkoutServiceImpl extends GenericService<WorkoutPlan, Long, Workou
 		}catch (Exception e ){
 			throw new BadRequestException(e.getMessage());
 		}
+	}
+
+	private int getChartViewInArray(Long time, List<ChartResponse> arr) {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		final String formatTime = sdf.format(time);
+
+		OptionalInt index = IntStream.range(0, arr.size())
+				.filter(i -> sdf.format(arr.get(i).getTime()).equals(formatTime))
+				.findFirst();
+
+		return index.orElse(0);
+	}
+
+	@Override
+	public List<ChartResponse> getChartView(GetChartRequest request, Long userId) {
+		LocalDate startDate = Instant.ofEpochMilli(request.startDate()).atZone(ZoneId.systemDefault()).toLocalDate();
+		LocalDate endDate = Instant.ofEpochMilli(request.endDate()).atZone(ZoneId.systemDefault()).toLocalDate();
+
+		List<ChartResponse> result = startDate.datesUntil(endDate).map(item ->
+				new ChartResponse(0, item.atStartOfDay(ZoneId.systemDefault()).toInstant().toEpochMilli())
+		).collect(Collectors.toList());
+
+		List<DailyWorkout> dailyWorkouts = dailyWorkoutRepository.getDailyWorkoutInRange(userId, request.startDate(), request.endDate());
+
+		for (DailyWorkout dailyWorkout : dailyWorkouts) {
+			int calories = result.get(getChartViewInArray(dailyWorkout.getTime(), result)).getCalories();
+			for (Session session : dailyWorkout.getSessions()) {
+				calories += session.getCalcCompleted();
+			}
+			result.get(getChartViewInArray(dailyWorkout.getTime(), result)).setCalories(calories);
+		}
+		return result;
+
 	}
 
 	@Override
@@ -181,11 +222,7 @@ public class WorkoutServiceImpl extends GenericService<WorkoutPlan, Long, Workou
 
 	@Override
 	public List<WorkoutPlanResponse> getMyWorkoutPlan(Long idUser) {
-		List<WorkoutPlanResponse> response = new ArrayList<>();
-		for (WorkoutPlan item: getWorkoutPlansByUserProfileId(idUser)) 	{
-			response.add(WorkoutPlanResponse.getFrom(item));
-		}
-		return response;
+		return getWorkoutPlansByUserProfileId(idUser).stream().map(WorkoutPlanResponse::getFrom).toList();
 	}
 
 	@Override

@@ -5,7 +5,9 @@ import org.springframework.stereotype.Repository;
 
 import com.fitlife.app.Model.session.Session;
 
+
 @Repository
 public interface SessionRepository extends JpaRepository<Session, Long> {
+
 
 }

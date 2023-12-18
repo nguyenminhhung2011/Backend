@@ -24,6 +24,8 @@ public class CustomExercise {
 	private int time;
 	private int weight;
 
+	private int calories;
+
 	public CustomExercise() {}
 
 	@ManyToOne

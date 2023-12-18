@@ -46,6 +46,13 @@ public class SessionController {
 		return ResponseEntity.ok(sessionService.createCustomExercise(request, id));
 	}
 
+	@PostMapping("/complete-session")
+	public ResponseEntity<?> completeSession(
+			@RequestParam("id") String id
+	) throws BadRequestException {
+		return ResponseEntity.ok(sessionService.completeSession(id));
+	}
+
 	@GetMapping("/getall")
 	public ResponseEntity<?> getAllSession(@RequestParam("id") String id) throws BadRequestException {
 		return ResponseEntity.ok(sessionService.getAllSession(id));

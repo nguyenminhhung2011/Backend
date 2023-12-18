@@ -1,6 +1,8 @@
 package com.fitlife.app.Controller;
 
 import java.util.Date;
+
+import com.fitlife.app.DTO.Request.GetChartRequest;
 import com.fitlife.app.Exceptions.AppException.BadRequestException;
 import com.fitlife.app.Security.Model.CurrentUser;
 import com.fitlife.app.Security.Model.FitLifeUserDetail;
@@ -32,6 +34,15 @@ public class WorkoutController {
 	public WorkoutController(IWorkoutService workoutService, IDailyService dailyService) {
 		this.workoutService = workoutService;
 		this.dailyService = dailyService;
+	}
+
+
+	@GetMapping("/get-chart-view")
+	public ResponseEntity<?> getChartView(
+			@RequestBody GetChartRequest getChartRequest,
+			@CurrentUser FitLifeUserDetail ctx
+	){
+		return ResponseEntity.ok(workoutService.getChartView(getChartRequest, ctx.getId()));
 	}
 
 	@GetMapping("/getAll")

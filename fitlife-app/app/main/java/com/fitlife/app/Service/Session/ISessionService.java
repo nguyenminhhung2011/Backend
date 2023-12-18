@@ -17,6 +17,7 @@ public interface ISessionService {
     CustomExerciseResponse createCustomExercise(CustomExerciseRequest req, String sessionId) throws BadRequestException;
 
     SessionDTO getSessionById(String id);
+    SessionDTO completeSession(String id) throws BadRequestException;
     SessionDTO updateSettingSession(UpdateSettingSessionRequest request, Long id) throws BadRequestException;
 
     List<SessionDTO> getUpComingSession() throws  BadRequestException;

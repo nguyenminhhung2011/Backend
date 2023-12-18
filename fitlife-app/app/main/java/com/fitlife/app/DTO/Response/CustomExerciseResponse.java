@@ -16,6 +16,7 @@ public class CustomExerciseResponse {
     private int time;
     private int weight;
     private int rep;
+    private int calories;
     private String difficulty;
     private ExerciseDTO exercise;
 }

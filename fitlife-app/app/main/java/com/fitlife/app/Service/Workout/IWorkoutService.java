@@ -2,7 +2,9 @@ package com.fitlife.app.Service.Workout;
 
 import com.fitlife.app.DTO.DataClass.DailyWorkoutDTO;
 import com.fitlife.app.DTO.Request.DailyWorkoutRequest;
+import com.fitlife.app.DTO.Request.GetChartRequest;
 import com.fitlife.app.DTO.Request.WorkoutPlanRequest;
+import com.fitlife.app.DTO.Response.ChartResponse;
 import com.fitlife.app.DTO.Response.WorkoutPlanResponse;
 import com.fitlife.app.Exceptions.AppException.BadRequestException;
 import com.fitlife.app.Model.Workout.WorkoutPlan;
@@ -25,6 +27,7 @@ public interface IWorkoutService {
 
     List<WorkoutPlan> getWorkoutPlansByUserProfileId(Long userProfileId);
     List<DailyWorkoutDTO>  getAllDailyPlan(String id) throws BadRequestException;
+    List<ChartResponse>  getChartView(GetChartRequest request, Long userId) ;
 
     Page<Object> searchWorkoutPlans(Long id, String name, Date startDate, Date endDate, Pageable pageable);
 }

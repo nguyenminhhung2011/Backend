@@ -34,12 +34,14 @@ public class Session {
 	private String description;
 	private Boolean startWithBoot;
 	private Boolean randomMix;
+	private Boolean done;
 
 	private int numberRound;
 	private int breakTime;
 	private int timePerLesson;
 	private int transferTime;
 	private int calcTarget;
+	private int calcCompleted;
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "daily_workout_id", referencedColumnName = "id")
 	private DailyWorkout dailyWorkouts;
