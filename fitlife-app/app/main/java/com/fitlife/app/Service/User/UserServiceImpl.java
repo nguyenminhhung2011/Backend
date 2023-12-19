@@ -2,6 +2,7 @@ package com.fitlife.app.Service.User;
 
 import java.time.Instant;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 import com.fitlife.app.DTO.DataClass.ResponseObject;
@@ -145,6 +146,9 @@ public class UserServiceImpl extends GenericService<User,Long,UserRepository> im
 		User user = findById(userId);
 		UserProfile userProfile = user.getUserProfile();
 
+		var status = "";
+
+
 		Optional<Exercise> exerciseOptional = exerciseRepo.findById(exeId);
 		if (exerciseOptional.isEmpty()){
 			throw new NotFoundException("Can not found the corresponding exercise");
@@ -152,13 +156,17 @@ public class UserServiceImpl extends GenericService<User,Long,UserRepository> im
 
 		try{
 			final var exercise = exerciseOptional.get();
-			exercise.getFavoriteUser().add(userProfile);
+			if(exercise.getFavoriteUser().contains(userProfile)) {
+				exercise.getFavoriteUser().removeIf(item -> Objects.equals(item.getId(), userId));
+				status  = "Remove favorite exercise successfully";
+			}
+			else {
+				exercise.getFavoriteUser().add(userProfile);
+				status = "Add favorite exercise successfully";
+			}
 			userProfileRepository.save(userProfile);
 			exerciseRepo.save(exercise);
-			return new ResponseObject(
-					HttpStatus.OK.value(),
-					"Add favorite exercise successfully",
-					null);
+			return new ResponseObject(HttpStatus.OK.value(),status,null);
 		}
 		catch (Exception e){
 			throw new BadRequestException(e.getMessage());
