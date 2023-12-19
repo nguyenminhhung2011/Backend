@@ -13,6 +13,7 @@ import com.fitlife.app.DTO.Request.DailyWorkoutRequest;
 import com.fitlife.app.DTO.Request.GetChartRequest;
 import com.fitlife.app.DTO.Request.WorkoutPlanRequest;
 import com.fitlife.app.DTO.Response.ChartResponse;
+import com.fitlife.app.DTO.Response.FitOverviewResponse;
 import com.fitlife.app.DTO.Response.WorkoutPlanResponse;
 import com.fitlife.app.Exceptions.AppException.BadRequestException;
 import com.fitlife.app.Exceptions.AppException.NotFoundException;
@@ -83,23 +84,40 @@ public class WorkoutServiceImpl extends GenericService<WorkoutPlan, Long, Workou
 	}
 
 	@Override
-	public List<ChartResponse> getChartView(GetChartRequest request, Long userId) {
+	public FitOverviewResponse getChartView(GetChartRequest request, Long userId) {
 		LocalDate startDate = Instant.ofEpochMilli(request.startDate()).atZone(ZoneId.systemDefault()).toLocalDate();
 		LocalDate endDate = Instant.ofEpochMilli(request.endDate()).atZone(ZoneId.systemDefault()).toLocalDate();
 
-		List<ChartResponse> result = startDate.datesUntil(endDate).map(item ->
+		List<ChartResponse> chartResponse = startDate.datesUntil(endDate).map(item ->
 				new ChartResponse(0, item.atStartOfDay(ZoneId.systemDefault()).toInstant().toEpochMilli())
 		).collect(Collectors.toList());
 
 		List<DailyWorkout> dailyWorkouts = dailyWorkoutRepository.getDailyWorkoutInRange(userId, request.startDate(), request.endDate());
 
+		int totalSession = 0;
+		int totalSessionCompleted = 0;
+		int totalCalories = 0;
+
 		for (DailyWorkout dailyWorkout : dailyWorkouts) {
-			int calories = result.get(getChartViewInArray(dailyWorkout.getTime(), result)).getCalories();
+			int calories = chartResponse.get(getChartViewInArray(dailyWorkout.getTime(), chartResponse)).getCalories();
 			for (Session session : dailyWorkout.getSessions()) {
+				totalSession += 1;
+				if(session.getDone()){
+					totalSessionCompleted += 1;
+				}
 				calories += session.getCalcCompleted();
 			}
-			result.get(getChartViewInArray(dailyWorkout.getTime(), result)).setCalories(calories);
+			totalCalories += calories;
+			chartResponse.get(getChartViewInArray(dailyWorkout.getTime(), chartResponse)).setCalories(calories);
 		}
+		final FitOverviewResponse result = new FitOverviewResponse();
+		result.setChartData(chartResponse);
+		if (totalSession == 0) {
+			result.setTodoPercent(0);
+		} else {
+			result.setTodoPercent((double) totalSessionCompleted / totalSession);
+		}
+		result.setCalories(totalCalories);
 		return result;
 
 	}
