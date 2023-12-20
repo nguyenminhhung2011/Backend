@@ -148,8 +148,6 @@ public class WorkoutServiceImpl extends GenericService<WorkoutPlan, Long, Workou
 			}
 
 
-
-
 			final WorkoutPlan workoutPlanData = workoutPlan.get();
 
 
@@ -170,13 +168,7 @@ public class WorkoutServiceImpl extends GenericService<WorkoutPlan, Long, Workou
 			DailyWorkout newDaily = DailyWorkout.builder()
 					.name(req.getName())
 					.description(req.getDescription())
-					.breakTime(req.getBreakTime())
-					.caloTarget(req.getCaloTarget())
 					.time(req.getTime())
-					.execPerRound(req.getExecPerRound())
-					.numberRound(req.getNumberRound())
-					.timeForEachExe(req.getTimeForEachExe())
-					.workoutDuration(req.getWorkoutDuration())
 					.workoutPlan(workoutPlanData)
 					.build();
 

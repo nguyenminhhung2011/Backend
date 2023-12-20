@@ -21,14 +21,7 @@ public class DailyWorkout {
 
 	private String name;
 	private String description;
-	private double caloTarget;
 	private Long time;
-	private int workoutDuration;
-	private int numberRound;
-	private int execPerRound;
-	private int timeForEachExe;
-	private int breakTime;
-
 	@ManyToOne
 	@JoinColumn(name = "workout_plan_id",referencedColumnName = "id")
 	private WorkoutPlan workoutPlan;

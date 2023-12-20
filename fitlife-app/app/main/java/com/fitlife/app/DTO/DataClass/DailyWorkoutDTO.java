@@ -13,12 +13,6 @@ public class DailyWorkoutDTO {
     private Long id;
     private String name;
     private String description;
-    private double caloTarget;
     private Long time;
-    private int workoutDuration;
-    private int numberRound;
-    private int execPerRound;
-    private int timeForEachExe;
-    private int breakTime;
     private List<SessionDTO> sessions;
 }
