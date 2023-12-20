@@ -30,5 +30,5 @@ public interface IWorkoutService {
     List<DailyWorkoutDTO>  getAllDailyPlan(String id) throws BadRequestException;
     FitOverviewResponse getChartView(GetChartRequest request, Long userId) ;
 
-    Page<Object> searchWorkoutPlans(Long id, String name, Date startDate, Date endDate, Pageable pageable);
+    Page<Object> searchWorkoutPlans(Long id, String name, Long startDate, Long endDate, Pageable pageable);
 }

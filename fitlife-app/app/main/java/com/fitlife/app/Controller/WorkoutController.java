@@ -3,6 +3,7 @@ package com.fitlife.app.Controller;
 import java.util.Date;
 
 import com.fitlife.app.DTO.Request.GetChartRequest;
+import com.fitlife.app.DTO.Request.SearchWorkoutPlanRequest;
 import com.fitlife.app.Exceptions.AppException.BadRequestException;
 import com.fitlife.app.Security.Model.CurrentUser;
 import com.fitlife.app.Security.Model.FitLifeUserDetail;
@@ -81,15 +82,15 @@ public class WorkoutController {
 	@GetMapping("/search")
 	public ResponseEntity<Page<Object>> searchWorkoutPlans(
 			@CurrentUser FitLifeUserDetail ctx,
-			@RequestParam(value = "name", required = false) String name,
-			@RequestParam(value = "startDate", required = false) Date startDate,
-			@RequestParam(value = "endDate", required = false) Date endDate,
-			@RequestParam(value = "page", defaultValue = "0") int page,
-			@RequestParam(value = "size", defaultValue = "10") int size
-	) {
+			@RequestBody SearchWorkoutPlanRequest searchWorkoutPlanRequest
+			) {
 
-		Pageable pageable = PageRequest.of(page, size);
-		Page<Object> workoutPlans = workoutService.searchWorkoutPlans(ctx.getId(), name, startDate, endDate, pageable);
+		Pageable pageable = PageRequest.of(searchWorkoutPlanRequest.page(), searchWorkoutPlanRequest.size());
+		Page<Object> workoutPlans = workoutService.searchWorkoutPlans(
+				ctx.getId(),
+				searchWorkoutPlanRequest.name(),
+				searchWorkoutPlanRequest.startDate(),
+				searchWorkoutPlanRequest.endDate(), pageable);
 
 		return ResponseEntity.ok(workoutPlans);
 

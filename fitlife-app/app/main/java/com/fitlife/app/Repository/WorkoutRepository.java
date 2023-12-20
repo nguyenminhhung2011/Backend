@@ -19,7 +19,8 @@ public interface WorkoutRepository extends JpaRepository<WorkoutPlan, Long> {
 	Page<WorkoutPlan> findByUserProfile_IdAndNameContainingIgnoreCase(Long userId, String name, Pageable pageable);
 
 	Page<WorkoutPlan> findByUserProfile_IdAndNameContainingIgnoreCaseAndStartDateBetween(Long userId, String name,
-			Date startDate, Date endDate, Pageable pageable);
+																						 Long startDate, Long endDate,
+																						 Pageable pageable);
 
 	@Query("select r from WorkoutPlan r where :time between r.startDate and r.endDate")
 	List<WorkoutPlan> getActiveWorkoutPlan(Long time);

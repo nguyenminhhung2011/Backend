@@ -123,14 +123,19 @@ public class WorkoutServiceImpl extends GenericService<WorkoutPlan, Long, Workou
 	}
 
 	@Override
-	public Page<Object> searchWorkoutPlans(Long id, String name, Date startDate, Date endDate, Pageable pageable) {
+	public Page<Object> searchWorkoutPlans(Long id, String name, Long startDate, Long endDate, Pageable pageable) {
 		Page<WorkoutPlan> workoutPlans;
 
-		if (startDate == null && endDate == null) {
+		if (startDate == 0 && endDate == 0) {
 			workoutPlans = repository.findByUserProfile_IdAndNameContainingIgnoreCase(id, name, pageable);
 		} else {
-			workoutPlans = repository.findByUserProfile_IdAndNameContainingIgnoreCaseAndStartDateBetween(id, name,
-					startDate, endDate, pageable);
+			workoutPlans = repository.findByUserProfile_IdAndNameContainingIgnoreCaseAndStartDateBetween(
+					id,
+					name,
+					startDate,
+					endDate,
+					pageable
+			);
 		}
 
 		return workoutPlans.map(workoutPlan -> modelMapper.map(workoutPlan, WorkoutPlanDTO.class));
