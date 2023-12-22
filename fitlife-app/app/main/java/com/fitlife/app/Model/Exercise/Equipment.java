@@ -1,16 +1,11 @@
 package com.fitlife.app.Model.Exercise;
 
-import com.fasterxml.jackson.annotation.JsonView;
-import com.fitlife.app.DTO.Views.ExerciseViews;
-import com.fitlife.app.Model.session.Session;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.util.List;
 
 @Getter
 @Setter

@@ -1,4 +1,4 @@
-package com.fitlife.app.Model.session;
+package com.fitlife.app.Model.Session;
 
 import java.util.List;
 

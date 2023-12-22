@@ -1,11 +1,6 @@
 package com.fitlife.app.Model.Exercise;
 
-import java.sql.Time;
-import java.util.Date;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
-
-import com.fitlife.app.Model.session.Session;
+import com.fitlife.app.Model.Session.Session;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

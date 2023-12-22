@@ -1,7 +1,7 @@
 package com.fitlife.app.Utils.Mapper;
 
 import com.fitlife.app.DTO.DataClass.SessionDTO;
-import com.fitlife.app.Model.session.Session;
+import com.fitlife.app.Model.Session.Session;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeMap;

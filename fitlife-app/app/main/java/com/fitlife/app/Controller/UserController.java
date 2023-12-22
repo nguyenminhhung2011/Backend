@@ -60,10 +60,17 @@ public class UserController {
         return new ResponseEntity<>(responseObject.message(), HttpStatusCode.valueOf(responseObject.status()));
     }
 
+    @PutMapping("/news-favorite/{id}")
+    public ResponseEntity<?> addFavoriteNews(@CurrentUser FitLifeUserDetail ctx, @PathVariable  Long id) throws BadRequestException{
+        final var responseObject = uService.addFavoriteNews(ctx.getId(),id);
+        return new ResponseEntity<>(responseObject.message(), HttpStatusCode.valueOf(responseObject.status()));
+
+    }
+
     @PostMapping("/activity-log")
-   public ResponseEntity<?> addActivityLog(
-           @CurrentUser FitLifeUserDetail ctx,
-           @Valid @RequestBody AddActivitiesLogRequest request
+    public ResponseEntity<?> addActivityLog(
+            @CurrentUser FitLifeUserDetail ctx,
+            @Valid @RequestBody AddActivitiesLogRequest request
     ) throws BadRequestException {
         final var responseObject = uService.addActivityLog(ctx.getId(),request);
         return new ResponseEntity<>(responseObject.message(), HttpStatusCode.valueOf(responseObject.status()));

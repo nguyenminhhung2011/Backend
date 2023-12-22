@@ -20,7 +20,7 @@ import com.fitlife.app.Exceptions.AppException.NotFoundException;
 import com.fitlife.app.Model.AISupport;
 import com.fitlife.app.Model.Workout.DailyWorkout;
 import com.fitlife.app.Model.User.UserProfile;
-import com.fitlife.app.Model.session.Session;
+import com.fitlife.app.Model.Session.Session;
 import com.fitlife.app.Repository.DailyWorkoutRepository;
 import com.fitlife.app.Repository.User.UserProfileRepository;
 import com.fitlife.app.Utils.Enums.PlanType;
@@ -129,13 +129,7 @@ public class WorkoutServiceImpl extends GenericService<WorkoutPlan, Long, Workou
 		if (startDate == 0 && endDate == 0) {
 			workoutPlans = repository.findByUserProfile_IdAndNameContainingIgnoreCase(id, name, pageable);
 		} else {
-			workoutPlans = repository.findByUserProfile_IdAndNameContainingIgnoreCaseAndStartDateBetween(
-					id,
-					name,
-					startDate,
-					endDate,
-					pageable
-			);
+			workoutPlans = repository.findByUserProfile_IdAndNameContainingIgnoreCaseAndStartDateBetween(id,name,startDate,endDate,pageable);
 		}
 
 		return workoutPlans.map(workoutPlan -> modelMapper.map(workoutPlan, WorkoutPlanDTO.class));

@@ -13,6 +13,8 @@ import com.fitlife.app.DTO.Request.ChangePasswordRequest;
 import com.fitlife.app.DTO.Request.RegistrationRequest;
 import com.fitlife.app.Exceptions.AppException.BadRequestException;
 import com.fitlife.app.Exceptions.AppException.NotFoundException;
+import com.fitlife.app.Model.NewsHealth.NewsHealth;
+import com.fitlife.app.Repository.NewsHealthRepository;
 import com.fitlife.app.Utils.Mapper.ActivitiesLogMapper;
 import com.fitlife.app.Utils.Mapper.UserMapper;
 import com.fitlife.app.Model.ActivitiesLog;
@@ -39,9 +41,10 @@ public class UserServiceImpl extends GenericService<User,Long,UserRepository> im
 	private final UserProfileRepository userProfileRepository;
 	private final ActivitiesLogRepository actLogRepo;
 	private final ExerciseRepository exerciseRepo;
+	private final NewsHealthRepository newsHealthRepository;
 	private final WorkoutRepository workoutRepository;
 
-	public UserServiceImpl(UserRepository genericRepository, UserMapper userMapper, ActivitiesLogMapper actLogMapper, PasswordEncoder passwordEncoder, UserProfileRepository userProfileRepository, ActivitiesLogRepository actLogRepo, ExerciseRepository exerRepo, WorkoutRepository workoutRepository) {
+	public UserServiceImpl(UserRepository genericRepository, UserMapper userMapper, ActivitiesLogMapper actLogMapper, PasswordEncoder passwordEncoder, UserProfileRepository userProfileRepository, ActivitiesLogRepository actLogRepo, ExerciseRepository exerRepo, NewsHealthRepository newsHealthRepository, WorkoutRepository workoutRepository) {
 		super(genericRepository);
 		this.userMapper = userMapper;
 		this.actLogMapper = actLogMapper;
@@ -49,6 +52,7 @@ public class UserServiceImpl extends GenericService<User,Long,UserRepository> im
 		this.userProfileRepository = userProfileRepository;
 		this.actLogRepo = actLogRepo;
 		this.exerciseRepo = exerRepo;
+		this.newsHealthRepository = newsHealthRepository;
 		this.workoutRepository = workoutRepository;
 	}
 
@@ -174,10 +178,34 @@ public class UserServiceImpl extends GenericService<User,Long,UserRepository> im
 	}
 
 	@Override
-	public ResponseObject addWorkoutPlan(Long id) {
-		return null;
-	}
+	public ResponseObject addFavoriteNews(Long userId, Long newsId) throws BadRequestException {
+		User user = findById(userId);
+		UserProfile userProfile = user.getUserProfile();
 
+		var status = "";
+
+		Optional<NewsHealth> newsHealthOptional = newsHealthRepository.findById(newsId);
+
+		if(newsHealthOptional.isEmpty()){
+			throw new NotFoundException("Can not found news");
+		}
+		try {
+			final var news = newsHealthOptional.get();
+			if(news.getNewsUser().contains(userProfile)) {
+				news.getNewsUser().removeIf(item -> Objects.equals(item.getId(), userId));
+				status  = "Remove favorite news successfully";
+			}else {
+				news.getNewsUser().add(userProfile);
+				status  = "Add favorite news successfully";
+			}
+			userProfileRepository.save(userProfile);
+			newsHealthRepository.save(news);
+			return new ResponseObject(HttpStatus.OK.value(), status, null);
+
+		}catch (Exception e){
+			throw new BadRequestException(e.getMessage());
+		}
+	}
 
 	@Override
 	public List<UserDTO> getAllUser() {
@@ -202,10 +230,6 @@ public class UserServiceImpl extends GenericService<User,Long,UserRepository> im
 				.build();
 		final UserProfile saveUserProfile = userProfileRepository.save(userProfile);
 		savedUser.setUserProfile(saveUserProfile);
-//		saveUserProfile.setFavoriteExercises(exerciseRepository.findAll().subList(0,10));
-//		final UserProfile saveUserFavorite = userProfileRepository.save(saveUserProfile);
-//		savedUser.setUserProfile(saveUserProfile);
-//		final User finalUser = repository.save(savedUser);
 		return userMapper.userDTO(savedUser);
 	}
 

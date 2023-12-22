@@ -6,7 +6,7 @@ import com.fitlife.app.DTO.DataClass.InstructionsDeserialize;
 import com.fitlife.app.DTO.Views.ExerciseViews;
 import com.fitlife.app.DTO.Views.SessionViews;
 import com.fitlife.app.DTO.Views.UserViews;
-import com.fitlife.app.Model.session.Session;
+import com.fitlife.app.Model.Session.Session;
 import com.fitlife.app.Model.User.UserProfile;
 import com.fasterxml.jackson.annotation.*;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;

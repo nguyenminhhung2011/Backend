@@ -27,5 +27,6 @@ public interface IUserService {
 
     ResponseObject addFavoriteExercise(Long userId,Long exeId) throws BadRequestException;
 
-    ResponseObject addWorkoutPlan(Long userId);
+    ResponseObject addFavoriteNews(Long userId,Long newsId) throws BadRequestException;
+
 }
