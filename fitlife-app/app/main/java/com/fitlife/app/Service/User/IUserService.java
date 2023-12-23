@@ -3,6 +3,7 @@ package com.fitlife.app.Service.User;
 import com.fitlife.app.DTO.DataClass.ResponseObject;
 import com.fitlife.app.DTO.DataClass.User.UserDTO;
 import com.fitlife.app.DTO.DataClass.User.UserProfileDTO;
+import com.fitlife.app.DTO.DataClass.WorkoutPlanDTO;
 import com.fitlife.app.DTO.Request.AddActivitiesLogRequest;
 import com.fitlife.app.DTO.Request.ChangePasswordRequest;
 import com.fitlife.app.DTO.Request.RegistrationRequest;
@@ -22,6 +23,7 @@ public interface IUserService {
     ResponseObject changePassword(Long id, ChangePasswordRequest request);
 
     UserDTO updateUserProfile(Long id,UserDTO userDTO);
+    WorkoutPlanDTO changeCurrentPlan(Long userId, Long planId);
 
     ResponseObject addActivityLog(Long userId,AddActivitiesLogRequest dto) throws BadRequestException;
 

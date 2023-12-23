@@ -1,5 +1,6 @@
 package com.fitlife.app.Controller;
 
+import com.cloudinary.api.exceptions.BadRequest;
 import com.fitlife.app.DTO.DataClass.User.UserDTO;
 import com.fitlife.app.DTO.Request.AddActivitiesLogRequest;
 import com.fitlife.app.DTO.Request.ChangePasswordRequest;
@@ -64,7 +65,11 @@ public class UserController {
     public ResponseEntity<?> addFavoriteNews(@CurrentUser FitLifeUserDetail ctx, @PathVariable  Long id) throws BadRequestException{
         final var responseObject = uService.addFavoriteNews(ctx.getId(),id);
         return new ResponseEntity<>(responseObject.message(), HttpStatusCode.valueOf(responseObject.status()));
+    }
 
+    @PutMapping("/change-current-plan/{id}")
+    public ResponseEntity<?> changeCurrentPlan(@CurrentUser FitLifeUserDetail ctx, @PathVariable Long id)  {
+        return  ResponseEntity.ok(uService.changeCurrentPlan(ctx.getId(),id));
     }
 
     @PostMapping("/activity-log")

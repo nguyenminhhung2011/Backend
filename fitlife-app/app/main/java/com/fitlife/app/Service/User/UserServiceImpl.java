@@ -8,6 +8,7 @@ import java.util.Optional;
 import com.fitlife.app.DTO.DataClass.ResponseObject;
 import com.fitlife.app.DTO.DataClass.User.UserDTO;
 import com.fitlife.app.DTO.DataClass.User.UserProfileDTO;
+import com.fitlife.app.DTO.DataClass.WorkoutPlanDTO;
 import com.fitlife.app.DTO.Request.AddActivitiesLogRequest;
 import com.fitlife.app.DTO.Request.ChangePasswordRequest;
 import com.fitlife.app.DTO.Request.RegistrationRequest;
@@ -26,6 +27,7 @@ import com.fitlife.app.Repository.Exercise.ExerciseRepository;
 import com.fitlife.app.Repository.User.UserProfileRepository;
 import com.fitlife.app.Repository.WorkoutRepository;
 import com.fitlife.app.Service.Generic.GenericService;
+import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -36,6 +38,7 @@ import com.fitlife.app.Repository.User.UserRepository;
 @Service
 public class UserServiceImpl extends GenericService<User,Long,UserRepository> implements IUserService {
 	private final UserMapper userMapper;
+	private final ModelMapper modelMapper;
 	private final ActivitiesLogMapper actLogMapper;
 	private final PasswordEncoder passwordEncoder;
 	private final UserProfileRepository userProfileRepository;
@@ -44,9 +47,10 @@ public class UserServiceImpl extends GenericService<User,Long,UserRepository> im
 	private final NewsHealthRepository newsHealthRepository;
 	private final WorkoutRepository workoutRepository;
 
-	public UserServiceImpl(UserRepository genericRepository, UserMapper userMapper, ActivitiesLogMapper actLogMapper, PasswordEncoder passwordEncoder, UserProfileRepository userProfileRepository, ActivitiesLogRepository actLogRepo, ExerciseRepository exerRepo, NewsHealthRepository newsHealthRepository, WorkoutRepository workoutRepository) {
+	public UserServiceImpl(UserRepository genericRepository, UserMapper userMapper, ModelMapper modelMapper, ActivitiesLogMapper actLogMapper, PasswordEncoder passwordEncoder, UserProfileRepository userProfileRepository, ActivitiesLogRepository actLogRepo, ExerciseRepository exerRepo, NewsHealthRepository newsHealthRepository, WorkoutRepository workoutRepository) {
 		super(genericRepository);
 		this.userMapper = userMapper;
+		this.modelMapper = modelMapper;
 		this.actLogMapper = actLogMapper;
 		this.passwordEncoder = passwordEncoder;
 		this.userProfileRepository = userProfileRepository;
@@ -65,6 +69,8 @@ public class UserServiceImpl extends GenericService<User,Long,UserRepository> im
 
 		return userMapper.userDTO(user.get());
 	}
+
+
 
 	@Override
 	public UserProfileDTO getUserProfile(Long id){
@@ -113,6 +119,19 @@ public class UserServiceImpl extends GenericService<User,Long,UserRepository> im
 		userProfileRepository.save(userProfile);
 
 		return userMapper.userDTO(user);
+	}
+
+	@Override
+	public WorkoutPlanDTO changeCurrentPlan(Long userId, Long planId) {
+		User user = findById(userId);
+		UserProfile userProfile = user.getUserProfile();
+		final Optional<WorkoutPlan> findPlan = workoutRepository.findById(planId);
+		if(findPlan.isEmpty()){
+			throw new NotFoundException("Can not found plan");
+		}
+		userProfile.setCurrentPlanId(planId);
+		userProfileRepository.save(userProfile);
+		return modelMapper.map(findPlan.get(), WorkoutPlanDTO.class);
 	}
 
 	@Override

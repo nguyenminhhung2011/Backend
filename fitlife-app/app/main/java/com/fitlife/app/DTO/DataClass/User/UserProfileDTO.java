@@ -17,6 +17,7 @@ public class UserProfileDTO {
     private boolean isCreated;
     private double weight;
     private double height;
+    private Long currentPlanId;
     private String phone;
     private String level;
     private String currentPlan;

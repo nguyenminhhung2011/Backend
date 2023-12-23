@@ -58,6 +58,9 @@ public class UserProfile {
 	private double height = 0;
 
 	@JsonView(value = {UserViews.Detail.class})
+	private Long currentPlanId;
+
+	@JsonView(value = {UserViews.Detail.class})
 	@Enumerated(EnumType.STRING)
 	@Builder.Default
 	private ThemeStatus themeStatus = ThemeStatus.LIGHT;
