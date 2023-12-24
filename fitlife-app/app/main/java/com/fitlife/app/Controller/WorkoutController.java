@@ -26,7 +26,7 @@ import com.fitlife.app.DTO.Response.ResponseObject;
 
 @RestController
 @RequestMapping("/workout")
-public class WorkoutController {
+public class  WorkoutController {
 
 	final IWorkoutService workoutService;
 

@@ -135,6 +135,17 @@ public class UserServiceImpl extends GenericService<User,Long,UserRepository> im
 	}
 
 	@Override
+	public WorkoutPlanDTO getCurrentPlan(Long userId) {
+		User user = findById(userId);
+		UserProfile userProfile = user.getUserProfile();
+			final Optional<WorkoutPlan> workoutPlanOptional = workoutRepository.findById(userProfile.getCurrentPlanId());
+		if(workoutPlanOptional.isEmpty()){
+			throw new NotFoundException("Not found");
+		}
+		return modelMapper.map(workoutPlanOptional.get(),WorkoutPlanDTO.class);
+	}
+
+	@Override
 	public ResponseObject addActivityLog(Long userId, AddActivitiesLogRequest dto) throws BadRequestException {
 		User user = findById(userId);
 		UserProfile userProfile = user.getUserProfile();

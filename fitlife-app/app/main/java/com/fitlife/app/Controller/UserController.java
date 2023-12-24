@@ -71,6 +71,11 @@ public class UserController {
     public ResponseEntity<?> changeCurrentPlan(@CurrentUser FitLifeUserDetail ctx, @PathVariable Long id)  {
         return  ResponseEntity.ok(uService.changeCurrentPlan(ctx.getId(),id));
     }
+    @GetMapping("/current-plan")
+    public ResponseEntity<?> getCurrentPlan(@CurrentUser FitLifeUserDetail ctx) {
+        return ResponseEntity.ok(uService.getCurrentPlan(ctx.getId()));
+    }
+
 
     @PostMapping("/activity-log")
     public ResponseEntity<?> addActivityLog(

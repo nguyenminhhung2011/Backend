@@ -24,6 +24,7 @@ public interface IUserService {
 
     UserDTO updateUserProfile(Long id,UserDTO userDTO);
     WorkoutPlanDTO changeCurrentPlan(Long userId, Long planId);
+    WorkoutPlanDTO getCurrentPlan(Long userId);
 
     ResponseObject addActivityLog(Long userId,AddActivitiesLogRequest dto) throws BadRequestException;
 
