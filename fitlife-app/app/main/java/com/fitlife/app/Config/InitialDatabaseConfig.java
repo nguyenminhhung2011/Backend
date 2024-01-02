@@ -1,9 +1,11 @@
 package com.fitlife.app.Config;
 
 import com.fitlife.app.Model.Exercise.*;
+import com.fitlife.app.Model.NewsHealth.NewsHealth;
 import com.fitlife.app.Repository.Exercise.*;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fitlife.app.Repository.NewsHealthRepository;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -21,6 +23,7 @@ public class InitialDatabaseConfig {
     private final StepRepository stepRepository ;
     private final BodyPartRepository bodyPartRepository;
     private final EquipmentRepository equipmentRepository;
+    private final NewsHealthRepository newsHealthRepository;
     private final TargetRepository targetRepository;
     private final ObjectMapper objectMapper;
 
@@ -36,11 +39,15 @@ public class InitialDatabaseConfig {
     @Value(value = "${com.fitlife.database.initial.target}")
     private String target;
 
-    public InitialDatabaseConfig(ExerciseRepository exerciseRepository, StepRepository stepRepository, BodyPartRepository bodyPartRepository, EquipmentRepository equipmentRepository, TargetRepository targetRepository, ObjectMapper objectMapper) {
+    @Value(value = "${com.fitlife.database.initial.health_news}")
+    private String healthNews;
+
+    public InitialDatabaseConfig(ExerciseRepository exerciseRepository, StepRepository stepRepository, BodyPartRepository bodyPartRepository, EquipmentRepository equipmentRepository, NewsHealthRepository newsHealthRepository, TargetRepository targetRepository, ObjectMapper objectMapper) {
         this.exerciseRepository = exerciseRepository;
         this.stepRepository = stepRepository;
         this.bodyPartRepository = bodyPartRepository;
         this.equipmentRepository = equipmentRepository;
+        this.newsHealthRepository = newsHealthRepository;
         this.targetRepository = targetRepository;
         this.objectMapper = objectMapper;
     }
@@ -49,8 +56,18 @@ public class InitialDatabaseConfig {
     void initializeDatabase(){
         TypeReference<List<Exercise>> typeReference = new TypeReference<>() {};
         InputStream inputStream = TypeReference.class.getResourceAsStream(exercise);
+
+        TypeReference<List<NewsHealth>> typeReferenceNewsHealth = new TypeReference<>() {};
+        InputStream newsInputStream = TypeReference.class.getResourceAsStream(healthNews);
+
         try {
             List<Exercise> exercises = objectMapper.readValue(inputStream,typeReference);
+            List<NewsHealth> newsHealths = objectMapper.readValue(newsInputStream,typeReferenceNewsHealth);
+
+            for(NewsHealth newsHealth: newsHealths) {
+                final var savedNews = newsHealthRepository.saveAndFlush(newsHealth);
+            }
+
 
             for (Exercise exercise : exercises) {
                 final var savedExercise = exerciseRepository.saveAndFlush(exercise);

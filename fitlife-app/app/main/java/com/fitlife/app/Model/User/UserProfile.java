@@ -2,8 +2,8 @@ package com.fitlife.app.Model.User;
 
 import java.sql.Timestamp;
 import java.util.List;
-
 import com.fitlife.app.Model.ActivitiesLog;
+import com.fitlife.app.Model.NewsHealth.NewsHealth;
 import com.fitlife.app.Model.Workout.WorkoutPlan;
 import com.fitlife.app.Utils.Enums.Frequency;
 import com.fitlife.app.Utils.Enums.Gender;
@@ -58,6 +58,9 @@ public class UserProfile {
 	private double height = 0;
 
 	@JsonView(value = {UserViews.Detail.class})
+	private Long currentPlanId;
+
+	@JsonView(value = {UserViews.Detail.class})
 	@Enumerated(EnumType.STRING)
 	@Builder.Default
 	private ThemeStatus themeStatus = ThemeStatus.LIGHT;
@@ -85,6 +88,13 @@ public class UserProfile {
 		cascade = {CascadeType.PERSIST,CascadeType.MERGE}
 	)
 	private List<Exercise> favoriteExercises;
+
+	@JsonView(value = {UserViews.Detail.class})
+	@ManyToMany(
+		mappedBy = "newsUser",
+		cascade = {CascadeType.PERSIST,CascadeType.MERGE}
+	)
+	private List<NewsHealth> favoriteNews;
 
 	@JsonView(value = {UserViews.Detail.class})
 	@OneToMany(

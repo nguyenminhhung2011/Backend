@@ -1,11 +1,6 @@
 package com.fitlife.app.Model.Exercise;
 
-import java.sql.Time;
-import java.util.Date;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
-
-import com.fitlife.app.Model.session.Session;
+import com.fitlife.app.Model.Session.Session;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,15 +14,12 @@ public class CustomExercise {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-
-	@JsonFormat(pattern = "yyyy-MM-dd")
-	private Date dateStart;
-
-	@JsonFormat(pattern = "HH:mm:ss")
-	private Time time;
 	private String difficulty;
 	private int rep;
+	private int time;
 	private int weight;
+
+	private int calories;
 
 	public CustomExercise() {}
 

@@ -1,6 +1,9 @@
 package com.fitlife.app.Controller;
 
 import java.util.Date;
+
+import com.fitlife.app.DTO.Request.GetChartRequest;
+import com.fitlife.app.DTO.Request.SearchWorkoutPlanRequest;
 import com.fitlife.app.Exceptions.AppException.BadRequestException;
 import com.fitlife.app.Security.Model.CurrentUser;
 import com.fitlife.app.Security.Model.FitLifeUserDetail;
@@ -23,7 +26,7 @@ import com.fitlife.app.DTO.Response.ResponseObject;
 
 @RestController
 @RequestMapping("/workout")
-public class WorkoutController {
+public class  WorkoutController {
 
 	final IWorkoutService workoutService;
 
@@ -32,6 +35,15 @@ public class WorkoutController {
 	public WorkoutController(IWorkoutService workoutService, IDailyService dailyService) {
 		this.workoutService = workoutService;
 		this.dailyService = dailyService;
+	}
+
+
+	@GetMapping("/get-chart-view")
+	public ResponseEntity<?> getChartView(
+			@RequestBody GetChartRequest getChartRequest,
+			@CurrentUser FitLifeUserDetail ctx
+	){
+		return ResponseEntity.ok(workoutService.getChartView(getChartRequest, ctx.getId()));
 	}
 
 	@GetMapping("/getAll")
@@ -62,19 +74,23 @@ public class WorkoutController {
 		return ResponseEntity.ok(workoutService.getAllDailyPlan(id));
 
 	}
+	@GetMapping("/active")
+	public ResponseEntity<?> getActiveWorkoutPlan(@RequestParam("time") String time) throws BadRequestException {
+		return ResponseEntity.ok(workoutService.getActiveWorkoutPlan(Long.parseLong(time)));
+	}
 
 	@GetMapping("/search")
 	public ResponseEntity<Page<Object>> searchWorkoutPlans(
 			@CurrentUser FitLifeUserDetail ctx,
-			@RequestParam(value = "name", required = false) String name,
-			@RequestParam(value = "startDate", required = false) Date startDate,
-			@RequestParam(value = "endDate", required = false) Date endDate,
-			@RequestParam(value = "page", defaultValue = "0") int page,
-			@RequestParam(value = "size", defaultValue = "10") int size
-	) {
+			@RequestBody SearchWorkoutPlanRequest searchWorkoutPlanRequest
+			) {
 
-		Pageable pageable = PageRequest.of(page, size);
-		Page<Object> workoutPlans = workoutService.searchWorkoutPlans(ctx.getId(), name, startDate, endDate, pageable);
+		Pageable pageable = PageRequest.of(searchWorkoutPlanRequest.page(), searchWorkoutPlanRequest.size());
+		Page<Object> workoutPlans = workoutService.searchWorkoutPlans(
+				ctx.getId(),
+				searchWorkoutPlanRequest.name(),
+				searchWorkoutPlanRequest.startDate(),
+				searchWorkoutPlanRequest.endDate(), pageable);
 
 		return ResponseEntity.ok(workoutPlans);
 

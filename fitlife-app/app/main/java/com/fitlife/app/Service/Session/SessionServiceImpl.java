@@ -2,25 +2,28 @@ package com.fitlife.app.Service.Session;
 
 import com.fitlife.app.DTO.DataClass.SessionDTO;
 import com.fitlife.app.DTO.Request.CustomExerciseRequest;
-import com.fitlife.app.DTO.Request.SessionRequest;
+import com.fitlife.app.DTO.Request.Session.SessionRequest;
+import com.fitlife.app.DTO.Request.Session.UpdateSettingSessionRequest;
 import com.fitlife.app.DTO.Response.CustomExerciseResponse;
 import com.fitlife.app.Exceptions.AppException.BadRequestException;
 import com.fitlife.app.Exceptions.AppException.NotFoundException;
 import com.fitlife.app.Model.Workout.DailyWorkout;
 import com.fitlife.app.Model.Exercise.CustomExercise;
 import com.fitlife.app.Model.Exercise.Exercise;
+import com.fitlife.app.Model.Workout.WorkoutPlan;
 import com.fitlife.app.Repository.DailyWorkoutRepository;
 import com.fitlife.app.Repository.Exercise.ExerciseRepository;
+import com.fitlife.app.Repository.WorkoutRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.fitlife.app.Model.session.Session;
+import com.fitlife.app.Model.Session.Session;
 import com.fitlife.app.Repository.SessionRepository;
 import com.fitlife.app.Service.Generic.GenericService;
 
-import java.util.List;
-import java.util.Optional;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Service
 public class SessionServiceImpl extends GenericService<Session, Long, SessionRepository> implements  ISessionService{
@@ -28,17 +31,19 @@ public class SessionServiceImpl extends GenericService<Session, Long, SessionRep
 
 	private final ModelMapper modelMapper;
 	private final DailyWorkoutRepository dailyWorkoutRepository;
+	private final WorkoutRepository workoutRepository;
 	private final ExerciseRepository exerciseRepository;
-	private final SessionRepository sessionRepository;
+
+
+
 
 	@Autowired
-	public SessionServiceImpl(SessionRepository genericService, ModelMapper modelMapper, DailyWorkoutRepository dailyWorkoutRepository, ExerciseRepository exerciseRepository,
-							  SessionRepository sessionRepository) {
+	public SessionServiceImpl(SessionRepository genericService, ModelMapper modelMapper, DailyWorkoutRepository dailyWorkoutRepository, ExerciseRepository exerciseRepository, WorkoutRepository workoutRepository) {
 		super(genericService);
 		this.modelMapper = modelMapper;
 		this.exerciseRepository = exerciseRepository;
 		this.dailyWorkoutRepository = dailyWorkoutRepository;
-		this.sessionRepository = sessionRepository;
+		this.workoutRepository = workoutRepository;
 	}
 
 	@Override
@@ -50,11 +55,21 @@ public class SessionServiceImpl extends GenericService<Session, Long, SessionRep
 				throw new NotFoundException("Can not find daily workout");
 			}
 			DailyWorkout dailyData = daily.get();
+
+
+
 			Session session = Session.builder()
 					.description(req.getDescription())
 					.name(req.getName())
 					.timePerLesson(req.getTimePerLesson())
 					.randomMix(req.getRandomMix())
+					.calcTarget(req.getCalcTarget())
+					.level(req.getLevel())
+					.transferTime(req.getTransferTime())
+					.numberRound(req.getNumberRound())
+					.breakTime(req.getBreakTime())
+					.done(false)
+					.calcCompleted(0)
 					.startWithBoot(req.getStartWithBoot()).build();
 			List<Session> currentSession = dailyData.getSessions();
 
@@ -65,6 +80,31 @@ public class SessionServiceImpl extends GenericService<Session, Long, SessionRep
 
 			return modelMapper.map(session, SessionDTO.class);
 		}catch (Exception e){
+			throw new BadRequestException(e.getMessage());
+		}
+	}
+
+	@Override
+	public SessionDTO updateSettingSession(UpdateSettingSessionRequest request, Long id) throws BadRequestException {
+		try {
+
+			final Session session = findById(id);
+
+			session.setName(request.getName());
+			session.setLevel(request.getLevel());
+			session.setRandomMix(request.getRandomMix());
+			session.setBreakTime(request.getBreakTime());
+			session.setCalcTarget(request.getCalcTarget());
+			session.setNumberRound(request.getNumberRound());
+			session.setDescription(request.getDescription());
+			session.setTransferTime(request.getTransferTime());
+			session.setTimePerLesson(request.getTimePerLesson());
+			session.setStartWithBoot(request.getStartWithBoot());
+
+			repository.save(session);
+
+			return modelMapper.map(session,SessionDTO.class);
+		} catch (Exception e){
 			throw new BadRequestException(e.getMessage());
 		}
 	}
@@ -93,8 +133,8 @@ public class SessionServiceImpl extends GenericService<Session, Long, SessionRep
 					.weight(req.getWeight())
 					.time(req.getTime())
 					.difficulty(req.getDifficulty())
-					.dateStart(req.getDateStart())
 					.session(session)
+					.calories((new Random()).nextInt(100, 400)) ///🐛[dummy code]
 					.build();
 
 			final Optional<Exercise> exercise = exerciseRepository.findById(req.getExercise());
@@ -104,7 +144,7 @@ public class SessionServiceImpl extends GenericService<Session, Long, SessionRep
 			final  Exercise exerciseData = exercise.get();
 
 			customExercise.setExercise(exerciseData);
-			List<CustomExercise> sessionExercise = session.getCustomExercise();
+			List<CustomExercise> sessionExercise =	 session.getCustomExercise();
 			sessionExercise.add(customExercise);
 
 			session.setCustomExercise(sessionExercise);
@@ -120,5 +160,52 @@ public class SessionServiceImpl extends GenericService<Session, Long, SessionRep
 	@Override
 	public SessionDTO getSessionById(String id) {
 		return modelMapper.map( findById(Long.parseLong(id)), SessionDTO.class);
+	}
+
+
+	@Override
+	public SessionDTO completeSession(String id) throws BadRequestException {
+		try{
+			final Session session = findById(Long.parseLong(id));
+			var totalCalories = 0;
+			for (CustomExercise item: session.getCustomExercise()) {
+				totalCalories += item.getCalories();
+			}
+			session.setCalcCompleted(totalCalories * session.getNumberRound());
+			session.setDone(true);
+
+			repository.save(session);
+
+			return modelMapper.map(session, SessionDTO.class);
+
+		} catch (Exception e) {
+			throw new BadRequestException(e.getMessage());
+		}
+	}
+
+
+	@Override
+	public List<SessionDTO> getUpComingSession() throws BadRequestException {
+		try {
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+			final long currentTime = new Date().getTime();
+			final String formatCurrentDate = sdf.format(currentTime);
+			final List<WorkoutPlan> getActivePlan = workoutRepository.getActiveWorkoutPlan(currentTime);
+			final List<Session> result = new ArrayList<>();
+
+			for (WorkoutPlan item: getActivePlan) {
+				for (DailyWorkout daily: item.getDailyWorkouts()) {
+					if(sdf.format(daily.getTime()).equals(formatCurrentDate)){
+						result.addAll(daily.getSessions());
+						break;
+					}
+				}
+			}
+
+			return result.stream().map(item -> modelMapper.map(item, SessionDTO.class)).toList();
+		}catch (Exception e){
+			throw new BadRequestException(e.getMessage());
+		}
 	}
 }

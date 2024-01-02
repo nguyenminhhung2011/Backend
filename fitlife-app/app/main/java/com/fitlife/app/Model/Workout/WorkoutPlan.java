@@ -8,25 +8,11 @@ import com.fitlife.app.DTO.Views.WorkoutPlanViews;
 import com.fitlife.app.Model.AISupport;
 import com.fitlife.app.Model.ActivitiesLog;
 import com.fitlife.app.Model.User.UserProfile;
-import com.fitlife.app.Model.Workout.DailyWorkout;
 import com.fitlife.app.Utils.Enums.PlanType;
 import com.fasterxml.jackson.annotation.JsonView;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import jakarta.persistence.*;
+import lombok.*;
 
 @Entity
 @Data
@@ -62,6 +48,8 @@ public class WorkoutPlan {
 
 	@OneToMany(mappedBy = "workoutPlan", orphanRemoval = true, cascade = CascadeType.ALL)
 	private List<ActivitiesLog> activitiesLogs;
+
+
 
 	@ManyToOne
 	@JoinColumn(name = "user_profile_id", referencedColumnName = "id")
