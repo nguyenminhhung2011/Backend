@@ -23,10 +23,8 @@ public class SessionController {
 
 	@PostMapping("/delete")
 	public ResponseEntity<?> deleteSession(@RequestParam("id") String id) {
-
 		sessionService.delete(Long.parseLong(id));
 		return ResponseEntity.ok().body(new ResponseObject("ok", "Delete successfully\"", null));
-
 	}
 
 	@PutMapping("/update-setting-session")
@@ -36,7 +34,6 @@ public class SessionController {
 	) throws BadRequestException {
 		return ResponseEntity.ok(sessionService.updateSettingSession(request, Long.parseLong(id)));
 	}
-
 
 	@PostMapping("/add/exercise")
 	public ResponseEntity<?> createCustomExercise(
@@ -59,7 +56,7 @@ public class SessionController {
 	}
 
 	@GetMapping("/up-coming")
-	public ResponseEntity<?> getUpComingSesssion() throws BadRequestException{
+	public ResponseEntity<?> getUpComingSession() throws BadRequestException{
 		return ResponseEntity.ok(sessionService.getUpComingSession());
 	}
 

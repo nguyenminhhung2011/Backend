@@ -35,6 +35,7 @@ public class CompletionTest {
 
         List<CompletionChoice> choices = service.createCompletion(completionRequest).getChoices();
         assertEquals(5, choices.size());
+        choices.forEach(completionChoice -> System.out.println("//////" + completionChoice.getText() + "/////"));
         assertNotNull(choices.get(0).getLogprobs());
     }
 

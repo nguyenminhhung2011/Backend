@@ -10,19 +10,23 @@ import com.trainer.models.api.completion.CompletionResult;
 import com.trainer.models.api.completion.chat.ChatCompletionRequest;
 import com.trainer.models.api.completion.chat.ChatCompletionResult;
 import com.trainer.models.api.file.File;
+import com.trainer.models.api.threads.Thread;
+import com.trainer.models.api.threads.ThreadRequest;
 import com.trainer.models.common.DeleteResult;
 import com.trainer.models.common.ListSearchParameters;
 import io.reactivex.Flowable;
+import io.reactivex.Single;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import org.springframework.context.annotation.  ComponentScan;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
 
 @Service
+@ComponentScan(basePackages = {"com.trainer"})
 public class OpenAiService extends OpenAiBaseService {
-
     //Chat Completion && Completion
     public CompletionResult createCompletion(CompletionRequest request) {
         return execute(api.createCompletion(request));
@@ -50,18 +54,20 @@ public class OpenAiService extends OpenAiBaseService {
     }
 
     public OpenAiResponse<Assistant> listAssistants(ListSearchParameters params) {
-        Map<String, Object> queryParameters = mapper.convertValue(params, new TypeReference<Map<String, Object>>() {
+        Map<String, Object> queryParameters = mapper.convertValue(params, new TypeReference<>() {
         });
         return execute(api.listAssistants(queryParameters));
     }
+
     public File uploadFile(String purpose, String filepath) {
         java.io.File file = new java.io.File(filepath);
-        RequestBody purposeBody = RequestBody.create(MultipartBody.FORM, purpose);
-        RequestBody fileBody = RequestBody.create(MediaType.parse("text"), file);
+        RequestBody purposeBody = RequestBody.create(purpose,MultipartBody.FORM);
+        RequestBody fileBody = RequestBody.create(file,MediaType.parse("text"));
         MultipartBody.Part body = MultipartBody.Part.createFormData("file", filepath, fileBody);
 
         return execute(api.uploadFile(purposeBody, body));
     }
+
 
     public Assistant retrieveAssistant(String assistantId) {
         return execute(api.retrieveAssistant(assistantId));
@@ -97,5 +103,13 @@ public class OpenAiService extends OpenAiBaseService {
         Map<String, Object> queryParameters = mapper.convertValue(params, new TypeReference<Map<String, Object>>() {
         });
         return execute(api.listAssistantFiles(assistantId, queryParameters));
+    }
+
+    /*
+        Thread
+     */
+
+    public Thread createThread(ThreadRequest request) {
+        return execute(api.createThread(request));
     }
 }

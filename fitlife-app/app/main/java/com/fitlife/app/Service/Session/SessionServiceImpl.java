@@ -57,7 +57,6 @@ public class SessionServiceImpl extends GenericService<Session, Long, SessionRep
 			DailyWorkout dailyData = daily.get();
 
 
-
 			Session session = Session.builder()
 					.description(req.getDescription())
 					.name(req.getName())

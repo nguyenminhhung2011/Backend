@@ -88,7 +88,6 @@ public class Exercise {
 		inverseJoinColumns = @JoinColumn(name = "session_id",referencedColumnName = "id")
 	)
 	private List<Session> sessions;
-
 	@JsonView(ExerciseViews.Hide.class)
 	@OneToMany(
 			fetch = FetchType.LAZY,

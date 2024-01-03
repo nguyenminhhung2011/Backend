@@ -1,4 +1,5 @@
 package com.trainer.models;
+
 import com.trainer.models.api.assistants.*;
 import com.trainer.models.api.completion.CompletionRequest;
 import com.trainer.models.api.completion.CompletionResult;
@@ -7,6 +8,8 @@ import com.trainer.models.api.completion.chat.ChatCompletionResult;
 import com.trainer.models.api.file.File;
 import com.trainer.models.api.message.Message;
 import com.trainer.models.api.message.MessageRequest;
+import com.trainer.models.api.threads.Thread;
+import com.trainer.models.api.threads.ThreadRequest;
 import com.trainer.models.common.DeleteResult;
 import io.reactivex.Single;
 import okhttp3.MultipartBody;
@@ -15,15 +18,18 @@ import okhttp3.ResponseBody;
 import org.springframework.stereotype.Service;
 import retrofit2.Call;
 import retrofit2.http.*;
+
 import java.util.Map;
+
 @Service
 public interface OpenAiApi {
     @Multipart
     @POST("/v1/files")
     Single<File> uploadFile(@Part("purpose") RequestBody purpose, @Part MultipartBody.Part file);
+
     /*
-    * Message
-    * */
+     * Message
+     * */
     @Headers({"OpenAI-Beta: assistants=v1"})
     @POST("/v1/threads/{thread_id}/messages")
     Single<Message> createMessage(@Path("thread_id") String threadId, @Body MessageRequest request);
@@ -61,6 +67,15 @@ public interface OpenAiApi {
     @Streaming
     @POST("/v1/chat/completions")
     Call<ResponseBody> createChatCompletionStream(@Body ChatCompletionRequest request);
+
+
+    /*
+    Thread
+     */
+
+    @Headers({"OpenAI-Beta: assistants=v1"})
+    @POST("/v1/threads")
+    Single<Thread> createThread(@Body ThreadRequest request);
 
     /*
     Assistant

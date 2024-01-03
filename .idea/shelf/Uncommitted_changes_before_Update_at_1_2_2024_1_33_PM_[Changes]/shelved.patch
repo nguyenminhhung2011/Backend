@@ -1,0 +1,932 @@
+Index: fitlife-app/app/main/java/com/fitlife/app/Service/Gymer/IGymerSV.java
+===================================================================
+diff --git a/fitlife-app/app/main/java/com/fitlife/app/Service/Gymer/IGymerSV.java b/fitlife-app/app/main/java/com/fitlife/app/Service/Gymer/IGymerSV.java
+deleted file mode 100644
+--- a/fitlife-app/app/main/java/com/fitlife/app/Service/Gymer/IGymerSV.java	(revision 74e75acd68fffc3d85c48e0402fb85efa06d8a4c)
++++ /dev/null	(revision 74e75acd68fffc3d85c48e0402fb85efa06d8a4c)
+@@ -1,7 +0,0 @@
+-//package com.FitnessApp.Service.GymerService;
+-//
+-//import com.FitnessApp.Model.Gymer;
+-//import com.FitnessApp.Service.Generic.IGenericService;
+-//
+-//public interface IGymerSV extends IGenericService<Gymer> {
+-//}
+Index: .idea/.gitignore
+===================================================================
+diff --git a/.idea/.gitignore b/.idea/.gitignore
+deleted file mode 100644
+--- a/.idea/.gitignore	(revision 74e75acd68fffc3d85c48e0402fb85efa06d8a4c)
++++ /dev/null	(revision 74e75acd68fffc3d85c48e0402fb85efa06d8a4c)
+@@ -1,8 +0,0 @@
+-# Default ignored files
+-/shelf/
+-/workspace.xml
+-# Editor-based HTTP Client requests
+-/httpRequests/
+-# Datasource local storage ignored files
+-/dataSources/
+-/dataSources.local.xml
+Index: fitlife-app/app/main/java/com/fitlife/app/Service/Trainer/ITrainer.java
+===================================================================
+diff --git a/fitlife-app/app/main/java/com/fitlife/app/Service/Trainer/ITrainer.java b/fitlife-app/app/main/java/com/fitlife/app/Service/Trainer/ITrainer.java
+deleted file mode 100644
+--- a/fitlife-app/app/main/java/com/fitlife/app/Service/Trainer/ITrainer.java	(revision 74e75acd68fffc3d85c48e0402fb85efa06d8a4c)
++++ /dev/null	(revision 74e75acd68fffc3d85c48e0402fb85efa06d8a4c)
+@@ -1,4 +0,0 @@
+-package com.fitlife.app.Service.Trainer;
+-
+-public interface ITrainer {
+-}
+Index: .idea/inspectionProfiles/Project_Default.xml
+===================================================================
+diff --git a/.idea/inspectionProfiles/Project_Default.xml b/.idea/inspectionProfiles/Project_Default.xml
+deleted file mode 100644
+--- a/.idea/inspectionProfiles/Project_Default.xml	(revision 74e75acd68fffc3d85c48e0402fb85efa06d8a4c)
++++ /dev/null	(revision 74e75acd68fffc3d85c48e0402fb85efa06d8a4c)
+@@ -1,8 +0,0 @@
+-<component name="InspectionProjectProfileManager">
+-  <profile version="1.0">
+-    <option name="myName" value="Project Default" />
+-    <inspection_tool class="AutoCloseableResource" enabled="true" level="WARNING" enabled_by_default="true">
+-      <option name="METHOD_MATCHER_CONFIG" value="java.util.Formatter,format,java.io.Writer,append,com.google.common.base.Preconditions,checkNotNull,org.hibernate.Session,close,java.io.PrintWriter,printf,java.io.PrintStream,printf,retrofit2.Response,errorBody|body" />
+-    </inspection_tool>
+-  </profile>
+-</component>
+\ No newline at end of file
+Index: fitlife-app/app/main/java/com/fitlife/app/Service/Gymer/GymerService.java
+===================================================================
+diff --git a/fitlife-app/app/main/java/com/fitlife/app/Service/Gymer/GymerService.java b/fitlife-app/app/main/java/com/fitlife/app/Service/Gymer/GymerService.java
+deleted file mode 100644
+--- a/fitlife-app/app/main/java/com/fitlife/app/Service/Gymer/GymerService.java	(revision 74e75acd68fffc3d85c48e0402fb85efa06d8a4c)
++++ /dev/null	(revision 74e75acd68fffc3d85c48e0402fb85efa06d8a4c)
+@@ -1,25 +0,0 @@
+-//package com.FitnessApp.Service.GymerService;
+-//
+-//import org.springframework.stereotype.Service;
+-//
+-//import com.FitnessApp.Model.Gymer;
+-//import com.FitnessApp.Repository.GymerRepository;
+-//import com.FitnessApp.Service.Generic.GenericService;
+-//
+-//@Service
+-//public class GymerService extends GenericService<Gymer> implements IGymerSV {
+-//	public GymerService(GymerRepository gmRepository) {
+-//		super(gmRepository);
+-//	}
+-//
+-////	public List<Gymer> getCVByUsername(String name) {
+-////		return ((GymerRepository) genericRepository).get(name);
+-////	}
+-////
+-////	public Optional<AnalysisData> analysData(String name) {
+-////		AnalysisData data = ((CvRepository) genericRepository).getAnalysData(name);
+-////		Optional<AnalysisData> result = null;
+-////		return result.of(data);
+-////	}
+-//
+-//}
+Index: .idea/dataSources.xml
+===================================================================
+diff --git a/.idea/dataSources.xml b/.idea/dataSources.xml
+deleted file mode 100644
+--- a/.idea/dataSources.xml	(revision 74e75acd68fffc3d85c48e0402fb85efa06d8a4c)
++++ /dev/null	(revision 74e75acd68fffc3d85c48e0402fb85efa06d8a4c)
+@@ -1,19 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<project version="4">
+-  <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
+-    <data-source source="LOCAL" name="DataSA@localhost" uuid="0a877526-ce96-407e-8f36-0ff93e907e68">
+-      <driver-ref>postgresql</driver-ref>
+-      <synchronize>true</synchronize>
+-      <imported>true</imported>
+-      <remarks>$PROJECT_DIR$/fitlife-app/app/main/resources/application.yml</remarks>
+-      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+-      <jdbc-url>jdbc:postgresql://localhost:5432/DataSA</jdbc-url>
+-      <jdbc-additional-properties>
+-        <property name="com.intellij.clouds.kubernetes.db.host.port" />
+-        <property name="com.intellij.clouds.kubernetes.db.enabled" value="false" />
+-        <property name="com.intellij.clouds.kubernetes.db.container.port" />
+-      </jdbc-additional-properties>
+-      <working-dir>$ProjectFileDir$</working-dir>
+-    </data-source>
+-  </component>
+-</project>
+\ No newline at end of file
+Index: trainer-ai/src/test/java/com/trainer/CompletionTest.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.trainer;\r\n\r\nimport com.trainer.models.api.completion.CompletionChoice;\r\nimport com.trainer.models.api.completion.CompletionRequest;\r\nimport com.trainer.models.api.completion.chat.ChatCompletionRequest;\r\nimport com.trainer.models.api.completion.chat.ChatMessage;\r\nimport com.trainer.models.api.completion.chat.ChatMessageRole;\r\nimport com.trainer.service.OpenAiService;\r\nimport org.junit.jupiter.api.Test;\r\nimport org.springframework.beans.factory.annotation.Autowired;\r\nimport org.springframework.boot.test.context.SpringBootTest;\r\n\r\nimport java.util.ArrayList;\r\nimport java.util.HashMap;\r\nimport java.util.List;\r\n\r\nimport static org.junit.jupiter.api.Assertions.*;\r\n@SpringBootTest(classes = OpenAiService.class)\r\npublic class CompletionTest {\r\n\r\n    @Autowired\r\n    private OpenAiService service;\r\n    @Test\r\n    void createCompletion() {\r\n        CompletionRequest completionRequest = CompletionRequest.builder()\r\n                .model(\"ada\")\r\n                .prompt(\"Somebody once told me the world is gonna roll me\")\r\n                .echo(true)\r\n                .n(5)\r\n                .maxTokens(50)\r\n                .user(\"testing\")\r\n                .logitBias(new HashMap<>())\r\n                .logprobs(5)\r\n                .build();\r\n\r\n        List<CompletionChoice> choices = service.createCompletion(completionRequest).getChoices();\r\n        assertEquals(5, choices.size());\r\n        assertNotNull(choices.get(0).getLogprobs());\r\n    }\r\n\r\n    @Test\r\n    void streamCompletion() {\r\n        CompletionRequest completionRequest = CompletionRequest.builder()\r\n                .model(\"ada\")\r\n                .prompt(\"Somebody once told me the world is gonna roll me\")\r\n                .echo(true)\r\n                .n(1)\r\n                .maxTokens(25)\r\n                .user(\"testing\")\r\n                .logitBias(new HashMap<>())\r\n                .logprobs(5)\r\n                .stream(true)\r\n                .build();\r\n\r\n        service.streamCompletion(completionRequest).blockingForEach(completionChunk -> {\r\n            System.out.println(completionChunk.getChoices());\r\n        });\r\n    }\r\n\r\n    @Test\r\n    void streamChatCompletion() {\r\n        final List<ChatMessage> messages = new ArrayList<>();\r\n        final ChatMessage systemMessage = new ChatMessage(ChatMessageRole.SYSTEM.value(), \"Hello\");\r\n        messages.add(systemMessage);\r\n\r\n        ChatCompletionRequest chatCompletionRequest = ChatCompletionRequest\r\n                .builder()\r\n                .model(\"gpt-3.5-turbo\")\r\n                .messages(messages)\r\n                .logitBias(new HashMap<>())\r\n                .stream(true)\r\n                .build();\r\n\r\n        service.streamChatCompletion(chatCompletionRequest).blockingForEach(chatCompletionChunk -> {\r\n            chatCompletionChunk.getChoices().forEach(chatCompletionChoice -> {\r\n                System.out.println(chatCompletionChoice.getMessage().getContent());\r\n            });\r\n        });\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/trainer-ai/src/test/java/com/trainer/CompletionTest.java b/trainer-ai/src/test/java/com/trainer/CompletionTest.java
+--- a/trainer-ai/src/test/java/com/trainer/CompletionTest.java	(revision 74e75acd68fffc3d85c48e0402fb85efa06d8a4c)
++++ b/trainer-ai/src/test/java/com/trainer/CompletionTest.java	(date 1703499869895)
+@@ -35,6 +35,7 @@
+ 
+         List<CompletionChoice> choices = service.createCompletion(completionRequest).getChoices();
+         assertEquals(5, choices.size());
++        choices.forEach(completionChoice -> System.out.println("//////" + completionChoice.getText() + "/////"));
+         assertNotNull(choices.get(0).getLogprobs());
+     }
+ 
+Index: trainer-ai/src/main/java/com/trainer/configs/TrainerMapperConfig.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.trainer.configs;\r\n\r\nimport com.fasterxml.jackson.annotation.JsonInclude;\r\nimport com.fasterxml.jackson.databind.DeserializationFeature;\r\nimport com.fasterxml.jackson.databind.ObjectMapper;\r\nimport com.fasterxml.jackson.databind.PropertyNamingStrategy;\r\nimport org.springframework.context.annotation.Bean;\r\nimport org.springframework.context.annotation.Configuration;\r\n\r\n//@ConfigurationProperties(prefix = \"object-mapper\")\r\n@Configuration\r\npublic class TrainerMapperConfig {\r\n    @Bean(name = \"TrainerMapperConfig\")\r\n    public ObjectMapper objectMapper() {\r\n        ObjectMapper mapper = new ObjectMapper();\r\n        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);\r\n        mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);\r\n        mapper.setPropertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE);\r\n        return mapper;\r\n    }\r\n}\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/trainer-ai/src/main/java/com/trainer/configs/TrainerMapperConfig.java b/trainer-ai/src/main/java/com/trainer/configs/TrainerMapperConfig.java
+--- a/trainer-ai/src/main/java/com/trainer/configs/TrainerMapperConfig.java	(revision 74e75acd68fffc3d85c48e0402fb85efa06d8a4c)
++++ b/trainer-ai/src/main/java/com/trainer/configs/TrainerMapperConfig.java	(date 1703492957473)
+@@ -3,19 +3,18 @@
+ import com.fasterxml.jackson.annotation.JsonInclude;
+ import com.fasterxml.jackson.databind.DeserializationFeature;
+ import com.fasterxml.jackson.databind.ObjectMapper;
+-import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+ import org.springframework.context.annotation.Bean;
+ import org.springframework.context.annotation.Configuration;
++import org.springframework.context.annotation.PropertySource;
+ 
+-//@ConfigurationProperties(prefix = "object-mapper")
+ @Configuration
++@PropertySource("classpath:application.properties")
+ public class TrainerMapperConfig {
+     @Bean(name = "TrainerMapperConfig")
+     public ObjectMapper objectMapper() {
+         ObjectMapper mapper = new ObjectMapper();
+         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+         mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+-        mapper.setPropertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE);
+         return mapper;
+     }
+ }
+Index: .idea/modules.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"ProjectModuleManager\">\r\n    <modules>\r\n      <module fileurl=\"file://$PROJECT_DIR$/FitLife.iml\" filepath=\"$PROJECT_DIR$/FitLife.iml\" />\r\n      <module fileurl=\"file://$PROJECT_DIR$/fitlife-app/fitlife-app.iml\" filepath=\"$PROJECT_DIR$/fitlife-app/fitlife-app.iml\" />\r\n      <module fileurl=\"file://$PROJECT_DIR$/trainer-ai/trainer-ai.iml\" filepath=\"$PROJECT_DIR$/trainer-ai/trainer-ai.iml\" />\r\n    </modules>\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/modules.xml b/.idea/modules.xml
+--- a/.idea/modules.xml	(revision 74e75acd68fffc3d85c48e0402fb85efa06d8a4c)
++++ b/.idea/modules.xml	(date 1703490546606)
+@@ -2,9 +2,7 @@
+ <project version="4">
+   <component name="ProjectModuleManager">
+     <modules>
+-      <module fileurl="file://$PROJECT_DIR$/FitLife.iml" filepath="$PROJECT_DIR$/FitLife.iml" />
+       <module fileurl="file://$PROJECT_DIR$/fitlife-app/fitlife-app.iml" filepath="$PROJECT_DIR$/fitlife-app/fitlife-app.iml" />
+-      <module fileurl="file://$PROJECT_DIR$/trainer-ai/trainer-ai.iml" filepath="$PROJECT_DIR$/trainer-ai/trainer-ai.iml" />
+     </modules>
+   </component>
+ </project>
+\ No newline at end of file
+Index: trainer-ai/src/main/java/com/trainer/configs/OkHttpConfig.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.trainer.configs;\r\n\r\nimport com.trainer.utils.interceptor.AuthenticationInterceptor;\r\nimport okhttp3.OkHttpClient;\r\nimport org.springframework.beans.factory.annotation.Configurable;\r\nimport org.springframework.beans.factory.annotation.Value;\r\nimport org.springframework.boot.context.properties.ConfigurationProperties;\r\nimport org.springframework.context.annotation.Bean;\r\nimport org.springframework.context.annotation.Configuration;\r\nimport org.springframework.stereotype.Component;\r\n\r\nimport java.time.Duration;\r\nimport java.util.concurrent.TimeUnit;\r\n\r\n@Configuration\r\npublic class OkHttpConfig {\r\n    @Value(value = \"${openai.api.key}\")\r\n    private  String token;\r\n    @Value(\"${openai.api.timeout:}\")\r\n    private long timeout;\r\n    @Bean\r\n    public OkHttpClient createOkHttpClient() {\r\n        return  new OkHttpClient.Builder()\r\n                .addInterceptor(new AuthenticationInterceptor(token))\r\n                .readTimeout(Duration.ofSeconds(timeout).toMillis(), TimeUnit.MILLISECONDS)\r\n                .build();\r\n    }\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/trainer-ai/src/main/java/com/trainer/configs/OkHttpConfig.java b/trainer-ai/src/main/java/com/trainer/configs/OkHttpConfig.java
+--- a/trainer-ai/src/main/java/com/trainer/configs/OkHttpConfig.java	(revision 74e75acd68fffc3d85c48e0402fb85efa06d8a4c)
++++ b/trainer-ai/src/main/java/com/trainer/configs/OkHttpConfig.java	(date 1703493111503)
+@@ -7,22 +7,24 @@
+ import org.springframework.boot.context.properties.ConfigurationProperties;
+ import org.springframework.context.annotation.Bean;
+ import org.springframework.context.annotation.Configuration;
++import org.springframework.context.annotation.PropertySource;
+ import org.springframework.stereotype.Component;
+ 
+ import java.time.Duration;
+ import java.util.concurrent.TimeUnit;
+ 
+ @Configuration
++@PropertySource("classpath:application.properties")
+ public class OkHttpConfig {
+     @Value(value = "${openai.api.key}")
+     private  String token;
+-    @Value("${openai.api.timeout:}")
+-    private long timeout;
++    @Value(value = "${openai.api.timeout:10000}")
++    private String timeout;
+     @Bean
+     public OkHttpClient createOkHttpClient() {
+         return  new OkHttpClient.Builder()
+                 .addInterceptor(new AuthenticationInterceptor(token))
+-                .readTimeout(Duration.ofSeconds(timeout).toMillis(), TimeUnit.MILLISECONDS)
++                .readTimeout(Duration.ofSeconds(Long.parseLong(timeout)).toMillis(), TimeUnit.MILLISECONDS)
+                 .build();
+     }
+ 
+Index: fitlife-app/app/main/java/com/fitlife/app/Model/Trainer/Chat.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/fitlife-app/app/main/java/com/fitlife/app/Model/Trainer/Chat.java b/fitlife-app/app/main/java/com/fitlife/app/Model/Trainer/Chat.java
+new file mode 100644
+--- /dev/null	(date 1703501653341)
++++ b/fitlife-app/app/main/java/com/fitlife/app/Model/Trainer/Chat.java	(date 1703501653341)
+@@ -0,0 +1,29 @@
++package com.fitlife.app.Model.Trainer;
++
++import jakarta.persistence.*;
++import lombok.AllArgsConstructor;
++import lombok.Builder;
++import lombok.NoArgsConstructor;
++import lombok.Setter;
++
++@AllArgsConstructor
++@NoArgsConstructor
++@Builder
++@Setter
++@Entity
++public class Chat {
++    //ID of the message in the FitLife database
++    @Id
++    public String id;
++    //ID of the message in the open ai database
++    public String message;
++    public String messageId;
++
++    @ManyToOne(optional = false,cascade = CascadeType.ALL)
++    @JoinColumn(
++            name = "thread_id",
++            referencedColumnName = "id"
++    )
++    public ChatThread thread;
++
++}
+Index: fitlife-app/app/main/java/com/fitlife/app/Model/Trainer/ChatThread.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/fitlife-app/app/main/java/com/fitlife/app/Model/Trainer/ChatThread.java b/fitlife-app/app/main/java/com/fitlife/app/Model/Trainer/ChatThread.java
+new file mode 100644
+--- /dev/null	(date 1703497309978)
++++ b/fitlife-app/app/main/java/com/fitlife/app/Model/Trainer/ChatThread.java	(date 1703497309978)
+@@ -0,0 +1,32 @@
++package com.fitlife.app.Model.Trainer;
++
++import jakarta.persistence.*;
++import lombok.AllArgsConstructor;
++import lombok.NoArgsConstructor;
++import lombok.Setter;
++
++import java.util.ArrayList;
++import java.util.List;
++
++@AllArgsConstructor
++@NoArgsConstructor
++@Setter
++@Entity
++public class ChatThread {
++    @Id
++    public String id;
++
++    @ManyToOne(optional = false,cascade = CascadeType.ALL)
++    @JoinColumn(
++            name = "trainer_id",
++            referencedColumnName = "id"
++    )
++    public Trainer trainer;
++
++    @OneToMany(
++        mappedBy = "thread",
++        orphanRemoval = true,
++        cascade = CascadeType.ALL
++    )
++    public List<Chat> chats = new ArrayList<>();
++}
+Index: fitlife-app/app/main/java/com/fitlife/app/DTO/Request/Trainer/SearchTrainerRequest.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/fitlife-app/app/main/java/com/fitlife/app/DTO/Request/Trainer/SearchTrainerRequest.java b/fitlife-app/app/main/java/com/fitlife/app/DTO/Request/Trainer/SearchTrainerRequest.java
+new file mode 100644
+--- /dev/null	(date 1703496865923)
++++ b/fitlife-app/app/main/java/com/fitlife/app/DTO/Request/Trainer/SearchTrainerRequest.java	(date 1703496865923)
+@@ -0,0 +1,11 @@
++package com.fitlife.app.DTO.Request.Trainer;
++
++import lombok.AllArgsConstructor;
++import lombok.Data;
++
++@Data
++@AllArgsConstructor
++public class SearchTrainerRequest {
++    String name;
++    String id;
++}
+Index: fitlife-app/app/main/java/com/fitlife/app/Service/Session/SessionServiceImpl.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.fitlife.app.Service.Session;\r\n\r\nimport com.fitlife.app.DTO.DataClass.SessionDTO;\r\nimport com.fitlife.app.DTO.Request.CustomExerciseRequest;\r\nimport com.fitlife.app.DTO.Request.Session.SessionRequest;\r\nimport com.fitlife.app.DTO.Request.Session.UpdateSettingSessionRequest;\r\nimport com.fitlife.app.DTO.Response.CustomExerciseResponse;\r\nimport com.fitlife.app.Exceptions.AppException.BadRequestException;\r\nimport com.fitlife.app.Exceptions.AppException.NotFoundException;\r\nimport com.fitlife.app.Model.Workout.DailyWorkout;\r\nimport com.fitlife.app.Model.Exercise.CustomExercise;\r\nimport com.fitlife.app.Model.Exercise.Exercise;\r\nimport com.fitlife.app.Model.Workout.WorkoutPlan;\r\nimport com.fitlife.app.Repository.DailyWorkoutRepository;\r\nimport com.fitlife.app.Repository.Exercise.ExerciseRepository;\r\nimport com.fitlife.app.Repository.WorkoutRepository;\r\nimport org.modelmapper.ModelMapper;\r\nimport org.springframework.beans.factory.annotation.Autowired;\r\nimport org.springframework.stereotype.Service;\r\n\r\nimport com.fitlife.app.Model.Session.Session;\r\nimport com.fitlife.app.Repository.SessionRepository;\r\nimport com.fitlife.app.Service.Generic.GenericService;\r\n\r\nimport java.text.SimpleDateFormat;\r\nimport java.util.*;\r\n\r\n@Service\r\npublic class SessionServiceImpl extends GenericService<Session, Long, SessionRepository> implements  ISessionService{\r\n\r\n\r\n\tprivate final ModelMapper modelMapper;\r\n\tprivate final DailyWorkoutRepository dailyWorkoutRepository;\r\n\tprivate final WorkoutRepository workoutRepository;\r\n\tprivate final ExerciseRepository exerciseRepository;\r\n\r\n\r\n\r\n\r\n\t@Autowired\r\n\tpublic SessionServiceImpl(SessionRepository genericService, ModelMapper modelMapper, DailyWorkoutRepository dailyWorkoutRepository, ExerciseRepository exerciseRepository, WorkoutRepository workoutRepository) {\r\n\t\tsuper(genericService);\r\n\t\tthis.modelMapper = modelMapper;\r\n\t\tthis.exerciseRepository = exerciseRepository;\r\n\t\tthis.dailyWorkoutRepository = dailyWorkoutRepository;\r\n\t\tthis.workoutRepository = workoutRepository;\r\n\t}\r\n\r\n\t@Override\r\n\tpublic SessionDTO createSession(SessionRequest req) throws BadRequestException {\r\n\t\ttry {\r\n\t\t\tfinal Optional<DailyWorkout> daily = dailyWorkoutRepository.findById(req.getDailyWorkouts());\r\n\r\n\t\t\tif(daily.isEmpty()) {\r\n\t\t\t\tthrow new NotFoundException(\"Can not find daily workout\");\r\n\t\t\t}\r\n\t\t\tDailyWorkout dailyData = daily.get();\r\n\r\n\r\n\r\n\t\t\tSession session = Session.builder()\r\n\t\t\t\t\t.description(req.getDescription())\r\n\t\t\t\t\t.name(req.getName())\r\n\t\t\t\t\t.timePerLesson(req.getTimePerLesson())\r\n\t\t\t\t\t.randomMix(req.getRandomMix())\r\n\t\t\t\t\t.calcTarget(req.getCalcTarget())\r\n\t\t\t\t\t.level(req.getLevel())\r\n\t\t\t\t\t.transferTime(req.getTransferTime())\r\n\t\t\t\t\t.numberRound(req.getNumberRound())\r\n\t\t\t\t\t.breakTime(req.getBreakTime())\r\n\t\t\t\t\t.done(false)\r\n\t\t\t\t\t.calcCompleted(0)\r\n\t\t\t\t\t.startWithBoot(req.getStartWithBoot()).build();\r\n\t\t\tList<Session> currentSession = dailyData.getSessions();\r\n\r\n\t\t\tsession.setDailyWorkouts(dailyData);\r\n\t\t\tcurrentSession.add(session);\r\n\t\t\tdailyData.setSessions(currentSession);\r\n\t\t\tdailyWorkoutRepository.save(dailyData);\r\n\r\n\t\t\treturn modelMapper.map(session, SessionDTO.class);\r\n\t\t}catch (Exception e){\r\n\t\t\tthrow new BadRequestException(e.getMessage());\r\n\t\t}\r\n\t}\r\n\r\n\t@Override\r\n\tpublic SessionDTO updateSettingSession(UpdateSettingSessionRequest request, Long id) throws BadRequestException {\r\n\t\ttry {\r\n\r\n\t\t\tfinal Session session = findById(id);\r\n\r\n\t\t\tsession.setName(request.getName());\r\n\t\t\tsession.setLevel(request.getLevel());\r\n\t\t\tsession.setRandomMix(request.getRandomMix());\r\n\t\t\tsession.setBreakTime(request.getBreakTime());\r\n\t\t\tsession.setCalcTarget(request.getCalcTarget());\r\n\t\t\tsession.setNumberRound(request.getNumberRound());\r\n\t\t\tsession.setDescription(request.getDescription());\r\n\t\t\tsession.setTransferTime(request.getTransferTime());\r\n\t\t\tsession.setTimePerLesson(request.getTimePerLesson());\r\n\t\t\tsession.setStartWithBoot(request.getStartWithBoot());\r\n\r\n\t\t\trepository.save(session);\r\n\r\n\t\t\treturn modelMapper.map(session,SessionDTO.class);\r\n\t\t} catch (Exception e){\r\n\t\t\tthrow new BadRequestException(e.getMessage());\r\n\t\t}\r\n\t}\r\n\r\n\t@Override\r\n\tpublic List<SessionDTO> getAllSession(String dailyID) throws BadRequestException {\r\n\t\ttry {\r\n\t\t\tfinal Optional<DailyWorkout> daily = dailyWorkoutRepository.findById(Long.parseLong(dailyID));\r\n\r\n\t\t\tif(daily.isEmpty()) {\r\n\t\t\t\tthrow new NotFoundException(\"Can not find daily workout\");\r\n\t\t\t}\r\n\t\t\treturn daily.get().getSessions().stream().map(item ->  modelMapper.map(item, SessionDTO.class)).toList();\r\n\t\t} catch (Exception e){\r\n\t\t\tthrow new BadRequestException(e.getMessage());\r\n\t\t}\r\n\t}\r\n\r\n\t@Override\r\n\tpublic CustomExerciseResponse createCustomExercise(CustomExerciseRequest req, String sessionId) throws BadRequestException {\r\n\t\ttry {\r\n\t\t\tfinal Session session = findById(Long.parseLong(sessionId));\r\n\r\n\t\t\tCustomExercise customExercise = CustomExercise.builder()\r\n\t\t\t\t\t.rep(req.getRep())\r\n\t\t\t\t\t.weight(req.getWeight())\r\n\t\t\t\t\t.time(req.getTime())\r\n\t\t\t\t\t.difficulty(req.getDifficulty())\r\n\t\t\t\t\t.session(session)\r\n\t\t\t\t\t.calories((new Random()).nextInt(100, 400)) ///\uD83D\uDC1B[dummy code]\r\n\t\t\t\t\t.build();\r\n\r\n\t\t\tfinal Optional<Exercise> exercise = exerciseRepository.findById(req.getExercise());\r\n\t\t\tif(exercise.isEmpty()){\r\n\t\t\t\tthrow new NotFoundException(\"Can not found exercise with id \" + req.getExercise());\r\n\t\t\t}\r\n\t\t\tfinal  Exercise exerciseData = exercise.get();\r\n\r\n\t\t\tcustomExercise.setExercise(exerciseData);\r\n\t\t\tList<CustomExercise> sessionExercise =\t session.getCustomExercise();\r\n\t\t\tsessionExercise.add(customExercise);\r\n\r\n\t\t\tsession.setCustomExercise(sessionExercise);\r\n\r\n\t\t\tsave(session);\r\n\r\n\t\t\treturn modelMapper.map(customExercise,CustomExerciseResponse.class);\r\n\t\t}catch (Exception e){\r\n\t\t\tthrow new BadRequestException(e.getMessage());\r\n\t\t}\r\n\t}\r\n\r\n\t@Override\r\n\tpublic SessionDTO getSessionById(String id) {\r\n\t\treturn modelMapper.map( findById(Long.parseLong(id)), SessionDTO.class);\r\n\t}\r\n\r\n\r\n\t@Override\r\n\tpublic SessionDTO completeSession(String id) throws BadRequestException {\r\n\t\ttry{\r\n\t\t\tfinal Session session = findById(Long.parseLong(id));\r\n\t\t\tvar totalCalories = 0;\r\n\t\t\tfor (CustomExercise item: session.getCustomExercise()) {\r\n\t\t\t\ttotalCalories += item.getCalories();\r\n\t\t\t}\r\n\t\t\tsession.setCalcCompleted(totalCalories * session.getNumberRound());\r\n\t\t\tsession.setDone(true);\r\n\r\n\t\t\trepository.save(session);\r\n\r\n\t\t\treturn modelMapper.map(session, SessionDTO.class);\r\n\r\n\t\t} catch (Exception e) {\r\n\t\t\tthrow new BadRequestException(e.getMessage());\r\n\t\t}\r\n\t}\r\n\r\n\r\n\t@Override\r\n\tpublic List<SessionDTO> getUpComingSession() throws BadRequestException {\r\n\t\ttry {\r\n\t\t\tSimpleDateFormat sdf = new SimpleDateFormat(\"yyyy-MM-dd\");\r\n\r\n\t\t\tfinal long currentTime = new Date().getTime();\r\n\t\t\tfinal String formatCurrentDate = sdf.format(currentTime);\r\n\t\t\tfinal List<WorkoutPlan> getActivePlan = workoutRepository.getActiveWorkoutPlan(currentTime);\r\n\t\t\tfinal List<Session> result = new ArrayList<>();\r\n\r\n\t\t\tfor (WorkoutPlan item: getActivePlan) {\r\n\t\t\t\tfor (DailyWorkout daily: item.getDailyWorkouts()) {\r\n\t\t\t\t\tif(sdf.format(daily.getTime()).equals(formatCurrentDate)){\r\n\t\t\t\t\t\tresult.addAll(daily.getSessions());\r\n\t\t\t\t\t\tbreak;\r\n\t\t\t\t\t}\r\n\t\t\t\t}\r\n\t\t\t}\r\n\r\n\t\t\treturn result.stream().map(item -> modelMapper.map(item, SessionDTO.class)).toList();\r\n\t\t}catch (Exception e){\r\n\t\t\tthrow new BadRequestException(e.getMessage());\r\n\t\t}\r\n\t}\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/fitlife-app/app/main/java/com/fitlife/app/Service/Session/SessionServiceImpl.java b/fitlife-app/app/main/java/com/fitlife/app/Service/Session/SessionServiceImpl.java
+--- a/fitlife-app/app/main/java/com/fitlife/app/Service/Session/SessionServiceImpl.java	(revision 74e75acd68fffc3d85c48e0402fb85efa06d8a4c)
++++ b/fitlife-app/app/main/java/com/fitlife/app/Service/Session/SessionServiceImpl.java	(date 1703490260758)
+@@ -57,7 +57,6 @@
+ 			DailyWorkout dailyData = daily.get();
+ 
+ 
+-
+ 			Session session = Session.builder()
+ 					.description(req.getDescription())
+ 					.name(req.getName())
+Index: fitlife-app/app/main/resources/application.properties
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>com.fitlife.cloudinary.cloud-name = \"\"\r\ncom.fitlife.cloudinary.api-key = \"\"\r\ncom.fitlife.cloudinary.api-secret = \"\"\r\n\r\n#Security\r\n\r\n#Flyway properties\r\nspring.flyway.enabled=false\r\nspring.flyway.url=jdbc:postgresql://localhost:5432/DataSA\r\nspring.flyway.user= postgres\r\nspring.flyway.password= root\r\nspring.flyway.schemas=migrations\r\nspring.flyway.locations=classpath:db/migration/postgresql\r\n\r\n\r\n# ExerciseDB\r\ncom.fitlife.database.initial.exercise = /db/migration/local/exercise.json\r\ncom.fitlife.database.initial.bodypart = /db/migration/local/bodypart.json\r\ncom.fitlife.database.initial.equipment = /db/migration/local/equipment.json\r\ncom.fitlife.database.initial.target = /db/migration/local/target.json\r\ncom.fitlife.database.initial.health_news = /db/migration/local/health_news.json\r\n\r\n# DDL-Generate Config\r\n#spring.jpa.generate-ddl=true\r\n#spring.jpa.properties.javax.persistence.schema-generation.scri pts.action = drop-and-create\r\n#spring.jpa.properties.javax.persistence.schema-generation.scripts.create-target = metadata.sql\r\n#spring.jpa.properties.javax.persistence.schema-generation.scripts.drop-target= metadata.sql\r\n\r\n#JWT\r\napplication.security.jwt.secret-key=404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970\r\napplication.security.jwt.expiration=14400000\r\napplication.security.jwt.refresh-token.expiration=864000000\r\n\r\n\r\nopenai.api.timeout=10\r\nopenai.api.key=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\r\nopenai.api.url=https://api.openai.com/\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>ISO-8859-1
+===================================================================
+diff --git a/fitlife-app/app/main/resources/application.properties b/fitlife-app/app/main/resources/application.properties
+--- a/fitlife-app/app/main/resources/application.properties	(revision 74e75acd68fffc3d85c48e0402fb85efa06d8a4c)
++++ b/fitlife-app/app/main/resources/application.properties	(date 1703493157127)
+@@ -33,5 +33,5 @@
+ 
+ 
+ openai.api.timeout=10
+-openai.api.key=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
++openai.api.key=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
+ openai.api.url=https://api.openai.com/
+Index: trainer-ai/src/main/java/com/trainer/models/OpenAiApi.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.trainer.models;\r\nimport com.trainer.models.api.assistants.*;\r\nimport com.trainer.models.api.completion.CompletionRequest;\r\nimport com.trainer.models.api.completion.CompletionResult;\r\nimport com.trainer.models.api.completion.chat.ChatCompletionRequest;\r\nimport com.trainer.models.api.completion.chat.ChatCompletionResult;\r\nimport com.trainer.models.api.file.File;\r\nimport com.trainer.models.api.message.Message;\r\nimport com.trainer.models.api.message.MessageRequest;\r\nimport com.trainer.models.common.DeleteResult;\r\nimport io.reactivex.Single;\r\nimport okhttp3.MultipartBody;\r\nimport okhttp3.RequestBody;\r\nimport okhttp3.ResponseBody;\r\nimport org.springframework.stereotype.Service;\r\nimport retrofit2.Call;\r\nimport retrofit2.http.*;\r\nimport java.util.Map;\r\n@Service\r\npublic interface OpenAiApi {\r\n    @Multipart\r\n    @POST(\"/v1/files\")\r\n    Single<File> uploadFile(@Part(\"purpose\") RequestBody purpose, @Part MultipartBody.Part file);\r\n    /*\r\n    * Message\r\n    * */\r\n    @Headers({\"OpenAI-Beta: assistants=v1\"})\r\n    @POST(\"/v1/threads/{thread_id}/messages\")\r\n    Single<Message> createMessage(@Path(\"thread_id\") String threadId, @Body MessageRequest request);\r\n\r\n    @Headers({\"OpenAI-Beta: assistants=v1\"})\r\n    @GET(\"/v1/threads/{thread_id}/messages/{message_id}\")\r\n    Single<Message> retrieveMessage(@Path(\"thread_id\") String threadId, @Path(\"message_id\") String messageId);\r\n\r\n    @Headers({\"OpenAI-Beta: assistants=v1\"})\r\n    @POST(\"/v1/threads/{thread_id}/messages/{message_id}\")\r\n    Single<Message> modifyMessage(@Path(\"thread_id\") String threadId, @Path(\"message_id\") String messageId, @Body Map<String, String> metadata);\r\n\r\n    @Headers({\"OpenAI-Beta: assistants=v1\"})\r\n    @GET(\"/v1/threads/{thread_id}/messages\")\r\n    Single<OpenAiResponse<Message>> listMessages(@Path(\"thread_id\") String threadId);\r\n\r\n    @Headers({\"OpenAI-Beta: assistants=v1\"})\r\n    @GET(\"/v1/threads/{thread_id}/messages\")\r\n    Single<OpenAiResponse<Message>> listMessages(@Path(\"thread_id\") String threadId, @QueryMap Map<String, Object> filterRequest);\r\n\r\n    /*\r\n    Completion and Chat Completion\r\n     */\r\n\r\n    @POST(\"/v1/completions\")\r\n    Single<CompletionResult> createCompletion(@Body CompletionRequest request);\r\n\r\n    @Streaming\r\n    @POST(\"/v1/completions\")\r\n    Call<ResponseBody> createCompletionStream(@Body CompletionRequest request);\r\n\r\n    @POST(\"/v1/chat/completions\")\r\n    Single<ChatCompletionResult> createChatCompletion(@Body ChatCompletionRequest request);\r\n\r\n    @Streaming\r\n    @POST(\"/v1/chat/completions\")\r\n    Call<ResponseBody> createChatCompletionStream(@Body ChatCompletionRequest request);\r\n\r\n    /*\r\n    Assistant\r\n     */\r\n    @Headers({\"OpenAI-Beta: assistants=v1\"})\r\n    @POST(\"/v1/assistants\")\r\n    Single<Assistant> createAssistant(@Body AssistantRequest request);\r\n\r\n    @Headers({\"OpenAI-Beta: assistants=v1\"})\r\n    @GET(\"/v1/assistants/{assistant_id}\")\r\n    Single<Assistant> retrieveAssistant(@Path(\"assistant_id\") String assistantId);\r\n\r\n    @Headers({\"OpenAI-Beta: assistants=v1\"})\r\n    @POST(\"/v1/assistants/{assistant_id}\")\r\n    Single<Assistant> modifyAssistant(@Path(\"assistant_id\") String assistantId, @Body ModifyAssistantRequest request);\r\n\r\n    @Headers({\"OpenAI-Beta: assistants=v1\"})\r\n    @DELETE(\"/v1/assistants/{assistant_id}\")\r\n    Single<DeleteResult> deleteAssistant(@Path(\"assistant_id\") String assistantId);\r\n\r\n    @Headers({\"OpenAI-Beta: assistants=v1\"})\r\n    @GET(\"/v1/assistants\")\r\n    Single<OpenAiResponse<Assistant>> listAssistants(@QueryMap Map<String, Object> filterRequest);\r\n\r\n    @Headers({\"OpenAI-Beta: assistants=v1\"})\r\n    @POST(\"/v1/assistants/{assistant_id}/files\")\r\n    Single<AssistantFile> createAssistantFile(@Path(\"assistant_id\") String assistantId, @Body AssistantFileRequest fileRequest);\r\n\r\n    @Headers({\"OpenAI-Beta: assistants=v1\"})\r\n    @GET(\"/v1/assistants/{assistant_id}/files/{file_id}\")\r\n    Single<AssistantFile> retrieveAssistantFile(@Path(\"assistant_id\") String assistantId, @Path(\"file_id\") String fileId);\r\n\r\n    @Headers({\"OpenAI-Beta: assistants=v1\"})\r\n    @DELETE(\"/v1/assistants/{assistant_id}/files/{file_id}\")\r\n    Single<DeleteResult> deleteAssistantFile(@Path(\"assistant_id\") String assistantId, @Path(\"file_id\") String fileId);\r\n\r\n    @Headers({\"OpenAI-Beta: assistants=v1\"})\r\n    @GET(\"/v1/assistants/{assistant_id}/files\")\r\n    Single<OpenAiResponse<Assistant>> listAssistantFiles(@Path(\"assistant_id\") String assistantId, @QueryMap Map<String, Object> filterRequest);\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/trainer-ai/src/main/java/com/trainer/models/OpenAiApi.java b/trainer-ai/src/main/java/com/trainer/models/OpenAiApi.java
+--- a/trainer-ai/src/main/java/com/trainer/models/OpenAiApi.java	(revision 74e75acd68fffc3d85c48e0402fb85efa06d8a4c)
++++ b/trainer-ai/src/main/java/com/trainer/models/OpenAiApi.java	(date 1703502095026)
+@@ -7,6 +7,7 @@
+ import com.trainer.models.api.file.File;
+ import com.trainer.models.api.message.Message;
+ import com.trainer.models.api.message.MessageRequest;
++import com.trainer.models.api.threads.ThreadRequest;
+ import com.trainer.models.common.DeleteResult;
+ import io.reactivex.Single;
+ import okhttp3.MultipartBody;
+@@ -62,6 +63,15 @@
+     @POST("/v1/chat/completions")
+     Call<ResponseBody> createChatCompletionStream(@Body ChatCompletionRequest request);
+ 
++
++    /*
++    Thread
++     */
++
++    @Headers({"OpenAI-Beta: assistants=v1"})
++    @POST("/v1/threads")
++    Single<Thread> createThread(@Body ThreadRequest request);
++
+     /*
+     Assistant
+      */
+Index: fitlife-app/app/main/java/com/fitlife/app/Controller/SessionController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.fitlife.app.Controller;\r\n\r\n\r\nimport com.fitlife.app.DTO.Request.Session.UpdateSettingSessionRequest;\r\nimport com.fitlife.app.Exceptions.AppException.BadRequestException;\r\nimport com.fitlife.app.Service.Session.ISessionService;\r\nimport org.springframework.http.ResponseEntity;\r\nimport org.springframework.web.bind.annotation.*;\r\n\r\nimport com.fitlife.app.DTO.Request.CustomExerciseRequest;\r\nimport com.fitlife.app.DTO.Request.Session.SessionRequest;\r\nimport com.fitlife.app.DTO.Response.ResponseObject;\r\n\r\n@RestController\r\n@RequestMapping(\"/session\")\r\npublic class SessionController {\r\n\r\n\tprivate final ISessionService sessionService;\r\n\r\n\tpublic SessionController(ISessionService sessionService){\r\n\t\tthis.sessionService = sessionService;\r\n\t}\r\n\r\n\t@PostMapping(\"/delete\")\r\n\tpublic ResponseEntity<?> deleteSession(@RequestParam(\"id\") String id) {\r\n\r\n\t\tsessionService.delete(Long.parseLong(id));\r\n\t\treturn ResponseEntity.ok().body(new ResponseObject(\"ok\", \"Delete successfully\\\"\", null));\r\n\r\n\t}\r\n\r\n\t@PutMapping(\"/update-setting-session\")\r\n\tpublic ResponseEntity<?> updateSettingSession(\r\n\t\t\t@RequestBody UpdateSettingSessionRequest request,\r\n\t\t\t@RequestParam(\"id\") String id\r\n\t) throws BadRequestException {\r\n\t\treturn ResponseEntity.ok(sessionService.updateSettingSession(request, Long.parseLong(id)));\r\n\t}\r\n\r\n\r\n\t@PostMapping(\"/add/exercise\")\r\n\tpublic ResponseEntity<?> createCustomExercise(\r\n\t\t\t@RequestBody CustomExerciseRequest request,\r\n\t\t\t@RequestParam(\"id\") String id\r\n\t) throws BadRequestException {\r\n\t\treturn ResponseEntity.ok(sessionService.createCustomExercise(request, id));\r\n\t}\r\n\r\n\t@PostMapping(\"/complete-session\")\r\n\tpublic ResponseEntity<?> completeSession(\r\n\t\t\t@RequestParam(\"id\") String id\r\n\t) throws BadRequestException {\r\n\t\treturn ResponseEntity.ok(sessionService.completeSession(id));\r\n\t}\r\n\r\n\t@GetMapping(\"/getall\")\r\n\tpublic ResponseEntity<?> getAllSession(@RequestParam(\"id\") String id) throws BadRequestException {\r\n\t\treturn ResponseEntity.ok(sessionService.getAllSession(id));\r\n\t}\r\n\r\n\t@GetMapping(\"/up-coming\")\r\n\tpublic ResponseEntity<?> getUpComingSesssion() throws BadRequestException{\r\n\t\treturn ResponseEntity.ok(sessionService.getUpComingSession());\r\n\t}\r\n\r\n\t@GetMapping\r\n\tpublic ResponseEntity<?> getSessionById(@RequestParam(\"id\") String id) {\r\n\t\treturn ResponseEntity.ok(sessionService.getSessionById(id));\r\n\t}\r\n\r\n\t@PostMapping(\"/add\")\r\n\tpublic ResponseEntity<?> createSession(@RequestBody SessionRequest req) throws BadRequestException {\r\n\t\treturn ResponseEntity.ok(sessionService.createSession(req));\r\n\t}\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/fitlife-app/app/main/java/com/fitlife/app/Controller/SessionController.java b/fitlife-app/app/main/java/com/fitlife/app/Controller/SessionController.java
+--- a/fitlife-app/app/main/java/com/fitlife/app/Controller/SessionController.java	(revision 74e75acd68fffc3d85c48e0402fb85efa06d8a4c)
++++ b/fitlife-app/app/main/java/com/fitlife/app/Controller/SessionController.java	(date 1703571508607)
+@@ -37,7 +37,6 @@
+ 		return ResponseEntity.ok(sessionService.updateSettingSession(request, Long.parseLong(id)));
+ 	}
+ 
+-
+ 	@PostMapping("/add/exercise")
+ 	public ResponseEntity<?> createCustomExercise(
+ 			@RequestBody CustomExerciseRequest request,
+Index: fitlife-app/app/main/java/com/fitlife/app/Repository/Trainer/ChatThreadRepository.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/fitlife-app/app/main/java/com/fitlife/app/Repository/Trainer/ChatThreadRepository.java b/fitlife-app/app/main/java/com/fitlife/app/Repository/Trainer/ChatThreadRepository.java
+new file mode 100644
+--- /dev/null	(date 1703497200061)
++++ b/fitlife-app/app/main/java/com/fitlife/app/Repository/Trainer/ChatThreadRepository.java	(date 1703497200061)
+@@ -0,0 +1,12 @@
++package com.fitlife.app.Repository.Trainer;
++
++import com.fitlife.app.Model.Trainer.ChatThread;
++import org.springframework.data.jpa.repository.JpaRepository;
++import org.springframework.data.jpa.repository.Query;
++
++import java.util.List;
++
++public interface ChatThreadRepository extends JpaRepository<ChatThread, String> {
++    @Query("SELECT c FROM ChatThread c WHERE c.trainer.id = ?1")
++    List<ChatThread> findAllByTrainerId(String trainerId);
++}
+Index: trainer-ai/src/main/java/com/trainer/service/OpenAiService.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.trainer.service;\r\n\r\nimport com.fasterxml.jackson.core.type.TypeReference;\r\nimport com.trainer.models.*;\r\nimport com.trainer.models.api.assistants.*;\r\nimport com.trainer.models.api.completion.CompletionChunk;\r\nimport com.trainer.models.api.completion.chat.ChatCompletionChunk;\r\nimport com.trainer.models.api.completion.CompletionRequest;\r\nimport com.trainer.models.api.completion.CompletionResult;\r\nimport com.trainer.models.api.completion.chat.ChatCompletionRequest;\r\nimport com.trainer.models.api.completion.chat.ChatCompletionResult;\r\nimport com.trainer.models.api.file.File;\r\nimport com.trainer.models.common.DeleteResult;\r\nimport com.trainer.models.common.ListSearchParameters;\r\nimport io.reactivex.Flowable;\r\nimport okhttp3.MediaType;\r\nimport okhttp3.MultipartBody;\r\nimport okhttp3.RequestBody;\r\nimport org.springframework.stereotype.Service;\r\n\r\nimport java.util.Map;\r\n\r\n@Service\r\npublic class OpenAiService extends OpenAiBaseService {\r\n\r\n    //Chat Completion && Completion\r\n    public CompletionResult createCompletion(CompletionRequest request) {\r\n        return execute(api.createCompletion(request));\r\n    }\r\n\r\n    public Flowable<CompletionChunk> streamCompletion(CompletionRequest request) {\r\n        request.setStream(true);\r\n        return streamFlowService.stream(api.createCompletionStream(request), CompletionChunk.class);\r\n    }\r\n\r\n    public ChatCompletionResult createChatCompletion(ChatCompletionRequest request) {\r\n        return execute(api.createChatCompletion(request));\r\n    }\r\n\r\n    public Flowable<ChatCompletionChunk> streamChatCompletion(ChatCompletionRequest request) {\r\n        request.setStream(true);\r\n        return streamFlowService.stream(api.createChatCompletionStream(request), ChatCompletionChunk.class);\r\n    }\r\n\r\n    /*\r\n        Assistant\r\n     */\r\n    public Assistant createAssistant(AssistantRequest request) {\r\n        return execute(api.createAssistant(request));\r\n    }\r\n\r\n    public OpenAiResponse<Assistant> listAssistants(ListSearchParameters params) {\r\n        Map<String, Object> queryParameters = mapper.convertValue(params, new TypeReference<Map<String, Object>>() {\r\n        });\r\n        return execute(api.listAssistants(queryParameters));\r\n    }\r\n    public File uploadFile(String purpose, String filepath) {\r\n        java.io.File file = new java.io.File(filepath);\r\n        RequestBody purposeBody = RequestBody.create(MultipartBody.FORM, purpose);\r\n        RequestBody fileBody = RequestBody.create(MediaType.parse(\"text\"), file);\r\n        MultipartBody.Part body = MultipartBody.Part.createFormData(\"file\", filepath, fileBody);\r\n\r\n        return execute(api.uploadFile(purposeBody, body));\r\n    }\r\n\r\n    public Assistant retrieveAssistant(String assistantId) {\r\n        return execute(api.retrieveAssistant(assistantId));\r\n    }\r\n\r\n    public Assistant modifyAssistant(String assistantId, ModifyAssistantRequest request) {\r\n        return execute(api.modifyAssistant(assistantId, request));\r\n    }\r\n\r\n    public DeleteResult deleteAssistant(String assistantId) {\r\n        return execute(api.deleteAssistant(assistantId));\r\n    }\r\n\r\n    public OpenAiResponse<Assistant> listAssistant(ListSearchParameters params) {\r\n        Map<String, Object> queryParameters = mapper.convertValue(params, new TypeReference<>() {\r\n        });\r\n        return execute(api.listAssistants(queryParameters));\r\n    }\r\n\r\n    public AssistantFile createAssistantFile(String assistantId, AssistantFileRequest fileRequest) {\r\n        return execute(api.createAssistantFile(assistantId, fileRequest));\r\n    }\r\n\r\n    public AssistantFile retrieveAssistantFile(String assistantId, String fileId) {\r\n        return execute(api.retrieveAssistantFile(assistantId, fileId));\r\n    }\r\n\r\n    public DeleteResult deleteAssistantFile(String assistantId, String fileId) {\r\n        return execute(api.deleteAssistantFile(assistantId, fileId));\r\n    }\r\n\r\n    public OpenAiResponse<Assistant> listAssistantFiles(String assistantId, ListSearchParameters params) {\r\n        Map<String, Object> queryParameters = mapper.convertValue(params, new TypeReference<Map<String, Object>>() {\r\n        });\r\n        return execute(api.listAssistantFiles(assistantId, queryParameters));\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/trainer-ai/src/main/java/com/trainer/service/OpenAiService.java b/trainer-ai/src/main/java/com/trainer/service/OpenAiService.java
+--- a/trainer-ai/src/main/java/com/trainer/service/OpenAiService.java	(revision 74e75acd68fffc3d85c48e0402fb85efa06d8a4c)
++++ b/trainer-ai/src/main/java/com/trainer/service/OpenAiService.java	(date 1703502414496)
+@@ -10,19 +10,22 @@
+ import com.trainer.models.api.completion.chat.ChatCompletionRequest;
+ import com.trainer.models.api.completion.chat.ChatCompletionResult;
+ import com.trainer.models.api.file.File;
++import com.trainer.models.api.threads.Thread;
++import com.trainer.models.api.threads.ThreadRequest;
+ import com.trainer.models.common.DeleteResult;
+ import com.trainer.models.common.ListSearchParameters;
+ import io.reactivex.Flowable;
+ import okhttp3.MediaType;
+ import okhttp3.MultipartBody;
+ import okhttp3.RequestBody;
++import org.springframework.context.annotation.ComponentScan;
+ import org.springframework.stereotype.Service;
+ 
+ import java.util.Map;
+ 
+ @Service
++@ComponentScan(basePackages = {"com.trainer"})
+ public class OpenAiService extends OpenAiBaseService {
+-
+     //Chat Completion && Completion
+     public CompletionResult createCompletion(CompletionRequest request) {
+         return execute(api.createCompletion(request));
+@@ -50,19 +53,21 @@
+     }
+ 
+     public OpenAiResponse<Assistant> listAssistants(ListSearchParameters params) {
+-        Map<String, Object> queryParameters = mapper.convertValue(params, new TypeReference<Map<String, Object>>() {
++        Map<String, Object> queryParameters = mapper.convertValue(params, new TypeReference<>() {
+         });
+         return execute(api.listAssistants(queryParameters));
+     }
++
+     public File uploadFile(String purpose, String filepath) {
+         java.io.File file = new java.io.File(filepath);
+-        RequestBody purposeBody = RequestBody.create(MultipartBody.FORM, purpose);
+-        RequestBody fileBody = RequestBody.create(MediaType.parse("text"), file);
++        RequestBody purposeBody = RequestBody.create(purpose,MultipartBody.FORM);
++        RequestBody fileBody = RequestBody.create(file,MediaType.parse("text"));
+         MultipartBody.Part body = MultipartBody.Part.createFormData("file", filepath, fileBody);
+ 
+         return execute(api.uploadFile(purposeBody, body));
+     }
+ 
++
+     public Assistant retrieveAssistant(String assistantId) {
+         return execute(api.retrieveAssistant(assistantId));
+     }
+@@ -98,4 +103,12 @@
+         });
+         return execute(api.listAssistantFiles(assistantId, queryParameters));
+     }
++
++    /*
++        Thread
++     */
++
++    public Thread createThread(ThreadRequest request) {
++        return execute(api.createThread(request));
++    }
+ }
+Index: fitlife-app/app/main/java/com/fitlife/app/FitnessAppApplication.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.fitlife.app;\r\n\r\nimport org.springframework.boot.SpringApplication;\r\nimport org.springframework.boot.autoconfigure.SpringBootApplication;\r\nimport org.springframework.context.annotation.ComponentScan;\r\nimport org.springframework.context.annotation.ComponentScans;\r\n\r\n@SpringBootApplication\r\npublic class FitnessAppApplication {\r\n\tpublic static void main(String[] args) {\r\n\t\tSpringApplication.run(FitnessAppApplication.class, args);\r\n\t}\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/fitlife-app/app/main/java/com/fitlife/app/FitnessAppApplication.java b/fitlife-app/app/main/java/com/fitlife/app/FitnessAppApplication.java
+--- a/fitlife-app/app/main/java/com/fitlife/app/FitnessAppApplication.java	(revision 74e75acd68fffc3d85c48e0402fb85efa06d8a4c)
++++ b/fitlife-app/app/main/java/com/fitlife/app/FitnessAppApplication.java	(date 1703493367295)
+@@ -3,9 +3,8 @@
+ import org.springframework.boot.SpringApplication;
+ import org.springframework.boot.autoconfigure.SpringBootApplication;
+ import org.springframework.context.annotation.ComponentScan;
+-import org.springframework.context.annotation.ComponentScans;
+ 
+-@SpringBootApplication
++@SpringBootApplication(scanBasePackages = {"com.fitlife.app","com.trainer"})
+ public class FitnessAppApplication {
+ 	public static void main(String[] args) {
+ 		SpringApplication.run(FitnessAppApplication.class, args);
+Index: fitlife-app/app/main/java/com/fitlife/app/Repository/Trainer/ChatRepository.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/fitlife-app/app/main/java/com/fitlife/app/Repository/Trainer/ChatRepository.java b/fitlife-app/app/main/java/com/fitlife/app/Repository/Trainer/ChatRepository.java
+new file mode 100644
+--- /dev/null	(date 1703496550021)
++++ b/fitlife-app/app/main/java/com/fitlife/app/Repository/Trainer/ChatRepository.java	(date 1703496550021)
+@@ -0,0 +1,7 @@
++package com.fitlife.app.Repository.Trainer;
++
++import com.fitlife.app.Model.Trainer.Chat;
++import org.springframework.data.jpa.repository.JpaRepository;
++
++public interface ChatRepository extends JpaRepository<Chat, String> {
++}
+Index: fitlife-app/app/main/java/com/fitlife/app/Service/Trainer/TrainerService.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.fitlife.app.Service.Trainer;\r\n\r\nimport com.trainer.models.api.completion.chat.ChatCompletionRequest;\r\nimport com.trainer.models.api.completion.chat.ChatMessage;\r\nimport com.trainer.service.OpenAiService;\r\nimport lombok.AllArgsConstructor;\r\nimport org.springframework.context.annotation.ComponentScan;\r\nimport org.springframework.stereotype.Service;\r\nimport java.util.List;\r\nimport java.util.stream.Collectors;\r\n\r\n@Service\r\n@ComponentScan(\"com.trainer\")\r\n@AllArgsConstructor\r\npublic class TrainerService {\r\n    private final OpenAiService openAiService;\r\n\r\n    public String chat(String message){\r\n        return openAiService.createChatCompletion( ChatCompletionRequest\r\n                .builder()\r\n                        .messages(List.of(\r\n                                new ChatMessage(\"trainer\", message)\r\n                        ))\r\n                .build())\r\n                .getChoices()\r\n                .stream().map(c -> c.getMessage().content)\r\n                .collect(Collectors.joining());\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/fitlife-app/app/main/java/com/fitlife/app/Service/Trainer/TrainerService.java b/fitlife-app/app/main/java/com/fitlife/app/Service/Trainer/TrainerService.java
+--- a/fitlife-app/app/main/java/com/fitlife/app/Service/Trainer/TrainerService.java	(revision 74e75acd68fffc3d85c48e0402fb85efa06d8a4c)
++++ b/fitlife-app/app/main/java/com/fitlife/app/Service/Trainer/TrainerService.java	(date 1703502744629)
+@@ -1,29 +1,136 @@
+ package com.fitlife.app.Service.Trainer;
+ 
+-import com.trainer.models.api.completion.chat.ChatCompletionRequest;
+-import com.trainer.models.api.completion.chat.ChatMessage;
++import com.fitlife.app.DTO.Request.Trainer.SearchTrainerRequest;
++import com.fitlife.app.Model.Trainer.Chat;
++import com.fitlife.app.Model.Trainer.ChatThread;
++import com.fitlife.app.Model.Trainer.Trainer;
++import com.fitlife.app.Repository.Trainer.ChatRepository;
++import com.fitlife.app.Repository.Trainer.ChatThreadRepository;
++import com.fitlife.app.Repository.Trainer.TrainerRepository;
++import com.trainer.models.api.completion.CompletionChoice;
++import com.trainer.models.api.completion.CompletionRequest;
++import com.trainer.models.api.completion.CompletionResult;
++import com.trainer.models.api.threads.Thread;
++import com.trainer.models.api.threads.ThreadRequest;
+ import com.trainer.service.OpenAiService;
+ import lombok.AllArgsConstructor;
+-import org.springframework.context.annotation.ComponentScan;
+ import org.springframework.stereotype.Service;
++
++import java.util.HashMap;
+ import java.util.List;
+-import java.util.stream.Collectors;
+ 
+ @Service
+-@ComponentScan("com.trainer")
+ @AllArgsConstructor
+ public class TrainerService {
++
++    private final TrainerRepository trainerRepository;
++    private final ChatThreadRepository chatThreadRepository;
++    private final ChatRepository chatRepository;
+     private final OpenAiService openAiService;
+ 
+-    public String chat(String message){
+-        return openAiService.createChatCompletion( ChatCompletionRequest
+-                .builder()
+-                        .messages(List.of(
+-                                new ChatMessage("trainer", message)
+-                        ))
+-                .build())
+-                .getChoices()
+-                .stream().map(c -> c.getMessage().content)
+-                .collect(Collectors.joining());
++    List<Trainer> getAllTrainer() {
++        return trainerRepository.findAll();
++    }
++
++    Trainer getTrainerById(String id) {
++        return trainerRepository.findById(id).orElseThrow();
++    }
++
++    public Trainer createTrainer(Trainer trainer) {
++        return trainerRepository.save(trainer);
++    }
++
++    public boolean deleteTrainer(String id) {
++        if (trainerRepository.existsById(id)) {
++            trainerRepository.deleteById(id);
++            return true;
++        }
++        return false;
++    }
++
++    public List<Trainer> searchTrainer(SearchTrainerRequest parameters) {
++        return trainerRepository.findAllByNameContainsOrIdContains(parameters.getId(), parameters.getName());
++    }
++
++
++
++    public List<ChatThread> getChatThreads(String trainerId) {
++        return chatThreadRepository.findAllByTrainerId(trainerId);
++    }
++
++
++    public ChatThread getChatThread(String threadId) {
++        return chatThreadRepository.findById(threadId).orElseThrow();
++    }
++
++    public ChatThread createChatThread(String trainerId) {
++        ChatThread chatThread = new ChatThread();
++        chatThread.setTrainer(trainerRepository.findById(trainerId).orElseThrow());
++
++        Thread thread = openAiService.createThread(ThreadRequest.builder().build());
++        chatThread.setId(thread.getId());
++
++        return chatThreadRepository.save(chatThread);
++    }
++
++    public void deleteChatThread(String id) {
++        chatThreadRepository.deleteById(id);
++    }
++
++    public Chat getChat(String chatId) {
++        return chatRepository.findById(chatId).orElseThrow();
+     }
++
++//    public Chat createChat(String threadId,String message){
++//        ChatThread thread = getChatThread(threadId);
++//        Chat chat = new Chat();
++//        chat.setThread(thread);
++//
++//
++//        CompletionRequest completionRequest = CompletionRequest.builder()
++//                .model(thread.trainer.model)
++//                .prompt(message)
++//                .echo(true)
++//                .n(1)
++//                .maxTokens(25)
++//                .logitBias(new HashMap<>())
++//                .logprobs(5)
++//                .stream(true)
++//                .build();
++//
++//        List<CompletionChoice> choices = openAiService.createCompletion(completionRequest).getChoices();
++//
++//
++//        return chatRepository.save(chat);
++//    }
++
++    public Chat createChat(String threadId,String message) {
++        ChatThread thread = getChatThread(threadId);
++        Chat chat = new Chat();
++        chat.setThread(thread);
++
++        CompletionRequest completionRequest = CompletionRequest.builder()
++                .model(thread.trainer.model)
++                .prompt(message)
++                .echo(true)
++                .n(1)
++                .maxTokens(25)
++                .logitBias(new HashMap<>())
++                .logprobs(5)
++                .stream(true)
++                .build();
++
++        CompletionResult completionResult = openAiService.createCompletion(completionRequest);
++        StringBuilder sb = new StringBuilder();
++        for (CompletionChoice choice : completionResult.getChoices()) {
++            sb.append(choice);
++        }
++
++        chat.setMessage(sb.toString());
++        chat.setMessageId(completionResult.getId());
++
++        return chat;
++    }
++
++
+ }
+Index: trainer-ai/src/main/java/com/trainer/configs/RetrofitConfig.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.trainer.configs;\r\n\r\nimport com.fasterxml.jackson.databind.ObjectMapper;\r\nimport okhttp3.OkHttpClient;\r\nimport org.springframework.beans.factory.annotation.Value;\r\nimport org.springframework.boot.context.properties.ConfigurationProperties;\r\nimport org.springframework.context.annotation.Bean;\r\nimport org.springframework.context.annotation.Configuration;\r\nimport org.springframework.stereotype.Component;\r\nimport retrofit2.Retrofit;\r\nimport retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;\r\nimport retrofit2.converter.jackson.JacksonConverterFactory;\r\n\r\n@Configuration\r\npublic class RetrofitConfig {\r\n    @Value(\"${openai.api.url}\")\r\n    private String BASE_URL;\r\n    @Bean\r\n    public Retrofit defaultRetrofit(OkHttpClient client, ObjectMapper mapper) {\r\n        return new Retrofit.Builder()\r\n                .baseUrl(BASE_URL)\r\n                .client(client)\r\n                .addConverterFactory(JacksonConverterFactory.create(mapper))\r\n                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())\r\n                .build();\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/trainer-ai/src/main/java/com/trainer/configs/RetrofitConfig.java b/trainer-ai/src/main/java/com/trainer/configs/RetrofitConfig.java
+--- a/trainer-ai/src/main/java/com/trainer/configs/RetrofitConfig.java	(revision 74e75acd68fffc3d85c48e0402fb85efa06d8a4c)
++++ b/trainer-ai/src/main/java/com/trainer/configs/RetrofitConfig.java	(date 1703492118893)
+@@ -6,12 +6,14 @@
+ import org.springframework.boot.context.properties.ConfigurationProperties;
+ import org.springframework.context.annotation.Bean;
+ import org.springframework.context.annotation.Configuration;
++import org.springframework.context.annotation.PropertySource;
+ import org.springframework.stereotype.Component;
+ import retrofit2.Retrofit;
+ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+ import retrofit2.converter.jackson.JacksonConverterFactory;
+ 
+ @Configuration
++@PropertySource("classpath:application.properties")
+ public class RetrofitConfig {
+     @Value("${openai.api.url}")
+     private String BASE_URL;
+Index: trainer-ai/src/test/java/com/trainer/AssistantTest.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.trainer;\r\n\r\n\r\nimport com.trainer.models.OpenAiResponse;\r\nimport com.trainer.models.api.assistants.*;\r\nimport com.trainer.models.api.file.File;\r\nimport com.trainer.models.common.DeleteResult;\r\nimport com.trainer.models.common.ListSearchParameters;\r\nimport com.trainer.service.OpenAiService;\r\nimport org.junit.jupiter.api.AfterAll;\r\nimport org.junit.jupiter.api.Test;\r\nimport org.springframework.beans.factory.annotation.Autowired;\r\nimport org.springframework.boot.test.context.SpringBootTest;\r\n\r\nimport java.util.Collections;\r\n\r\nimport static org.junit.jupiter.api.Assertions.*;\r\n\r\n@SpringBootTest(classes = OpenAiService.class)\r\npublic class AssistantTest {\r\n    public static final String MATH_TUTOR = \"Math Tutor\";\r\n    public static final String ASSISTANT_INSTRUCTION = \"You are a personal Math Tutor.\";\r\n\r\n    static String token = System.getenv(\"OPENAI_TOKEN\");;\r\n    @Autowired\r\n    private OpenAiService service;\r\n\r\n    @Test\r\n    void retrieveAssistant() {\r\n        Assistant retrieveAssistantResponse = service.retrieveAssistant(\"asst_PzeRxIxcPcJ2oxRuTZK6VB99\");\r\n        System.out.println(retrieveAssistantResponse.getName());\r\n    }\r\n\r\n    @Test\r\n    void modifyAssistant() {\r\n        Assistant createAssistantResponse = createAndValidateAssistant();\r\n\r\n        String modifiedName = MATH_TUTOR + \"Modified\";\r\n        ModifyAssistantRequest modifyRequest = ModifyAssistantRequest.builder()\r\n                .name(modifiedName)\r\n                .build();\r\n\r\n        Assistant modifiedAssistantResponse = service.modifyAssistant(createAssistantResponse.getId(), modifyRequest);\r\n        assertNotNull(modifiedAssistantResponse);\r\n        assertEquals(modifiedName, modifiedAssistantResponse.getName());\r\n    }\r\n\r\n    @Test\r\n    void deleteAssistant() {\r\n        Assistant createAssistantResponse = createAndValidateAssistant();\r\n\r\n        DeleteResult deletedAssistant = service.deleteAssistant(createAssistantResponse.getId());\r\n\r\n        assertNotNull(deletedAssistant);\r\n        assertEquals(createAssistantResponse.getId(), deletedAssistant.getId());\r\n        assertTrue(deletedAssistant.isDeleted());\r\n    }\r\n\r\n    @Test\r\n    void listAssistants() {\r\n        OpenAiResponse<Assistant> assistants = service.listAssistants(ListSearchParameters.builder().build());\r\n        assistants.data.forEach(System.out::println);\r\n    }\r\n\r\n    @Test\r\n    void createAssistantFile() {\r\n        File uploadedFile = uploadAssistantFile();\r\n\r\n        Assistant assistant = createAndValidateAssistant();\r\n\r\n        AssistantFile assistantFile = service.createAssistantFile(assistant.getId(), new AssistantFileRequest(uploadedFile.getId()));\r\n\r\n        assertNotNull(assistantFile);\r\n        assertEquals(uploadedFile.getId(), assistantFile.getId());\r\n        assertEquals(assistant.getId(), assistantFile.getAssistantId());\r\n    }\r\n\r\n    @Test\r\n    void retrieveAssistantFile() {\r\n        //TODO\r\n        //There is a bug with uploading assistant files https://community.openai.com/t/possible-bug-with-agent-creation-php-file-upload/484490/5\r\n        //So this would have to be done later\r\n    }\r\n\r\n    @Test\r\n    void deleteAssistantFile() {\r\n        //TODO\r\n        //There is a bug with uploading assistant files https://community.openai.com/t/possible-bug-with-agent-creation-php-file-upload/484490/5\r\n        //So this would have to be done later\r\n    }\r\n\r\n    @Test\r\n    void listAssistantFiles() {\r\n        //TODO\r\n        //There is a bug with uploading assistant files https://community.openai.com/t/possible-bug-with-agent-creation-php-file-upload/484490/5\r\n        //So this would have to be done later\r\n    }\r\n\r\n    @AfterAll\r\n    static void clean() {\r\n        //Clean up all data created during this test\r\n        ListSearchParameters queryFilter = ListSearchParameters.builder()\r\n                .limit(100)\r\n                .build();\r\n\r\n    }\r\n\r\n    private  File uploadAssistantFile() {\r\n        String filePath = \"src/test/resources/Personal Trainer_3rd Edition_Text.pdf\";\r\n        return service.uploadFile(\"assistants\", filePath);\r\n    }\r\n\r\n    private  Assistant createAndValidateAssistant() {\r\n        AssistantRequest assistantRequest = assistantStub();\r\n        Assistant createAssistantResponse = service.createAssistant(assistantRequest);\r\n        validateAssistantResponse(createAssistantResponse);\r\n\r\n        return createAssistantResponse;\r\n    }\r\n\r\n    private static AssistantRequest assistantStub() {\r\n        return AssistantRequest.builder()\r\n                .model(\"gpt-3.5-turbo\")\r\n                .name(MATH_TUTOR)\r\n                .instructions(ASSISTANT_INSTRUCTION)\r\n                .tools(Collections.singletonList(new Tool(AssistantToolsEnum.CODE_INTERPRETER, null)))\r\n                .build();\r\n    }\r\n\r\n    private static void validateAssistantResponse(Assistant assistantResponse) {\r\n        assertNotNull(assistantResponse);\r\n        assertNotNull(assistantResponse.getId());\r\n        assertNotNull(assistantResponse.getCreatedAt());\r\n        assertNotNull(assistantResponse.getObject());\r\n        assertEquals(assistantResponse.getTools().get(0).getType(),  AssistantToolsEnum.CODE_INTERPRETER);\r\n        assertEquals(MATH_TUTOR, assistantResponse.getName());\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/trainer-ai/src/test/java/com/trainer/AssistantTest.java b/trainer-ai/src/test/java/com/trainer/AssistantTest.java
+--- a/trainer-ai/src/test/java/com/trainer/AssistantTest.java	(revision 74e75acd68fffc3d85c48e0402fb85efa06d8a4c)
++++ b/trainer-ai/src/test/java/com/trainer/AssistantTest.java	(date 1703492575977)
+@@ -21,14 +21,16 @@
+     public static final String MATH_TUTOR = "Math Tutor";
+     public static final String ASSISTANT_INSTRUCTION = "You are a personal Math Tutor.";
+ 
+-    static String token = System.getenv("OPENAI_TOKEN");;
+     @Autowired
+     private OpenAiService service;
+ 
+     @Test
+     void retrieveAssistant() {
+-        Assistant retrieveAssistantResponse = service.retrieveAssistant("asst_PzeRxIxcPcJ2oxRuTZK6VB99");
+-        System.out.println(retrieveAssistantResponse.getName());
++        service.listAssistants(ListSearchParameters.builder().build()).data.forEach(assistant -> {
++            System.out.println(assistant.getId());
++            System.out.println(assistant.getName());
++            System.out.println(assistant.getCreatedAt());
++        });
+     }
+ 
+     @Test
+Index: trainer-ai/src/main/resources/application.properties
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>ISO-8859-1
+===================================================================
+diff --git a/trainer-ai/src/main/resources/application.properties b/trainer-ai/src/main/resources/application.properties
+new file mode 100644
+--- /dev/null	(date 1703492255581)
++++ b/trainer-ai/src/main/resources/application.properties	(date 1703492255581)
+@@ -0,0 +1,3 @@
++openai.api.timeout=10
++openai.api.key=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
++openai.api.url=https://api.openai.com/
+\ No newline at end of file
+Index: fitlife-app/app/main/java/com/fitlife/app/Controller/TrainerController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/fitlife-app/app/main/java/com/fitlife/app/Controller/TrainerController.java b/fitlife-app/app/main/java/com/fitlife/app/Controller/Trainer/TrainerController.java
+rename from fitlife-app/app/main/java/com/fitlife/app/Controller/TrainerController.java
+rename to fitlife-app/app/main/java/com/fitlife/app/Controller/Trainer/TrainerController.java
+--- a/fitlife-app/app/main/java/com/fitlife/app/Controller/TrainerController.java	(revision 74e75acd68fffc3d85c48e0402fb85efa06d8a4c)
++++ b/fitlife-app/app/main/java/com/fitlife/app/Controller/Trainer/TrainerController.java	(date 1703510399092)
+@@ -1,22 +1,36 @@
+-package com.fitlife.app.Controller;
++package com.fitlife.app.Controller.Trainer;
+ 
++import com.fitlife.app.DTO.Response.ResponseObject;
++import com.fitlife.app.Model.Trainer.Trainer;
+ import com.fitlife.app.Service.Trainer.TrainerService;
++import lombok.AllArgsConstructor;
++import okhttp3.Response;
++import org.springframework.http.ResponseEntity;
+ import org.springframework.web.bind.annotation.PostMapping;
+ import org.springframework.web.bind.annotation.RequestBody;
+ import org.springframework.web.bind.annotation.RequestMapping;
+ import org.springframework.web.bind.annotation.RestController;
++import retrofit2.http.Path;
+ 
+ @RestController
++@AllArgsConstructor
+ @RequestMapping("/trainer")
+ public class TrainerController {
+-     private final TrainerService trainerService;
++    private final TrainerService trainerService;
+ 
+-     public TrainerController(TrainerService trainerService) {
+-         this.trainerService = trainerService;
+-     }
++    @PostMapping("/add")
++    public ResponseEntity<Trainer> addTrainer(@RequestBody Trainer trainer) {
++        return ResponseEntity.ok(trainerService.createTrainer(trainer));
++    }
+ 
+-     @PostMapping("/chat")
+-     public String chat(@RequestBody String  message){
+-         return trainerService.chat(message);
+-     }
++    @PostMapping("/delete/{id}")
++    public ResponseEntity<?> deleteTrainer(@Path("id") String id) {
++
++        return ResponseEntity.ok(new ResponseObject(
++
++                trainerService.deleteTrainer(id) ? "Trainer deleted successfully" : "Trainer not found"
++        ));
++    }
++
++
+ }
+Index: fitlife-app/app/main/java/com/fitlife/app/Model/Exercise/Exercise.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.fitlife.app.Model.Exercise;\r\n\r\nimport java.util.List;\r\n\r\nimport com.fitlife.app.DTO.DataClass.InstructionsDeserialize;\r\nimport com.fitlife.app.DTO.Views.ExerciseViews;\r\nimport com.fitlife.app.DTO.Views.SessionViews;\r\nimport com.fitlife.app.DTO.Views.UserViews;\r\nimport com.fitlife.app.Model.Session.Session;\r\nimport com.fitlife.app.Model.User.UserProfile;\r\nimport com.fasterxml.jackson.annotation.*;\r\nimport com.fasterxml.jackson.databind.annotation.JsonDeserialize;\r\nimport jakarta.persistence.*;\r\nimport lombok.*;\r\n\r\n@Entity\r\n@Getter\r\n@Setter\r\n@NoArgsConstructor\r\n@AllArgsConstructor\r\n@JsonIgnoreType\r\n@JsonIgnoreProperties(value = {\"secondaryMuscles\"})\r\npublic class Exercise {\r\n\t@Id\r\n\t@GeneratedValue(strategy = GenerationType.IDENTITY) // This indicates auto-generation of IDs\r\n\t@JsonView(value = {ExerciseViews.Summary.class, SessionViews.Summary.class, UserViews.Summary.class,})\r\n\tprivate Long id;\r\n\r\n\t@JsonView(value = {ExerciseViews.Summary.class, SessionViews.Summary.class, UserViews.Summary.class,})\r\n\tprivate String name;\r\n\r\n\t@JsonView(value = {ExerciseViews.Summary.class, SessionViews.Summary.class, UserViews.Summary.class,})\r\n\tprivate String description;\r\n\r\n\t@JsonView(value = {ExerciseViews.Summary.class, SessionViews.Summary.class, UserViews.Summary.class,})\r\n\tprivate String exerciseCategory;\r\n\r\n\t@JsonView(value = {ExerciseViews.Detail.class})\r\n\tprivate double caloriesPerMinute;\r\n\r\n\t@JsonView(value = {ExerciseViews.Detail.class})\r\n\tprivate int sets;\r\n\r\n\t@JsonView(value = {ExerciseViews.Detail.class})\r\n\tprivate int reps;\r\n\t//\r\n\t@JsonView(value = {ExerciseViews.Summary.class})\r\n\t@JsonProperty(\"target\")\r\n\tprivate String target;\r\n\r\n\t@JsonView(value = {ExerciseViews.Summary.class, UserViews.Summary.class,})\r\n\t@JsonProperty(\"gifUrl\")\r\n\tprivate String gifUrl;\r\n\r\n\t@JsonView(value = {ExerciseViews.Detail.class})\r\n\t@JsonProperty(\"equipment\")\r\n\tprivate String equipment;\r\n\r\n\t@JsonView(value = {ExerciseViews.Summary.class})\r\n\t@JsonProperty(\"bodyPart\")\r\n\tprivate String bodyPart;\r\n\r\n\t@JsonView(value = {ExerciseViews.Detail.class})\r\n\t@JsonProperty(\"instructions\")\r\n\t@JsonDeserialize(using = InstructionsDeserialize.class)\r\n\t@OneToMany(mappedBy = \"exercise\",orphanRemoval = true)\r\n\tprivate List<Steps> steps;\r\n\r\n\t@ManyToMany(\r\n\t\tfetch = FetchType.LAZY,\r\n\t\tcascade = {CascadeType.PERSIST,CascadeType.MERGE}\r\n\t)\r\n\t@JoinTable(\r\n\t\tname = \"exercise_favorite\",\r\n\t\tjoinColumns = @JoinColumn(name = \"exercise_id\",referencedColumnName = \"id\"),\r\n\t\tinverseJoinColumns = @JoinColumn(name = \"user_profile_id\",referencedColumnName = \"id\")\r\n\t)\r\n\tprivate List<UserProfile> favoriteUser;\r\n\r\n\t@JsonView(ExerciseViews.Hide.class)\r\n\t@ManyToMany(\r\n\t\tfetch = FetchType.LAZY,\r\n\t\tcascade = {CascadeType.PERSIST,CascadeType.MERGE}\r\n\t)\r\n\t@JoinTable(\r\n\t\tname = \"exercise_session\",\r\n\t\tjoinColumns = @JoinColumn(name = \"exercise_id\",referencedColumnName = \"id\"),\r\n\t\tinverseJoinColumns = @JoinColumn(name = \"session_id\",referencedColumnName = \"id\")\r\n\t)\r\n\tprivate List<Session> sessions;\r\n\r\n\t@JsonView(ExerciseViews.Hide.class)\r\n\t@OneToMany(\r\n\t\t\tfetch = FetchType.LAZY,\r\n\t\t\tmappedBy = \"exercise\",\r\n\t\t\tcascade = {CascadeType.PERSIST,CascadeType.MERGE}\r\n\t)\r\n\tprivate List<CustomExercise> customExercises;\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/fitlife-app/app/main/java/com/fitlife/app/Model/Exercise/Exercise.java b/fitlife-app/app/main/java/com/fitlife/app/Model/Exercise/Exercise.java
+--- a/fitlife-app/app/main/java/com/fitlife/app/Model/Exercise/Exercise.java	(revision 74e75acd68fffc3d85c48e0402fb85efa06d8a4c)
++++ b/fitlife-app/app/main/java/com/fitlife/app/Model/Exercise/Exercise.java	(date 1703495935521)
+@@ -88,7 +88,6 @@
+ 		inverseJoinColumns = @JoinColumn(name = "session_id",referencedColumnName = "id")
+ 	)
+ 	private List<Session> sessions;
+-
+ 	@JsonView(ExerciseViews.Hide.class)
+ 	@OneToMany(
+ 			fetch = FetchType.LAZY,
+Index: fitlife-app/app/main/java/com/fitlife/app/Model/Trainer/Trainer.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/fitlife-app/app/main/java/com/fitlife/app/Model/Trainer/Trainer.java b/fitlife-app/app/main/java/com/fitlife/app/Model/Trainer/Trainer.java
+new file mode 100644
+--- /dev/null	(date 1703499625200)
++++ b/fitlife-app/app/main/java/com/fitlife/app/Model/Trainer/Trainer.java	(date 1703499625200)
+@@ -0,0 +1,27 @@
++package com.fitlife.app.Model.Trainer;
++
++import java.util.List;
++
++import jakarta.persistence.CascadeType;
++import jakarta.persistence.Entity;
++import jakarta.persistence.Id;
++import jakarta.persistence.OneToMany;
++import lombok.AllArgsConstructor;
++import lombok.NoArgsConstructor;
++
++@AllArgsConstructor
++@NoArgsConstructor
++@Entity
++public class Trainer {
++    @Id
++    public String id;
++    public String name;
++    public String model;
++    public String userId;
++    @OneToMany(
++        mappedBy = "trainer",
++        orphanRemoval = true,
++        cascade = CascadeType.ALL
++    )
++    public List<ChatThread> threads;
++}
+Index: fitlife-app/app/main/resources/application.yml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>spring:\r\n  datasource:\r\n#    url: jdbc:postgresql://rain.db.elephantsql.com:5432/chghxyzz\r\n#    username: chghxyzz\r\n#    password: 4U24j4wIDU0KI2WLIps7SiIUC-jDBSCl\r\n    url: jdbc:postgresql://localhost:5432/fitlife\r\n    username: postgres\r\n    password: 20112002\r\n\r\n#spring:\r\n#  jpa:\r\n#    show-sql: true\r\n\r\n# online postgres\r\n#spring:\r\n#  datasource:\r\n#    url: jdbc:postgresql://john.db.elephantsql.com:5432/bcslnnov\r\n#    username: bcslnnov\r\n#    password: ZSYlCcUbdDwLwNa3E-j_nUBhUc9bkWTf\r\n\r\n# local Postgres\r\n  main:\r\n    allow-bean-definition-overriding: true\r\n\r\n  jpa:\r\n    properties:\r\n      hibernate:\r\n        jdbc:\r\n          lob:\r\n            non_contextual_creation: true\r\n        dialect: org.hibernate.dialect.PostgreSQLDialect\r\n    generate-ddl: true\r\n    hibernate:\r\n      ddl-auto: create-drop\r\n\r\n\r\n  #allow table's name like tblProduct\r\n\r\n#spring.jpa.hibernate.naming.physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl\r\n\r\n#spring.jpa.hibernate.naming.physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl\r\n  properties:\r\n    hibernate:\r\n      format_sql: true\r\n\r\n  servlet:\r\n    multipart:\r\n      enabled: true\r\nlogging:\r\n  level:\r\n    org:\r\n      springframework:\r\n        security: trace\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/fitlife-app/app/main/resources/application.yml b/fitlife-app/app/main/resources/application.yml
+--- a/fitlife-app/app/main/resources/application.yml	(revision 74e75acd68fffc3d85c48e0402fb85efa06d8a4c)
++++ b/fitlife-app/app/main/resources/application.yml	(date 1703490338802)
+@@ -3,9 +3,9 @@
+ #    url: jdbc:postgresql://rain.db.elephantsql.com:5432/chghxyzz
+ #    username: chghxyzz
+ #    password: 4U24j4wIDU0KI2WLIps7SiIUC-jDBSCl
+-    url: jdbc:postgresql://localhost:5432/fitlife
++    url: jdbc:postgresql://localhost:5432/DataSA
+     username: postgres
+-    password: 20112002
++    password: root
+ 
+ #spring:
+ #  jpa:
+Index: fitlife-app/app/main/java/com/fitlife/app/Repository/Trainer/TrainerRepository.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/fitlife-app/app/main/java/com/fitlife/app/Repository/Trainer/TrainerRepository.java b/fitlife-app/app/main/java/com/fitlife/app/Repository/Trainer/TrainerRepository.java
+new file mode 100644
+--- /dev/null	(date 1703496931507)
++++ b/fitlife-app/app/main/java/com/fitlife/app/Repository/Trainer/TrainerRepository.java	(date 1703496931507)
+@@ -0,0 +1,13 @@
++package com.fitlife.app.Repository.Trainer;
++
++import com.fitlife.app.Model.Trainer.Trainer;
++import com.fitlife.app.Repository.Generic.GenericRepository;
++import org.springframework.data.jpa.repository.JpaRepository;
++import org.springframework.data.jpa.repository.Query;
++
++import java.util.List;
++
++public interface TrainerRepository extends JpaRepository<Trainer, String> {
++    @Query("SELECT t FROM Trainer t WHERE t.name LIKE %?1% OR t.id LIKE %?1%")
++    List<Trainer> findAllByNameContainsOrIdContains(String id, String name);
++}

@@ -21,14 +21,16 @@ public class AssistantTest {
     public static final String MATH_TUTOR = "Math Tutor";
     public static final String ASSISTANT_INSTRUCTION = "You are a personal Math Tutor.";
 
-    static String token = System.getenv("OPENAI_TOKEN");;
     @Autowired
     private OpenAiService service;
 
     @Test
     void retrieveAssistant() {
-        Assistant retrieveAssistantResponse = service.retrieveAssistant("asst_PzeRxIxcPcJ2oxRuTZK6VB99");
-        System.out.println(retrieveAssistantResponse.getName());
+        service.listAssistants(ListSearchParameters.builder().build()).data.forEach(assistant -> {
+            System.out.println(assistant.getId());
+            System.out.println(assistant.getName());
+            System.out.println(assistant.getCreatedAt());
+        });
     }
 
     @Test

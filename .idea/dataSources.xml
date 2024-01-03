@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="DataSA@localhost" uuid="0a877526-ce96-407e-8f36-0ff93e907e68">
+    <data-source source="LOCAL" name="DataSA@localhost" uuid="3c71354e-0540-49ac-ae0c-ca5c307fa0c7">
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
-      <imported>true</imported>
-      <remarks>$PROJECT_DIR$/fitlife-app/app/main/resources/application.yml</remarks>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
       <jdbc-url>jdbc:postgresql://localhost:5432/DataSA</jdbc-url>
       <jdbc-additional-properties>

@@ -3,9 +3,9 @@ spring:
 #    url: jdbc:postgresql://rain.db.elephantsql.com:5432/chghxyzz
 #    username: chghxyzz
 #    password: 4U24j4wIDU0KI2WLIps7SiIUC-jDBSCl
-    url: jdbc:postgresql://localhost:5432/fitlife
+    url: jdbc:postgresql://localhost:5432/DataSA
     username: postgres
-    password: 20112002
+    password: root
 
 #spring:
 #  jpa:
