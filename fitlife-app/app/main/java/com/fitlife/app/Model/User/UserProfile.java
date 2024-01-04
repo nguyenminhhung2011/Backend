@@ -22,8 +22,6 @@ import lombok.*;
 @NoArgsConstructor
 @Builder
 public class UserProfile {
-
-	@JsonView(value = {UserViews.Detail.class})
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;

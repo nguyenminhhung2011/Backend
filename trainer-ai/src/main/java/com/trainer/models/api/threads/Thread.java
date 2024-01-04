@@ -15,7 +15,7 @@ import java.util.Map;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class    Thread {
+public class Thread {
     /**
      * The identifier, which can be referenced in API endpoints.
      */

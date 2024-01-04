@@ -5,6 +5,9 @@ import com.trainer.models.api.completion.CompletionRequest;
 import com.trainer.models.api.completion.CompletionResult;
 import com.trainer.models.api.completion.chat.ChatCompletionRequest;
 import com.trainer.models.api.completion.chat.ChatCompletionResult;
+import com.trainer.models.api.embedding.Embedding;
+import com.trainer.models.api.embedding.EmbeddingRequest;
+import com.trainer.models.api.embedding.EmbeddingResult;
 import com.trainer.models.api.file.File;
 import com.trainer.models.api.message.Message;
 import com.trainer.models.api.message.MessageRequest;
@@ -68,6 +71,9 @@ public interface OpenAiApi {
     @POST("/v1/chat/completions")
     Call<ResponseBody> createChatCompletionStream(@Body ChatCompletionRequest request);
 
+    //    Embedding
+    @POST("/v1/embeddings")
+    Single<EmbeddingResult> createEmbeddings(@Body EmbeddingRequest request);
 
     /*
     Thread

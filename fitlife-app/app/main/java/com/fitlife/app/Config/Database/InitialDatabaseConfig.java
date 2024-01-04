@@ -1,4 +1,4 @@
-package com.fitlife.app.Config;
+package com.fitlife.app.Config.Database;
 
 import com.fitlife.app.Model.Exercise.*;
 import com.fitlife.app.Model.NewsHealth.NewsHealth;

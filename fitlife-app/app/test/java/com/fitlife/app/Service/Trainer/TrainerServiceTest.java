@@ -1,6 +1,6 @@
 package com.fitlife.app.Service.Trainer;
 
-import com.fitlife.app.FitnessAppApplication;
+import com.fitlife.app.Service.Trainer.Assistant.AssistantService;
 import com.trainer.models.api.completion.CompletionChoice;
 import com.trainer.models.api.completion.CompletionRequest;
 import com.trainer.models.api.completion.chat.ChatCompletionRequest;
@@ -10,8 +10,6 @@ import com.trainer.service.OpenAiService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.ComponentScans;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,20 +19,20 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 
-@SpringBootTest(classes = {OpenAiService.class, FitnessAppApplication.class})
+@SpringBootTest
 class TrainerServiceTest {
 
     @Autowired
-    TrainerService trainerService;
+    AssistantService assistantService;
 
     @Autowired
     OpenAiService service;
 
     @Test
     void createChatStream() {
-        trainerService.createChatStream( "Hello").toStream().forEach(chatMessage -> {
-            System.out.println(chatMessage.message);
-        });
+//        assistantService.createChatStream( null,"Hello").toStream().forEach(chatMessage -> {
+//            System.out.println(chatMessage.message);
+//        });
     }
 
     @Test

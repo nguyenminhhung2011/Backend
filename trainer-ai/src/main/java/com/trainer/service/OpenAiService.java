@@ -9,6 +9,8 @@ import com.trainer.models.api.completion.CompletionRequest;
 import com.trainer.models.api.completion.CompletionResult;
 import com.trainer.models.api.completion.chat.ChatCompletionRequest;
 import com.trainer.models.api.completion.chat.ChatCompletionResult;
+import com.trainer.models.api.embedding.EmbeddingRequest;
+import com.trainer.models.api.embedding.EmbeddingResult;
 import com.trainer.models.api.file.File;
 import com.trainer.models.api.threads.Thread;
 import com.trainer.models.api.threads.ThreadRequest;
@@ -68,6 +70,12 @@ public class OpenAiService extends OpenAiBaseService {
 
         return execute(api.uploadFile(purposeBody, body));
     }
+
+    //Embedding
+    public EmbeddingResult createEmbeddings(EmbeddingRequest request) {
+        return execute(api.createEmbeddings(request));
+    }
+
 
 
     public Assistant retrieveAssistant(String assistantId) {

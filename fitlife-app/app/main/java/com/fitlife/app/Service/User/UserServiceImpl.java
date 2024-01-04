@@ -249,6 +249,7 @@ public class UserServiceImpl extends GenericService<User,Long,UserRepository> im
 				request.getUsername(),
 				passwordEncoder.encode(request.getPassword()) ,
 				null,
+				null,
 				null
 		);
 		final User savedUser = repository.save(newUser);

@@ -2,10 +2,13 @@ package com.fitlife.app.Model.User;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.List;
 
 import com.fitlife.app.DTO.Views.UserViews;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import com.fitlife.app.Model.Trainer.Chat;
+import com.fitlife.app.Model.Trainer.ChatThread;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
@@ -56,5 +59,7 @@ public class User implements Serializable {
 	@OneToOne(mappedBy = "user",cascade = CascadeType.ALL,orphanRemoval = true)
 	private UserProfile userProfile;
 
+	@OneToMany(mappedBy = "user",cascade = CascadeType.ALL,orphanRemoval = true)
+	private List<ChatThread> chatThreads;
 }
 
