@@ -72,10 +72,5 @@ public class CompletionTest {
                 .stream(true)
                 .build();
 
-        service.streamChatCompletion(chatCompletionRequest).blockingForEach(chatCompletionChunk -> {
-            chatCompletionChunk.getChoices().forEach(chatCompletionChoice -> {
-                System.out.println(chatCompletionChoice.getMessage().getContent());
-            });
-        });
     }
 }

@@ -9,8 +9,8 @@ import org.springframework.context.annotation.PropertySource;
 
 @Configuration
 @PropertySource("classpath:application.properties")
-public class TrainerMapperConfig {
-    @Bean(name = "TrainerMapperConfig")
+class TrainerMapperConfig {
+    @Bean("TrainerMapperConfigTrainer")
     public ObjectMapper objectMapper() {
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);

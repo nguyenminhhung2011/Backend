@@ -52,7 +52,7 @@ public class InitialDatabaseConfig {
         this.objectMapper = objectMapper;
     }
 
-    @PostConstruct
+//    @PostConstruct
     void initializeDatabase(){
         TypeReference<List<Exercise>> typeReference = new TypeReference<>() {};
         InputStream inputStream = TypeReference.class.getResourceAsStream(exercise);

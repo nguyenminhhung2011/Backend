@@ -10,12 +10,16 @@ import com.fitlife.app.Repository.Trainer.TrainerRepository;
 import com.trainer.models.api.completion.CompletionChoice;
 import com.trainer.models.api.completion.CompletionRequest;
 import com.trainer.models.api.completion.CompletionResult;
+import com.trainer.models.api.completion.chat.*;
 import com.trainer.models.api.threads.Thread;
 import com.trainer.models.api.threads.ThreadRequest;
 import com.trainer.service.OpenAiService;
+import io.reactivex.Flowable;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Flux;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -51,7 +55,6 @@ public class TrainerService {
     public List<Trainer> searchTrainer(SearchTrainerRequest parameters) {
         return trainerRepository.findAllByNameContainsOrIdContains(parameters.getId(), parameters.getName());
     }
-
 
 
     public List<ChatThread> getChatThreads(String trainerId) {
@@ -104,32 +107,63 @@ public class TrainerService {
 //        return chatRepository.save(chat);
 //    }
 
-    public Chat createChat(String threadId,String message) {
-        ChatThread thread = getChatThread(threadId);
+    public Chat createChat(String threadId, String message) {
+//        ChatThread thread = getChatThread(threadId);
         Chat chat = new Chat();
-        chat.setThread(thread);
+//        chat.setThread(thread);
 
-        CompletionRequest completionRequest = CompletionRequest.builder()
-                .model(thread.trainer.model)
-                .prompt(message)
-                .echo(true)
-                .n(1)
-                .maxTokens(25)
+        final List<ChatMessage> messages = new ArrayList<>();
+        final ChatMessage systemMessage = new ChatMessage(ChatMessageRole.SYSTEM.value(), "Hello","sdf");
+        messages.add(systemMessage);
+
+        ChatCompletionRequest chatCompletionRequest = ChatCompletionRequest
+                .builder()
+                .model("gpt-3.5-turbo")
+                .messages(messages)
                 .logitBias(new HashMap<>())
-                .logprobs(5)
                 .stream(true)
                 .build();
 
-        CompletionResult completionResult = openAiService.createCompletion(completionRequest);
+        ChatCompletionResult completionResult = openAiService.createChatCompletion(chatCompletionRequest);
         StringBuilder sb = new StringBuilder();
-        for (CompletionChoice choice : completionResult.getChoices()) {
-            sb.append(choice);
+        for (ChatCompletionChoice choice : completionResult.getChoices()) {
+            sb.append(choice.getMessage().getContent());
         }
 
         chat.setMessage(sb.toString());
         chat.setMessageId(completionResult.getId());
 
         return chat;
+    }
+
+
+    public Flux<Chat> createChatStream(String message) {
+//        ChatThread thread = getChatThread(threadId);
+//        chat.setThread(thread);
+
+        ChatCompletionRequest completionRequest = ChatCompletionRequest.builder()
+                .model("gpt-3.5-turbo")
+                .messages(List.of(new ChatMessage(
+                        ChatMessageRole.SYSTEM.value(),
+                        message
+                )))
+                .maxTokens(25)
+                .logitBias(new HashMap<>())
+                .stream(true)
+                .build();
+
+        Flowable<ChatCompletionChunk> completionResult = openAiService.streamChatCompletion(completionRequest);
+
+        return Flux.from(completionResult).map(chunk -> {
+            StringBuilder sb = new StringBuilder();
+            for (ChatCompletionChoice choice : chunk.getChoices()) {
+                sb.append(choice.getMessage().getContent());
+            }
+            Chat chat = new Chat();
+            chat.setMessage(sb.toString());
+            chat.setMessageId(chunk.getId());
+            return chat;
+        });
     }
 
 

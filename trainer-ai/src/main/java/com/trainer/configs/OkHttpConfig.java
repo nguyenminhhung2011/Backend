@@ -15,12 +15,12 @@ import java.util.concurrent.TimeUnit;
 
 @Configuration
 @PropertySource("classpath:application.properties")
-public class OkHttpConfig {
+class OkHttpConfig {
     @Value(value = "${openai.api.key}")
     private  String token;
     @Value(value = "${openai.api.timeout:10000}")
     private String timeout;
-    @Bean
+    @Bean(name = "OkHttpConfigTrainer")
     public OkHttpClient createOkHttpClient() {
         return  new OkHttpClient.Builder()
                 .addInterceptor(new AuthenticationInterceptor(token))

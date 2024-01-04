@@ -27,7 +27,8 @@ import java.util.Map;
 @Service
 @ComponentScan(basePackages = {"com.trainer"})
 public class OpenAiService extends OpenAiBaseService {
-    //Chat Completion && Completion
+    //
+    // Chat Completion && Completion
     public CompletionResult createCompletion(CompletionRequest request) {
         return execute(api.createCompletion(request));
     }
@@ -108,7 +109,6 @@ public class OpenAiService extends OpenAiBaseService {
     /*
         Thread
      */
-
     public Thread createThread(ThreadRequest request) {
         return execute(api.createThread(request));
     }

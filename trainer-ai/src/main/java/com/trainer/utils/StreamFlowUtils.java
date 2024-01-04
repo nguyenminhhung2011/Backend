@@ -13,8 +13,9 @@ import org.springframework.stereotype.Component;
 import retrofit2.Call;
 
 @Component
+@Qualifier(value = "StreamFlowUtilsTrainer")
 public class StreamFlowUtils {
-    @Qualifier(value = "TrainerMapperConfig")
+    @Qualifier(value = "TrainerMapperConfigTrainer")
     private final ObjectMapper mapper;
 
     public StreamFlowUtils(ObjectMapper mapper) {
