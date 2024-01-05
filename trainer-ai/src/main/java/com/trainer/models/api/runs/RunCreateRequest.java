@@ -1,10 +1,10 @@
 package com.trainer.models.api.runs;
 
-import com.theokanning.openai.assistants.Tool;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.apache.catalina.startup.Tool;
 
 import java.util.List;
 import java.util.Map;
@@ -22,6 +22,6 @@ public class RunCreateRequest {
     String instructions;
     
     List<Tool> tools;
-    
+
     Map<String, String> metadata;
 }

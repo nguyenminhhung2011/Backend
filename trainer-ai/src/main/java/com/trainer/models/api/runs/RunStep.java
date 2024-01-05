@@ -1,7 +1,7 @@
 package com.trainer.models.api.runs;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.theokanning.openai.common.LastError;
+import com.trainer.models.common.LastError;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
