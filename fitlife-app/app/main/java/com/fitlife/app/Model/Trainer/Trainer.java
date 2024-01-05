@@ -19,10 +19,10 @@ public class Trainer {
     public String name;
     public String model;
     public String userId;
-    @OneToMany(
-        mappedBy = "trainer",
-        orphanRemoval = true,
-        cascade = CascadeType.ALL
-    )
-    public List<ChatThread> threads;
+//    @OneToMany(
+//        mappedBy = "trainer",
+//        orphanRemoval = true,
+//        cascade = CascadeType.ALL
+//    )
+//    public List<ChatThread> threads;
 }

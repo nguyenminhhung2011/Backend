@@ -6,16 +6,14 @@ import com.fitlife.app.Model.User.UserProfile;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.fitlife.app.Model.Workout.WorkoutPlan;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@Data
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Getter
+@Setter
 public class ActivitiesLog {
     @JsonView(value = {ActivitiesLogViews.Summary.class, UserViews.Summary.class})
     @Id

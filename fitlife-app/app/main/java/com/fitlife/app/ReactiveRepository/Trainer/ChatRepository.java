@@ -10,6 +10,6 @@ import java.util.UUID;
 
 @Repository
 public interface ChatRepository extends R2dbcRepository<Chat, String> {
-    @Query("select c from Chat c where c.thread.id = ?1")
-    Flux<Chat> findAllByThread(String threadId);
+    @Query("select c from Chat c where c.threadId = ?1")
+    Flux<Chat> findAllByThreadId(String threadId);
 }

@@ -4,7 +4,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.hibernate.jpa.HibernatePersistenceProvider;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.EnvironmentAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -28,11 +27,11 @@ import java.util.Properties;
 @EnableTransactionManagement
 @Slf4j
 public class JpaConfig  implements EnvironmentAware {
-    private static final String ENV_HIBERNATE_DIALECT = "spring.jpa.properties.hibernate.dialect";
+    private static final String ENV_HIBERNATE_DIALECT = "hibernate.dialect";
     private static final String ENV_HIBERNATE_SHOW_SQL = "hibernate.show_sql";
-    private static final String ENV_HIBERNATE_FORMAT_SQL = "spring.jpa.properties.hibernate.format_sql";
+    private static final String ENV_HIBERNATE_FORMAT_SQL = "hibernate.format_sql";
     private static final String ENV_HIBERNATE_DDL_AUTO = "hibernate.hbm2ddl.auto";
-    private static final String NON_CONTEXTUAL_CREATION = "spring.jpa.properties.hibernate.jdbc.lob.non_contextual_creation";
+    private static final String NON_CONTEXTUAL_CREATION = "hibernate.jdbc.lob.non_contextual_creation";
     private static final String GENERATE_DDL = "spring.jpa.generate-ddl";
 
     private Environment env;

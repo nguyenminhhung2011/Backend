@@ -59,16 +59,4 @@ public class Constants {
 
     public static final String COLLECTION_NOTIFICATION_MESSAGE= "message";
 
-    //Payment
-
-    public static final String PAYMENT_SUCCESS_MESSAGE= "Giao dich thanh cong";
-
-    public static final String PAYMENT_FAILED_MESSAGE= "Giao dich khong thanh cong";
-
-    //Mesage
-    public static final String UPCOMING_APPOINTMENT_MESSAGE= "Sắp đến ca khám của bạn vui lòng chú ý để vào khám đúng giờ.";
-
-    public static final String ON_TIME_APPOINTMENT_MESSAGE= "Đã đến giờ khám vui lòng vào phòng khám.";
-
-    public static final String NEW_APPOINTMENT_MESSAGE= "Bạn có 1 lịch khám mới.";
 }

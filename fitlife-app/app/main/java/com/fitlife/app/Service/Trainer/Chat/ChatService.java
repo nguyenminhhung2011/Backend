@@ -39,7 +39,7 @@ public class ChatService  {
     }
 
     public Flux<Chat> getListMessage(String threadId) {
-        return chatRepository.findAllByThread(threadId);
+        return chatRepository.findAllByThreadId(threadId);
     }
 
 }

@@ -42,7 +42,7 @@ public class AssistantService {
                 .flatMapMany(threadId -> generateCompletionStream(threadId, chatCompletionRequest));
     }
 
-    public Flux<String> generateCompletionStream(String threadId, ChatCompletionRequest chatCompletionRequest) {
+    public Flux<String> generateCompletionStream(UUID threadId, ChatCompletionRequest chatCompletionRequest) {
         return Flux.from(openAiService.streamChatCompletion(chatCompletionRequest))
                 .map(chatCompletionChunk -> chatCompletionChunk.getChoices().get(0).getMessage().getContent())
                 .doOnComplete(() -> chatThreadService.addNewChat(threadId, Chat.builder()
@@ -57,21 +57,22 @@ public class AssistantService {
                 .flatMap(threadId -> generateCompletion(threadId, chatCompletionRequest));
     }
 
-    public Mono<String> generateCompletion(String chatThreadId, ChatCompletionRequest chatCompletionRequest) {
+    public Mono<String> generateCompletion(UUID chatThreadId, ChatCompletionRequest chatCompletionRequest) {
         return Mono
                 .just(openAiService.createChatCompletion(chatCompletionRequest))
-                .map(chatCompletionResult -> chatCompletionResult.getChoices().get(0).getMessage().getContent())
+                .map(chatCompletionResult -> {
+                    String message = chatCompletionResult.getChoices().get(0).getMessage().getContent();
+                    System.out.println(message);
+                    return message;
+                })
                 .publishOn(Schedulers.boundedElastic())
-                .doOnEach(
-                        message -> {
-                            chatThreadService.getChatThread(chatThreadId)
-                                    .map(chatThread -> Chat.builder()
-                                            .thread(chatThread)
-                                            .message(message.get())
-                                            .build())
-                                    .transform(chatService::create)
-                                    .subscribe(chat -> chatThreadService.addNewChat(chatThreadId, chat));
-                        }
+                .doFinally(
+                        message -> chatThreadService.getChatThread(chatThreadId)
+                                .map(chatThread -> Chat.builder()
+                                        .thread(chatThread)
+                                        .build())
+                                .transform(chatService::create)
+                                .subscribe(chat -> chatThreadService.addNewChat(chatThreadId, chat))
                 );
     }
 

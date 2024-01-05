@@ -76,8 +76,6 @@ public class OpenAiService extends OpenAiBaseService {
         return execute(api.createEmbeddings(request));
     }
 
-
-
     public Assistant retrieveAssistant(String assistantId) {
         return execute(api.retrieveAssistant(assistantId));
     }

@@ -1,4 +1,4 @@
-package com.fitlife.app.Filters;
+package com.fitlife.app.Utils.Filters;
 
 import java.io.IOException;
 import java.util.Arrays;

@@ -149,12 +149,6 @@
             <version>13.0</version>
             <scope>compile</scope>
         </dependency>
-        <dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>r2dbc-postgresql</artifactId>
-            <version>1.0.2.RELEASE</version>
-        </dependency>
-
 
         <!--	<dependency>-->
         <!--		<groupId>org.flywaydb</groupId>-->
