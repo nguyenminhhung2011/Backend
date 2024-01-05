@@ -10,6 +10,7 @@ import com.trainer.service.OpenAiService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.r2dbc.repository.config.EnableR2dbcRepositories;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,6 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 
 @SpringBootTest
+@EnableR2dbcRepositories(basePackages = "com.fitlife.app.ReactiveRepository")
 class TrainerServiceTest {
 
     @Autowired
@@ -27,6 +29,7 @@ class TrainerServiceTest {
 
     @Autowired
     OpenAiService service;
+
 
     @Test
     void createChatStream() {

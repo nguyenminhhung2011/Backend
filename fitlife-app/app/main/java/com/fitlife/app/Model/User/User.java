@@ -9,6 +9,7 @@ import com.fitlife.app.DTO.Views.UserViews;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.fitlife.app.Model.Trainer.Chat;
 import com.fitlife.app.Model.Trainer.ChatThread;
+import com.fitlife.app.Model.Trainer.Trainer;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
@@ -58,6 +59,10 @@ public class User implements Serializable {
 	@JsonView(value = {UserViews.Summary.class})
 	@OneToOne(mappedBy = "user",cascade = CascadeType.ALL,orphanRemoval = true)
 	private UserProfile userProfile;
+
+
+	@OneToMany(mappedBy = "user",cascade = CascadeType.ALL,orphanRemoval = true)
+	private List<Trainer> trainers;
 
 	@OneToMany(mappedBy = "user",cascade = CascadeType.ALL,orphanRemoval = true)
 	private List<ChatThread> chatThreads;

@@ -3,26 +3,40 @@ package com.fitlife.app.Model.Trainer;
 import java.util.List;
 import java.util.UUID;
 
+import com.fitlife.app.Model.User.User;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.id.uuid.UuidGenerator;
 
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
 @Entity
+@Table
+@Builder
 public class Trainer {
     @Id
-    @GenericGenerator(name = "system-uuid", type = UuidGenerator.class)
-    public String id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+//    @GenericGenerator(type = UuidGenerator.class, name = "trainer-id")
+    public UUID id;
+
     public String name;
+
     public String model;
-    public String userId;
-//    @OneToMany(
-//        mappedBy = "trainer",
-//        orphanRemoval = true,
-//        cascade = CascadeType.ALL
-//    )
-//    public List<ChatThread> threads;
+
+    @ManyToOne
+    @JoinColumn(
+        name = "user_id",
+        referencedColumnName = "userId"
+    )
+    public User user;
+
+    @OneToMany(
+        mappedBy = "trainer",
+        orphanRemoval = true,
+        cascade = CascadeType.ALL
+    )
+    public List<ChatThread> threads;
 }

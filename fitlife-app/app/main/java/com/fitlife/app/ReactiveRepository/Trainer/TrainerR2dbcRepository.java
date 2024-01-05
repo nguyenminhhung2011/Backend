@@ -6,8 +6,12 @@ import org.springframework.data.r2dbc.repository.R2dbcRepository;
 import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Flux;
 
+import java.util.UUID;
+
 @Repository
-public interface TrainerRepository extends R2dbcRepository<Trainer, String> {
-    @Query("SELECT t FROM Trainer t WHERE t.name LIKE %?1% OR t.id LIKE %?1%")
-    Flux<Trainer> findAllByNameContainsOrIdContains(String id, String name);
+public interface TrainerR2dbcRepository extends R2dbcRepository<Trainer, UUID> {
+    @Query("select t from Trainer t where t.user.id = ?1")
+    Flux<Trainer> findAllByUser(Long id);
+
+
 }

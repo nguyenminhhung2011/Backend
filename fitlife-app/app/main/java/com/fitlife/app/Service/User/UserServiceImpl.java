@@ -250,6 +250,7 @@ public class UserServiceImpl extends GenericService<User,Long,UserRepository> im
 				passwordEncoder.encode(request.getPassword()) ,
 				null,
 				null,
+				null,
 				null
 		);
 		final User savedUser = repository.save(newUser);
