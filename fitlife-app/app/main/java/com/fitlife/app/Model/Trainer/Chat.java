@@ -1,10 +1,7 @@
 package com.fitlife.app.Model.Trainer;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.id.uuid.UuidGenerator;
 
@@ -13,18 +10,24 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@Getter
 @Setter
 @Entity
+@Table
 public class Chat {
     //ID of the message in the FitLife database
     @Id
-    @GenericGenerator(name = "system-uuid", type = UuidGenerator.class)
-    public String id;
-    //ID of the message in the open ai database
-    public String message;
-    public String messageId;
+    @org.springframework.data.annotation.Id
+    @GeneratedValue(strategy = GenerationType.UUID)
+//    @GenericGenerator(type = UuidGenerator.class, name = "chat-id")
+    public UUID id;
 
-    @ManyToOne(optional = false,cascade = CascadeType.ALL)
+    public String message;
+
+//    //ID of the message in the open ai database
+//    public String messageId;
+
+    @ManyToOne
     @JoinColumn(
             name = "thread_id",
             referencedColumnName = "id"

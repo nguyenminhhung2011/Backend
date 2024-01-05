@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Primary;
 public class ObjectMapperConfig {
     @Bean(autowireCandidate = false)
     public ObjectMapper objectMapper(){
-       return new ObjectMapper();
+        ObjectMapper mapper = new ObjectMapper();
+        return mapper;
     }
 }

@@ -2,6 +2,8 @@ package com.fitlife.app.Service.Trainer.Assistant;
 
 import com.fitlife.app.Model.Trainer.Chat;
 import com.fitlife.app.Model.Trainer.ChatThread;
+import com.fitlife.app.Model.Trainer.Trainer;
+import com.fitlife.app.Model.User.User;
 import com.fitlife.app.Service.Trainer.Chat.ChatService;
 import com.fitlife.app.Service.Trainer.Thread.ChatThreadService;
 import com.trainer.models.api.completion.chat.ChatCompletionRequest;
@@ -15,16 +17,16 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Schedulers;
 
-import java.time.Instant;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.atomic.AtomicReference;
 
 @Service
 @AllArgsConstructor
 public class AssistantService {
     private final ChatThreadService chatThreadService;
-    private final ChatService chatService;
     private final OpenAiService openAiService;
 
     public Mono<List<Embedding>> createEmbedding(List<String> text) {
@@ -36,44 +38,55 @@ public class AssistantService {
                 .map(EmbeddingResult::getData);
     }
 
-    public Flux<String> generateCompletionStream(long userId, ChatCompletionRequest chatCompletionRequest) {
-        return chatThreadService.createChatThread("Chat with assistant at " + Instant.now(), userId)
-                .map(ChatThread::getId)
-                .flatMapMany(threadId -> generateCompletionStream(threadId, chatCompletionRequest));
+    public Flux<String> generateCompletionStream(User user, ChatCompletionRequest chatCompletionRequest) {
+        return Mono.fromFuture(CompletableFuture.supplyAsync(() -> chatThreadService.createChatThread(ChatThread.builder().user(user).build())))
+                .flatMapMany(chatThread -> generateCompletionStream(chatThread.getId(), chatCompletionRequest));
     }
 
     public Flux<String> generateCompletionStream(UUID threadId, ChatCompletionRequest chatCompletionRequest) {
+        AtomicReference<String> message = new AtomicReference<>();
         return Flux.from(openAiService.streamChatCompletion(chatCompletionRequest))
                 .map(chatCompletionChunk -> chatCompletionChunk.getChoices().get(0).getMessage().getContent())
-                .doOnComplete(() -> chatThreadService.addNewChat(threadId, Chat.builder()
-                        .message("Chat completed")
-                        .build())
-                );
+                .doOnEach(stringSignal -> {
+                    if (stringSignal.hasValue()) {
+                        message.set(message.get() + stringSignal.get());
+                    }
+                })
+                .publishOn(Schedulers.boundedElastic())
+                .doOnComplete(() -> {
+                    if (Objects.nonNull(message.get())) {
+                        chatThreadService
+                                .getById(threadId)
+                                .subscribe(chatThread ->
+                                        chatThreadService.addNewChat(threadId, Chat.builder()
+                                                .message(message.get())
+                                                .thread(chatThread)
+                                                .build()));
+                    }
+                });
     }
 
-    public Mono<String> generateCompletion(long userId, ChatCompletionRequest chatCompletionRequest) {
-        return chatThreadService.createChatThread("Chat with assistant at " + Instant.now(), userId)
-                .map(ChatThread::getId)
-                .flatMap(threadId -> generateCompletion(threadId, chatCompletionRequest));
+    public Mono<String> generateCompletion(User user, ChatCompletionRequest chatCompletionRequest) {
+        return Mono.fromFuture(CompletableFuture.supplyAsync(() -> chatThreadService.createChatThread(ChatThread.builder()
+                        .trainer(trainer)
+                        .user(user).build())))
+                .flatMap(chatThread -> generateCompletion(chatThread.getId(), chatCompletionRequest))
+                .doOnError(throwable -> System.out.println(throwable.getMessage()));
+
     }
 
     public Mono<String> generateCompletion(UUID chatThreadId, ChatCompletionRequest chatCompletionRequest) {
         return Mono
-                .just(openAiService.createChatCompletion(chatCompletionRequest))
-                .map(chatCompletionResult -> {
-                    String message = chatCompletionResult.getChoices().get(0).getMessage().getContent();
-                    System.out.println(message);
-                    return message;
-                })
+                .fromFuture(CompletableFuture.supplyAsync(() -> openAiService.createChatCompletion(chatCompletionRequest)))
+                .map(chatCompletionResult -> chatCompletionResult.getChoices().get(0).getMessage().getContent())
                 .publishOn(Schedulers.boundedElastic())
-                .doFinally(
-                        message -> chatThreadService.getChatThread(chatThreadId)
-                                .map(chatThread -> Chat.builder()
-                                        .thread(chatThread)
-                                        .build())
-                                .transform(chatService::create)
-                                .subscribe(chat -> chatThreadService.addNewChat(chatThreadId, chat))
+                .doOnSuccess(
+                        message -> chatThreadService.addNewChat(chatThreadId, Chat.builder()
+                                .message(message)
+                                .thread(ChatThread.builder().id(chatThreadId).build())
+                                .build())
                 );
+
     }
 
 

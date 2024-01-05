@@ -60,7 +60,6 @@ public class JpaConfig  implements EnvironmentAware {
         emf.setPackagesToScan("com.fitlife.app.Model");
         emf.setPersistenceProvider(new HibernatePersistenceProvider());
         emf.setJpaProperties(jpaProperties());
-
         JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         emf.setJpaVendorAdapter(vendorAdapter);
 

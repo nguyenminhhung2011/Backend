@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import com.fitlife.app.Model.User.User;
+import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+@Getter
 public class FitLifeUserDetail implements UserDetails {
 
 	private final User user;

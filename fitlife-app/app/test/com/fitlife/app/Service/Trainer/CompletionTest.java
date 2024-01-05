@@ -1,4 +1,4 @@
-package com.trainer;
+package com.fitlife.app.Service.Trainer;
 
 import com.trainer.models.api.completion.CompletionChoice;
 import com.trainer.models.api.completion.CompletionRequest;
@@ -15,8 +15,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
-@SpringBootTest(classes = OpenAiService.class)
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+@SpringBootTest
 public class CompletionTest {
 
     @Autowired

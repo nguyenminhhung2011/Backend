@@ -1,6 +1,7 @@
 package com.trainer.service;
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.trainer.models.*;
 import com.trainer.models.api.assistants.*;
 import com.trainer.models.api.completion.CompletionChunk;
@@ -12,6 +13,7 @@ import com.trainer.models.api.completion.chat.ChatCompletionResult;
 import com.trainer.models.api.embedding.EmbeddingRequest;
 import com.trainer.models.api.embedding.EmbeddingResult;
 import com.trainer.models.api.file.File;
+import com.trainer.models.api.runs.*;
 import com.trainer.models.api.threads.Thread;
 import com.trainer.models.api.threads.ThreadRequest;
 import com.trainer.models.common.DeleteResult;
@@ -24,6 +26,7 @@ import okhttp3.RequestBody;
 import org.springframework.context.annotation.  ComponentScan;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.Map;
 
 @Service
@@ -117,5 +120,54 @@ public class OpenAiService extends OpenAiBaseService {
      */
     public Thread createThread(ThreadRequest request) {
         return execute(api.createThread(request));
+    }
+
+
+
+    /*
+    Assistant Run
+     */
+    public Run createRun(String threadId, RunCreateRequest runCreateRequest) {
+        return execute(api.createRun(threadId, runCreateRequest));
+    }
+
+    public Run retrieveRun(String threadId, String runId) {
+        return execute(api.retrieveRun(threadId, runId));
+    }
+
+    public Run modifyRun(String threadId, String runId, Map<String, String> metadata) {
+        return execute(api.modifyRun(threadId, runId, metadata));
+    }
+
+    public OpenAiResponse<Run> listRuns(String threadId, ListSearchParameters listSearchParameters) {
+        Map<String, String> search = new HashMap<>();
+        if (listSearchParameters != null) {
+            search = this.mapper.convertValue(listSearchParameters, Map.class);
+        }
+        return execute(api.listRuns(threadId, search));
+    }
+
+    public Run submitToolOutputs(String threadId, String runId, SubmitToolOutputsRequest submitToolOutputsRequest) {
+        return execute(api.submitToolOutputs(threadId, runId, submitToolOutputsRequest));
+    }
+
+    public Run cancelRun(String threadId, String runId) {
+        return execute(api.cancelRun(threadId, runId));
+    }
+
+    public Run createThreadAndRun(CreateThreadAndRunRequest createThreadAndRunRequest) {
+        return execute(api.createThreadAndRun(createThreadAndRunRequest));
+    }
+
+    public RunStep retrieveRunStep(String threadId, String runId, String stepId) {
+        return execute(api.retrieveRunStep(threadId, runId, stepId));
+    }
+
+    public OpenAiResponse<RunStep> listRunSteps(String threadId, String runId, ListSearchParameters listSearchParameters) {
+        Map<String, String> search = new HashMap<>();
+        if (listSearchParameters != null) {
+            search = this.mapper.convertValue(listSearchParameters, Map.class);
+        }
+        return execute(api.listRunSteps(threadId, runId, search));
     }
 }

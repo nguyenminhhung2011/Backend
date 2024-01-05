@@ -14,18 +14,18 @@ import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
 @Configuration
-@PropertySource("classpath:application.properties")
 class OkHttpConfig {
-    @Value(value = "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")
+
+    @Value(value = "${openai.api.token}")
     private  String token;
+
     @Value(value = "${openai.api.timeout:10000}")
     private String timeout;
     @Bean(name = "OkHttpConfigTrainer")
     public OkHttpClient createOkHttpClient() {
-        return  new OkHttpClient.Builder()
+        return new OkHttpClient.Builder()
                 .addInterceptor(new AuthenticationInterceptor(token))
                 .readTimeout(Duration.ofSeconds(Long.parseLong(timeout)).toMillis(), TimeUnit.MILLISECONDS)
                 .build();
     }
-
 }
