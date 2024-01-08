@@ -17,13 +17,11 @@ import org.hibernate.id.uuid.UuidGenerator;
 @Table
 @Builder
 public class Trainer {
+
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-//    @GenericGenerator(type = UuidGenerator.class, name = "trainer-id")
     public UUID id;
-
     public String name;
-
     public String model;
 
     @ManyToOne

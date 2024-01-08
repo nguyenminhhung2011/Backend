@@ -16,7 +16,7 @@ import java.util.concurrent.TimeUnit;
 @Configuration
 class OkHttpConfig {
 
-    @Value(value = "${openai.api.token}")
+    @Value(value = "${openai.api.key}")
     private  String token;
 
     @Value(value = "${openai.api.timeout:10000}")

@@ -15,17 +15,14 @@ import java.util.UUID;
 @Entity
 @Table
 public class Chat {
-    //ID of the message in the FitLife database
     @Id
     @org.springframework.data.annotation.Id
     @GeneratedValue(strategy = GenerationType.UUID)
-//    @GenericGenerator(type = UuidGenerator.class, name = "chat-id")
     public UUID id;
 
     public String message;
 
-//    //ID of the message in the open ai database
-//    public String messageId;
+    public String role;
 
     @ManyToOne
     @JoinColumn(

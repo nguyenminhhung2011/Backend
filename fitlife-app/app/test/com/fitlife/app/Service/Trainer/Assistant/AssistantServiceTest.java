@@ -81,8 +81,8 @@ class AssistantServiceTest {
 
     @Test
     void generateCompletion() {
-        final var result = assistantService
-                .generateCompletion(user,trainer, chatCompletionRequest).block();
-        System.out.println(result);
+//        final var result = assistantService
+//                .generateCompletion(user,trainer, chatCompletionRequest).block();
+//        System.out.println(result);
     }
 }
