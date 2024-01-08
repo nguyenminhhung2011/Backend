@@ -1,6 +1,6 @@
 package com.fitlife.app.utils.mapper;
 
-import com.fitlife.app.dataclass.dto.activitiesLog.ActivitiesLogDTO;
+import com.fitlife.app.dataClass.dto.activitiesLog.ActivitiesLogDTO;
 import com.fitlife.app.model.ActivitiesLog;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;

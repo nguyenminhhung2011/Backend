@@ -1,7 +1,7 @@
 package com.fitlife.app.utils.mapper.trainer;
 
-import com.fitlife.app.dataclass.request.trainer.TrainerDto;
-import com.fitlife.app.model.Trainer.Trainer;
+import com.fitlife.app.dataClass.request.trainer.TrainerDto;
+import com.fitlife.app.model.trainer.Trainer;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeMap;

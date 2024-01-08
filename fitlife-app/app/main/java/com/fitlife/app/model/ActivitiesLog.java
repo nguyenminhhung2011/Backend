@@ -1,10 +1,10 @@
 package com.fitlife.app.model;
 
-import com.fitlife.app.dataclass.views.ActivitiesLogViews;
-import com.fitlife.app.dataclass.views.UserViews;
-import com.fitlife.app.model.User.UserProfile;
+import com.fitlife.app.dataClass.views.ActivitiesLogViews;
+import com.fitlife.app.dataClass.views.UserViews;
+import com.fitlife.app.model.user.UserProfile;
 import com.fasterxml.jackson.annotation.JsonView;
-import com.fitlife.app.model.Workout.WorkoutPlan;
+import com.fitlife.app.model.workout.WorkoutPlan;
 import jakarta.persistence.*;
 import lombok.*;
 

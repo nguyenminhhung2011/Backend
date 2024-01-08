@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.Objects;
 
 import com.fitlife.app.config.WebSecurityConfig;
-import com.fitlife.app.dataclass.dto.ResponseObject;
+import com.fitlife.app.dataClass.dto.ResponseObject;
 import com.fitlife.app.utils.jwt.JwtTokenUtils;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -19,7 +19,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.fitlife.app.security.Model.UserDetailServiceImp;
+import com.fitlife.app.security.model.UserDetailServiceImp;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import jakarta.servlet.FilterChain;

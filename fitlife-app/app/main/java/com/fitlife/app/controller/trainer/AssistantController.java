@@ -1,16 +1,15 @@
 package com.fitlife.app.controller.trainer;
 
-import com.fitlife.app.dataclass.request.trainer.AssistantChatRequest;
-import com.fitlife.app.dataclass.request.trainer.ChatDto;
-import com.fitlife.app.dataclass.request.trainer.ChatThreadDto;
-import com.fitlife.app.dataclass.request.trainer.CreateChatThreadRequest;
-import com.fitlife.app.dataclass.response.trainer.AssistantChatResponse;
-import com.fitlife.app.dataclass.response.trainer.AssistantChatStreamResponse;
-import com.fitlife.app.security.Model.CurrentUser;
-import com.fitlife.app.security.Model.FitLifeUserDetail;
-import com.fitlife.app.service.Trainer.Assistant.AssistantService;
-import com.fitlife.app.service.Trainer.Chat.ChatService;
-import com.fitlife.app.service.Trainer.Thread.ChatThreadService;
+import com.fitlife.app.dataClass.request.trainer.AssistantChatRequest;
+import com.fitlife.app.dataClass.request.trainer.ChatDto;
+import com.fitlife.app.dataClass.request.trainer.ChatThreadDto;
+import com.fitlife.app.dataClass.request.trainer.CreateChatThreadRequest;
+import com.fitlife.app.dataClass.response.trainer.AssistantChatStreamResponse;
+import com.fitlife.app.security.model.CurrentUser;
+import com.fitlife.app.security.model.FitLifeUserDetail;
+import com.fitlife.app.service.trainer.Assistant.AssistantService;
+import com.fitlife.app.service.trainer.Chat.ChatService;
+import com.fitlife.app.service.trainer.Thread.ChatThreadService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;

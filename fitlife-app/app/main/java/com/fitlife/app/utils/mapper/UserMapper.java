@@ -1,9 +1,9 @@
 package com.fitlife.app.utils.mapper;
 
-import com.fitlife.app.dataclass.dto.user.UserDTO;
-import com.fitlife.app.dataclass.dto.user.UserProfileDTO;
-import com.fitlife.app.model.User.User;
-import com.fitlife.app.model.User.UserProfile;
+import com.fitlife.app.dataClass.dto.user.UserDTO;
+import com.fitlife.app.dataClass.dto.user.UserProfileDTO;
+import com.fitlife.app.model.user.User;
+import com.fitlife.app.model.user.UserProfile;
 import lombok.AllArgsConstructor;
 import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;

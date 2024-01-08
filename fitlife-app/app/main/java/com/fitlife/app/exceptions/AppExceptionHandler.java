@@ -1,7 +1,7 @@
 package com.fitlife.app.exceptions;
 
-import com.fitlife.app.dataclass.dto.ResponseObject;
-import com.fitlife.app.exceptions.AppException.*;
+import com.fitlife.app.dataClass.dto.ResponseObject;
+import com.fitlife.app.exceptions.appException.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

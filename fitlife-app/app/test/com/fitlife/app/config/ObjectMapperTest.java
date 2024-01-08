@@ -1,6 +1,6 @@
 package com.fitlife.app.config;
 
-import com.fitlife.app.model.Exercise.Steps;
+import com.fitlife.app.model.exercise.Steps;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;

@@ -1,12 +1,12 @@
 package com.fitlife.app.controller;
 
-import com.fitlife.app.dataclass.dto.user.UserDTO;
-import com.fitlife.app.dataclass.request.AddActivitiesLogRequest;
-import com.fitlife.app.dataclass.request.ChangePasswordRequest;
-import com.fitlife.app.exceptions.AppException.BadRequestException;
-import com.fitlife.app.security.Model.CurrentUser;
-import com.fitlife.app.security.Model.FitLifeUserDetail;
-import com.fitlife.app.service.User.IUserService;
+import com.fitlife.app.dataClass.dto.user.UserDTO;
+import com.fitlife.app.dataClass.request.AddActivitiesLogRequest;
+import com.fitlife.app.dataClass.request.ChangePasswordRequest;
+import com.fitlife.app.exceptions.appException.BadRequestException;
+import com.fitlife.app.security.model.CurrentUser;
+import com.fitlife.app.security.model.FitLifeUserDetail;
+import com.fitlife.app.service.user.IUserService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatusCode;

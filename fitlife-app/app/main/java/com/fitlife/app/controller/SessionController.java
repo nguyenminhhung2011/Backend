@@ -1,15 +1,15 @@
 package com.fitlife.app.controller;
 
 
-import com.fitlife.app.dataclass.request.session.UpdateSettingSessionRequest;
-import com.fitlife.app.exceptions.AppException.BadRequestException;
-import com.fitlife.app.service.Session.ISessionService;
+import com.fitlife.app.dataClass.request.session.UpdateSettingSessionRequest;
+import com.fitlife.app.exceptions.appException.BadRequestException;
+import com.fitlife.app.service.session.ISessionService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.fitlife.app.dataclass.request.CustomExerciseRequest;
-import com.fitlife.app.dataclass.request.session.SessionRequest;
-import com.fitlife.app.dataclass.response.ResponseObject;
+import com.fitlife.app.dataClass.request.CustomExerciseRequest;
+import com.fitlife.app.dataClass.request.session.SessionRequest;
+import com.fitlife.app.dataClass.response.ResponseObject;
 
 @RestController
 @RequestMapping("/session")

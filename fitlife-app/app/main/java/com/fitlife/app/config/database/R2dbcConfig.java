@@ -10,7 +10,7 @@ import org.springframework.data.r2dbc.repository.config.EnableR2dbcRepositories;
 import org.springframework.r2dbc.core.DatabaseClient;
 
 @Configuration
-@EnableR2dbcRepositories(basePackages = "com.fitlife.app.ReactiveRepository")
+@EnableR2dbcRepositories(basePackages = "com.fitlife.app.repository.r2dbc")
 public class R2dbcConfig {
 
     @Value("${spring.r2dbc.host}")
@@ -29,8 +29,7 @@ public class R2dbcConfig {
     public ConnectionFactory connectionFactory() {
         return new PostgresqlConnectionFactory(
                 PostgresqlConnectionConfiguration.builder()
-                        .host("localhost")
-                        .port(5432)
+                        .host(host)
                         .database(name)
                         .username(username)
                         .password(password)

@@ -1,9 +1,9 @@
 package com.fitlife.app.security;
 
+import com.fitlife.app.repository.jpa.RoleRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import com.fitlife.app.repository.RoleRepository;
 
 @Component
 public class DataInitializer implements CommandLineRunner {

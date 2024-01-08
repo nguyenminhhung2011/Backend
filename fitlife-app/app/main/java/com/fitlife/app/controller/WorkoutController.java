@@ -1,12 +1,12 @@
 package com.fitlife.app.controller;
 
-import com.fitlife.app.dataclass.request.GetChartRequest;
-import com.fitlife.app.dataclass.request.SearchWorkoutPlanRequest;
-import com.fitlife.app.exceptions.AppException.BadRequestException;
-import com.fitlife.app.security.Model.CurrentUser;
-import com.fitlife.app.security.Model.FitLifeUserDetail;
-import com.fitlife.app.service.DailyWorkout.IDailyService;
-import com.fitlife.app.service.Workout.IWorkoutService;
+import com.fitlife.app.dataClass.request.GetChartRequest;
+import com.fitlife.app.dataClass.request.SearchWorkoutPlanRequest;
+import com.fitlife.app.exceptions.appException.BadRequestException;
+import com.fitlife.app.security.model.CurrentUser;
+import com.fitlife.app.security.model.FitLifeUserDetail;
+import com.fitlife.app.service.dailyWorkout.IDailyService;
+import com.fitlife.app.service.workout.IWorkoutService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -17,9 +17,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import com.fitlife.app.dataclass.request.DailyWorkoutRequest;
-import com.fitlife.app.dataclass.request.WorkoutPlanRequest;
-import com.fitlife.app.dataclass.response.ResponseObject;
+import com.fitlife.app.dataClass.request.DailyWorkoutRequest;
+import com.fitlife.app.dataClass.request.WorkoutPlanRequest;
+import com.fitlife.app.dataClass.response.ResponseObject;
 
 
 @RestController

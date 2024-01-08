@@ -22,7 +22,7 @@ import java.util.Objects;
 import java.util.Properties;
 
 @Configuration
-@EnableJpaRepositories(basePackages = "com.fitlife.app.repository")
+@EnableJpaRepositories(basePackages = "com.fitlife.app.repository.jpa")
 @EntityScan(basePackages = "com.fitlife.app.Model")
 @EnableTransactionManagement
 @Slf4j
