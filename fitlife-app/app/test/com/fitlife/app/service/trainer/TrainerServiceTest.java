@@ -1,6 +1,6 @@
 package com.fitlife.app.service.trainer;
 
-import com.fitlife.app.service.trainer.Assistant.AssistantService;
+import com.fitlife.app.service.trainer.assistant.AssistantService;
 import com.trainer.models.api.completion.CompletionChoice;
 import com.trainer.models.api.completion.CompletionRequest;
 import com.trainer.models.api.completion.chat.ChatCompletionRequest;

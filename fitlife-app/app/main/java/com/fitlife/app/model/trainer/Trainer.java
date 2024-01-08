@@ -12,10 +12,11 @@ import lombok.*;
 @Getter
 @Setter
 @Entity
-@Table
+@Table(name = "trainer")
 @Builder
 public class Trainer {
     @Id
+    @org.springframework.data.annotation.Id
     @GeneratedValue(strategy = GenerationType.UUID)
     public UUID id;
     public String name;

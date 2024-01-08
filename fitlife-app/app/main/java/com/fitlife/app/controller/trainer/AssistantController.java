@@ -1,15 +1,15 @@
 package com.fitlife.app.controller.trainer;
 
 import com.fitlife.app.dataClass.request.trainer.AssistantChatRequest;
-import com.fitlife.app.dataClass.request.trainer.ChatDto;
-import com.fitlife.app.dataClass.request.trainer.ChatThreadDto;
+import com.fitlife.app.dataClass.dto.trainer.ChatDto;
+import com.fitlife.app.dataClass.dto.trainer.ChatThreadDetailDto;
 import com.fitlife.app.dataClass.request.trainer.CreateChatThreadRequest;
 import com.fitlife.app.dataClass.response.trainer.AssistantChatStreamResponse;
 import com.fitlife.app.security.model.CurrentUser;
 import com.fitlife.app.security.model.FitLifeUserDetail;
-import com.fitlife.app.service.trainer.Assistant.AssistantService;
-import com.fitlife.app.service.trainer.Chat.ChatService;
-import com.fitlife.app.service.trainer.Thread.ChatThreadService;
+import com.fitlife.app.service.trainer.assistant.AssistantService;
+import com.fitlife.app.service.trainer.chat.ChatService;
+import com.fitlife.app.service.trainer.thread.ChatThreadService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +21,7 @@ import java.util.UUID;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/trainer")
+@RequestMapping("/assistant")
 public class AssistantController {
     private final AssistantService assistantService;
     private final ChatThreadService chatThreadService;
@@ -55,12 +55,12 @@ public class AssistantController {
 
     //Thread
     @GetMapping("/thread")
-    public Flux<ChatThreadDto> getThreadByUser(@CurrentUser FitLifeUserDetail userDetail) {
+    public Flux<ChatThreadDetailDto> getThreadByUser(@CurrentUser FitLifeUserDetail userDetail) {
         return chatThreadService.getThreadsByUserId(userDetail.getId());
     }
 
     @GetMapping("/thread/{threadId}")
-    public Mono<ResponseEntity<ChatThreadDto>> getThreadByUser(@PathVariable UUID threadId) {
+    public Mono<ResponseEntity<ChatThreadDetailDto>> getThreadByUser(@PathVariable UUID threadId) {
         return chatThreadService.getThreadById(threadId).map(ResponseEntity::ok);
     }
 
@@ -70,7 +70,7 @@ public class AssistantController {
     }
 
     @PostMapping("/thread")
-    public ResponseEntity<ChatThreadDto> createThread(@RequestBody CreateChatThreadRequest request) {
+    public ResponseEntity<ChatThreadDetailDto> createThread(@RequestBody CreateChatThreadRequest request) {
         return ResponseEntity.ok(chatThreadService.createChatThread(request));
     }
 }

@@ -1,17 +1,17 @@
-package com.fitlife.app.service.trainer.Assistant;
+package com.fitlife.app.service.trainer.assistant;
 
 import com.fitlife.app.repository.jpa.trainer.ChatJpaRepository;
 import com.fitlife.app.repository.jpa.trainer.ChatThreadJpaRepository;
 import com.fitlife.app.repository.r2dbc.trainer.ChatR2dbcRepository;
 import com.fitlife.app.dataClass.request.trainer.AssistantChatRequest;
-import com.fitlife.app.dataClass.request.trainer.ChatDto;
+import com.fitlife.app.dataClass.dto.trainer.ChatDto;
 import com.fitlife.app.dataClass.response.trainer.AssistantChatResponse;
 import com.fitlife.app.dataClass.response.trainer.AssistantChatStreamResponse;
 import com.fitlife.app.model.trainer.Chat;
 import com.fitlife.app.model.trainer.ChatThread;
 import com.fitlife.app.model.user.User;
 import com.fitlife.app.repository.r2dbc.trainer.ChatThreadR2dbcRepository;
-import com.fitlife.app.service.trainer.Thread.ChatThreadService;
+import com.fitlife.app.service.trainer.thread.ChatThreadService;
 import com.fitlife.app.utils.mapper.trainer.ChatMapper;
 import com.trainer.models.api.completion.chat.ChatCompletionRequest;
 import com.trainer.models.api.completion.chat.ChatMessage;

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 import java.io.InputStream;
 import java.util.List;
-@Component
+//@Component
 public class ExerciseInitializer extends DatabaseInitializerConfig{
     @Value(value = "${com.fitlife.database.initial.exercise}")
     private String exercise;

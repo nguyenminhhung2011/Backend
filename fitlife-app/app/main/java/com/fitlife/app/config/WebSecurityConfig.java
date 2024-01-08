@@ -36,7 +36,6 @@ public class WebSecurityConfig {
 
 	@Bean
 	public AuthenticationEntryPoint authenticationEntryPoint() {
-//		return new LoginUrlAuthenticationEntryPoint("https://baomoi.com/");
 		return new CustomEntryPoint("Lỗi đăng nhập", 401);
 	}
 

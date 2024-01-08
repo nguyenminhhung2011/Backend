@@ -1,11 +1,12 @@
-package com.fitlife.app.service.trainer.Assistant;
+package com.fitlife.app.service.trainer.assistant;
 
 import com.fitlife.app.model.trainer.Trainer;
 import com.fitlife.app.model.user.User;
+import com.fitlife.app.repository.jpa.user.UserRepository;
 import com.fitlife.app.repository.r2dbc.trainer.ChatThreadR2dbcRepository;
-import com.fitlife.app.repository.User.UserRepository;
-import com.fitlife.app.service.trainer.Thread.ChatThreadService;
-import com.fitlife.app.service.trainer.TrainerService;
+import com.fitlife.app.service.trainer.thread.ChatThreadService;
+import com.fitlife.app.service.trainer.trainer.TrainerService;
+import com.fitlife.app.utils.mapper.trainer.TrainerMapper;
 import com.trainer.models.api.completion.chat.ChatCompletionRequest;
 import com.trainer.models.api.completion.chat.ChatMessage;
 import com.trainer.models.api.completion.chat.ChatMessageRole;
@@ -39,6 +40,9 @@ class AssistantServiceTest {
     @Autowired
     TrainerService trainerService;
 
+    @Autowired
+    TrainerMapper trainerMapper;
+
     @BeforeEach
     void setUp() {
         user = User.builder()
@@ -52,10 +56,12 @@ class AssistantServiceTest {
                 .user(user)
                 .model("gpt-3.5-turbo")
                 .build();
-        trainer = trainerService.createTrainer(trainer);
+
+        var dto = trainerService.createTrainer(user, trainerMapper.toDto(trainer));
 
         final List<ChatMessage> messages = new ArrayList<>();
         final ChatMessage systemMessage = new ChatMessage(ChatMessageRole.SYSTEM.value(), "Hello");
+
         messages.add(systemMessage);
 
         chatCompletionRequest = ChatCompletionRequest

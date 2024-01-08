@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
-@Component
+//@Component
 abstract public class DatabaseInitializerConfig implements CommandLineRunner {
 
     protected ObjectMapper objectMapper;

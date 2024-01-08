@@ -1,6 +1,6 @@
-package com.fitlife.app.service.trainer.Chat;
+package com.fitlife.app.service.trainer.chat;
 
-import com.fitlife.app.dataClass.request.trainer.ChatDto;
+import com.fitlife.app.dataClass.dto.trainer.ChatDto;
 import com.fitlife.app.model.trainer.Chat;
 import com.fitlife.app.repository.jpa.trainer.ChatJpaRepository;
 import com.fitlife.app.repository.r2dbc.trainer.ChatR2dbcRepository;

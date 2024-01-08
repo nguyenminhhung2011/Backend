@@ -1,6 +1,6 @@
 package com.fitlife.app.utils.mapper.trainer;
 
-import com.fitlife.app.dataClass.request.trainer.ChatDto;
+import com.fitlife.app.dataClass.dto.trainer.ChatDto;
 import com.fitlife.app.model.trainer.Chat;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;

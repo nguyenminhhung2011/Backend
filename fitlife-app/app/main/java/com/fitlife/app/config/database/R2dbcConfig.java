@@ -16,6 +16,9 @@ public class R2dbcConfig {
     @Value("${spring.r2dbc.host}")
     private String host;
 
+    @Value("${spring.r2dbc.port}")
+    private Integer port;
+
     @Value("${spring.r2dbc.name}")
     private String name;
 
@@ -30,6 +33,7 @@ public class R2dbcConfig {
         return new PostgresqlConnectionFactory(
                 PostgresqlConnectionConfiguration.builder()
                         .host(host)
+                        .port(port)
                         .database(name)
                         .username(username)
                         .password(password)

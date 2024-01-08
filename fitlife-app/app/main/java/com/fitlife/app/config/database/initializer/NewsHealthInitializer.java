@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 import java.io.InputStream;
 import java.util.List;
-@Component
+//@Component
 public class NewsHealthInitializer extends DatabaseInitializerConfig {
     @Value(value = "${com.fitlife.database.initial.health_news}")
     private String healthNews;

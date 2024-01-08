@@ -1,12 +1,12 @@
-package com.fitlife.app.service.trainer.Thread;
+package com.fitlife.app.service.trainer.thread;
 
-import com.fitlife.app.dataClass.request.trainer.ChatThreadDto;
+import com.fitlife.app.dataClass.dto.trainer.ChatThreadDetailDto;
 import com.fitlife.app.dataClass.request.trainer.CreateChatThreadRequest;
 import com.fitlife.app.model.trainer.Chat;
 import com.fitlife.app.model.trainer.ChatThread;
 import com.fitlife.app.repository.jpa.trainer.ChatThreadJpaRepository;
 import com.fitlife.app.repository.r2dbc.trainer.ChatThreadR2dbcRepository;
-import com.fitlife.app.service.trainer.Chat.ChatService;
+import com.fitlife.app.service.trainer.chat.ChatService;
 import com.fitlife.app.utils.mapper.trainer.ChatThreadMapper;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
@@ -41,19 +41,19 @@ public class ChatThreadService {
         return chatThreadR2dbcRepository.findAllByTrainer(trainerId);
     }
 
-    public Flux<ChatThreadDto> getThreadsByUserId(long userId) {
+    public Flux<ChatThreadDetailDto> getThreadsByUserId(long userId) {
         return chatThreadR2dbcRepository
                 .findAllByUserId(userId)
-                .map(chatThreadMapper::chatThreadDto);
+                .map(chatThreadMapper::toDetailDto);
     }
 
 
-    public Mono<ChatThreadDto> getThreadById(UUID threadId) {
+    public Mono<ChatThreadDetailDto> getThreadById(UUID threadId) {
         return chatThreadR2dbcRepository.findById(threadId).flatMap(
                 chatThread -> chatService
                         .getChatByThread(chatThread.getId())
                         .collectList()
-                        .map(chats -> ChatThreadDto.builder()
+                        .map(chats -> ChatThreadDetailDto.builder()
                                 .id(chatThread.getId())
                                 .title(chatThread.getTitle())
                                 .chats(chats)
@@ -65,12 +65,12 @@ public class ChatThreadService {
         return chatThreadR2dbcRepository.deleteById(threadId);
     }
 
-    public ChatThreadDto createChatThread(CreateChatThreadRequest request) {
+    public ChatThreadDetailDto createChatThread(CreateChatThreadRequest request) {
         final var savedThread = chatThreadJpaRepository.save(ChatThread.builder()
                 .title(request.getTitle())
                 .build());
 
-        return ChatThreadDto.builder()
+        return ChatThreadDetailDto.builder()
                 .id(savedThread.getId())
                 .title(savedThread.getTitle())
                 .chats(null)
