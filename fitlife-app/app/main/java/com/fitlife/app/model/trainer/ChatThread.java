@@ -22,6 +22,8 @@ public class ChatThread {
 
     public String title;
 
+    public String openAiThreadId;
+
     @ManyToOne
     @JoinColumn(name = "trainer_id", referencedColumnName = "id")
     public Trainer trainer;
@@ -36,9 +38,4 @@ public class ChatThread {
         cascade = CascadeType.ALL
     )
     public List<Chat> chats;
-
-
-    public List<Chat> getChats() {
-        return chats;
-    }
 }

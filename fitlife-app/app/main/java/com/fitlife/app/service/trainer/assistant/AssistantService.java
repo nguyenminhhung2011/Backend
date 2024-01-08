@@ -34,13 +34,13 @@ import java.util.concurrent.atomic.AtomicReference;
 @Service
 @AllArgsConstructor
 public class AssistantService {
+
     private final ChatThreadService chatThreadService;
     private final OpenAiService openAiService;
     private final ChatJpaRepository chatJpaRepository;
     private final ChatR2dbcRepository chatR2dbcRepository;
     private final ChatThreadR2dbcRepository chatThreadR2dbcRepository;
     private final ChatThreadJpaRepository chatThreadJpaRepository;
-    private ChatMapper chatMapper;
 
     public Mono<List<Embedding>> createEmbedding(List<String> text) {
         return Mono.just(text)

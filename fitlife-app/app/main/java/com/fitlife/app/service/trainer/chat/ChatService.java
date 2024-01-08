@@ -5,6 +5,9 @@ import com.fitlife.app.model.trainer.Chat;
 import com.fitlife.app.repository.jpa.trainer.ChatJpaRepository;
 import com.fitlife.app.repository.r2dbc.trainer.ChatR2dbcRepository;
 import com.fitlife.app.utils.mapper.trainer.ChatMapper;
+import com.trainer.models.api.message.Message;
+import com.trainer.models.api.message.MessageRequest;
+import com.trainer.service.OpenAiService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
@@ -17,9 +20,21 @@ import java.util.UUID;
 public class ChatService  {
     private final ChatR2dbcRepository chatR2dbcRepository;
     private final ChatJpaRepository chatJpaRepository;
+    private final OpenAiService openAiService;
     private final ChatMapper chatMapper;
 
     public Chat createChat(Chat chat) {
+        return chatJpaRepository.save(chat);
+    }
+
+    public Chat createAssistantChat(String oaiThreadId,Chat chat){
+        MessageRequest messageRequest = MessageRequest.builder()
+                .content(chat.getMessage())
+                .role(chat.getRole())
+                .build();
+
+        Message message = openAiService.createMessage(oaiThreadId, messageRequest);
+        chat.setOaiMessageId(message.id());
         return chatJpaRepository.save(chat);
     }
 

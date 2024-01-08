@@ -11,12 +11,14 @@ import java.util.UUID;
 @Getter
 @Setter
 @Entity
-@Table
+@Table(name = "chat")
 public class Chat {
     @Id
     @org.springframework.data.annotation.Id
     @GeneratedValue(strategy = GenerationType.UUID)
     public UUID id;
+
+    public String oaiMessageId;
 
     @Column(length = 1024,nullable = false)
     public String message;

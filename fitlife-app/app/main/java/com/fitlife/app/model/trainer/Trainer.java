@@ -1,7 +1,6 @@
 package com.fitlife.app.model.trainer;
 
 import java.util.List;
-import java.util.UUID;
 
 import com.fitlife.app.model.user.User;
 import jakarta.persistence.*;
@@ -17,11 +16,11 @@ import lombok.*;
 public class Trainer {
     @Id
     @org.springframework.data.annotation.Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    public UUID id;
+//    @GeneratedValue(strategy = GenerationType.UUID)
+    public String id;
     public String name;
     public String model;
-    public String description;
+    public String prompt;
     public String image;
     public String greetingMessage;
     public String bio;

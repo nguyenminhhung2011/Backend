@@ -14,7 +14,7 @@ public class TrainerDto {
     public UUID id;
     public String name;
     public String model;
-    public String description;
+    public String prompt;
     public String image;
     public String greetingMessage;
     public String bio;

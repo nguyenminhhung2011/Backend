@@ -13,6 +13,8 @@ import com.trainer.models.api.completion.chat.ChatCompletionResult;
 import com.trainer.models.api.embedding.EmbeddingRequest;
 import com.trainer.models.api.embedding.EmbeddingResult;
 import com.trainer.models.api.file.File;
+import com.trainer.models.api.message.Message;
+import com.trainer.models.api.message.MessageRequest;
 import com.trainer.models.api.runs.*;
 import com.trainer.models.api.threads.Thread;
 import com.trainer.models.api.threads.ThreadRequest;
@@ -23,7 +25,7 @@ import io.reactivex.Single;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
-import org.springframework.context.annotation.  ComponentScan;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -67,8 +69,8 @@ public class OpenAiService extends OpenAiBaseService {
 
     public File uploadFile(String purpose, String filepath) {
         java.io.File file = new java.io.File(filepath);
-        RequestBody purposeBody = RequestBody.create(purpose,MultipartBody.FORM);
-        RequestBody fileBody = RequestBody.create(file,MediaType.parse("text"));
+        RequestBody purposeBody = RequestBody.create(purpose, MultipartBody.FORM);
+        RequestBody fileBody = RequestBody.create(file, MediaType.parse("text"));
         MultipartBody.Part body = MultipartBody.Part.createFormData("file", filepath, fileBody);
 
         return execute(api.uploadFile(purposeBody, body));
@@ -122,6 +124,38 @@ public class OpenAiService extends OpenAiBaseService {
         return execute(api.createThread(request));
     }
 
+    public Thread retrieveThread(String threadId) {
+        return execute(api.retrieveThread(threadId));
+    }
+
+    public Thread modifyThread(String threadId, ThreadRequest request) {
+        return execute(api.modifyThread(threadId, request));
+    }
+
+    /*
+    Message
+     */
+    public Message createMessage(String threadId, MessageRequest request) {
+        return execute(api.createMessage(threadId, request));
+    }
+
+    public Message retrieveMessage(String threadId, String messageId) {
+        return execute(api.retrieveMessage(threadId, messageId));
+    }
+
+//    public Message modifyMessage(String threadId, String messageId, ModifyMessageRequest request) {
+//        return execute(api.modifyMessage(threadId, messageId, request));
+//    }
+
+    public OpenAiResponse<Message> listMessages(String threadId) {
+        return execute(api.listMessages(threadId));
+    }
+
+    public OpenAiResponse<Message> listMessages(String threadId, ListSearchParameters params) {
+        Map<String, Object> queryParameters = mapper.convertValue(params, new TypeReference<Map<String, Object>>() {
+        });
+        return execute(api.listMessages(threadId, queryParameters));
+    }
 
 
     /*

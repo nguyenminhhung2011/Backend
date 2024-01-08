@@ -1,5 +1,6 @@
 package com.fitlife.app.service.trainer.thread;
 
+import com.fitlife.app.controller.trainer.AssistantController;
 import com.fitlife.app.dataClass.dto.trainer.ChatThreadDetailDto;
 import com.fitlife.app.dataClass.request.trainer.CreateChatThreadRequest;
 import com.fitlife.app.model.trainer.Chat;
@@ -8,6 +9,9 @@ import com.fitlife.app.repository.jpa.trainer.ChatThreadJpaRepository;
 import com.fitlife.app.repository.r2dbc.trainer.ChatThreadR2dbcRepository;
 import com.fitlife.app.service.trainer.chat.ChatService;
 import com.fitlife.app.utils.mapper.trainer.ChatThreadMapper;
+import com.trainer.models.api.threads.Thread;
+import com.trainer.models.api.threads.ThreadRequest;
+import com.trainer.service.OpenAiService;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -20,17 +24,19 @@ public class ChatThreadService {
     private final ChatThreadJpaRepository chatThreadJpaRepository;
     private final ChatService chatService;
     private final ChatThreadMapper chatThreadMapper;
+    private final OpenAiService openAiService;
 
     public ChatThreadService(
             ChatThreadR2dbcRepository chatThreadR2dbcRepository,
             ChatThreadJpaRepository chatThreadJpaRepository,
             ChatService chatService,
-            ChatThreadMapper chatThreadMapper
+            ChatThreadMapper chatThreadMapper, OpenAiService openAiService
     ) {
         this.chatThreadR2dbcRepository = chatThreadR2dbcRepository;
         this.chatThreadJpaRepository = chatThreadJpaRepository;
         this.chatService = chatService;
         this.chatThreadMapper = chatThreadMapper;
+        this.openAiService = openAiService;
     }
 
     public Mono<Long> count() {
@@ -70,12 +76,26 @@ public class ChatThreadService {
                 .title(request.getTitle())
                 .build());
 
+
         return ChatThreadDetailDto.builder()
                 .id(savedThread.getId())
                 .title(savedThread.getTitle())
                 .chats(null)
                 .trainer(null)
                 .build();
+    }
+
+    public ChatThread createAssistantThread(CreateChatThreadRequest request) {
+
+        ThreadRequest threadRequest = ThreadRequest.builder().build();
+        Thread thread = openAiService.createThread(threadRequest);
+
+        return chatThreadJpaRepository
+                .save(ChatThread
+                        .builder()
+                        .openAiThreadId(thread.getId())
+                        .title(request.getTitle())
+                        .build());
     }
 
     public ChatThread updateChatThread(ChatThread chatThread) {
