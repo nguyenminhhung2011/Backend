@@ -1,4 +1,4 @@
-package com.fitlife.app.Controller;
+package com.fitlife.app.controller;
 
 public class StatisticController {
 }

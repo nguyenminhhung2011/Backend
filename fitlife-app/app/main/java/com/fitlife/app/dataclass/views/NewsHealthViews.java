@@ -1,4 +1,4 @@
-package com.fitlife.app.DTO.Views;
+package com.fitlife.app.dataclass.views;
 
 public class NewsHealthViews {
     public interface Summary {}

@@ -1,11 +1,11 @@
-package com.fitlife.app.Service.Trainer.Assistant;
+package com.fitlife.app.service.Trainer.Assistant;
 
-import com.fitlife.app.Model.Trainer.Trainer;
-import com.fitlife.app.Model.User.User;
-import com.fitlife.app.ReactiveRepository.Trainer.ChatThreadR2dbcRepository;
-import com.fitlife.app.Repository.User.UserRepository;
-import com.fitlife.app.Service.Trainer.Thread.ChatThreadService;
-import com.fitlife.app.Service.Trainer.TrainerService;
+import com.fitlife.app.model.Trainer.Trainer;
+import com.fitlife.app.model.User.User;
+import com.fitlife.app.ReactiveRepository.trainer.ChatThreadR2dbcRepository;
+import com.fitlife.app.repository.User.UserRepository;
+import com.fitlife.app.service.Trainer.Thread.ChatThreadService;
+import com.fitlife.app.service.Trainer.TrainerService;
 import com.trainer.models.api.completion.chat.ChatCompletionRequest;
 import com.trainer.models.api.completion.chat.ChatMessage;
 import com.trainer.models.api.completion.chat.ChatMessageRole;

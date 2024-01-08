@@ -1,4 +1,4 @@
-package com.fitlife.app.Repository;
+package com.fitlife.app.repository;
 
 import java.util.Date;
 import java.util.List;
@@ -7,7 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.fitlife.app.Model.Workout.WorkoutPlan;
+import com.fitlife.app.model.Workout.WorkoutPlan;
 import org.springframework.data.jpa.repository.Query;
 
 public interface WorkoutRepository extends JpaRepository<WorkoutPlan, Long> {

@@ -1,4 +1,4 @@
-package com.fitlife.app.DTO.Request.Trainer;
+package com.fitlife.app.dataclass.request.trainer;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

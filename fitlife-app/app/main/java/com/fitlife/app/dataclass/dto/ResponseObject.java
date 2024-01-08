@@ -1,4 +1,4 @@
-package com.fitlife.app.DTO.DataClass;
+package com.fitlife.app.dataclass.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;

@@ -1,12 +1,12 @@
-package com.fitlife.app.DTO.DataClass.User;
+package com.fitlife.app.dataclass.dto.user;
 
-import com.fitlife.app.DTO.DataClass.ActivitiesLog.ActivitiesLogDTO;
-import com.fitlife.app.DTO.DataClass.ExerciseDTO;
-import com.fitlife.app.DTO.DataClass.NewsHealthDTO;
-import com.fitlife.app.DTO.DataClass.WorkoutPlanDTO;
-import com.fitlife.app.Utils.Enums.Frequency;
-import com.fitlife.app.Utils.Enums.Gender;
-import com.fitlife.app.Utils.Enums.ThemeStatus;
+import com.fitlife.app.dataclass.dto.activitiesLog.ActivitiesLogDTO;
+import com.fitlife.app.dataclass.dto.ExerciseDTO;
+import com.fitlife.app.dataclass.dto.NewsHealthDTO;
+import com.fitlife.app.dataclass.dto.WorkoutPlanDTO;
+import com.fitlife.app.utils.enums.Frequency;
+import com.fitlife.app.utils.enums.Gender;
+import com.fitlife.app.utils.enums.ThemeStatus;
 import lombok.Data;
 
 import java.util.List;

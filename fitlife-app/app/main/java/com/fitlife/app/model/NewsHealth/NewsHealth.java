@@ -1,10 +1,10 @@
-package com.fitlife.app.Model.NewsHealth;
+package com.fitlife.app.model.NewsHealth;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonView;
-import com.fitlife.app.DTO.Views.NewsHealthViews;
-import com.fitlife.app.DTO.Views.UserViews;
-import com.fitlife.app.Model.User.UserProfile;
+import com.fitlife.app.dataclass.views.NewsHealthViews;
+import com.fitlife.app.dataclass.views.UserViews;
+import com.fitlife.app.model.User.UserProfile;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

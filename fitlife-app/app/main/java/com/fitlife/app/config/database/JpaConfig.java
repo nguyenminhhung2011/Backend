@@ -1,4 +1,4 @@
-package com.fitlife.app.Config.Database;
+package com.fitlife.app.config.database;
 
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.jpa.HibernatePersistenceProvider;
@@ -22,7 +22,7 @@ import java.util.Objects;
 import java.util.Properties;
 
 @Configuration
-@EnableJpaRepositories(basePackages = "com.fitlife.app.Repository")
+@EnableJpaRepositories(basePackages = "com.fitlife.app.repository")
 @EntityScan(basePackages = "com.fitlife.app.Model")
 @EnableTransactionManagement
 @Slf4j

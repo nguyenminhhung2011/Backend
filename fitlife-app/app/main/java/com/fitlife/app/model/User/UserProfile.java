@@ -1,15 +1,15 @@
-package com.fitlife.app.Model.User;
+package com.fitlife.app.model.User;
 
 import java.sql.Timestamp;
 import java.util.List;
-import com.fitlife.app.Model.ActivitiesLog;
-import com.fitlife.app.Model.NewsHealth.NewsHealth;
-import com.fitlife.app.Model.Workout.WorkoutPlan;
-import com.fitlife.app.Utils.Enums.Frequency;
-import com.fitlife.app.Utils.Enums.Gender;
-import com.fitlife.app.Utils.Enums.ThemeStatus;
-import com.fitlife.app.DTO.Views.UserViews;
-import com.fitlife.app.Model.Exercise.Exercise;
+import com.fitlife.app.model.ActivitiesLog;
+import com.fitlife.app.model.NewsHealth.NewsHealth;
+import com.fitlife.app.model.Workout.WorkoutPlan;
+import com.fitlife.app.utils.enums.Frequency;
+import com.fitlife.app.utils.enums.Gender;
+import com.fitlife.app.utils.enums.ThemeStatus;
+import com.fitlife.app.dataclass.views.UserViews;
+import com.fitlife.app.model.Exercise.Exercise;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
 import jakarta.persistence.*;

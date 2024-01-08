@@ -1,26 +1,26 @@
-package com.fitlife.app.Service.Session;
+package com.fitlife.app.service.Session;
 
-import com.fitlife.app.DTO.DataClass.SessionDTO;
-import com.fitlife.app.DTO.Request.CustomExerciseRequest;
-import com.fitlife.app.DTO.Request.Session.SessionRequest;
-import com.fitlife.app.DTO.Request.Session.UpdateSettingSessionRequest;
-import com.fitlife.app.DTO.Response.CustomExerciseResponse;
-import com.fitlife.app.Exceptions.AppException.BadRequestException;
-import com.fitlife.app.Exceptions.AppException.NotFoundException;
-import com.fitlife.app.Model.Workout.DailyWorkout;
-import com.fitlife.app.Model.Exercise.CustomExercise;
-import com.fitlife.app.Model.Exercise.Exercise;
-import com.fitlife.app.Model.Workout.WorkoutPlan;
-import com.fitlife.app.Repository.DailyWorkoutRepository;
-import com.fitlife.app.Repository.Exercise.ExerciseRepository;
-import com.fitlife.app.Repository.WorkoutRepository;
+import com.fitlife.app.dataclass.dto.SessionDTO;
+import com.fitlife.app.dataclass.request.CustomExerciseRequest;
+import com.fitlife.app.dataclass.request.session.SessionRequest;
+import com.fitlife.app.dataclass.request.session.UpdateSettingSessionRequest;
+import com.fitlife.app.dataclass.response.CustomExerciseResponse;
+import com.fitlife.app.exceptions.AppException.BadRequestException;
+import com.fitlife.app.exceptions.AppException.NotFoundException;
+import com.fitlife.app.model.Workout.DailyWorkout;
+import com.fitlife.app.model.Exercise.CustomExercise;
+import com.fitlife.app.model.Exercise.Exercise;
+import com.fitlife.app.model.Workout.WorkoutPlan;
+import com.fitlife.app.repository.DailyWorkoutRepository;
+import com.fitlife.app.repository.Exercise.ExerciseRepository;
+import com.fitlife.app.repository.WorkoutRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.fitlife.app.Model.Session.Session;
-import com.fitlife.app.Repository.SessionRepository;
-import com.fitlife.app.Service.Generic.GenericService;
+import com.fitlife.app.model.Session.Session;
+import com.fitlife.app.repository.SessionRepository;
+import com.fitlife.app.service.Generic.GenericService;
 
 import java.text.SimpleDateFormat;
 import java.util.*;

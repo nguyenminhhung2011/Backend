@@ -1,6 +1,6 @@
-package com.fitlife.app.ReactiveRepository.Trainer;
+package com.fitlife.app.ReactiveRepository.trainer;
 
-import com.fitlife.app.Model.Trainer.ChatThread;
+import com.fitlife.app.model.Trainer.ChatThread;
 import org.springframework.data.r2dbc.repository.Query;
 import org.springframework.data.r2dbc.repository.R2dbcRepository;
 import org.springframework.data.repository.query.Param;

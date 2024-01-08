@@ -1,6 +1,6 @@
-package com.fitlife.app.ReactiveRepository.Trainer;
+package com.fitlife.app.ReactiveRepository.trainer;
 
-import com.fitlife.app.Model.Trainer.Trainer;
+import com.fitlife.app.model.Trainer.Trainer;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.r2dbc.repository.R2dbcRepository;
 import org.springframework.stereotype.Repository;

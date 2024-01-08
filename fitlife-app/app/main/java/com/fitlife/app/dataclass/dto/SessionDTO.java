@@ -1,6 +1,6 @@
-package com.fitlife.app.DTO.DataClass;
+package com.fitlife.app.dataclass.dto;
 
-import com.fitlife.app.DTO.Response.CustomExerciseResponse;
+import com.fitlife.app.dataclass.response.CustomExerciseResponse;
 import lombok.*;
 
 import java.util.List;

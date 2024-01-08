@@ -1,9 +1,9 @@
 package com.fitlife.Mapper;
 
-import com.fitlife.app.DTO.DataClass.User.UserDTO;
-import com.fitlife.app.Model.User.User;
-import com.fitlife.app.Model.User.UserProfile;
-import com.fitlife.app.Utils.Mapper.UserMapper;
+import com.fitlife.app.dataclass.dto.user.UserDTO;
+import com.fitlife.app.model.User.User;
+import com.fitlife.app.model.User.UserProfile;
+import com.fitlife.app.utils.mapper.UserMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

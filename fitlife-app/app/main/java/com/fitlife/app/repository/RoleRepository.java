@@ -1,6 +1,6 @@
-package com.fitlife.app.Repository;
+package com.fitlife.app.repository;
 
-import com.fitlife.app.Model.Role;
+import com.fitlife.app.model.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

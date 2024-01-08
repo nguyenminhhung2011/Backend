@@ -1,6 +1,6 @@
-package com.fitlife.app.Repository.Exercise;
+package com.fitlife.app.repository.Exercise;
 
-import com.fitlife.app.Model.Exercise.BodyPart;
+import com.fitlife.app.model.Exercise.BodyPart;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

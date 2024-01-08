@@ -1,8 +1,8 @@
-package com.fitlife.app.Utils.Mapper.trainer;
+package com.fitlife.app.utils.mapper.trainer;
 
 import lombok.AllArgsConstructor;
-import com.fitlife.app.DTO.Request.Trainer.ChatThreadDto;
-import com.fitlife.app.Model.Trainer.ChatThread;
+import com.fitlife.app.dataclass.request.trainer.ChatThreadDto;
+import com.fitlife.app.model.Trainer.ChatThread;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeMap;
 import org.springframework.stereotype.Component;

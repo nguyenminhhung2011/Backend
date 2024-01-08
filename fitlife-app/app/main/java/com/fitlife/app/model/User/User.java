@@ -1,15 +1,14 @@
-package com.fitlife.app.Model.User;
+package com.fitlife.app.model.User;
 
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.List;
 
-import com.fitlife.app.DTO.Views.UserViews;
+import com.fitlife.app.dataclass.views.UserViews;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import com.fitlife.app.Model.Trainer.Chat;
-import com.fitlife.app.Model.Trainer.ChatThread;
-import com.fitlife.app.Model.Trainer.Trainer;
+import com.fitlife.app.model.Trainer.ChatThread;
+import com.fitlife.app.model.Trainer.Trainer;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;

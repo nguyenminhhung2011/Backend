@@ -1,13 +1,13 @@
-package com.fitlife.app.Service.User;
+package com.fitlife.app.service.User;
 
-import com.fitlife.app.DTO.DataClass.ResponseObject;
-import com.fitlife.app.DTO.DataClass.User.UserDTO;
-import com.fitlife.app.DTO.DataClass.User.UserProfileDTO;
-import com.fitlife.app.DTO.DataClass.WorkoutPlanDTO;
-import com.fitlife.app.DTO.Request.AddActivitiesLogRequest;
-import com.fitlife.app.DTO.Request.ChangePasswordRequest;
-import com.fitlife.app.DTO.Request.RegistrationRequest;
-import com.fitlife.app.Exceptions.AppException.BadRequestException;
+import com.fitlife.app.dataclass.dto.ResponseObject;
+import com.fitlife.app.dataclass.dto.user.UserDTO;
+import com.fitlife.app.dataclass.dto.user.UserProfileDTO;
+import com.fitlife.app.dataclass.dto.WorkoutPlanDTO;
+import com.fitlife.app.dataclass.request.AddActivitiesLogRequest;
+import com.fitlife.app.dataclass.request.ChangePasswordRequest;
+import com.fitlife.app.dataclass.request.RegistrationRequest;
+import com.fitlife.app.exceptions.AppException.BadRequestException;
 
 import java.util.List;
 public interface IUserService {

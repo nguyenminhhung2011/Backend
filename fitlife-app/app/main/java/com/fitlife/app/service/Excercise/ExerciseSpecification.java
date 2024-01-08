@@ -1,7 +1,7 @@
-package com.fitlife.app.Service.Excercise;
+package com.fitlife.app.service.Excercise;
 
-import com.fitlife.app.DTO.Request.FetchExerciseRequest;
-import com.fitlife.app.Model.Exercise.Exercise;
+import com.fitlife.app.dataclass.request.FetchExerciseRequest;
+import com.fitlife.app.model.Exercise.Exercise;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;

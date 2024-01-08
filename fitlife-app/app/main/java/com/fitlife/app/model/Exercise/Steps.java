@@ -1,6 +1,6 @@
-package com.fitlife.app.Model.Exercise;
+package com.fitlife.app.model.Exercise;
 
-import com.fitlife.app.DTO.Views.ExerciseViews;
+import com.fitlife.app.dataclass.views.ExerciseViews;
 import com.fasterxml.jackson.annotation.JsonView;
 import jakarta.persistence.*;
 import lombok.*;

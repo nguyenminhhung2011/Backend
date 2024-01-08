@@ -1,22 +1,22 @@
-package com.fitlife.app.Service.Excercise;
+package com.fitlife.app.service.Excercise;
 
-import com.fitlife.app.DTO.Request.FetchExerciseRequest;
-import com.fitlife.app.DTO.Request.PageRequest;
-import com.fitlife.app.Model.Exercise.BodyPart;
-import com.fitlife.app.Model.Exercise.Equipment;
-import com.fitlife.app.Model.Exercise.Target;
-import com.fitlife.app.Repository.Exercise.BodyPartRepository;
-import com.fitlife.app.Repository.Exercise.EquipmentRepository;
-import com.fitlife.app.Repository.Exercise.TargetRepository;
-import com.fitlife.app.Service.Generic.GenericSearchService;
+import com.fitlife.app.dataclass.request.FetchExerciseRequest;
+import com.fitlife.app.dataclass.request.PageRequest;
+import com.fitlife.app.model.Exercise.BodyPart;
+import com.fitlife.app.model.Exercise.Equipment;
+import com.fitlife.app.model.Exercise.Target;
+import com.fitlife.app.repository.Exercise.BodyPartRepository;
+import com.fitlife.app.repository.Exercise.EquipmentRepository;
+import com.fitlife.app.repository.Exercise.TargetRepository;
+import com.fitlife.app.service.Generic.GenericSearchService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Service;
 
-import com.fitlife.app.Model.Exercise.Exercise;
-import com.fitlife.app.Repository.Exercise.ExerciseRepository;
+import com.fitlife.app.model.Exercise.Exercise;
+import com.fitlife.app.repository.Exercise.ExerciseRepository;
 
 import java.lang.reflect.Type;
 import java.util.*;

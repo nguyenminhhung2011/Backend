@@ -1,8 +1,8 @@
-package com.fitlife.app.Model.Workout;
+package com.fitlife.app.model.Workout;
 
 import java.util.List;
 
-import com.fitlife.app.Model.Session.Session;
+import com.fitlife.app.model.Session.Session;
 import jakarta.persistence.*;
 import lombok.*;
 

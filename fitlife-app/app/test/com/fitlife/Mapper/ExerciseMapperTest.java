@@ -1,6 +1,6 @@
 package com.fitlife.Mapper;
 
-import com.fitlife.app.Utils.Mapper.ExerciseMapper;
+import com.fitlife.app.utils.mapper.ExerciseMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

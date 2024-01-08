@@ -1,12 +1,12 @@
-package com.fitlife.app.Utils.Filters;
+package com.fitlife.app.utils.filters;
 
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Objects;
 
-import com.fitlife.app.Config.WebSecurityConfig;
-import com.fitlife.app.DTO.DataClass.ResponseObject;
-import com.fitlife.app.Utils.Jwt.JwtTokenUtils;
+import com.fitlife.app.config.WebSecurityConfig;
+import com.fitlife.app.dataclass.dto.ResponseObject;
+import com.fitlife.app.utils.jwt.JwtTokenUtils;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -19,7 +19,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.fitlife.app.Security.Model.UserDetailServiceImp;
+import com.fitlife.app.security.Model.UserDetailServiceImp;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import jakarta.servlet.FilterChain;

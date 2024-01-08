@@ -1,4 +1,4 @@
-package com.fitlife.app.Exceptions.AppException;
+package com.fitlife.app.exceptions.AppException;
 
 public class TemplateInputException extends Throwable {
     public TemplateInputException(String message) {

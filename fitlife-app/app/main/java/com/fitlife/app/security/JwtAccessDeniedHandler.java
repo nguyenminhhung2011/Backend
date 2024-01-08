@@ -1,4 +1,4 @@
-package com.fitlife.app.Security;
+package com.fitlife.app.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletRequest;

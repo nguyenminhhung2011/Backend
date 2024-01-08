@@ -7,10 +7,8 @@ import lombok.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@RequiredArgsConstructor
 @Builder
 public class ChatMessage {
-    @NonNull
     public String role;
 
     public String name;

@@ -1,39 +1,39 @@
-package com.fitlife.app.Service.User;
+package com.fitlife.app.service.User;
 
 import java.time.Instant;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-import com.fitlife.app.DTO.DataClass.ResponseObject;
-import com.fitlife.app.DTO.DataClass.User.UserDTO;
-import com.fitlife.app.DTO.DataClass.User.UserProfileDTO;
-import com.fitlife.app.DTO.DataClass.WorkoutPlanDTO;
-import com.fitlife.app.DTO.Request.AddActivitiesLogRequest;
-import com.fitlife.app.DTO.Request.ChangePasswordRequest;
-import com.fitlife.app.DTO.Request.RegistrationRequest;
-import com.fitlife.app.Exceptions.AppException.BadRequestException;
-import com.fitlife.app.Exceptions.AppException.NotFoundException;
-import com.fitlife.app.Model.NewsHealth.NewsHealth;
-import com.fitlife.app.Repository.NewsHealthRepository;
-import com.fitlife.app.Utils.Mapper.ActivitiesLogMapper;
-import com.fitlife.app.Utils.Mapper.UserMapper;
-import com.fitlife.app.Model.ActivitiesLog;
-import com.fitlife.app.Model.Exercise.Exercise;
-import com.fitlife.app.Model.User.UserProfile;
-import com.fitlife.app.Model.Workout.WorkoutPlan;
-import com.fitlife.app.Repository.ActivitiesLogRepository;
-import com.fitlife.app.Repository.Exercise.ExerciseRepository;
-import com.fitlife.app.Repository.User.UserProfileRepository;
-import com.fitlife.app.Repository.WorkoutRepository;
-import com.fitlife.app.Service.Generic.GenericService;
+import com.fitlife.app.dataclass.dto.ResponseObject;
+import com.fitlife.app.dataclass.dto.user.UserDTO;
+import com.fitlife.app.dataclass.dto.user.UserProfileDTO;
+import com.fitlife.app.dataclass.dto.WorkoutPlanDTO;
+import com.fitlife.app.dataclass.request.AddActivitiesLogRequest;
+import com.fitlife.app.dataclass.request.ChangePasswordRequest;
+import com.fitlife.app.dataclass.request.RegistrationRequest;
+import com.fitlife.app.exceptions.AppException.BadRequestException;
+import com.fitlife.app.exceptions.AppException.NotFoundException;
+import com.fitlife.app.model.NewsHealth.NewsHealth;
+import com.fitlife.app.repository.NewsHealthRepository;
+import com.fitlife.app.utils.mapper.ActivitiesLogMapper;
+import com.fitlife.app.utils.mapper.UserMapper;
+import com.fitlife.app.model.ActivitiesLog;
+import com.fitlife.app.model.Exercise.Exercise;
+import com.fitlife.app.model.User.UserProfile;
+import com.fitlife.app.model.Workout.WorkoutPlan;
+import com.fitlife.app.repository.ActivitiesLogRepository;
+import com.fitlife.app.repository.Exercise.ExerciseRepository;
+import com.fitlife.app.repository.User.UserProfileRepository;
+import com.fitlife.app.repository.WorkoutRepository;
+import com.fitlife.app.service.Generic.GenericService;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.fitlife.app.Model.User.User;
-import com.fitlife.app.Repository.User.UserRepository;
+import com.fitlife.app.model.User.User;
+import com.fitlife.app.repository.User.UserRepository;
 
 @Service
 public class UserServiceImpl extends GenericService<User,Long,UserRepository> implements IUserService {

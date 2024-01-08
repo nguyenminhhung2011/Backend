@@ -1,6 +1,6 @@
-package com.fitlife.app.Repository;
+package com.fitlife.app.repository;
 
-import com.fitlife.app.Model.Workout.DailyWorkout;
+import com.fitlife.app.model.Workout.DailyWorkout;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

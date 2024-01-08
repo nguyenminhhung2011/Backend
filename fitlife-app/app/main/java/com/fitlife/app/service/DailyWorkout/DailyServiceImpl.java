@@ -1,11 +1,11 @@
-package com.fitlife.app.Service.DailyWorkout;
+package com.fitlife.app.service.DailyWorkout;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.fitlife.app.Model.Workout.DailyWorkout;
-import com.fitlife.app.Repository.DailyWorkoutRepository;
-import com.fitlife.app.Service.Generic.GenericService;
+import com.fitlife.app.model.Workout.DailyWorkout;
+import com.fitlife.app.repository.DailyWorkoutRepository;
+import com.fitlife.app.service.Generic.GenericService;
 
 @Service
 public class DailyServiceImpl extends GenericService<DailyWorkout, Long, DailyWorkoutRepository> implements IDailyService{

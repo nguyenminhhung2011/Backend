@@ -1,12 +1,9 @@
-package com.fitlife.app.Service.Trainer;
+package com.fitlife.app.service.Trainer;
 
-import com.fitlife.app.Model.Trainer.Chat;
-import com.fitlife.app.Model.Trainer.ChatThread;
-import com.fitlife.app.Model.Trainer.Trainer;
-import com.fitlife.app.ReactiveRepository.Trainer.ChatThreadR2dbcRepository;
-import com.fitlife.app.ReactiveRepository.Trainer.TrainerR2dbcRepository;
-import com.fitlife.app.Repository.Trainer.ChatThreadJpaRepository;
-import com.fitlife.app.Repository.Trainer.TrainerJpaRepository;
+import com.fitlife.app.model.Trainer.ChatThread;
+import com.fitlife.app.model.Trainer.Trainer;
+import com.fitlife.app.ReactiveRepository.trainer.TrainerR2dbcRepository;
+import com.fitlife.app.repository.Trainer.TrainerJpaRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;

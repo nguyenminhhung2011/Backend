@@ -1,10 +1,10 @@
-package com.fitlife.app.Security.Model;
+package com.fitlife.app.security.Model;
 
 import java.util.Optional;
 
-import com.fitlife.app.Exceptions.AppException.NotFoundException;
-import com.fitlife.app.Model.User.User;
-import com.fitlife.app.Repository.User.UserRepository;
+import com.fitlife.app.exceptions.AppException.NotFoundException;
+import com.fitlife.app.model.User.User;
+import com.fitlife.app.repository.User.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

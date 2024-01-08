@@ -1,4 +1,4 @@
-package com.fitlife.app.Service.Workout;
+package com.fitlife.app.service.Workout;
 
 import java.text.SimpleDateFormat;
 import java.time.Instant;
@@ -8,31 +8,31 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import com.fitlife.app.DTO.DataClass.DailyWorkoutDTO;
-import com.fitlife.app.DTO.Request.DailyWorkoutRequest;
-import com.fitlife.app.DTO.Request.GetChartRequest;
-import com.fitlife.app.DTO.Request.WorkoutPlanRequest;
-import com.fitlife.app.DTO.Response.ChartResponse;
-import com.fitlife.app.DTO.Response.FitOverviewResponse;
-import com.fitlife.app.DTO.Response.WorkoutPlanResponse;
-import com.fitlife.app.Exceptions.AppException.BadRequestException;
-import com.fitlife.app.Exceptions.AppException.NotFoundException;
-import com.fitlife.app.Model.AISupport;
-import com.fitlife.app.Model.Workout.DailyWorkout;
-import com.fitlife.app.Model.User.UserProfile;
-import com.fitlife.app.Model.Session.Session;
-import com.fitlife.app.Repository.DailyWorkoutRepository;
-import com.fitlife.app.Repository.User.UserProfileRepository;
-import com.fitlife.app.Utils.Enums.PlanType;
+import com.fitlife.app.dataclass.dto.DailyWorkoutDTO;
+import com.fitlife.app.dataclass.request.DailyWorkoutRequest;
+import com.fitlife.app.dataclass.request.GetChartRequest;
+import com.fitlife.app.dataclass.request.WorkoutPlanRequest;
+import com.fitlife.app.dataclass.response.ChartResponse;
+import com.fitlife.app.dataclass.response.FitOverviewResponse;
+import com.fitlife.app.dataclass.response.WorkoutPlanResponse;
+import com.fitlife.app.exceptions.AppException.BadRequestException;
+import com.fitlife.app.exceptions.AppException.NotFoundException;
+import com.fitlife.app.model.AISupport;
+import com.fitlife.app.model.Workout.DailyWorkout;
+import com.fitlife.app.model.User.UserProfile;
+import com.fitlife.app.model.Session.Session;
+import com.fitlife.app.repository.DailyWorkoutRepository;
+import com.fitlife.app.repository.User.UserProfileRepository;
+import com.fitlife.app.utils.enums.PlanType;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.fitlife.app.DTO.DataClass.WorkoutPlanDTO;
-import com.fitlife.app.Model.Workout.WorkoutPlan;
-import com.fitlife.app.Repository.WorkoutRepository;
-import com.fitlife.app.Service.Generic.GenericService;
+import com.fitlife.app.dataclass.dto.WorkoutPlanDTO;
+import com.fitlife.app.model.Workout.WorkoutPlan;
+import com.fitlife.app.repository.WorkoutRepository;
+import com.fitlife.app.service.Generic.GenericService;
 
 
 @Service

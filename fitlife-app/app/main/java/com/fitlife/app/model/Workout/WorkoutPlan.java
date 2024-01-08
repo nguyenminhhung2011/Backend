@@ -1,14 +1,14 @@
-package com.fitlife.app.Model.Workout;
+package com.fitlife.app.model.Workout;
 
 import java.util.List;
 
-import com.fitlife.app.DTO.Views.ActivitiesLogViews;
-import com.fitlife.app.DTO.Views.UserViews;
-import com.fitlife.app.DTO.Views.WorkoutPlanViews;
-import com.fitlife.app.Model.AISupport;
-import com.fitlife.app.Model.ActivitiesLog;
-import com.fitlife.app.Model.User.UserProfile;
-import com.fitlife.app.Utils.Enums.PlanType;
+import com.fitlife.app.dataclass.views.ActivitiesLogViews;
+import com.fitlife.app.dataclass.views.UserViews;
+import com.fitlife.app.dataclass.views.WorkoutPlanViews;
+import com.fitlife.app.model.AISupport;
+import com.fitlife.app.model.ActivitiesLog;
+import com.fitlife.app.model.User.UserProfile;
+import com.fitlife.app.utils.enums.PlanType;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import jakarta.persistence.*;

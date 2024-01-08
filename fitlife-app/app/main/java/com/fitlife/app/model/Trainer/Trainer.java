@@ -1,13 +1,11 @@
-package com.fitlife.app.Model.Trainer;
+package com.fitlife.app.model.Trainer;
 
 import java.util.List;
 import java.util.UUID;
 
-import com.fitlife.app.Model.User.User;
+import com.fitlife.app.model.User.User;
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.id.uuid.UuidGenerator;
 
 @AllArgsConstructor
 @NoArgsConstructor

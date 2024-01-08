@@ -1,6 +1,5 @@
-package com.fitlife.app.DTO.Request.Trainer;
+package com.fitlife.app.dataclass.request.trainer;
 
-import com.trainer.models.api.completion.chat.ChatCompletionRequest;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

@@ -1,4 +1,4 @@
-package com.fitlife.app.Utils.Jwt;
+package com.fitlife.app.utils.jwt;
 
 import java.security.SecureRandom;
 import java.util.Base64;

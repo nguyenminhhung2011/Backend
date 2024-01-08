@@ -1,4 +1,4 @@
-package com.fitlife.app.Exceptions.AppException;
+package com.fitlife.app.exceptions.AppException;
 
 public class NotProcessException extends Throwable {
     public NotProcessException(String message) {

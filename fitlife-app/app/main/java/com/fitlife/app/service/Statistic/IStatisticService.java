@@ -1,4 +1,4 @@
-package com.fitlife.app.Service.Statistic;
+package com.fitlife.app.service.Statistic;
 
 public interface IStatisticService {
 

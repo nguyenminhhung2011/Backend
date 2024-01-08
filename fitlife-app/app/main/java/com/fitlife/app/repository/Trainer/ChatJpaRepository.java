@@ -1,6 +1,6 @@
-package com.fitlife.app.Repository.Trainer;
+package com.fitlife.app.repository.Trainer;
 
-import com.fitlife.app.Model.Trainer.Chat;
+import com.fitlife.app.model.Trainer.Chat;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

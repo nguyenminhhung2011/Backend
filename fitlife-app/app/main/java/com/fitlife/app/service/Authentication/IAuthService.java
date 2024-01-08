@@ -1,8 +1,8 @@
-package com.fitlife.app.Service.Authentication;
+package com.fitlife.app.service.Authentication;
 
-import com.fitlife.app.DTO.Response.AuthResponse;
-import com.fitlife.app.DTO.Request.AuthRequest;
-import com.fitlife.app.DTO.Request.RegistrationRequest;
+import com.fitlife.app.dataclass.response.AuthResponse;
+import com.fitlife.app.dataclass.request.AuthRequest;
+import com.fitlife.app.dataclass.request.RegistrationRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
 

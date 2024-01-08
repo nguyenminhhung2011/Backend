@@ -1,15 +1,18 @@
-package com.fitlife.app.Controller.Trainer;
+package com.fitlife.app.controller.trainer;
 
-import com.fitlife.app.DTO.Request.Trainer.AssistantChatRequest;
-import com.fitlife.app.DTO.Request.Trainer.ChatDto;
-import com.fitlife.app.DTO.Request.Trainer.ChatThreadDto;
-import com.fitlife.app.DTO.Request.Trainer.CreateChatThreadRequest;
-import com.fitlife.app.Security.Model.CurrentUser;
-import com.fitlife.app.Security.Model.FitLifeUserDetail;
-import com.fitlife.app.Service.Trainer.Assistant.AssistantService;
-import com.fitlife.app.Service.Trainer.Chat.ChatService;
-import com.fitlife.app.Service.Trainer.Thread.ChatThreadService;
+import com.fitlife.app.dataclass.request.trainer.AssistantChatRequest;
+import com.fitlife.app.dataclass.request.trainer.ChatDto;
+import com.fitlife.app.dataclass.request.trainer.ChatThreadDto;
+import com.fitlife.app.dataclass.request.trainer.CreateChatThreadRequest;
+import com.fitlife.app.dataclass.response.trainer.AssistantChatResponse;
+import com.fitlife.app.dataclass.response.trainer.AssistantChatStreamResponse;
+import com.fitlife.app.security.Model.CurrentUser;
+import com.fitlife.app.security.Model.FitLifeUserDetail;
+import com.fitlife.app.service.Trainer.Assistant.AssistantService;
+import com.fitlife.app.service.Trainer.Chat.ChatService;
+import com.fitlife.app.service.Trainer.Thread.ChatThreadService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
@@ -36,19 +39,19 @@ public class AssistantController {
         return assistantService.generateCompletion(UUID.fromString(threadId), request).map(ResponseEntity::ok);
     }
 
-    @PostMapping("/chat-stream/{threadId}")
-    public Flux<ResponseEntity<String>> createChatStream(@RequestBody AssistantChatRequest request, @PathVariable String threadId) {
-        return assistantService.generateCompletionStream(UUID.fromString(threadId), request).map(ResponseEntity::ok);
+    @PostMapping(value = "/chat-stream/{threadId}", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    public Flux<AssistantChatStreamResponse> createChatStream(@RequestBody AssistantChatRequest request, @PathVariable String threadId) {
+        return assistantService.generateCompletionStream(UUID.fromString(threadId), request);
     }
 
-    @PostMapping("/chat-stream")
-    public Flux<ResponseEntity<String>> createChatStream(@CurrentUser FitLifeUserDetail userDetail, @RequestBody AssistantChatRequest request) {
-        return assistantService.generateCompletionStream(userDetail.getUser(), request).map(ResponseEntity::ok);
+    @PostMapping(value ="/chat-stream", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    public Flux<AssistantChatStreamResponse> createChatStream(@CurrentUser FitLifeUserDetail userDetail, @RequestBody AssistantChatRequest request) {
+        return assistantService.generateCompletionStream(userDetail.getUser(), request);
     }
 
     @GetMapping("/chat/{threadId}")
-    public Flux<ResponseEntity<ChatDto>> getChatByThreadID(@PathVariable UUID threadId) {
-        return chatService.getChatByThread(threadId).map(ResponseEntity::ok);
+    public ResponseEntity<Flux<ChatDto>> getChatByThreadID(@PathVariable UUID threadId) {
+        return ResponseEntity.ok(chatService.getChatByThread(threadId));
     }
 
     //Thread

@@ -1,10 +1,10 @@
-package com.fitlife.app.Service.NewsHealth;
+package com.fitlife.app.service.NewsHealth;
 
-import com.fitlife.app.DTO.DataClass.NewsHealthDTO;
-import com.fitlife.app.DTO.Request.SearchNewsRequest;
-import com.fitlife.app.Model.NewsHealth.NewsHealth;
-import com.fitlife.app.Repository.NewsHealthRepository;
-import com.fitlife.app.Service.Generic.GenericSearchService;
+import com.fitlife.app.dataclass.dto.NewsHealthDTO;
+import com.fitlife.app.dataclass.request.SearchNewsRequest;
+import com.fitlife.app.model.NewsHealth.NewsHealth;
+import com.fitlife.app.repository.NewsHealthRepository;
+import com.fitlife.app.service.Generic.GenericSearchService;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.domain.Specification;

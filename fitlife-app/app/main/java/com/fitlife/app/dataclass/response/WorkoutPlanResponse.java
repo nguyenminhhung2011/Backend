@@ -1,7 +1,7 @@
-package com.fitlife.app.DTO.Response;
+package com.fitlife.app.dataclass.response;
 
-import com.fitlife.app.Model.Workout.WorkoutPlan;
-import com.fitlife.app.Utils.Enums.PlanType;
+import com.fitlife.app.model.Workout.WorkoutPlan;
+import com.fitlife.app.utils.enums.PlanType;
 import lombok.Getter;
 
 @Getter

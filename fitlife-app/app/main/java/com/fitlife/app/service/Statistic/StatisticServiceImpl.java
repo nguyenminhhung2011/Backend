@@ -1,10 +1,10 @@
-package com.fitlife.app.Service.Statistic;
+package com.fitlife.app.service.Statistic;
 
-import com.fitlife.app.Repository.ActivitiesLogRepository;
-import com.fitlife.app.Repository.DailyWorkoutRepository;
-import com.fitlife.app.Repository.Exercise.ExerciseRepository;
-import com.fitlife.app.Repository.User.UserProfileRepository;
-import com.fitlife.app.Repository.WorkoutRepository;
+import com.fitlife.app.repository.ActivitiesLogRepository;
+import com.fitlife.app.repository.DailyWorkoutRepository;
+import com.fitlife.app.repository.Exercise.ExerciseRepository;
+import com.fitlife.app.repository.User.UserProfileRepository;
+import com.fitlife.app.repository.WorkoutRepository;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor

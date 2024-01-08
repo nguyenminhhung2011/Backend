@@ -1,4 +1,4 @@
-package com.fitlife.app.Security;
+package com.fitlife.app.security;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,12 +1,11 @@
-package com.fitlife.app.Utils.Mapper.trainer;
+package com.fitlife.app.utils.mapper.trainer;
 
-import com.fitlife.app.DTO.Request.Trainer.TrainerDto;
-import com.fitlife.app.Model.Trainer.Trainer;
+import com.fitlife.app.dataclass.request.trainer.TrainerDto;
+import com.fitlife.app.model.Trainer.Trainer;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeMap;
 import org.springframework.stereotype.Component;
-import org.springframework.ui.ModelMap;
 
 @Component
 @AllArgsConstructor

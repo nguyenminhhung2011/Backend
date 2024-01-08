@@ -1,4 +1,4 @@
-package com.fitlife.app.Utils.Enums;
+package com.fitlife.app.utils.enums;
 
 public enum ThemeStatus {
     LIGHT,DARK,SYSTEM,

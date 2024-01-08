@@ -1,12 +1,11 @@
-package com.fitlife.app.Config.Database;
+package com.fitlife.app.config.database;
 
-import com.fitlife.app.Model.Exercise.*;
-import com.fitlife.app.Model.NewsHealth.NewsHealth;
-import com.fitlife.app.Repository.Exercise.*;
+import com.fitlife.app.model.Exercise.*;
+import com.fitlife.app.model.NewsHealth.NewsHealth;
+import com.fitlife.app.repository.Exercise.*;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fitlife.app.Repository.NewsHealthRepository;
-import jakarta.annotation.PostConstruct;
+import com.fitlife.app.repository.NewsHealthRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 

@@ -16,11 +16,13 @@ import java.util.HashMap;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+
 @SpringBootTest(classes = OpenAiService.class)
 public class CompletionTest {
 
     @Autowired
     private OpenAiService service;
+
     @Test
     void createCompletion() {
         CompletionRequest completionRequest = CompletionRequest.builder()
@@ -70,10 +72,12 @@ public class CompletionTest {
                 .model("gpt-3.5-turbo")
                 .messages(messages)
                 .logitBias(new HashMap<>())
-//                .stream(true)
+                .stream(true)
                 .build();
 
-        final ChatCompletionResult chatCompletionResult =  service.createChatCompletion(chatCompletionRequest);
-        System.out.println(chatCompletionResult.getChoices().get(0).getMessage().getContent());
+        service.streamChatCompletion(chatCompletionRequest).blockingForEach(chatCompletionChunk -> {
+            System.out.println(chatCompletionChunk.getChoices().get(0).getMessage().getContent());
+
+        });
     }
 }

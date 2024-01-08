@@ -1,11 +1,11 @@
-package com.fitlife.app.Service.Session;
+package com.fitlife.app.service.Session;
 
-import com.fitlife.app.DTO.DataClass.SessionDTO;
-import com.fitlife.app.DTO.Request.CustomExerciseRequest;
-import com.fitlife.app.DTO.Request.Session.SessionRequest;
-import com.fitlife.app.DTO.Request.Session.UpdateSettingSessionRequest;
-import com.fitlife.app.DTO.Response.CustomExerciseResponse;
-import com.fitlife.app.Exceptions.AppException.BadRequestException;
+import com.fitlife.app.dataclass.dto.SessionDTO;
+import com.fitlife.app.dataclass.request.CustomExerciseRequest;
+import com.fitlife.app.dataclass.request.session.SessionRequest;
+import com.fitlife.app.dataclass.request.session.UpdateSettingSessionRequest;
+import com.fitlife.app.dataclass.response.CustomExerciseResponse;
+import com.fitlife.app.exceptions.AppException.BadRequestException;
 
 import java.util.List;
 

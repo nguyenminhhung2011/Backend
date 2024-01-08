@@ -1,4 +1,4 @@
-package com.fitlife.app.Service.Generic;
+package com.fitlife.app.service.Generic;
 
 import java.util.List;
 

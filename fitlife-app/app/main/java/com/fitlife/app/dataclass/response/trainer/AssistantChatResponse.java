@@ -1,6 +1,6 @@
-package com.fitlife.app.DTO.Response.Trainer;
+package com.fitlife.app.dataclass.response.trainer;
 
-import com.fitlife.app.DTO.Request.Trainer.ChatDto;
+import com.fitlife.app.dataclass.request.trainer.ChatDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

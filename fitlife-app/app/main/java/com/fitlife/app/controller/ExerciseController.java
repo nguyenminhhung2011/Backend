@@ -1,17 +1,17 @@
-package com.fitlife.app.Controller;
+package com.fitlife.app.controller;
 
-import com.fitlife.app.DTO.Request.FetchExerciseRequest;
-import com.fitlife.app.DTO.Request.PageRequest;
-import com.fitlife.app.DTO.Views.ExerciseViews;
-import com.fitlife.app.Model.Exercise.BodyPart;
-import com.fitlife.app.Model.Exercise.Equipment;
-import com.fitlife.app.Model.Exercise.Target;
+import com.fitlife.app.dataclass.request.FetchExerciseRequest;
+import com.fitlife.app.dataclass.request.PageRequest;
+import com.fitlife.app.dataclass.views.ExerciseViews;
+import com.fitlife.app.model.Exercise.BodyPart;
+import com.fitlife.app.model.Exercise.Equipment;
+import com.fitlife.app.model.Exercise.Target;
 import com.fasterxml.jackson.annotation.JsonView;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.fitlife.app.Service.Excercise.ExerciseService;
+import com.fitlife.app.service.Excercise.ExerciseService;
 
 @RestController
 @AllArgsConstructor

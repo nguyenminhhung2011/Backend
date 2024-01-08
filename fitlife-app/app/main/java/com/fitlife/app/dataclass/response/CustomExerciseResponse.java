@@ -1,6 +1,6 @@
-package com.fitlife.app.DTO.Response;
+package com.fitlife.app.dataclass.response;
 
-import com.fitlife.app.DTO.DataClass.ExerciseDTO;
+import com.fitlife.app.dataclass.dto.ExerciseDTO;
 import lombok.*;
 
 @Data

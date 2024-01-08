@@ -1,9 +1,9 @@
-package com.fitlife.app.DTO.DataClass;
+package com.fitlife.app.dataclass.dto;
 
 
 import java.util.List;
 
-import com.fitlife.app.Utils.Enums.PlanType;
+import com.fitlife.app.utils.enums.PlanType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

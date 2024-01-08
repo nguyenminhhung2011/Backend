@@ -1,4 +1,4 @@
-package com.fitlife.app.Security;
+package com.fitlife.app.security;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;

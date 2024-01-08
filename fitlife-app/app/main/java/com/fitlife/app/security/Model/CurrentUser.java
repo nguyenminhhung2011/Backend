@@ -1,4 +1,4 @@
-package com.fitlife.app.Security.Model;
+package com.fitlife.app.security.Model;
 
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 

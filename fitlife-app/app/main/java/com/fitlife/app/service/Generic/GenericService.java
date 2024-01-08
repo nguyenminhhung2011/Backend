@@ -1,6 +1,6 @@
-package com.fitlife.app.Service.Generic;
+package com.fitlife.app.service.Generic;
 
-import com.fitlife.app.Exceptions.AppException.NotFoundException;
+import com.fitlife.app.exceptions.AppException.NotFoundException;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

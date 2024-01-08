@@ -1,8 +1,8 @@
-package com.fitlife.app.Service.Generic;
+package com.fitlife.app.service.Generic;
 
-import com.fitlife.app.DTO.Request.PageRequest;
-import com.fitlife.app.Exceptions.AppException.NotFoundException;
-import com.fitlife.app.Repository.Generic.GenericSearchRepository;
+import com.fitlife.app.dataclass.request.PageRequest;
+import com.fitlife.app.exceptions.AppException.NotFoundException;
+import com.fitlife.app.repository.Generic.GenericSearchRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;

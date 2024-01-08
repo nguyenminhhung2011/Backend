@@ -1,17 +1,18 @@
-package com.fitlife.app.Service.Trainer.Assistant;
+package com.fitlife.app.service.Trainer.Assistant;
 
-import com.fitlife.app.DTO.Request.Trainer.AssistantChatRequest;
-import com.fitlife.app.DTO.Request.Trainer.ChatDto;
-import com.fitlife.app.DTO.Response.Trainer.AssistantChatResponse;
-import com.fitlife.app.Model.Trainer.Chat;
-import com.fitlife.app.Model.Trainer.ChatThread;
-import com.fitlife.app.Model.User.User;
-import com.fitlife.app.ReactiveRepository.Trainer.ChatThreadR2dbcRepository;
-import com.fitlife.app.Repository.Trainer.ChatJpaRepository;
-import com.fitlife.app.Repository.Trainer.ChatThreadJpaRepository;
-import com.fitlife.app.Service.Trainer.Chat.ChatService;
-import com.fitlife.app.Service.Trainer.Thread.ChatThreadService;
-import com.fitlife.app.Utils.Mapper.trainer.ChatThreadMapper;
+import com.fitlife.app.ReactiveRepository.trainer.ChatR2dbcRepository;
+import com.fitlife.app.dataclass.request.trainer.AssistantChatRequest;
+import com.fitlife.app.dataclass.request.trainer.ChatDto;
+import com.fitlife.app.dataclass.response.trainer.AssistantChatResponse;
+import com.fitlife.app.dataclass.response.trainer.AssistantChatStreamResponse;
+import com.fitlife.app.model.Trainer.Chat;
+import com.fitlife.app.model.Trainer.ChatThread;
+import com.fitlife.app.model.User.User;
+import com.fitlife.app.ReactiveRepository.trainer.ChatThreadR2dbcRepository;
+import com.fitlife.app.repository.Trainer.ChatJpaRepository;
+import com.fitlife.app.repository.Trainer.ChatThreadJpaRepository;
+import com.fitlife.app.service.Trainer.Thread.ChatThreadService;
+import com.fitlife.app.utils.mapper.trainer.ChatMapper;
 import com.trainer.models.api.completion.chat.ChatCompletionRequest;
 import com.trainer.models.api.completion.chat.ChatMessage;
 import com.trainer.models.api.completion.chat.ChatMessageRole;
@@ -21,6 +22,7 @@ import com.trainer.models.api.embedding.EmbeddingResult;
 import com.trainer.service.OpenAiService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import reactor.adapter.rxjava.RxJava2Adapter;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Schedulers;
@@ -34,10 +36,12 @@ import java.util.concurrent.atomic.AtomicReference;
 @AllArgsConstructor
 public class AssistantService {
     private final ChatThreadService chatThreadService;
-    private final ChatJpaRepository chatJpaRepository;
     private final OpenAiService openAiService;
+    private final ChatJpaRepository chatJpaRepository;
+    private final ChatR2dbcRepository chatR2dbcRepository;
     private final ChatThreadR2dbcRepository chatThreadR2dbcRepository;
     private final ChatThreadJpaRepository chatThreadJpaRepository;
+    private ChatMapper chatMapper;
 
     public Mono<List<Embedding>> createEmbedding(List<String> text) {
         return Mono.just(text)
@@ -48,7 +52,7 @@ public class AssistantService {
                 .map(EmbeddingResult::getData);
     }
 
-    public Flux<String> generateCompletionStream(User user, AssistantChatRequest request) {
+    public Flux<AssistantChatStreamResponse> generateCompletionStream(User user, AssistantChatRequest request) {
         return Mono.fromFuture(CompletableFuture.supplyAsync(() -> chatThreadJpaRepository.save(ChatThread
                         .builder()
                         .title(Instant.now().toString())
@@ -56,49 +60,97 @@ public class AssistantService {
                 .flatMapMany(chatThread -> generateCompletionStream(chatThread.getId(), request));
     }
 
-    public Flux<String> generateCompletionStream(UUID threadId, AssistantChatRequest request) {
+    public Flux<AssistantChatStreamResponse> generateCompletionStream(UUID threadId, AssistantChatRequest request) {
 
+        return chatR2dbcRepository
+                .findAllByThread(threadId)
+                .collectList()
+                .flatMapMany(oldChat -> {
+                    var chatCompletionRequest = _buildChatCompletionRequest(oldChat, request)
+                            .logitBias(new HashMap<>())
+                            .stream(true).build();
 
-        ChatCompletionRequest chatCompletionRequest = ChatCompletionRequest
-                .builder()
-                .model("gpt-3.5-turbo")
-                .messages(request.getMessages().stream().map(
-                        s -> ChatMessage.builder()
-                                .role(ChatMessageRole.USER.value())
-                                .content(s)
-                                .build()
-                ).toList())
-                .logitBias(new HashMap<>())
-                .stream(true)
-                .build();
+//        final List<ChatMessage> messages = new ArrayList<>();
+//        final ChatMessage systemMessage = new ChatMessage(ChatMessageRole.SYSTEM.value(), "Hello");
+//        messages.add(systemMessage);
+//        ChatCompletionRequest chatCompletionRequest = ChatCompletionRequest
+//                .builder()
+//                .model("gpt-3.5-turbo")
+//                .messages(messages)
+//                .logitBias(new HashMap<>())
+//                .stream(true)
+//                .build();
 
-        AtomicReference<String> message = new AtomicReference<>();
-        return Flux.from(openAiService.streamChatCompletion(chatCompletionRequest))
-                .map(chatCompletionChunk -> chatCompletionChunk.getChoices().get(0).getMessage().getContent())
-                .doOnEach(stringSignal -> {
-                    if (stringSignal.hasValue()) {
-                        message.set(message.get() + stringSignal.get());
-                    }
-                })
-                .publishOn(Schedulers.boundedElastic())
-                .doOnComplete(() -> {
-                    if (Objects.nonNull(message.get())) {
-                        chatThreadR2dbcRepository
-                                .findById(threadId)
-                                .subscribe(chatThread ->
-                                        chatThreadService
-                                                .addNewChat(threadId, Chat.builder()
-                                                        .message(message.get())
-                                                        .thread(chatThread)
-                                                        .build()));
-                    }
+//                    return chatThreadR2dbcRepository
+//                            .findById(threadId)
+//                            .flatMapMany(chatThread ->
+//                                    Mono.fromFuture(CompletableFuture.supplyAsync(() ->
+//                                                    chatJpaRepository.saveAll(
+//                                                            request.getMessages().stream().map(
+//                                                                    s -> Chat.builder()
+//                                                                            .thread(chatThread)
+//                                                                            .role(ChatMessageRole.USER.value())
+//                                                                            .message(s)
+//                                                                            .build()
+//                                                            ).toList()
+//                                                    )))
+//                                            .transform(savedChat -> {
+                    AtomicReference<String> message = new AtomicReference<>("");
+
+                    return Flux.from(openAiService.streamChatCompletion(chatCompletionRequest))
+                            .map(chatCompletionChunk -> {
+                                String value = Objects.requireNonNullElse(chatCompletionChunk.getChoices().get(0).getMessage().getContent(), "");
+                                return AssistantChatStreamResponse.builder()
+                                        .threadId(threadId)
+                                        .message(value)
+                                        .build();
+                            })
+                            .doOnEach(stringSignal -> {
+                                if (stringSignal.hasValue()) {
+                                    message.set(message.get() + Objects.requireNonNull(stringSignal.get()).getMessage());
+                                }
+                            })
+                            .publishOn(Schedulers.boundedElastic())
+                            .doOnComplete(() -> {
+                                if (Objects.nonNull(message.get())) {
+                                    request.getMessages().stream().map(
+                                            s -> Chat.builder()
+                                                    .role(ChatMessageRole.USER.value())
+                                                    .message(s)
+                                                    .build()
+                                    ).forEach(chat -> chatThreadService
+                                            .addNewChat(threadId, chat));
+                                    chatThreadService
+                                            .addNewChat(threadId, Chat.builder()
+                                                    .message(message.get())
+                                                    .role(ChatMessageRole.SYSTEM.value())
+                                                    .build());
+                                }
+                            });
+//                                            }));
                 });
     }
 
+    private ChatCompletionRequest.ChatCompletionRequestBuilder _buildChatCompletionRequest(List<Chat> oldChat, AssistantChatRequest request) {
+        List<ChatMessage> chats = new ArrayList<>(oldChat.stream().map(chat -> ChatMessage.builder()
+                .role(Objects.requireNonNullElse(chat.getRole(), ChatMessageRole.SYSTEM.value()))
+                .content(chat.getMessage())
+                .build()).toList());
+
+        chats.addAll(request.getMessages().stream().map(
+                s -> ChatMessage.builder()
+                        .role(ChatMessageRole.USER.value())
+                        .content(s)
+                        .build()
+        ).toList());
+
+        return ChatCompletionRequest.builder()
+                .model(request.getModel())
+                .messages(chats);
+    }
+
+
     public Mono<AssistantChatResponse> generateCompletion(User user, AssistantChatRequest request) {
-
-
-
         return Mono.fromFuture(
                         CompletableFuture.supplyAsync(() -> chatThreadJpaRepository.save(ChatThread
                                 .builder()
@@ -112,31 +164,11 @@ public class AssistantService {
 
     public Mono<AssistantChatResponse> generateCompletion(UUID chatThreadId, AssistantChatRequest request) {
 
-        return chatThreadR2dbcRepository.findById(chatThreadId).flatMap(chatThread -> {
-            List<ChatMessage> chats;
+        return chatR2dbcRepository.findAllByThread(chatThreadId).collectList().flatMap(oldChat -> {
 
-            if (chatThread.getChats() != null) {
-                chats = new ArrayList<>(chatThread.getChats().stream().map(chat -> ChatMessage.builder()
-                        .role(chat.getRole())
-                        .content(chat.getMessage())
-                        .build()).toList());
-            } else {
-                chats = new ArrayList<>();
-            }
+            final var chatCompletionRequest = _buildChatCompletionRequest(oldChat, request).build();
 
-            chats.addAll(request.getMessages().stream().map(
-                    s -> ChatMessage.builder()
-                            .role(ChatMessageRole.USER.value())
-                            .content(s)
-                            .build()
-            ).toList());
-
-            final var chatCompletionRequest = ChatCompletionRequest.builder()
-                    .model(request.getModel())
-                    .messages(chats)
-                    .build();
-
-            return Mono
+            return chatThreadR2dbcRepository.findById(chatThreadId).flatMap(chatThread -> Mono
                     .fromFuture(CompletableFuture.supplyAsync(() -> {
                         chatJpaRepository.saveAll(
                                 request.getMessages().stream().map(
@@ -175,7 +207,7 @@ public class AssistantService {
                                         )
                                         .build();
                             }
-                    );
+                    ));
         });
 
     }

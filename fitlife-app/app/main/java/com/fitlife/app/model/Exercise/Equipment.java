@@ -1,4 +1,4 @@
-package com.fitlife.app.Model.Exercise;
+package com.fitlife.app.model.Exercise;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;

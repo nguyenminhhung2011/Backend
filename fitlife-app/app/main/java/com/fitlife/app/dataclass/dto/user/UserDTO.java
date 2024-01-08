@@ -1,4 +1,4 @@
-package com.fitlife.app.DTO.DataClass.User;
+package com.fitlife.app.dataclass.dto.user;
 
 import lombok.*;
 

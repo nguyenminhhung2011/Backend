@@ -1,9 +1,9 @@
-package com.fitlife.app.Config;
+package com.fitlife.app.config;
 
-import com.fitlife.app.Security.CustomAuthenticationProvider;
-import com.fitlife.app.Security.CustomEntryPoint;
-import com.fitlife.app.Utils.Filters.JwtFilter;
-import com.fitlife.app.Security.JwtAccessDeniedHandler;
+import com.fitlife.app.security.CustomAuthenticationProvider;
+import com.fitlife.app.security.CustomEntryPoint;
+import com.fitlife.app.utils.filters.JwtFilter;
+import com.fitlife.app.security.JwtAccessDeniedHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;

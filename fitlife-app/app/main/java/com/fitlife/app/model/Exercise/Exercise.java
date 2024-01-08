@@ -1,13 +1,13 @@
-package com.fitlife.app.Model.Exercise;
+package com.fitlife.app.model.Exercise;
 
 import java.util.List;
 
-import com.fitlife.app.DTO.DataClass.InstructionsDeserialize;
-import com.fitlife.app.DTO.Views.ExerciseViews;
-import com.fitlife.app.DTO.Views.SessionViews;
-import com.fitlife.app.DTO.Views.UserViews;
-import com.fitlife.app.Model.Session.Session;
-import com.fitlife.app.Model.User.UserProfile;
+import com.fitlife.app.dataclass.dto.InstructionsDeserialize;
+import com.fitlife.app.dataclass.views.ExerciseViews;
+import com.fitlife.app.dataclass.views.SessionViews;
+import com.fitlife.app.dataclass.views.UserViews;
+import com.fitlife.app.model.Session.Session;
+import com.fitlife.app.model.User.UserProfile;
 import com.fasterxml.jackson.annotation.*;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import jakarta.persistence.*;

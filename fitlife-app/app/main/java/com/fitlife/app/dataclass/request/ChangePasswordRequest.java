@@ -1,4 +1,4 @@
-package com.fitlife.app.DTO.Request;
+package com.fitlife.app.dataclass.request;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;

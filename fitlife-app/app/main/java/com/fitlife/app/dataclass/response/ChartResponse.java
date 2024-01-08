@@ -1,4 +1,4 @@
-package com.fitlife.app.DTO.Response;
+package com.fitlife.app.dataclass.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

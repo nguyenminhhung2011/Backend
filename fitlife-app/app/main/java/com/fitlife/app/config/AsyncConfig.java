@@ -1,18 +1,24 @@
-package com.fitlife.app.Config;
+package com.fitlife.app.config;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableAsync;
-import org.springframework.scheduling.concurrent.ConcurrentTaskExecutor;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 import java.util.concurrent.Executor;
-import java.util.concurrent.Executors;
 
 @Configuration
-@EnableAsync(proxyTargetClass = true)
+@EnableAsync
 public class AsyncConfig {
-    @Bean(name = "taskExecutor")
-    public Executor taskExecutor(){
-        return new ConcurrentTaskExecutor(Executors.newCachedThreadPool());
+    @Bean(name = "asyncExecutor")
+    public Executor asyncExecutor() {
+        ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
+        executor.setCorePoolSize(3);
+        executor.setMaxPoolSize(3);
+        executor.setQueueCapacity(500);
+        executor.setThreadNamePrefix("FitLifeAsyncThread-");
+        executor.initialize();
+        return executor;
     }
 }

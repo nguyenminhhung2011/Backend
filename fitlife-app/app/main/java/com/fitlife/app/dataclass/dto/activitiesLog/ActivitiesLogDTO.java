@@ -1,6 +1,6 @@
-package com.fitlife.app.DTO.DataClass.ActivitiesLog;
+package com.fitlife.app.dataclass.dto.activitiesLog;
 
-import com.fitlife.app.DTO.DataClass.WorkoutPlanDTO;
+import com.fitlife.app.dataclass.dto.WorkoutPlanDTO;
 import lombok.Data;
 
 @Data

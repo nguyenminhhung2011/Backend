@@ -1,9 +1,9 @@
-package com.fitlife.app.Controller;
+package com.fitlife.app.controller;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import com.fitlife.app.DTO.Request.SearchNewsRequest;
-import com.fitlife.app.DTO.Views.NewsHealthViews;
-import com.fitlife.app.Service.NewsHealth.INewsHealthService;
+import com.fitlife.app.dataclass.request.SearchNewsRequest;
+import com.fitlife.app.dataclass.views.NewsHealthViews;
+import com.fitlife.app.service.NewsHealth.INewsHealthService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

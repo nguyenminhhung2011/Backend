@@ -1,16 +1,16 @@
-package com.fitlife.app.Controller;
+package com.fitlife.app.controller;
 
-import com.fitlife.app.DTO.Views.UserViews;
-import com.fitlife.app.Service.Authentication.IAuthService;
+import com.fitlife.app.dataclass.views.UserViews;
+import com.fitlife.app.service.Authentication.IAuthService;
 import com.fasterxml.jackson.annotation.JsonView;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.fitlife.app.DTO.Response.AuthResponse;
-import com.fitlife.app.DTO.Request.AuthRequest;
-import com.fitlife.app.DTO.Request.RegistrationRequest;
+import com.fitlife.app.dataclass.response.AuthResponse;
+import com.fitlife.app.dataclass.request.AuthRequest;
+import com.fitlife.app.dataclass.request.RegistrationRequest;
 
 import javax.naming.AuthenticationException;
 

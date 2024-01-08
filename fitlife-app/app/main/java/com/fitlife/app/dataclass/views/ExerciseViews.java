@@ -1,4 +1,4 @@
-package com.fitlife.app.DTO.Views;
+package com.fitlife.app.dataclass.views;
 
 public class ExerciseViews {
     public static interface Summary {

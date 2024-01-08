@@ -1,6 +1,6 @@
-package com.fitlife.app.Model.Exercise;
+package com.fitlife.app.model.Exercise;
 
-import com.fitlife.app.Model.Session.Session;
+import com.fitlife.app.model.Session.Session;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

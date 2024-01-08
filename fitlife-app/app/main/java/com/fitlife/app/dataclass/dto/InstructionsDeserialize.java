@@ -1,6 +1,6 @@
-package com.fitlife.app.DTO.DataClass;
+package com.fitlife.app.dataclass.dto;
 
-import com.fitlife.app.Model.Exercise.Steps;
+import com.fitlife.app.model.Exercise.Steps;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonNode;

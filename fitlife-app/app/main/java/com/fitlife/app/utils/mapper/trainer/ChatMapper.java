@@ -1,7 +1,7 @@
-package com.fitlife.app.Utils.Mapper.trainer;
+package com.fitlife.app.utils.mapper.trainer;
 
-import com.fitlife.app.DTO.Request.Trainer.ChatDto;
-import com.fitlife.app.Model.Trainer.Chat;
+import com.fitlife.app.dataclass.request.trainer.ChatDto;
+import com.fitlife.app.model.Trainer.Chat;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeMap;
@@ -12,8 +12,9 @@ import org.springframework.stereotype.Component;
 public class ChatMapper {
     private final ModelMapper modelMapper;
 
-    public ChatDto chatDto(Chat entity) {
+    public ChatDto toDto(Chat entity) {
         TypeMap<Chat, ChatDto> typeMap = modelMapper.typeMap(Chat.class, ChatDto.class);
         return typeMap.map(entity);
     }
+
 }

@@ -1,4 +1,4 @@
-package com.fitlife.app.Repository.Generic;
+package com.fitlife.app.repository.Generic;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.NoRepositoryBean;

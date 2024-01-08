@@ -1,7 +1,7 @@
 package com.fitlife.Mapper;
 
-import com.fitlife.app.Model.Workout.WorkoutPlan;
-import com.fitlife.app.Utils.Mapper.WorkoutPlanMapper;
+import com.fitlife.app.model.Workout.WorkoutPlan;
+import com.fitlife.app.utils.mapper.WorkoutPlanMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

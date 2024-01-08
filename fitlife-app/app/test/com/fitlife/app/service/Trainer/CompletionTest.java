@@ -1,4 +1,4 @@
-package com.fitlife.app.Service.Trainer;
+package com.fitlife.app.service.Trainer;
 
 import com.trainer.models.api.completion.CompletionChoice;
 import com.trainer.models.api.completion.CompletionRequest;
@@ -72,10 +72,12 @@ public class CompletionTest {
                 .model("gpt-3.5-turbo")
                 .messages(messages)
                 .logitBias(new HashMap<>())
-//                .stream(true)
+                .stream(true)
                 .build();
 
-        final ChatCompletionResult chatCompletionResult =  service.createChatCompletion(chatCompletionRequest);
-        System.out.println(chatCompletionResult.getChoices().get(0).getMessage().getContent());
+        service.streamChatCompletion(chatCompletionRequest).blockingForEach(chatCompletionChunk -> {
+            System.out.println(chatCompletionChunk.getChoices().get(0).getMessage().getContent());
+
+        });
     }
 }

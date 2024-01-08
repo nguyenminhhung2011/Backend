@@ -1,4 +1,4 @@
-package com.fitlife.app.Config;
+package com.fitlife.app.config;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;

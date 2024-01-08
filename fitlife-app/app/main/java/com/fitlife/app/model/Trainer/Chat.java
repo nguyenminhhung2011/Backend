@@ -1,9 +1,7 @@
-package com.fitlife.app.Model.Trainer;
+package com.fitlife.app.model.Trainer;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.id.uuid.UuidGenerator;
 
 import java.util.UUID;
 
@@ -20,8 +18,10 @@ public class Chat {
     @GeneratedValue(strategy = GenerationType.UUID)
     public UUID id;
 
+    @Column(length = 1024,nullable = false)
     public String message;
 
+    @NonNull
     public String role;
 
     @ManyToOne

@@ -1,12 +1,9 @@
-package com.fitlife.app.Model.Trainer;
+package com.fitlife.app.model.Trainer;
 
-import com.fitlife.app.Model.User.User;
+import com.fitlife.app.model.User.User;
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.id.uuid.UuidGenerator;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -40,4 +37,8 @@ public class ChatThread {
     )
     public List<Chat> chats;
 
+
+    public List<Chat> getChats() {
+        return chats;
+    }
 }

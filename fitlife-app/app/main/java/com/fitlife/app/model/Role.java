@@ -1,4 +1,4 @@
-package com.fitlife.app.Model;
+package com.fitlife.app.model;
 
 import java.io.Serial;
 import java.io.Serializable;

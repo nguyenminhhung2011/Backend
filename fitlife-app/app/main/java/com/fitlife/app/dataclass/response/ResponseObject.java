@@ -1,4 +1,4 @@
-package com.fitlife.app.DTO.Response;
+package com.fitlife.app.dataclass.response;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -10,8 +10,6 @@ import lombok.ToString;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_DEFAULT)
 public class ResponseObject {
-
-
 	private String status;
 	private String message;
 	private Object data;

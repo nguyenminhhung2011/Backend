@@ -1,12 +1,11 @@
-package com.fitlife.app.Service.Trainer.Chat;
+package com.fitlife.app.service.Trainer.Chat;
 
-import com.fitlife.app.DTO.Request.Trainer.ChatDto;
-import com.fitlife.app.Model.Trainer.Chat;
-import com.fitlife.app.ReactiveRepository.Trainer.ChatR2dbcRepository;
-import com.fitlife.app.Repository.Trainer.ChatJpaRepository;
-import com.fitlife.app.Utils.Mapper.trainer.ChatMapper;
+import com.fitlife.app.dataclass.request.trainer.ChatDto;
+import com.fitlife.app.model.Trainer.Chat;
+import com.fitlife.app.ReactiveRepository.trainer.ChatR2dbcRepository;
+import com.fitlife.app.repository.Trainer.ChatJpaRepository;
+import com.fitlife.app.utils.mapper.trainer.ChatMapper;
 import lombok.AllArgsConstructor;
-import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -37,7 +36,7 @@ public class ChatService  {
     }
 
     public Flux<ChatDto> getChatByThread(UUID threadId) {
-        return chatR2dbcRepository.findAllByThread(threadId).map(chatMapper::chatDto);
+        return chatR2dbcRepository.findAllByThread(threadId).map(chatMapper::toDto);
     }
 
     public Mono<Void> deleteById(UUID id) {

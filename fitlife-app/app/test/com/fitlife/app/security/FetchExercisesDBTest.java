@@ -1,4 +1,4 @@
-package com.fitlife.app.Security;
+package com.fitlife.app.security;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

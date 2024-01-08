@@ -1,17 +1,19 @@
-package com.fitlife.app.Service.Trainer.Thread;
+package com.fitlife.app.service.Trainer.Thread;
 
-import com.fitlife.app.DTO.Request.Trainer.ChatThreadDto;
-import com.fitlife.app.DTO.Request.Trainer.CreateChatThreadRequest;
-import com.fitlife.app.Model.Trainer.Chat;
-import com.fitlife.app.Model.Trainer.ChatThread;
-import com.fitlife.app.ReactiveRepository.Trainer.ChatThreadR2dbcRepository;
-import com.fitlife.app.Repository.Trainer.ChatThreadJpaRepository;
-import com.fitlife.app.Service.Trainer.Chat.ChatService;
-import com.fitlife.app.Utils.Mapper.trainer.ChatThreadMapper;
+import com.fitlife.app.dataclass.request.trainer.ChatThreadDto;
+import com.fitlife.app.dataclass.request.trainer.CreateChatThreadRequest;
+import com.fitlife.app.model.Trainer.Chat;
+import com.fitlife.app.model.Trainer.ChatThread;
+import com.fitlife.app.ReactiveRepository.trainer.ChatThreadR2dbcRepository;
+import com.fitlife.app.repository.Trainer.ChatThreadJpaRepository;
+import com.fitlife.app.service.Trainer.Chat.ChatService;
+import com.fitlife.app.utils.mapper.trainer.ChatThreadMapper;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -48,16 +50,17 @@ public class ChatThreadService {
     }
 
 
-
     public Mono<ChatThreadDto> getThreadById(UUID threadId) {
-        return chatThreadR2dbcRepository.findById(threadId).flatMap(chatThread -> chatService.getChatByThread(chatThread.getId())
-                .collectList()
-                .map(chats -> ChatThreadDto.builder()
-                        .id(chatThread.getId())
-                        .title(chatThread.getTitle())
-                        .chats(chats)
-                        .trainer(null)
-                        .build()));
+        return chatThreadR2dbcRepository.findById(threadId).flatMap(
+                chatThread -> chatService
+                        .getChatByThread(chatThread.getId())
+                        .collectList()
+                        .map(chats -> ChatThreadDto.builder()
+                                .id(chatThread.getId())
+                                .title(chatThread.getTitle())
+                                .chats(chats)
+                                .trainer(null)
+                                .build()));
     }
 
     public Mono<Void> deleteThread(UUID threadId) {
@@ -88,6 +91,7 @@ public class ChatThreadService {
                     return chatService.createChat(chat);
                 }).orElseThrow(() -> new RuntimeException("Thread not found"));
     }
+
 
     public void deleteChatThread(UUID threadId) {
         chatThreadJpaRepository.deleteById(threadId);

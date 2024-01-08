@@ -1,12 +1,12 @@
-package com.fitlife.app.Model.Session;
+package com.fitlife.app.model.Session;
 
 import java.util.List;
 
-import com.fitlife.app.DTO.Views.SessionViews;
+import com.fitlife.app.dataclass.views.SessionViews;
 import com.fasterxml.jackson.annotation.JsonView;
 
-import com.fitlife.app.Model.Exercise.CustomExercise;
-import com.fitlife.app.Model.Workout.DailyWorkout;
+import com.fitlife.app.model.Exercise.CustomExercise;
+import com.fitlife.app.model.Workout.DailyWorkout;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;

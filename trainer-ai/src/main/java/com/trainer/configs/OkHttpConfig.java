@@ -16,7 +16,7 @@ import java.util.concurrent.TimeUnit;
 @Configuration
 class OkHttpConfig {
 
-    @Value(value = "${openai.api.key}")
+    @Value(value = "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")
     private  String token;
 
     @Value(value = "${openai.api.timeout:10000}")
@@ -25,7 +25,7 @@ class OkHttpConfig {
     public OkHttpClient createOkHttpClient() {
         return new OkHttpClient.Builder()
                 .addInterceptor(new AuthenticationInterceptor(token))
-                .readTimeout(Duration.ofSeconds(Long.parseLong(timeout)).toMillis(), TimeUnit.MILLISECONDS)
+                .readTimeout(Duration.ofSeconds(Long.parseLong(timeout)).toSeconds(), TimeUnit.SECONDS)
                 .build();
     }
 }

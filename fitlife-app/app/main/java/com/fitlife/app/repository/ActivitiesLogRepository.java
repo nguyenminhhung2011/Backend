@@ -1,6 +1,6 @@
-package com.fitlife.app.Repository;
+package com.fitlife.app.repository;
 
-import com.fitlife.app.Model.ActivitiesLog;
+import com.fitlife.app.model.ActivitiesLog;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

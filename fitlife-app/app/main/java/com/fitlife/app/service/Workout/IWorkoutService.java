@@ -1,18 +1,16 @@
-package com.fitlife.app.Service.Workout;
+package com.fitlife.app.service.Workout;
 
-import com.fitlife.app.DTO.DataClass.DailyWorkoutDTO;
-import com.fitlife.app.DTO.Request.DailyWorkoutRequest;
-import com.fitlife.app.DTO.Request.GetChartRequest;
-import com.fitlife.app.DTO.Request.WorkoutPlanRequest;
-import com.fitlife.app.DTO.Response.ChartResponse;
-import com.fitlife.app.DTO.Response.FitOverviewResponse;
-import com.fitlife.app.DTO.Response.WorkoutPlanResponse;
-import com.fitlife.app.Exceptions.AppException.BadRequestException;
-import com.fitlife.app.Model.Workout.WorkoutPlan;
+import com.fitlife.app.dataclass.dto.DailyWorkoutDTO;
+import com.fitlife.app.dataclass.request.DailyWorkoutRequest;
+import com.fitlife.app.dataclass.request.GetChartRequest;
+import com.fitlife.app.dataclass.request.WorkoutPlanRequest;
+import com.fitlife.app.dataclass.response.FitOverviewResponse;
+import com.fitlife.app.dataclass.response.WorkoutPlanResponse;
+import com.fitlife.app.exceptions.AppException.BadRequestException;
+import com.fitlife.app.model.Workout.WorkoutPlan;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import java.util.Date;
 import java.util.List;
 
 public interface IWorkoutService {

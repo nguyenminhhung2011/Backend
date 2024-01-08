@@ -51,6 +51,9 @@ public class StreamFlowUtils {
      * @param cl      Class of type T to return
      */
     public  <T> Flowable<T> stream(Call<ResponseBody> apiCall, Class<T> cl) {
-        return stream(apiCall).map(completionEvent -> mapper.readValue(completionEvent.data(), cl));
+        return stream(apiCall).map(completionEvent -> {
+            var value = mapper.readValue(completionEvent.data(), cl);
+            return value;
+        });
     }
 }

@@ -1,9 +1,9 @@
-package com.fitlife.app.Security.Model;
+package com.fitlife.app.security.Model;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
-import com.fitlife.app.Model.User.User;
+import com.fitlife.app.model.User.User;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

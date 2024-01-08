@@ -1,4 +1,4 @@
-package com.fitlife.app.Utils.Constants;
+package com.fitlife.app.utils.constants;
 
 public class Constants {
     //API
