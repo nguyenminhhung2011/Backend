@@ -1,21 +1,22 @@
 package com.fitlife.app.config.database.initializer;
 
-import org.springframework.boot.CommandLineRunner;
+import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @Component
-public class DataInitializer  implements CommandLineRunner {
-    private final ExerciseInitializer exerciseInitializer;
-    private final NewsHealthInitializer newsHealthInitializer;
+public class DataInitializer {
+    private final ExerciseInitializerConfig exerciseInitializerConfig;
+    private final NewsHealthInitializerConfig newsHealthInitializerConfig;
 
-    public DataInitializer(ExerciseInitializer exerciseInitializer, NewsHealthInitializer newsHealthInitializer) {
-        this.exerciseInitializer = exerciseInitializer;
-        this.newsHealthInitializer = newsHealthInitializer;
+    public DataInitializer(ExerciseInitializerConfig exerciseInitializerConfig, NewsHealthInitializerConfig newsHealthInitializerConfig) {
+        this.exerciseInitializerConfig = exerciseInitializerConfig;
+        this.newsHealthInitializerConfig = newsHealthInitializerConfig;
     }
 
-    @Override
-    public void run(String... args) throws Exception {
-        exerciseInitializer.run();
-        newsHealthInitializer.run();
+    @PostConstruct
+    public void run() throws Exception {
+        exerciseInitializerConfig.run();
+        newsHealthInitializerConfig.run();
     }
 }

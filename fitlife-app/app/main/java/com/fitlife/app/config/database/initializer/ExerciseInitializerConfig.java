@@ -3,13 +3,14 @@ package com.fitlife.app.config.database.initializer;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fitlife.app.model.exercise.*;
 import com.fitlife.app.repository.jpa.exercise.*;
+import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.io.InputStream;
 import java.util.List;
 @Component
-public class ExerciseInitializer extends DatabaseInitializerConfig{
+public class ExerciseInitializerConfig extends DatabaseInitializerConfig{
     @Value(value = "${com.fitlife.database.initial.exercise}")
     private String exercise;
 
@@ -27,7 +28,7 @@ public class ExerciseInitializer extends DatabaseInitializerConfig{
     private final EquipmentRepository equipmentRepository;
     private final TargetRepository targetRepository;
 
-    public ExerciseInitializer(ExerciseRepository exerciseRepository, StepRepository stepRepository, BodyPartRepository bodyPartRepository, EquipmentRepository equipmentRepository, TargetRepository targetRepository) {
+    public ExerciseInitializerConfig(ExerciseRepository exerciseRepository, StepRepository stepRepository, BodyPartRepository bodyPartRepository, EquipmentRepository equipmentRepository, TargetRepository targetRepository) {
         this.exerciseRepository = exerciseRepository;
         this.stepRepository = stepRepository;
         this.bodyPartRepository = bodyPartRepository;
@@ -35,7 +36,7 @@ public class ExerciseInitializer extends DatabaseInitializerConfig{
         this.targetRepository = targetRepository;
     }
 
-    public void run(String... args) throws Exception {
+    public void run() throws Exception {
         TypeReference<List<Exercise>> typeReference = new TypeReference<>() {};
         InputStream inputStream = TypeReference.class.getResourceAsStream(exercise);
         try {
