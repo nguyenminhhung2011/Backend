@@ -157,7 +157,6 @@ public class OpenAiService extends OpenAiBaseService {
         return execute(api.listMessages(threadId, queryParameters));
     }
 
-
     /*
     Assistant Run
      */

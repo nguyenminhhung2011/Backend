@@ -1,5 +1,6 @@
 package com.trainer.models.api.runs;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.trainer.models.api.assistants.Tool;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,6 +15,7 @@ import java.util.Map;
 @AllArgsConstructor
 @Data
 public class RunCreateRequest {
+    @JsonProperty("assistant_id")
     String assistantId;
 
     // Optional

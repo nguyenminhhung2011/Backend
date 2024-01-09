@@ -12,7 +12,6 @@ import com.fitlife.app.model.trainer.ChatThread;
 import com.fitlife.app.model.user.User;
 import com.fitlife.app.repository.r2dbc.trainer.ChatThreadR2dbcRepository;
 import com.fitlife.app.service.trainer.thread.ChatThreadService;
-import com.fitlife.app.utils.mapper.trainer.ChatMapper;
 import com.trainer.models.api.completion.chat.ChatCompletionRequest;
 import com.trainer.models.api.completion.chat.ChatMessage;
 import com.trainer.models.api.completion.chat.ChatMessageRole;
@@ -33,7 +32,7 @@ import java.util.concurrent.atomic.AtomicReference;
 
 @Service
 @AllArgsConstructor
-public class AssistantService {
+public class AssistantChatService {
 
     private final ChatThreadService chatThreadService;
     private final OpenAiService openAiService;

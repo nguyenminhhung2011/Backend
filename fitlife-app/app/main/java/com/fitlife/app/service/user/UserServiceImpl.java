@@ -237,7 +237,14 @@ public class UserServiceImpl extends GenericService<User,Long, UserRepository> i
 		}
 	}
 
-	@Override
+    @Override
+    public void setOpenAiToken(long userId,String token) {
+		User user = findById(userId);
+		user.setUserToken(token);
+		repository.save(user);
+    }
+
+    @Override
 	public List<UserDTO> getAllUser() {
 		return repository.findAll().stream().map(userMapper::userDTO).toList();
 	}
@@ -248,6 +255,7 @@ public class UserServiceImpl extends GenericService<User,Long, UserRepository> i
 				null,
 				request.getUsername(),
 				passwordEncoder.encode(request.getPassword()) ,
+				null,
 				null,
 				null,
 				null,

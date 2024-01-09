@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 import java.io.InputStream;
 import java.util.List;
-//@Component
+@Component
 public class ExerciseInitializer extends DatabaseInitializerConfig{
     @Value(value = "${com.fitlife.database.initial.exercise}")
     private String exercise;
@@ -35,7 +35,6 @@ public class ExerciseInitializer extends DatabaseInitializerConfig{
         this.targetRepository = targetRepository;
     }
 
-    @Override
     public void run(String... args) throws Exception {
         TypeReference<List<Exercise>> typeReference = new TypeReference<>() {};
         InputStream inputStream = TypeReference.class.getResourceAsStream(exercise);
@@ -58,6 +57,5 @@ public class ExerciseInitializer extends DatabaseInitializerConfig{
             System.out.println("Unable to initialize exercise data: " + e.getMessage());
         }
     }
-
 
 }

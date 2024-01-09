@@ -36,13 +36,13 @@ public class TrainerService {
         return trainerR2dbcRepository.findAllByUser(userId).map(trainerMapper::toDto);
     }
 
-    public Mono<TrainerDetailDto> getById(UUID trainerId) {
+    public Mono<TrainerDetailDto> getById(String trainerId) {
         return trainerR2dbcRepository.findById(trainerId).map(trainerMapper::toDetailDto).doOnError(throwable -> {
             throw new NotFoundException("Trainer not found");
         });
     }
 
-    public Flux<ChatThread> getALlChatThread(UUID trainerId) {
+    public Flux<ChatThread> getALlChatThread(String trainerId) {
         return trainerR2dbcRepository.findById(trainerId)
                 .flatMapIterable(Trainer::getThreads)
                 .doOnError(throwable -> {
@@ -77,7 +77,7 @@ public class TrainerService {
         return trainerMapper.toDetailDto(trainerEntity);
     }
 
-    public TrainerDto updateTrainer(Long userId, UUID trainerId, TrainerDto trainerDto) {
+    public TrainerDto updateTrainer(Long userId, String trainerId, TrainerDto trainerDto) {
         if (trainerJpaRepository.existsById(trainerId)) {
             return trainerJpaRepository
                     .findById(trainerId)
@@ -105,7 +105,7 @@ public class TrainerService {
         }
     }
 
-    public void deleteTrainer(Long userId, UUID trainerId) {
+    public void deleteTrainer(Long userId, String trainerId) {
         trainerJpaRepository
                 .findById(trainerId)
                 .map(trainer -> {

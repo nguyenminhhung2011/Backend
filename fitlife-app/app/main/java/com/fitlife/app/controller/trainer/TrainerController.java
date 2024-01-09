@@ -7,7 +7,9 @@ import com.fitlife.app.security.model.FitLifeUserDetail;
 import com.fitlife.app.service.trainer.trainer.TrainerService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -31,17 +33,17 @@ public class TrainerController {
     }
 
     @DeleteMapping("/{trainerId}")
-    public void deleteTrainer(@CurrentUser FitLifeUserDetail userDetail, @PathVariable UUID trainerId) {
+    public void deleteTrainer(@CurrentUser FitLifeUserDetail userDetail, @PathVariable String trainerId) {
         trainerService.deleteTrainer(userDetail.getId(), trainerId);
     }
 
     @PutMapping("/{trainerId}")
-    public ResponseEntity<?> updateTrainer(@CurrentUser FitLifeUserDetail userDetail, @PathVariable UUID trainerId, TrainerDto trainerDto) {
+    public ResponseEntity<?> updateTrainer(@CurrentUser FitLifeUserDetail userDetail, @PathVariable String trainerId, TrainerDto trainerDto) {
         return ResponseEntity.ok(trainerService.updateTrainer(userDetail.getId(), trainerId, trainerDto));
     }
 
     @GetMapping("/{trainerId}")
-    public ResponseEntity<Mono<TrainerDetailDto>> getTrainerById(@PathVariable UUID trainerId) {
+    public ResponseEntity<Mono<TrainerDetailDto>> getTrainerById(@PathVariable String trainerId) {
         return ResponseEntity.ok(trainerService.getById(trainerId));
     }
 }

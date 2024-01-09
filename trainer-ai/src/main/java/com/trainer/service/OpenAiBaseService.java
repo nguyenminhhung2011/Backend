@@ -1,10 +1,12 @@
 package com.trainer.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.trainer.configs.RetrofitConfig;
 import com.trainer.models.OpenAiApi;
 import com.trainer.models.errors.OpenAiError;
 import com.trainer.models.errors.OpenAiHttpException;
 import com.trainer.utils.StreamFlowUtils;
+import com.trainer.utils.interceptor.AuthenticationInterceptor;
 import io.reactivex.Single;
 import okhttp3.OkHttpClient;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +27,7 @@ abstract class OpenAiBaseService {
     protected OpenAiApi api;
     protected ObjectMapper mapper;
     protected OkHttpClient okHttpClient;
+    protected RetrofitConfig retrofitConfig;
     protected Retrofit retrofit;
     protected ExecutorService executorService;
     protected StreamFlowUtils streamFlowService;
@@ -42,6 +45,11 @@ abstract class OpenAiBaseService {
     }
 
     @Autowired
+    void addRetrofitConfig(RetrofitConfig retrofitConfig) {
+        this.retrofitConfig = retrofitConfig;
+    }
+
+    @Autowired
     @Qualifier(value = "OkHttpConfigTrainer")
     void addOkHttpClient(OkHttpClient okHttpClient) {
         this.okHttpClient = okHttpClient;
@@ -52,6 +60,15 @@ abstract class OpenAiBaseService {
     @Qualifier(value = "RetrofitConfigTrainer")
     void addRetrofit(Retrofit retrofit) {
         this.retrofit = retrofit;
+        this.api = retrofit.create(OpenAiApi.class);
+    }
+
+    public void updateToken(String token) {
+        this.okHttpClient = this.okHttpClient.newBuilder()
+                .addInterceptor(new AuthenticationInterceptor(token))
+                .build();
+        this.executorService = this.okHttpClient.dispatcher().executorService();
+        this.retrofit = retrofitConfig.buildRetrofit(this.okHttpClient);
         this.api = retrofit.create(OpenAiApi.class);
     }
 

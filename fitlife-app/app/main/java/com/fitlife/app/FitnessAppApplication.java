@@ -8,6 +8,7 @@ import org.springframework.data.r2dbc.repository.config.EnableR2dbcRepositories;
 @SpringBootApplication(scanBasePackages = {"com.fitlife.app","com.trainer"})
 public class FitnessAppApplication {
 	public static void main(String[] args) {
+
 		SpringApplication.run(FitnessAppApplication.class, args);
 	}
 }

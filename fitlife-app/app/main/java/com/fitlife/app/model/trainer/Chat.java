@@ -18,9 +18,10 @@ public class Chat {
     @GeneratedValue(strategy = GenerationType.UUID)
     public UUID id;
 
+    @org.springframework.data.relational.core.mapping.Column("oaimessageid")
     public String oaiMessageId;
 
-    @Column(length = 1024,nullable = false)
+    @Column(length = 50000,nullable = false)
     public String message;
 
     @NonNull

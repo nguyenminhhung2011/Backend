@@ -22,6 +22,7 @@ public class ChatThread {
 
     public String title;
 
+    @org.springframework.data.relational.core.mapping.Column("openaithreadid")
     public String openAiThreadId;
 
     @ManyToOne

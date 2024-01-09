@@ -10,7 +10,7 @@ import java.util.UUID;
 import java.util.List;
 
 @Repository
-public interface TrainerJpaRepository extends JpaRepository<Trainer, UUID>{
+public interface TrainerJpaRepository extends JpaRepository<Trainer, String>{
     @Query("select t from Trainer t where t.user.id = :userId")
     List<Trainer> findAllByUserId(@Param("userId") Long userId);
 }

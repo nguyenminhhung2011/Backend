@@ -20,12 +20,12 @@ import java.util.HashMap;
 import java.util.List;
 
 @SpringBootTest
-class AssistantServiceTest {
+class AssistantChatServiceTest {
     User user;
     Trainer trainer;
 
     @Autowired
-    AssistantService assistantService;
+    AssistantChatService assistantChatService;
 
     @Autowired
     ChatThreadService chatThreadService;

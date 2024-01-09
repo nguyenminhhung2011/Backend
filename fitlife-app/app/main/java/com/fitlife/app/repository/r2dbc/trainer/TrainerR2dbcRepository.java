@@ -11,10 +11,10 @@ import reactor.core.publisher.Mono;
 import java.util.UUID;
 
 @Repository
-public interface TrainerR2dbcRepository extends R2dbcRepository<Trainer, UUID> {
+public interface TrainerR2dbcRepository extends R2dbcRepository<Trainer, String> {
     @Query("select * from trainer t where t.user_id = :userId")
     Flux<Trainer> findAllByUser(@Param("userId") Long userId);
 
-    @Query("select * from trainer t where t.user_id = :userId && t.id = :trainerId;")
+    @Query("select * from trainer t where t.user_id = :userId and t.id = :trainerId")
     Mono<Trainer> findByIdAndUser(@Param("trainerId") String trainerId, @Param("userId") Long userId);
 }

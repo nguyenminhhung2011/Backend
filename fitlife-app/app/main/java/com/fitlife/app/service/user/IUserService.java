@@ -8,6 +8,7 @@ import com.fitlife.app.dataClass.request.AddActivitiesLogRequest;
 import com.fitlife.app.dataClass.request.ChangePasswordRequest;
 import com.fitlife.app.dataClass.request.RegistrationRequest;
 import com.fitlife.app.exceptions.appException.BadRequestException;
+import com.fitlife.app.model.user.User;
 
 import java.util.List;
 public interface IUserService {
@@ -32,4 +33,5 @@ public interface IUserService {
 
     ResponseObject addFavoriteNews(Long userId,Long newsId) throws BadRequestException;
 
+    void setOpenAiToken(long userId,String token);
 }

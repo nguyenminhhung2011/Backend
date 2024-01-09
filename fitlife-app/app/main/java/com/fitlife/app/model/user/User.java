@@ -59,11 +59,13 @@ public class User implements Serializable {
 	@OneToOne(mappedBy = "user",cascade = CascadeType.ALL,orphanRemoval = true)
 	private UserProfile userProfile;
 
-
 	@OneToMany(mappedBy = "user",cascade = CascadeType.ALL,orphanRemoval = true)
 	private List<Trainer> trainers;
 
 	@OneToMany(mappedBy = "user",cascade = CascadeType.ALL,orphanRemoval = true)
 	private List<ChatThread> chatThreads;
+
+	@org.springframework.data.relational.core.mapping.Column("usertoken")
+	private String userToken;
 }
 

@@ -23,7 +23,6 @@ import org.springframework.stereotype.Service;
 import javax.naming.AuthenticationException;
 import java.util.Optional;
 
-
 @Primary
 @Service
 @AllArgsConstructor

@@ -35,6 +35,11 @@ public class ChatService  {
 
         Message message = openAiService.createMessage(oaiThreadId, messageRequest);
         chat.setOaiMessageId(message.id());
+
+        if (chat.getThread() == null) {
+            chat.setThread(chatJpaRepository.findById(UUID.fromString(oaiThreadId)).map(Chat::getThread).orElseThrow(() -> new RuntimeException("Thread not found")));
+        }
+
         return chatJpaRepository.save(chat);
     }
 

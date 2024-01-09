@@ -1,10 +1,10 @@
 package com.fitlife.app.service.trainer.thread;
 
-import com.fitlife.app.controller.trainer.AssistantController;
 import com.fitlife.app.dataClass.dto.trainer.ChatThreadDetailDto;
 import com.fitlife.app.dataClass.request.trainer.CreateChatThreadRequest;
 import com.fitlife.app.model.trainer.Chat;
 import com.fitlife.app.model.trainer.ChatThread;
+import com.fitlife.app.model.user.User;
 import com.fitlife.app.repository.jpa.trainer.ChatThreadJpaRepository;
 import com.fitlife.app.repository.r2dbc.trainer.ChatThreadR2dbcRepository;
 import com.fitlife.app.service.trainer.chat.ChatService;
@@ -43,7 +43,7 @@ public class ChatThreadService {
         return chatThreadR2dbcRepository.count();
     }
 
-    public Flux<ChatThread> getThreadByTrainerId(UUID trainerId) {
+    public Flux<ChatThread> getThreadByTrainerId(String trainerId) {
         return chatThreadR2dbcRepository.findAllByTrainer(trainerId);
     }
 
@@ -71,21 +71,23 @@ public class ChatThreadService {
         return chatThreadR2dbcRepository.deleteById(threadId);
     }
 
-    public ChatThreadDetailDto createChatThread(CreateChatThreadRequest request) {
+    public ChatThreadDetailDto createChatThread(User user, CreateChatThreadRequest request) {
         final var savedThread = chatThreadJpaRepository.save(ChatThread.builder()
                 .title(request.getTitle())
+                .user(user)
                 .build());
 
 
         return ChatThreadDetailDto.builder()
                 .id(savedThread.getId())
                 .title(savedThread.getTitle())
+
                 .chats(null)
                 .trainer(null)
                 .build();
     }
 
-    public ChatThread createAssistantThread(CreateChatThreadRequest request) {
+    public ChatThread createAssistantThread(User user, CreateChatThreadRequest request) {
 
         ThreadRequest threadRequest = ThreadRequest.builder().build();
         Thread thread = openAiService.createThread(threadRequest);
@@ -95,6 +97,7 @@ public class ChatThreadService {
                         .builder()
                         .openAiThreadId(thread.getId())
                         .title(request.getTitle())
+                        .user(user)
                         .build());
     }
 

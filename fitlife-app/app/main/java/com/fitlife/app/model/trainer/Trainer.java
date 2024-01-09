@@ -20,6 +20,7 @@ public class Trainer {
     public String id;
     public String name;
     public String model;
+    @Column(name = "prompt",length = 50000)
     public String prompt;
     public String image;
     public String greetingMessage;

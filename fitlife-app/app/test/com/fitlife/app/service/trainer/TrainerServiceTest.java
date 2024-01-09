@@ -1,6 +1,6 @@
 package com.fitlife.app.service.trainer;
 
-import com.fitlife.app.service.trainer.assistant.AssistantService;
+import com.fitlife.app.service.trainer.assistant.AssistantChatService;
 import com.trainer.models.api.completion.CompletionChoice;
 import com.trainer.models.api.completion.CompletionRequest;
 import com.trainer.models.api.completion.chat.ChatCompletionRequest;
@@ -25,7 +25,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 class TrainerServiceTest {
 
     @Autowired
-    AssistantService assistantService;
+    AssistantChatService assistantChatService;
 
     @Autowired
     OpenAiService service;

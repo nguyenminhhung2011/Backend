@@ -16,7 +16,7 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
 
 @Configuration
 @PropertySource("classpath:application.properties")
-class RetrofitConfig {
+public class RetrofitConfig {
     @Value("${openai.api.url}")
     private String BASE_URL;
 
@@ -37,6 +37,15 @@ class RetrofitConfig {
 
     @Bean(name = "RetrofitConfigTrainer")
     public Retrofit defaultRetrofit() {
+        return new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .client(okHttpClient)
+                .addConverterFactory(JacksonConverterFactory.create(mapper))
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .build();
+    }
+
+    public Retrofit buildRetrofit(OkHttpClient okHttpClient) {
         return new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .client(okHttpClient)

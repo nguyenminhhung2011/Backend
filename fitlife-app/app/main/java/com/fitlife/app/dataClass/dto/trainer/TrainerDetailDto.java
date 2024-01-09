@@ -16,7 +16,7 @@ public class TrainerDetailDto {
     public String id;
     public String name;
     public String model;
-    public String description;
+    public String prompt;
     public String image;
     public String greetingMessage;
     public String bio;

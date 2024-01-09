@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 import java.io.InputStream;
 import java.util.List;
-//@Component
+@Component
 public class NewsHealthInitializer extends DatabaseInitializerConfig {
     @Value(value = "${com.fitlife.database.initial.health_news}")
     private String healthNews;
@@ -19,7 +19,6 @@ public class NewsHealthInitializer extends DatabaseInitializerConfig {
         this.newsHealthRepository = newsHealthRepository;
     }
 
-    @Override
     public void run(String... args) throws Exception {
         TypeReference<List<NewsHealth>> typeReferenceNewsHealth = new TypeReference<>() {};
         InputStream newsInputStream = TypeReference.class.getResourceAsStream(healthNews); try {
