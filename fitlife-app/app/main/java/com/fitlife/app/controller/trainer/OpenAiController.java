@@ -1,13 +1,11 @@
 package com.fitlife.app.controller.trainer;
 
-import com.fitlife.app.security.model.CurrentUser;
-import com.fitlife.app.security.model.FitLifeUserDetail;
+import com.fitlife.app.security.user.CurrentUser;
+import com.fitlife.app.security.user.FitLifeUserDetail;
 import com.fitlife.app.service.user.IUserService;
 import com.trainer.service.OpenAiService;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import okhttp3.Response;
-import org.springframework.data.r2dbc.repository.Query;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class OpenAiController {
     private final OpenAiService openAiService;
     private IUserService userService;
-
     @Getter
     public static class AddTokenRequest{
         private String token;

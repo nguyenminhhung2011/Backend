@@ -2,8 +2,8 @@ package com.fitlife.app.controller.trainer;
 
 import com.fitlife.app.dataClass.dto.trainer.ChatThreadDetailDto;
 import com.fitlife.app.dataClass.request.trainer.CreateChatThreadRequest;
-import com.fitlife.app.security.model.CurrentUser;
-import com.fitlife.app.security.model.FitLifeUserDetail;
+import com.fitlife.app.security.user.CurrentUser;
+import com.fitlife.app.security.user.FitLifeUserDetail;
 import com.fitlife.app.service.trainer.thread.ChatThreadService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -22,12 +22,10 @@ public class ChatThreadController {
     public Flux<ChatThreadDetailDto> getThreadByUser(@CurrentUser FitLifeUserDetail userDetail) {
         return chatThreadService.getThreadsByUserId(userDetail.getId());
     }
-
     @GetMapping("/{threadId}")
     public Mono<ResponseEntity<ChatThreadDetailDto>> getThreadByUser(@PathVariable UUID threadId) {
         return chatThreadService.getThreadById(threadId).map(ResponseEntity::ok);
     }
-
     @DeleteMapping("/{threadId}")
     public Mono<ResponseEntity<?>> deleteThread(@PathVariable UUID threadId) {
         return chatThreadService.deleteThread(threadId).then(Mono.just(ResponseEntity.ok().build()));

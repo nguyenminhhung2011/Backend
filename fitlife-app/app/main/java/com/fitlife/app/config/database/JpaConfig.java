@@ -7,8 +7,11 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.EnvironmentAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableLoadTimeWeaving;
 import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.instrument.classloading.InstrumentationLoadTimeWeaver;
+import org.springframework.instrument.classloading.LoadTimeWeaver;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
@@ -24,7 +27,7 @@ import java.util.Properties;
 @Configuration
 @EnableJpaRepositories(basePackages = "com.fitlife.app.repository.jpa")
 @EntityScan(basePackages = "com.fitlife.app.Model")
-@EnableTransactionManagement
+//@EnableTransactionManagement
 @Slf4j
 public class JpaConfig  implements EnvironmentAware {
     private static final String ENV_HIBERNATE_DIALECT = "hibernate.dialect";

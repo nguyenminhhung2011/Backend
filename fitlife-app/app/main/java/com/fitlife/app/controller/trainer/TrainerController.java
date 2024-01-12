@@ -2,19 +2,15 @@ package com.fitlife.app.controller.trainer;
 
 import com.fitlife.app.dataClass.dto.trainer.TrainerDetailDto;
 import com.fitlife.app.dataClass.dto.trainer.TrainerDto;
-import com.fitlife.app.security.model.CurrentUser;
-import com.fitlife.app.security.model.FitLifeUserDetail;
+import com.fitlife.app.security.user.CurrentUser;
+import com.fitlife.app.security.user.FitLifeUserDetail;
 import com.fitlife.app.service.trainer.trainer.TrainerService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-
-import java.util.UUID;
 
 @Slf4j
 @RestController

@@ -1,9 +1,8 @@
 package com.fitlife.app.controller.trainer;
 
-import com.fitlife.app.dataClass.request.trainer.AssistantChatRequest;
 import com.fitlife.app.dataClass.request.trainer.TrainerChatRequest;
-import com.fitlife.app.security.model.CurrentUser;
-import com.fitlife.app.security.model.FitLifeUserDetail;
+import com.fitlife.app.security.user.CurrentUser;
+import com.fitlife.app.security.user.FitLifeUserDetail;
 import com.fitlife.app.service.trainer.trainer.TrainerChatService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

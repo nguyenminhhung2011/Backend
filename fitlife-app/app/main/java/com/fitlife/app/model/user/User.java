@@ -67,5 +67,10 @@ public class User implements Serializable {
 
 	@org.springframework.data.relational.core.mapping.Column("usertoken")
 	private String userToken;
+
+	public User(String username, String password) {
+		this.username = username;
+		this.password = password;
+	}
 }
 

@@ -19,7 +19,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.fitlife.app.security.model.UserDetailServiceImp;
+import com.fitlife.app.security.user.UserDetailServiceImp;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import jakarta.servlet.FilterChain;

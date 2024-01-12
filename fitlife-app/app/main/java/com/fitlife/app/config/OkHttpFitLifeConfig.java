@@ -25,7 +25,7 @@ public class OkHttpFitLifeConfig {
     PasswordEncoder passwordEncoder;
 
     @Primary
-    @Bean(name = "OkHttpConfigTrainer")
+    @Bean
     public OkHttpClient createOkHttpClient() {
         System.out.println(token);
         return new OkHttpClient.Builder()

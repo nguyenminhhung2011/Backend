@@ -5,11 +5,12 @@ import com.fitlife.app.model.exercise.*;
 import com.fitlife.app.repository.jpa.exercise.*;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
 import java.io.InputStream;
 import java.util.List;
-@Component
+@Configuration
 public class ExerciseInitializerConfig extends DatabaseInitializerConfig{
     @Value(value = "${com.fitlife.database.initial.exercise}")
     private String exercise;
@@ -36,12 +37,15 @@ public class ExerciseInitializerConfig extends DatabaseInitializerConfig{
         this.targetRepository = targetRepository;
     }
 
+    @Override
     public void run() throws Exception {
+        if (isInitialized()) {
+            return;
+        }
         TypeReference<List<Exercise>> typeReference = new TypeReference<>() {};
         InputStream inputStream = TypeReference.class.getResourceAsStream(exercise);
         try {
             List<Exercise> exercises = objectMapper.readValue(inputStream,typeReference);
-
 
             for (Exercise exercise : exercises) {
                 final var savedExercise = exerciseRepository.saveAndFlush(exercise);
@@ -57,6 +61,11 @@ public class ExerciseInitializerConfig extends DatabaseInitializerConfig{
         } catch (Exception e){
             System.out.println("Unable to initialize exercise data: " + e.getMessage());
         }
+    }
+
+    @Override
+    public boolean isInitialized() {
+        return exerciseRepository.count() > 0;
     }
 
 }

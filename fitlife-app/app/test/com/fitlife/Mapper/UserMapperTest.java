@@ -20,7 +20,7 @@ class UserMapperTest {
     User user;
     @BeforeEach
     void setUp() {
-        user = new User(0L,"","","",userProfile,null,null);
+        user = new User("","");
     }
 
     @Test

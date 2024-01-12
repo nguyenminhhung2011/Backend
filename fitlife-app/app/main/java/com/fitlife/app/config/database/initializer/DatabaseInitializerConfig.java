@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
 import java.io.InputStream;
@@ -12,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
-@Component
+@Configuration
 abstract public class DatabaseInitializerConfig  {
 
     protected ObjectMapper objectMapper;
@@ -21,6 +22,11 @@ abstract public class DatabaseInitializerConfig  {
     void setObjectMapper(ObjectMapper objectMapper) {
         this.objectMapper = objectMapper;
     }
+
+
+    abstract public void run() throws Exception;
+
+    abstract public boolean isInitialized() throws Exception;
 
     //Create instance of a class base on Class<T> type
     protected  <T> T createInstanceFromClass(Class<T> type,String value){
