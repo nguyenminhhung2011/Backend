@@ -23,7 +23,6 @@ abstract public class DatabaseInitializerConfig  {
         this.objectMapper = objectMapper;
     }
 
-
     abstract public void run() throws Exception;
 
     abstract public boolean isInitialized() throws Exception;

@@ -39,7 +39,7 @@ public class NewsHealthInitializerConfig extends DatabaseInitializerConfig {
     }
 
     @Override
-    public boolean isInitialized() throws Exception {
+    public boolean isInitialized() {
         return newsHealthRepository.count() > 0;
     }
 }
