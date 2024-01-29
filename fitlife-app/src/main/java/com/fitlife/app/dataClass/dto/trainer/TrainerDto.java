@@ -11,7 +11,7 @@ import java.util.UUID;
 @Builder
 @NoArgsConstructor
 public class TrainerDto {
-    public UUID id;
+    public String id;
     public String name;
     public String model;
     public String prompt;
