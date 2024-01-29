@@ -1,0 +1,352 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="f9d06ca6-e544-4ca7-89da-2274c04f5a1c" name="Changes" comment="fix: fixed bug of run model">
+      <change afterPath="$PROJECT_DIR$/fitlife-app/web/WEB-INF/web.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/3c71354e-0540-49ac-ae0c-ca5c307fa0c7.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/3c71354e-0540-49ac-ae0c-ca5c307fa0c7.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_1_5_2024_5_46_PM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_1_5_2024_5_46_PM__Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/2023_01_04.diff" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife-app/app/test/com/fitlife/FitnessAppApplicationTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife-app/app/test/com/fitlife/Mapper/DailyWorkoutMapperTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife-app/app/test/com/fitlife/Mapper/ExerciseMapperTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife-app/app/test/com/fitlife/Mapper/UserMapperTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife-app/app/test/com/fitlife/Mapper/WorkoutPlanMapperTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife-app/app/test/com/fitlife/app/config/ObjectMapperTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife-app/app/test/com/fitlife/app/config/OkHttpFitLifeConfigTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife-app/app/test/com/fitlife/app/controller/ExerciseControllerTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife-app/app/test/com/fitlife/app/security/FetchExercisesDBTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife-app/app/test/com/fitlife/app/service/trainer/CompletionTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife-app/app/test/com/fitlife/app/service/trainer/RunTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife-app/app/test/com/fitlife/app/service/trainer/TrainerServiceTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife-app/app/test/com/fitlife/app/service/trainer/assistant/AssistantChatServiceTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife-app/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife-app/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/trainer-ai/src/test/java/com/trainer/AssistantTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/trainer-ai/src/test/java/com/trainer/CompletionTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/trainer-ai/target/test-classes/com/trainer/AssistantTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/trainer-ai/target/test-classes/com/trainer/CompletionTest.class" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="JUnit5 Test Class" />
+        <option value="Class" />
+        <option value="Dockerfile" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="JpbToolWindowState">
+    <option name="isToolWindowVisible" value="false" />
+  </component>
+  <component name="KubernetesApiProvider">{
+  &quot;isMigrated&quot;: true
+}</component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 8
+}</component>
+  <component name="ProjectId" id="2a1eOwbUQbaqLutLvy5xPogDx29" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="openDirectoriesWithSingleClick" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "Downloaded.Files.Path.Enabled": "false",
+    "HTTP Request.generated-requests | #7.executor": "Run",
+    "JUnit.AssistantServiceTest.generateCompletion.executor": "Run",
+    "JUnit.AssistantTest.modifyAssistant.executor": "Run",
+    "JUnit.AssistantTest.retrieveAssistant.executor": "Run",
+    "JUnit.CompletionTest.createCompletion.executor": "Run",
+    "JUnit.CompletionTest.streamChatCompletion (1).executor": "Run",
+    "JUnit.CompletionTest.streamChatCompletion.executor": "Debug",
+    "JUnit.OkHttpFitLifeConfigTest._connectToCloudinary.executor": "Debug",
+    "JUnit.TrainerServiceTest.createChatStream.executor": "Run",
+    "JUnit.TrainerServiceTest.createCompletion.executor": "Run",
+    "JUnit.TrainerServiceTest.streamChatCompletion.executor": "Run",
+    "Maven.FitLife [clean].executor": "Run",
+    "Maven.FitLife [package].executor": "Run",
+    "Maven.FitLife [verify].executor": "Run",
+    "Maven.fitlife-app [compile].executor": "Run",
+    "Maven.fitlife-app [install].executor": "Run",
+    "Maven.fitlife-app [package].executor": "Run",
+    "Maven.trainer-ai [install].executor": "Run",
+    "Maven.trainer-ai [package].executor": "Run",
+    "Repository.Attach.Annotations": "false",
+    "Repository.Attach.JavaDocs": "false",
+    "Repository.Attach.Sources": "false",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "Spring Boot.FitLife.executor": "Run",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
+    "dart.analysis.tool.window.visible": "false",
+    "git-widget-placeholder": "feature/trainer-ai",
+    "ignore.virus.scanning.warn.message": "true",
+    "jdk.selected.JAVA_MODULE": "17",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "D:/IntellijProject/Backend/trainer-ai",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Artifacts",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.25632185",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "postgresql"
+    ]
+  }
+}]]></component>
+  <component name="ReactorSettings">
+    <option name="notificationShown" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\IntellijProject\Backend\trainer-ai\src\main\java\com\trainer\models\api" />
+    </key>
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\IntellijProject\Backend\fitlife-app" />
+    </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="com.fitlife.app.config" />
+      <recent name="com.fitlife.app.Service.Trainer.Assistant" />
+      <recent name="com.fitlife.app.Service.Trainer" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.fitlife.app.service.trainer" />
+      <recent name="com.fitlife.app.Service.Trainer" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Spring Boot.FitLife">
+    <configuration name="generated-requests | #7" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" index="7" requestIdentifier="#7" runType="Run single request">
+      <method v="2" />
+    </configuration>
+    <configuration name="AssistantServiceTest.generateCompletion" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="fitlife-app" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.fitlife.app.Service.Trainer.Assistant.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.fitlife.app.Service.Trainer.Assistant" />
+      <option name="MAIN_CLASS_NAME" value="com.fitlife.app.Service.Trainer.Assistant.AssistantServiceTest" />
+      <option name="METHOD_NAME" value="generateCompletion" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CompletionTest.streamChatCompletion (1)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="fitlife-app" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.fitlife.app.Service.Trainer.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.fitlife.app.Service.Trainer" />
+      <option name="MAIN_CLASS_NAME" value="com.fitlife.app.Service.Trainer.CompletionTest" />
+      <option name="METHOD_NAME" value="streamChatCompletion" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CompletionTest.streamChatCompletion" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="trainer-ai" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.trainer.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.trainer" />
+      <option name="MAIN_CLASS_NAME" value="com.trainer.CompletionTest" />
+      <option name="METHOD_NAME" value="streamChatCompletion" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="OkHttpFitLifeConfigTest._connectToCloudinary" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="fitlife-app" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.fitlife.app.config.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.fitlife.app.config" />
+      <option name="MAIN_CLASS_NAME" value="com.fitlife.app.config.OkHttpFitLifeConfigTest" />
+      <option name="METHOD_NAME" value="_connectToCloudinary" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="FitLife" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="fitlife-app" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.fitlife.app.FitnessAppApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="HTTP Request.generated-requests | #7" />
+      <item itemvalue="JUnit.OkHttpFitLifeConfigTest._connectToCloudinary" />
+      <item itemvalue="JUnit.AssistantServiceTest.generateCompletion" />
+      <item itemvalue="JUnit.CompletionTest.streamChatCompletion (1)" />
+      <item itemvalue="JUnit.CompletionTest.streamChatCompletion" />
+      <item itemvalue="Spring Boot.FitLife" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.OkHttpFitLifeConfigTest._connectToCloudinary" />
+        <item itemvalue="HTTP Request.generated-requests | #7" />
+        <item itemvalue="JUnit.CompletionTest.streamChatCompletion (1)" />
+        <item itemvalue="JUnit.AssistantServiceTest.generateCompletion" />
+        <item itemvalue="JUnit.CompletionTest.streamChatCompletion" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="jdk-20.0.2-corretto-20.0.2.1-3183f394aec4-907a2361" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="f9d06ca6-e544-4ca7-89da-2274c04f5a1c" name="Changes" comment="" />
+      <created>1703490485985</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1703490485985</updated>
+      <workItem from="1703490491788" duration="12259000" />
+      <workItem from="1703570391844" duration="1917000" />
+      <workItem from="1704177069454" duration="3101000" />
+      <workItem from="1704181533289" duration="24994000" />
+      <workItem from="1704451365816" duration="2476000" />
+      <workItem from="1704453877314" duration="127000" />
+      <workItem from="1704454038656" duration="37781000" />
+      <workItem from="1704709978869" duration="14694000" />
+      <workItem from="1704783488528" duration="516000" />
+      <workItem from="1704797274619" duration="398000" />
+      <workItem from="1705491777591" duration="21000" />
+      <workItem from="1705491856787" duration="1400000" />
+      <workItem from="1706428330079" duration="16513000" />
+    </task>
+    <task id="LOCAL-00001" summary="fix: fix bug non-auto generate sql table">
+      <option name="closed" value="true" />
+      <created>1704386356336</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1704386356336</updated>
+    </task>
+    <task id="LOCAL-00002" summary="feat: implement run assistant api for trainer-ai module">
+      <option name="closed" value="true" />
+      <created>1704475184015</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1704475184015</updated>
+    </task>
+    <task id="LOCAL-00003" summary="feat: integrating r2dbc to run parallel with jdbc + fix reactive repo's bug">
+      <option name="closed" value="true" />
+      <created>1704475277984</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1704475277984</updated>
+    </task>
+    <task id="LOCAL-00004" summary="fix: fixed bug of run model">
+      <option name="closed" value="true" />
+      <created>1704475424225</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1704475424225</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="fix: fix bug non-auto generate sql table" />
+    <MESSAGE value="feat: implement run assistant api for trainer-ai module" />
+    <MESSAGE value="feat: integrating r2dbc to run parallel with jdbc + fix reactive repo's bug" />
+    <MESSAGE value="fix: fixed bug of run model" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: fixed bug of run model" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/fitlife-app/app/test/com/fitlife/app/config/OkHttpFitLifeConfigTest.java</url>
+          <line>25</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/Backend$AssistantServiceTest_generateCompletion.ic" NAME="AssistantServiceTest.generateCompletion Coverage Results" MODIFIED="1704461834647" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>com.fitlife.app.Service.Trainer.Assistant.*</FILTER>
+    </SUITE>
+  </component>
+</project>
