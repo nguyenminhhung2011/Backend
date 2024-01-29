@@ -1,27 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="dataSourceStorageLocal" created-in="IU-233.13135.103">
-    <data-source name="DataSA@localhost" uuid="3c71354e-0540-49ac-ae0c-ca5c307fa0c7">
-      <database-info product="PostgreSQL" version="16.0" jdbc-version="4.2" driver-name="PostgreSQL JDBC Driver" driver-version="42.6.0" dbms="POSTGRES" exact-version="16.0" exact-driver-version="42.6">
-        <identifier-quote-string>&quot;</identifier-quote-string>
-      </database-info>
-      <case-sensitivity plain-identifiers="lower" quoted-identifiers="exact" />
-      <secret-storage>master_key</secret-storage>
-      <user-name>postgres</user-name>
-      <schema-mapping>
-        <introspection-scope>
-          <node negative="1">
-            <node kind="database" qname="@">
-              <node kind="schema" qname="@" />
-            </node>
-            <node kind="database" qname="DataSA">
-              <node kind="schema" qname="public" />
-            </node>
-          </node>
-        </introspection-scope>
-      </schema-mapping>
-    </data-source>
-    <data-source name="FitLife" uuid="23909e29-9a6f-46e4-81a6-a7fa49aa839d">
+  <component name="dataSourceStorageLocal" created-in="IU-233.14015.106">
+    <data-source name="uwtdfsreijjqwwvglrlc@uwtdfsreijjqwwvglrlc.db.ap-southeast-1.nhost.run" uuid="91be148f-3c0c-4f59-96e5-5ebb7e119658">
       <database-info product="PostgreSQL" version="14.6 (Debian 14.6-1.pgdg110+1)" jdbc-version="4.2" driver-name="PostgreSQL JDBC Driver" driver-version="42.6.0" dbms="POSTGRES" exact-version="14.6" exact-driver-version="42.6">
         <identifier-quote-string>&quot;</identifier-quote-string>
       </database-info>
