@@ -18,7 +18,7 @@ public class ChatCompletionRequest {
     /**
      * ID of the model to use.
      */
-    String model;
+    String model = "gpt-3.5-turbo";
 
     /**
      * The messages to generate chat completions for, in the <a

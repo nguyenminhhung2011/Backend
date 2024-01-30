@@ -13,8 +13,9 @@ import org.springframework.stereotype.Component;
 import retrofit2.Call;
 
 @Component
+@Qualifier(value = "StreamFlowUtilsTrainer")
 public class StreamFlowUtils {
-    @Qualifier(value = "TrainerMapperConfig")
+    @Qualifier(value = "TrainerMapperConfigTrainer")
     private final ObjectMapper mapper;
 
     public StreamFlowUtils(ObjectMapper mapper) {
@@ -50,6 +51,9 @@ public class StreamFlowUtils {
      * @param cl      Class of type T to return
      */
     public  <T> Flowable<T> stream(Call<ResponseBody> apiCall, Class<T> cl) {
-        return stream(apiCall).map(completionEvent -> mapper.readValue(completionEvent.data(), cl));
+        return stream(apiCall).map(completionEvent -> {
+            var value = mapper.readValue(completionEvent.data(), cl);
+            return value;
+        });
     }
 }
